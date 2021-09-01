@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/dashboard1', function () {
+    return view('layout-app/layout');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
