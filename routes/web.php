@@ -27,3 +27,7 @@ Route::get('/dashboard1', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::get('/siswa', function () {
+    return view('siswa');
+});

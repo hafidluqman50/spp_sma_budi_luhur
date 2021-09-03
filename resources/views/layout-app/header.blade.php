@@ -10,6 +10,10 @@
 
         <link rel="shortcut icon" href="{{ asset('assets/images/sma.png')}}">
 
+        @yield('css')
+
+        
+
         <!-- DataTables -->
         <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -151,11 +155,11 @@
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a href="#"><i class="md md-dashboard"></i>Dashboard</a>
+                                <a href="{{ url('dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="md md-account-circle"></i>Data Siswa</a>
+                                <a href="{{ url('siswa') }}"><i class="md md-account-circle"></i>Data Siswa</a>
                             </li>
 
                             <li class="has-submenu">

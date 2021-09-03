@@ -14,7 +14,7 @@ $(document).ready(function () {
     // Require Bootstrap Table
     // http://bootstrap-table.wenzhixin.net.cn/
     // =================================================================
-    var $table = $('#demo-custom-toolbar'), $remove = $('#demo-delete-row');
+    var $table = $('#demo-custom-toolbar'), $remove = $('#demo-delete-row') ;
 
 
     $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
@@ -66,11 +66,11 @@ function dateFormatter(value, row) {
 // =================================================================
 function statusFormatter(value, row) {
     var labelColor;
-    if (value == "Paid") {
+    if (value == "Komplek") {
         labelColor = "success";
-    } else if (value == "Unpaid") {
+    } else if (value == "Luar Kota") {
         labelColor = "warning";
-    } else if (value == "Shipped") {
+    } else if (value == "Dalam Kota") {
         labelColor = "info";
     } else if (value == "Refunded") {
         labelColor = "danger";
