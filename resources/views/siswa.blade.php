@@ -36,7 +36,8 @@
 
                         <div class="button-list">
                             <button id="demo-delete-row" class="btn btn-danger" disabled><i class="fa fa-times m-r-5"></i>Delete</button>
-                            <a href="" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
+                            <a href="{{ url('tambahsiswa') }}" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
+                            <a href="{{ url('importsiswa') }}" class="btn btn-success"><i class="fa  fa-file-excel-o m-r-5"></i>Import Data</a>
                         </div>
                         
                         <table id="demo-custom-toolbar"  data-toggle="table"

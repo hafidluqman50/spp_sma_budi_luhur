@@ -163,7 +163,7 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                                <a href="{{ url('kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
                             </li>
 
                             <li class="has-submenu">

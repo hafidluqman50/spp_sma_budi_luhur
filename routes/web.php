@@ -32,3 +32,15 @@ Route::get('/dashboard', function () {
 Route::get('/siswa', function () {
     return view('siswa');
 });
+
+Route::get('/kantin', function () {
+    return view('kantin');
+});
+
+Route::get('/tambahsiswa', function () {
+    return view('siswa-tambah');
+});
+
+Route::get('/importsiswa', function () {
+    return view('siswa-import');
+});
