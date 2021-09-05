@@ -53,7 +53,8 @@
                             <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
-                                <th data-field="name" data-sortable="true">Name</th>
+                                <th data-field="nisn" data-sortable="true">NISN</th>
+                                <th data-field="name" data-sortable="true">Nama</th>
                                 <th data-field="id" data-sortable="true">Kelas</th>
                                 <th data-field="date" data-sortable="true">No HP Ortu</th>
                                 <th data-field="amount" data-align="center" data-sortable="true" data-sorter="priceSorter">Kantin</th>
@@ -64,6 +65,7 @@
                             <tbody>
                             <tr>
                                 <td></td>
+                                <td>10102030404</td>
                                 <td>Khoirulli Nurul Fatimah</td>
                                 <td>X IPA I</td>
                                 <td>085252678541</td>
@@ -72,6 +74,7 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td>10107030404</td>
                                 <td>Marlina</td>
                                 <td>XII MIPA II</td>
                                 <td>085252678541</td>
@@ -80,6 +83,7 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td>10102036404</td>
                                 <td>Nuridina Sari</td>
                                 <td>XI IPS</td>
                                 <td>085252678541</td>

@@ -36,6 +36,12 @@
 
                         <form role="form">
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">NISN<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" placeholder="NISN">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Lengkap<span class="text-danger">*</span></label>
                                 <div class="col-7">
                                     <input type="text" class="form-control" placeholder="Nama Lengkap">
