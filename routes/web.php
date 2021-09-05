@@ -44,3 +44,11 @@ Route::get('/tambahsiswa', function () {
 Route::get('/importsiswa', function () {
     return view('siswa-import');
 });
+
+Route::get('/tambahkantin', function () {
+    return view('kantin-tambah');
+});
+
+Route::get('/editkantin', function () {
+    return view('kantin-edit');
+});
