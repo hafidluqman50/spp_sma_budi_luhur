@@ -52,3 +52,31 @@ Route::get('/tambahkantin', function () {
 Route::get('/editkantin', function () {
     return view('kantin-edit');
 });
+
+Route::get('/tunggakansiswa', function () {
+    return view('tunggakan');
+});
+
+Route::get('/datatunggal', function () {
+    return view('data-tunggal');
+});
+
+Route::get('/datatahunajar', function () {
+    return view('data-tunggal-tahun-ajar');
+});
+
+Route::get('/tambahtahunajar', function () {
+    return view('data-tunggal-tahun-ajar-tambah');
+});
+
+Route::get('/edittahunajar', function () {
+    return view('data-tunggal-tahun-ajar-edit');
+});
+
+Route::get('/datakelas', function () {
+    return view('data-tunggal-kelas');
+});
+
+Route::get('/detailkelas', function () {
+    return view('data-tunggal-kelas-detail');
+});

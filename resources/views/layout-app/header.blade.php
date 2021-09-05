@@ -167,7 +167,19 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="md md-warning"></i>Data Tunggakan</a>
+                                <a href="{{ url('datatunggal') }}"><i class="fa fa-list-ul"></i>Data Tunggal</a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('datatahunajar') }}">Data Tahun Ajaran</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('datakelas') }}">Data Kelas</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{{ url('tunggakan') }}"><i class="md md-warning"></i>Data Tunggakan</a>
                             </li>
 
                             <li class="has-submenu">

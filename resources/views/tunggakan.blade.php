@@ -3,11 +3,6 @@
 @section('css')
     <!-- Custombox -->
     <link href="assets/plugins/custombox/css/custombox.css" rel="stylesheet">
-    <!-- DataTables -->
-    <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-    <!-- Responsive datatable examples -->
-    <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -22,10 +17,10 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Kantin</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Tunggakan</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Kantin</h4>
+                        <h4 class="page-title">Data Tunggakan</h4>
                     </div>
                 </div>
             </div>
@@ -35,7 +30,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>DATA KANTIN</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA TUNGGAKAN</b></h4>
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
@@ -44,13 +39,13 @@
                             <div class="card-box">
                                 <a href="{{ url('tambahkantin') }}" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
                                 <p> </p>
-                                <table id="datatable" class="table table-hover">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
+                                        <th>Tunggakan</th>
                                         <th>Jumlah Siswa</th>
-                                        <th>Biaya Perbulan</th>
+                                        <th>Jumlah Tunggakan</th>
                                         <th>Action</th>
                                         
                                     </tr>
@@ -58,9 +53,9 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>Bu Yusron</td>
-                                        <td>57 Siswa</td>
-                                        <td>Rp. 550.000</td>
+                                        <td>Januari 2021</td>
+                                        <td>537 Siswa</td> 
+                                        <td>Rp. 200.550.000</td>
                                         <td>
                                             <div class="button-list">
                                                 <a href="{{ url('editkantin') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
@@ -138,23 +133,4 @@
     <!-- Modal-Effect -->
     <script src="assets/plugins/custombox/js/custombox.min.js"></script>
     <script src="assets/plugins/custombox/js/legacy.min.js"></script>
-
-    <!-- Required datatable js -->
-    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable').DataTable();
-
-            //Buttons examples
-            var table = $('#datatable-buttons').DataTable({
-                lengthChange: false,
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
-            });
-
-            table.buttons().container()
-                    .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-        } );
-
-    </script>
 @endsection

@@ -22,10 +22,10 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Kantin</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Tahun Ajaran</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Kantin</h4>
+                        <h4 class="page-title">Data Tahun Ajaran</h4>
                     </div>
                 </div>
             </div>
@@ -35,22 +35,20 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>DATA KANTIN</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA TAHUN AJARAN</b></h4>
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
                         
                         <div class="col-lg-12">
                             <div class="card-box">
-                                <a href="{{ url('tambahkantin') }}" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
+                                <a href="{{ url('tambahtahunajar') }}" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
                                 <p> </p>
-                                <table id="datatable" class="table table-hover">
+                                <table id="datatable" class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Jumlah Siswa</th>
-                                        <th>Biaya Perbulan</th>
+                                        <th>Tahun Ajaran</th>
                                         <th>Action</th>
                                         
                                     </tr>
@@ -58,12 +56,10 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>Bu Yusron</td>
-                                        <td>57 Siswa</td>
-                                        <td>Rp. 550.000</td>
+                                        <td>2021/2022</td>
                                         <td>
                                             <div class="button-list">
-                                                <a href="{{ url('editkantin') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ url('edittahunajar') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-eye"></i></a>
                                                 <!--  Modal content for the above example -->
                                                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
@@ -76,43 +72,15 @@
                                                             <div class="modal-body">
                                                                 <table class="table">
                                                                     <tr>
-                                                                        <td>Nama Kantin</td>
+                                                                        <td>Tahun Ajaran</td>
                                                                         <td>:</td>  
-                                                                        <td>Bu Yusron</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Lokasi Kantin</td>
-                                                                        <td>:</td>  
-                                                                        <td>Samping Rumah Pak Sudarisman</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Jumlah Siswa</td>
-                                                                        <td>:</td>  
-                                                                        <td>57 Siswa</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Biaya Perbulan Rp.</td>
-                                                                        <td>:</td>  
-                                                                        <td>550.000</td>
+                                                                        <td>2021/2022</td>
                                                                     </tr>
                                                                 </table>
                                                             </div>
                                                         </div><!-- /.modal-content -->
                                                     </div><!-- /.modal-dialog -->
                                                 </div><!-- /.modal -->
-                                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Bu Wandi</td>
-                                        <td>17 Siswa</td>
-                                        <td>Rp. 550.000</td>
-                                        <td>
-                                            <div class="button-list">
-                                                <a href="{{ url('editkantin') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-eye"></i></a>
                                                 <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
@@ -138,7 +106,7 @@
     <!-- Modal-Effect -->
     <script src="assets/plugins/custombox/js/custombox.min.js"></script>
     <script src="assets/plugins/custombox/js/legacy.min.js"></script>
-
+    
     <!-- Required datatable js -->
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
