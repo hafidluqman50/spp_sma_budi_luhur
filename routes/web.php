@@ -25,6 +25,10 @@ Route::get('/dashboard1', function () {
     return view('layout-app/layout');
 });
 
+Route::get('/persentase', function () {
+    return view('dashboard-persentase');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 });

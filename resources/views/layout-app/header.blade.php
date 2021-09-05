@@ -156,6 +156,11 @@
 
                             <li class="has-submenu">
                                 <a href="{{ url('dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('persentase') }}">Persentase Keuangan</a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="has-submenu">
