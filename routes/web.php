@@ -57,6 +57,18 @@ Route::get('/tunggakansiswa', function () {
     return view('tunggakan');
 });
 
+Route::get('/tambahtunggakan', function () {
+    return view('tunggakan-tambah');
+});
+
+Route::get('/edittunggakan', function () {
+    return view('tunggakan-edit');
+});
+
+Route::get('/detailtunggakan', function () {
+    return view('tunggakan-detail');
+});
+
 Route::get('/datatunggal', function () {
     return view('data-tunggal');
 });

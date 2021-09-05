@@ -179,7 +179,7 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="{{ url('tunggakan') }}"><i class="md md-warning"></i>Data Tunggakan</a>
+                                <a href="{{ url('tunggakansiswa') }}"><i class="md md-warning"></i>Data Tunggakan</a>
                             </li>
 
                             <li class="has-submenu">
