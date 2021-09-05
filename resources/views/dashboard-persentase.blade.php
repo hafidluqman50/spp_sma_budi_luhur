@@ -48,7 +48,7 @@
 
                 <div class="col-lg-12 col-xl-3">
                     <div class="card-box widget-box-1 bg-white">
-                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Last 24 Hours"></i>
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
                         <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
                         <h2 class="text-success text-center">Rp.<span data-plugin="counterup">20.000.000</span></h2>
                         <p class="text-muted">Dari: Rp.100.000.000 <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>20%</span></p>
@@ -57,7 +57,7 @@
 
                 <div class="col-lg-12 col-xl-3">
                     <div class="card-box widget-box-1 bg-white">
-                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Last 24 Hours"></i>
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
                         <h4 class="text-dark font-18">Pendapatan Asrama</h4>
                         <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">10.000.000</span></h2>
                         <p class="text-muted">Dari: Rp.100.000.000 <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>10%</span></p>
