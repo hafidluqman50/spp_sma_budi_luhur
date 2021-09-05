@@ -45,6 +45,7 @@
                                         <th>#</th>
                                         <th>Nama</th>
                                         <th>Jumlah Siswa</th>
+                                        <th>Biaya Perbulan</th>
                                         <th>Action</th>
                                         
                                     </tr>
@@ -54,6 +55,7 @@
                                         <th scope="row">1</th>
                                         <td>Bu Yusron</td>
                                         <td>57 Siswa</td>
+                                        <td>Rp. 550.000</td>
                                         <td>
                                             <div class="button-list">
                                                 <a href="{{ url('editkantin') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
@@ -83,6 +85,11 @@
                                                                         <td>:</td>  
                                                                         <td>57 Siswa</td>
                                                                     </tr>
+                                                                    <tr>
+                                                                        <td>Biaya Perbulan Rp.</td>
+                                                                        <td>:</td>  
+                                                                        <td>550.000</td>
+                                                                    </tr>
                                                                 </table>
                                                             </div>
                                                         </div><!-- /.modal-content -->
@@ -93,11 +100,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
+                                        <th scope="row">1</th>
                                         <td>Bu Wandi</td>
-                                        <td>17 Siswa<td>
+                                        <td>17 Siswa</td>
+                                        <td>Rp. 550.000</td>
+                                        <td>
                                             <div class="button-list">
-                                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ url('editkantin') }}" class="btn btn-success"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-eye"></i></a>
                                                 <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </div>

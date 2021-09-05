@@ -48,6 +48,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">Biaya Perbulan Rp.<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input class="form-control" type="number" placeholder="Biaya Perbulan" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">
                                         Simpan
