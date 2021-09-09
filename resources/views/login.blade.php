@@ -30,17 +30,22 @@
 
 
                 <div class="p-20">
-                    <form class="form-horizontal m-t-20" action="index.html">
-
+                    @if (session()->has('log'))
+                    <div class="alert alert-dismissible alert-danger">
+                        {{session('log')}} <button class="close"></button>
+                    </div>
+                    @endif
+                    <form class="form-horizontal m-t-20" action="{{ url('/login') }}" method="POST">
+                        {{csrf_field()}}
                         <div class="form-group ">
                             <div class="col-12">
-                                <input class="form-control" type="text" required="" placeholder="Username">
+                                <input class="form-control" type="text" name="username" required="" placeholder="Username">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-12">
-                                <input class="form-control" type="password" required="" placeholder="Password">
+                                <input class="form-control" type="password" name="password" required="" placeholder="Password">
                             </div>
                         </div>
 
@@ -64,7 +69,6 @@
                                         Remember me
                                     </label>
                                 </div>
-
                             </div>
                         </div>
 

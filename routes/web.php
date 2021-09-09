@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\SiswaController as AdminSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +17,23 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/',[AuthController::class, 'index']);
+Route::post('/login',[AuthController::class, 'login']);
+Route::get('/logout',[AuthController::class, 'logout']);
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/insert-user',function() {
+    $data_user = [
+        'name'          => 'Administrator',
+        'username'      => 'admin',
+        'password'      => bcrypt('admin'),
+        'level_user'    => 2,
+        'status_akun'   => 1,
+        'status_delete' => 0
+    ];
+
+    App\Models\User::create($data_user);
 });
+
+Route::get('/admin/dashboard',[AdminDashboardController::class, 'index']);
 
 Route::get('/dashboard1', function () {
     return view('layout-app/layout');

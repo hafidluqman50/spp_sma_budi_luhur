@@ -15,24 +15,24 @@
         
 
         <!-- DataTables -->
-        <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- Responsive datatable examples -->
-        <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 
         <!--Form Wizard-->
-        <link rel="stylesheet" type="text/css" href="assets/plugins/jquery.steps/css/jquery.steps.css" />
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/jquery.steps/css/jquery.steps.css')}}" />
 
         <!--Morris Chart CSS -->
-        <link rel="stylesheet" href="assets/plugins/morris/morris.css">
-        <link href="assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('assets/plugins/morris/morris.css')}}">
+        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css">
 
         <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
 
-        <script src="assets/js/modernizr.min.js"></script>
+        <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
     </head>
 
@@ -48,8 +48,8 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <a href="index.html" class="logo">
-                            <img src="assets/images/navbar-app-keuangan.png" alt="" class="logo-lg">
-                            <img src="assets/images/sma.png" alt="" height="24" class="logo-sm">
+                            <img src="{{asset('assets/images/navbar-app-keuangan.png')}}" alt="" class="logo-lg">
+                            <img src="{{asset('assets/images/sma.png')}}" alt="" height="24" class="logo-sm">
                         </a>
 
                     </div>
@@ -112,7 +112,7 @@
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                                     <!-- item-->
@@ -156,11 +156,6 @@
 
                             <li class="has-submenu">
                                 <a href="{{ url('dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
-                                <ul class="submenu">
-                                    <li>
-                                        <a href="{{ url('persentase') }}">Persentase Keuangan</a>
-                                    </li>
-                                </ul>
                             </li>
 
                             <li class="has-submenu">
@@ -168,23 +163,11 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="{{ url('kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                                <a href="#"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="{{ url('datatunggal') }}"><i class="fa fa-list-ul"></i>Data Tunggal</a>
-                                <ul class="submenu">
-                                    <li>
-                                        <a href="{{ url('datatahunajar') }}">Data Tahun Ajaran</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('datakelas') }}">Data Kelas</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="has-submenu">
-                                <a href="{{ url('tunggakansiswa') }}"><i class="md md-warning"></i>Data Tunggakan</a>
+                                <a href="#"><i class="md md-warning"></i>Data Tunggakan</a>
                             </li>
 
                             <li class="has-submenu">
