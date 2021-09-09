@@ -156,6 +156,11 @@
 
                             <li class="has-submenu">
                                 <a href="{{ url('dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('persentase') }}">Persentase Keuangan</a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="has-submenu">
@@ -163,11 +168,23 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                                <a href="{{ url('kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="md md-warning"></i>Data Tunggakan</a>
+                                <a href="{{ url('datatunggal') }}"><i class="fa fa-list-ul"></i>Data Tunggal</a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('datatahunajar') }}">Data Tahun Ajaran</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('datakelas') }}">Data Kelas</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{{ url('tunggakansiswa') }}"><i class="md md-warning"></i>Data Tunggakan</a>
                             </li>
 
                             <li class="has-submenu">

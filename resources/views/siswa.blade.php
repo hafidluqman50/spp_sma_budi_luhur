@@ -36,7 +36,8 @@
 
                         <div class="button-list">
                             <button id="demo-delete-row" class="btn btn-danger" disabled><i class="fa fa-times m-r-5"></i>Delete</button>
-                            <a href="" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
+                            <a href="{{ url('tambahsiswa') }}" class="btn btn-primary"><i class="fa fa-plus m-r-5"></i>Tambah</a>
+                            <a href="{{ url('importsiswa') }}" class="btn btn-success"><i class="fa  fa-file-excel-o m-r-5"></i>Import Data</a>
                         </div>
                         
                         <table id="demo-custom-toolbar"  data-toggle="table"
@@ -52,7 +53,8 @@
                             <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
-                                <th data-field="name" data-sortable="true">Name</th>
+                                <th data-field="nisn" data-sortable="true">NISN</th>
+                                <th data-field="name" data-sortable="true">Nama</th>
                                 <th data-field="id" data-sortable="true">Kelas</th>
                                 <th data-field="date" data-sortable="true">No HP Ortu</th>
                                 <th data-field="amount" data-align="center" data-sortable="true" data-sorter="priceSorter">Kantin</th>
@@ -63,6 +65,7 @@
                             <tbody>
                             <tr>
                                 <td></td>
+                                <td>10102030404</td>
                                 <td>Khoirulli Nurul Fatimah</td>
                                 <td>X IPA I</td>
                                 <td>085252678541</td>
@@ -71,6 +74,7 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td>10107030404</td>
                                 <td>Marlina</td>
                                 <td>XII MIPA II</td>
                                 <td>085252678541</td>
@@ -79,6 +83,7 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td>10102036404</td>
                                 <td>Nuridina Sari</td>
                                 <td>XI IPS</td>
                                 <td>085252678541</td>
