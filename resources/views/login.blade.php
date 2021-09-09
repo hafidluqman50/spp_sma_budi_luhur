@@ -49,18 +49,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-12">
-                                <select name="" id="" class="form-control">
-                                    <option value="" selected>--- Hak Akses ---</option>
-                                    <option value="">Pengawas</option>
-                                    <option value="">Kepala Sekolah</option>
-                                    <option value="">Bendahara</option>
-                                    <option value="">Orang Tua Siswa</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="form-group ">
                             <div class="col-12">
                                 <div class="checkbox checkbox-primary">
