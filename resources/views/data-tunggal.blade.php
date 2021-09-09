@@ -1,4 +1,4 @@
-@extends('layout-app.layout')
+@extends('Admin.layout-app.layout')
 
 @section('css')
     <!-- Custombox -->
