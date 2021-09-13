@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DatatablesController;
+
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\SiswaController as AdminSiswaController;
+use App\Http\Controllers\Admin\KelasController as AdminKelasController;
+use App\Http\Controllers\Admin\TahunAjaranController as AdminTahunAjaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,24 +20,62 @@ use App\Http\Controllers\Admin\SiswaController as AdminSiswaController;
 |
 */
 
-Route::get('/',[AuthController::class, 'index']);
-Route::post('/login',[AuthController::class, 'login']);
+// Route::get('/insert-user',function() {
+//     $data_user = [
+//         'name'          => 'Administrator',
+//         'username'      => 'admin',
+//         'password'      => bcrypt('admin'),
+//         'level_user'    => 2,
+//         'status_akun'   => 1,
+//         'status_delete' => 0
+//     ];
+
+//     App\Models\User::create($data_user);
+// });
+
+
+Route::group(['middleware'=>'is.login'],function(){
+    Route::get('/',[AuthController::class, 'index']);
+    Route::post('/login',[AuthController::class, 'login']);
+});
 Route::get('/logout',[AuthController::class, 'logout']);
 
-Route::get('/insert-user',function() {
-    $data_user = [
-        'name'          => 'Administrator',
-        'username'      => 'admin',
-        'password'      => bcrypt('admin'),
-        'level_user'    => 2,
-        'status_akun'   => 1,
-        'status_delete' => 0
-    ];
-
-    App\Models\User::create($data_user);
+Route::group(['prefix' => 'datatables'],function(){
+    Route::get('/data-siswa',[DatatablesController::class, 'dataSiswa']);
+    Route::get('/data-kelas',[DatatablesController::class, 'dataKelas']);
+    Route::get('/data-tahun-ajaran',[DatatablesController::class, 'dataTahunAjaran']);
 });
 
-Route::get('/admin/dashboard',[AdminDashboardController::class, 'index']);
+Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
+    Route::get('/dashboard',[AdminDashboardController::class, 'index']);
+
+    // ROUTE SISWA //
+    Route::get('/siswa',[AdminSiswaController::class, 'index']);
+    Route::get('/siswa/tambah',[AdminSiswaController::class, 'tambah']);
+    Route::get('/siswa/edit/{id}',[AdminSiswaController::class, 'edit']);
+    Route::post('/siswa/save',[AdminSiswaController::class, 'save']);
+    Route::put('/siswa/update/{id}',[AdminSiswaController::class, 'update']);
+    Route::delete('/siswa/delete/{id}',[AdminSiswaController::class, 'delete']);
+    // ROUTE SISWA END //
+
+    // ROUTE KELAS //
+    Route::get('/kelas',[AdminKelasController::class, 'index']);
+    Route::get('/kelas/tambah',[AdminKelasController::class, 'tambah']);
+    Route::get('/kelas/edit/{id}',[AdminKelasController::class, 'edit']);
+    Route::post('/kelas/save',[AdminKelasController::class, 'save']);
+    Route::put('/kelas/update/{id}',[AdminKelasController::class, 'update']);
+    Route::delete('/kelas/delete/{id}',[AdminKelasController::class, 'delete']);
+    // ROUTE KELAS END //
+
+    // ROUTE KELAS //
+    Route::get('/tahun-ajaran',[AdminTahunAjaranController::class, 'index']);
+    Route::get('/tahun-ajaran/tambah',[AdminTahunAjaranController::class, 'tambah']);
+    Route::get('/tahun-ajaran/edit/{id}',[AdminTahunAjaranController::class, 'edit']);
+    Route::post('/tahun-ajaran/save',[AdminTahunAjaranController::class, 'save']);
+    Route::put('/tahun-ajaran/update/{id}',[AdminTahunAjaranController::class, 'update']);
+    Route::delete('/tahun-ajaran/delete/{id}',[AdminTahunAjaranController::class, 'delete']);
+    // ROUTE KELAS END //
+});
 
 Route::get('/dashboard1', function () {
     return view('layout-app/layout');
@@ -48,7 +90,7 @@ Route::get('/dashboard', function () {
 });
 
 Route::get('/siswa', function () {
-    return view('siswa');
+    return view('Admin.siswa.main');
 });
 
 Route::get('/kantin', function () {
@@ -92,7 +134,7 @@ Route::get('/datatunggal', function () {
 });
 
 Route::get('/datatahunajar', function () {
-    return view('data-tunggal-tahun-ajar');
+    return view('Admin.tahun-ajaran.main');
 });
 
 Route::get('/tambahtahunajar', function () {

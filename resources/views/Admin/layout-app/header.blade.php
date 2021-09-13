@@ -31,6 +31,7 @@
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" />
 
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
@@ -155,11 +156,16 @@
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a href="{{ url('dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
+                                <a href="{{ url('/admin/dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="{{ url('siswa') }}"><i class="md md-account-circle"></i>Data Siswa</a>
+                                <a href="#"><i class="md md-account-circle"></i>Data Siswa</a>
+                                <ul class="submenu">
+                                    <li><a href="{{ url('/admin/siswa') }}">Data Siswa</a></li>
+                                    <li><a href="{{ url('/admin/kelas') }}">Data Kelas</a></li>
+                                    <li><a href="{{ url('/admin/tahun-ajaran') }}">Data Tahun Ajaran</a></li>
+                                </ul>
                             </li>
 
                             <li class="has-submenu">
