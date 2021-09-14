@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Sep 13, 2021 at 07:13 PM
+-- Generation Time: Sep 14, 2021 at 07:16 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `web_keuangan`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kantin`
+--
+
+CREATE TABLE `kantin` (
+  `id_kantin` varchar(36) NOT NULL,
+  `nama_kantin` varchar(100) NOT NULL,
+  `lokasi_kantin` text NOT NULL,
+  `biaya_perbulan` int NOT NULL,
+  `status_delete` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `kantin`
+--
+
+INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
+('f19a4d1c-3e44-4027-9e7e-d125989edc21', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 0);
 
 -- --------------------------------------------------------
 
@@ -51,8 +72,16 @@ CREATE TABLE `kelas_siswa` (
   `id_kelas_siswa` varchar(36) NOT NULL,
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `id_siswa` varchar(36) NOT NULL,
-  `id_kelas` varchar(36) NOT NULL
+  `id_kelas` varchar(36) NOT NULL,
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `kelas_siswa`
+--
+
+INSERT INTO `kelas_siswa` (`id_kelas_siswa`, `id_tahun_ajaran`, `id_siswa`, `id_kelas`, `status_delete`) VALUES
+('4b1b083d-f695-4ad1-8c8a-2786587fbc78', '7bbb36db-240a-48ee-af92-4669326778ee', '9ffc8df5-0329-4c39-a069-870178ff3d74', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0);
 
 -- --------------------------------------------------------
 
@@ -139,6 +168,12 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `level_user`, `
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `kantin`
+--
+ALTER TABLE `kantin`
+  ADD PRIMARY KEY (`id_kantin`);
 
 --
 -- Indexes for table `kelas`

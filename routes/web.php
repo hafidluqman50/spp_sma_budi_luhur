@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\SiswaController as AdminSiswaController;
 use App\Http\Controllers\Admin\KelasController as AdminKelasController;
 use App\Http\Controllers\Admin\TahunAjaranController as AdminTahunAjaranController;
+use App\Http\Controllers\Admin\KelasSiswaController as AdminKelasSiswaController;
+use App\Http\Controllers\Admin\KantinController as AdminKantinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,8 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-siswa',[DatatablesController::class, 'dataSiswa']);
     Route::get('/data-kelas',[DatatablesController::class, 'dataKelas']);
     Route::get('/data-tahun-ajaran',[DatatablesController::class, 'dataTahunAjaran']);
+    Route::get('/data-kelas-siswa/{id}',[DatatablesController::class, 'dataKelasSiswa']);
+    Route::get('/data-kantin',[DatatablesController::class, 'dataKantin']);
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
@@ -67,14 +71,32 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::delete('/kelas/delete/{id}',[AdminKelasController::class, 'delete']);
     // ROUTE KELAS END //
 
-    // ROUTE KELAS //
+    // ROUTE TAHUN AJARAN //
     Route::get('/tahun-ajaran',[AdminTahunAjaranController::class, 'index']);
     Route::get('/tahun-ajaran/tambah',[AdminTahunAjaranController::class, 'tambah']);
     Route::get('/tahun-ajaran/edit/{id}',[AdminTahunAjaranController::class, 'edit']);
     Route::post('/tahun-ajaran/save',[AdminTahunAjaranController::class, 'save']);
     Route::put('/tahun-ajaran/update/{id}',[AdminTahunAjaranController::class, 'update']);
     Route::delete('/tahun-ajaran/delete/{id}',[AdminTahunAjaranController::class, 'delete']);
-    // ROUTE KELAS END //
+    // ROUTE TAHUN AJARAN END //
+
+    // ROUTE KELAS SISWA //
+    Route::get('/kelas/siswa/{id}',[AdminKelasSiswaController::class, 'index']);
+    Route::get('/kelas/siswa/{id}/tambah',[AdminKelasSiswaController::class, 'tambah']);
+    Route::post('/kelas/siswa/{id}/save',[AdminKelasSiswaController::class, 'save']);
+    Route::get('/kelas/siswa/{id}/edit/{id_detail}',[AdminKelasSiswaController::class, 'edit']);
+    Route::put('/kelas/siswa/{id}/update/{id_detail}',[AdminKelasSiswaController::class, 'update']);
+    Route::delete('/kelas/siswa/{id}/delete/{id_detail}',[AdminKelasSiswaController::class, 'delete']);
+    // ROUTE KELAS SISWA END //
+
+    // ROUTE KANTIN //
+    Route::get('/kantin',[AdminKantinController::class, 'index']);
+    Route::get('/kantin/tambah',[AdminKantinController::class, 'tambah']);
+    Route::post('/kantin/save',[AdminKantinController::class, 'save']);
+    Route::get('/kantin/edit/{id}',[AdminKantinController::class, 'edit']);
+    Route::put('/kantin/update/{id}',[AdminKantinController::class, 'update']);
+    Route::delete('/kantin/delete/{id}',[AdminKantinController::class, 'delete']);
+    // ROUTE KANTIN END //
 });
 
 Route::get('/dashboard1', function () {

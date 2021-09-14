@@ -1,4 +1,8 @@
 <?php
+function format_rupiah($money) {
+	$hasil_rupiah = 'Rp. ' . number_format($money,2,',','.');
+	return $hasil_rupiah;
+}
 
 function unslug_str($str) {
 	if (strpos($str,'-') !== false) {

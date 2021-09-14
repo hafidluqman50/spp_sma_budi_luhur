@@ -12,7 +12,7 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Kelas</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Data Kelas</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Edit Data Kelas</a></li>
                             </ol>
                         </div>
                     </div>

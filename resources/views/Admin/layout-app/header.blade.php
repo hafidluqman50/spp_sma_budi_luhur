@@ -27,6 +27,9 @@
         <link rel="stylesheet" href="{{asset('assets/plugins/morris/morris.css')}}">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css">
 
+        <!-- Select2 CSS -->
+        <link rel="stylesheet" href="{{asset('assets/select2-4.1.0-rc.0/dist/css/select2.min.css')}}">
+
         <!-- App css -->
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
@@ -169,7 +172,7 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                                <a href="{{ url('/admin/kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
                             </li>
 
                             <li class="has-submenu">
