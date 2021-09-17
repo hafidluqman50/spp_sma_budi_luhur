@@ -4,12 +4,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DatatablesController;
 
+// CONTROLLER ADMIN //
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\SiswaController as AdminSiswaController;
 use App\Http\Controllers\Admin\KelasController as AdminKelasController;
 use App\Http\Controllers\Admin\TahunAjaranController as AdminTahunAjaranController;
 use App\Http\Controllers\Admin\KelasSiswaController as AdminKelasSiswaController;
 use App\Http\Controllers\Admin\KantinController as AdminKantinController;
+use App\Http\Controllers\Admin\SppController as AdminSppController;
+// END CONTROLLER ADMIN //
+
+// CONTROLLER PETUGAS //
+
+// END CONTROLLER PETUGAS //
+
+// CONTROLLER ORANG TUA //
+
+// END CONTROLLER ORANG TUA //
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +108,11 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::put('/kantin/update/{id}',[AdminKantinController::class, 'update']);
     Route::delete('/kantin/delete/{id}',[AdminKantinController::class, 'delete']);
     // ROUTE KANTIN END //
+
+    // ROUTE SPP //
+    Route::get('/spp',[AdminSppController::class, 'index']);
+    Route::get('/spp/tambah',[AdminSppController::class, 'tambah']);
+    // ROUTE SPP END //
 });
 
 Route::get('/dashboard1', function () {

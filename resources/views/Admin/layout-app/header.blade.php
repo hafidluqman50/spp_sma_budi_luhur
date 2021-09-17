@@ -176,6 +176,15 @@
                             </li>
 
                             <li class="has-submenu">
+                                <a href="#"><i class="fa fa-money"></i>Data SPP</a>
+                                <ul class="submenu">
+                                    <li><a href="{{ url('/admin/spp') }}">Data SPP</a></li>
+                                    <li><a href="{{ url('/admin/kolom-spp') }}">Data Kolom SPP</a></li>
+                                    <li><a href="{{ url('/admin/tunggakan-spp') }}">Data Tunggakan SPP</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
                                 <a href="#"><i class="md md-warning"></i>Data Tunggakan</a>
                             </li>
 

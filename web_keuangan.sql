@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Sep 14, 2021 at 07:16 PM
+-- Generation Time: Sep 17, 2021 at 07:26 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -98,6 +98,18 @@ CREATE TABLE `keluarga` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kolom_spp`
+--
+
+CREATE TABLE `kolom_spp` (
+  `id_kolom_spp` varchar(36) NOT NULL,
+  `nama_kolom_spp` varchar(100) NOT NULL,
+  `status_delete` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `siswa`
 --
 
@@ -120,6 +132,32 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `jenis_kelamin`, `tanggal_lahir`, `nama_ayah`, `nama_ibu`, `nomor_orang_tua`, `wilayah`, `status_delete`) VALUES
 ('9ffc8df5-0329-4c39-a069-870178ff3d74', '000888888', 'Ujang Si Jangkung', 'laki-laki', '2021-09-13', 'Uchiha Abi', 'Uchiha Ummi', '08889998989', 'dalam-kota', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spp`
+--
+
+CREATE TABLE `spp` (
+  `id_spp` varchar(36) NOT NULL,
+  `id_kelas_siswa` varchar(36) NOT NULL,
+  `total_pembayaran` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spp_detail`
+--
+
+CREATE TABLE `spp_detail` (
+  `id_spp_detail` varchar(36) NOT NULL,
+  `id_spp` varchar(36) NOT NULL,
+  `id_kolom_spp` varchar(36) NOT NULL,
+  `tanggal_bayar` date NOT NULL,
+  `bayar_spp` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -199,10 +237,30 @@ ALTER TABLE `keluarga`
   ADD KEY `id_siswa_keluarga` (`id_siswa_keluarga`);
 
 --
+-- Indexes for table `kolom_spp`
+--
+ALTER TABLE `kolom_spp`
+  ADD PRIMARY KEY (`id_kolom_spp`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id_siswa`);
+
+--
+-- Indexes for table `spp`
+--
+ALTER TABLE `spp`
+  ADD PRIMARY KEY (`id_spp`);
+
+--
+-- Indexes for table `spp_detail`
+--
+ALTER TABLE `spp_detail`
+  ADD PRIMARY KEY (`id_spp_detail`),
+  ADD KEY `id_spp` (`id_spp`),
+  ADD KEY `id_kolom_spp` (`id_kolom_spp`);
 
 --
 -- Indexes for table `tahun_ajaran`
@@ -234,6 +292,13 @@ ALTER TABLE `kelas_siswa`
 ALTER TABLE `keluarga`
   ADD CONSTRAINT `keluarga_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `keluarga_ibfk_2` FOREIGN KEY (`id_siswa_keluarga`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+--
+-- Constraints for table `spp_detail`
+--
+ALTER TABLE `spp_detail`
+  ADD CONSTRAINT `spp_detail_ibfk_1` FOREIGN KEY (`id_spp`) REFERENCES `spp` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `spp_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
