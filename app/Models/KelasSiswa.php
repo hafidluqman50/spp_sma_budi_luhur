@@ -25,4 +25,14 @@ class KelasSiswa extends Model
 
         return $get;
     }
+
+    public static function getSiswaByKelasTahun($id_kelas,$id_tahun_ajaran)
+    {
+        $get = self::join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->where('id_kelas',$id_kelas)
+                    ->where('id_tahun_ajaran',$id_tahun_ajaran)
+                    ->get();
+
+        return $get;
+    }
 }

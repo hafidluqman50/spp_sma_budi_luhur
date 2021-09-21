@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DatatablesController;
+use App\Http\Controllers\AjaxController;
 
 // CONTROLLER ADMIN //
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\KelasController as AdminKelasController;
 use App\Http\Controllers\Admin\TahunAjaranController as AdminTahunAjaranController;
 use App\Http\Controllers\Admin\KelasSiswaController as AdminKelasSiswaController;
 use App\Http\Controllers\Admin\KantinController as AdminKantinController;
+use App\Http\Controllers\Admin\KolomSppController as AdminKolomSppController;
 use App\Http\Controllers\Admin\SppController as AdminSppController;
 // END CONTROLLER ADMIN //
 
@@ -53,12 +55,19 @@ Route::group(['middleware'=>'is.login'],function(){
 });
 Route::get('/logout',[AuthController::class, 'logout']);
 
+Route::group(['prefix' => 'ajax'],function() {
+    // Route::get('/get-kelas-by-tahun-ajaran/{id}',[AjaxController::class, 'getKelasByTahunAjaran']);
+    Route::get('/get-siswa/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswa']);
+});
+
 Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-siswa',[DatatablesController::class, 'dataSiswa']);
     Route::get('/data-kelas',[DatatablesController::class, 'dataKelas']);
     Route::get('/data-tahun-ajaran',[DatatablesController::class, 'dataTahunAjaran']);
     Route::get('/data-kelas-siswa/{id}',[DatatablesController::class, 'dataKelasSiswa']);
     Route::get('/data-kantin',[DatatablesController::class, 'dataKantin']);
+    Route::get('/data-kolom-spp',[DatatablesController::class, 'dataKolomSpp']);
+    Route::get('/data-spp',[DatatablesController::class, 'dataSpp']);
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
@@ -109,9 +118,19 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::delete('/kantin/delete/{id}',[AdminKantinController::class, 'delete']);
     // ROUTE KANTIN END //
 
+    // ROUTE KOLOM SPP //
+    Route::get('/kolom-spp',[AdminKolomSppController::class, 'index']);
+    Route::get('/kolom-spp/tambah',[AdminKolomSppController::class, 'tambah']);
+    Route::post('/kolom-spp/save',[AdminKolomSppController::class, 'save']);
+    Route::get('/kolom-spp/edit/{id}',[AdminKolomSppController::class, 'edit']);
+    Route::put('/kolom-spp/update/{id}',[AdminKolomSppController::class, 'update']);
+    Route::delete('/kolom-spp/delete/{id}',[AdminKolomSppController::class, 'delete']);
+    // END ROUTE KOLOM SPP //
+
     // ROUTE SPP //
     Route::get('/spp',[AdminSppController::class, 'index']);
     Route::get('/spp/tambah',[AdminSppController::class, 'tambah']);
+    Route::post('/spp/save',[AdminSppController::class, 'save']);
     // ROUTE SPP END //
 });
 

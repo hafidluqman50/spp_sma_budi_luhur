@@ -11,6 +11,9 @@ use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
+use App\Models\Spp;
+use App\Models\SppDetail;
+use App\Models\KolomSpp;
 use Auth;
 
 class DatatablesController extends Controller
@@ -144,6 +147,57 @@ class DatatablesController extends Controller
             return $column;
         })->editColumn('biaya_perbulan',function($edit){
             return format_rupiah($edit->biaya_perbulan);
+        })->make(true);
+        return $datatables;
+    }
+
+    public function dataKolomSpp()
+    {
+        $kolom_spp = KolomSpp::where('status_delete',0)->get();
+        $datatables = Datatables::of($kolom_spp)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/kolom-spp/edit/$action->id_kolom_spp").'">
+                              <button class="btn btn-warning"> Edit </button>
+                           </a>
+                           <form action="'.url("/$this->level/kolom-spp/delete/$action->id_kolom_spp").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            return $column;
+        })->make(true);
+        return $datatables;
+    }
+
+    public function dataSpp()
+    {
+        $spp = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->get();
+
+        $datatables = Datatables::of($spp)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/detail/$action->id_spp").'">
+                              <button class="btn btn-info"> Detail </button>
+                           </a>
+                           <form action="'.url("/$this->level/spp/delete/$action->id_spp").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            return $column;
+        })->editColumn('wilayah',function($edit){
+            return unslug_str($edit->wilayah);
+        })->editColumn('total_pembayaran',function($edit){
+            return format_rupiah($edit->total_pembayaran);
         })->make(true);
         return $datatables;
     }

@@ -149,4 +149,62 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var kolom_spp = $('.data-kolom-spp').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-kolom-spp/',
+        columns:[
+            {data:'id_kolom_spp',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_kolom_spp',name:'nama_kolom_spp'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    kolom_spp.on( 'order.dt search.dt', function () {
+        kolom_spp.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var spp = $('.data-spp').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/',
+        columns:[
+            {data:'id_spp',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nisn',name:'nisn'},
+            {data:'nama_siswa',name:'nama_siswa'},
+            {data:'kelas',name:'kelas'},
+            {data:'wilayah',name:'wilayah'},
+            {data:'total_pembayaran',name:'total_pembayaran'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp.on( 'order.dt search.dt', function () {
+        spp.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Sep 17, 2021 at 07:26 PM
+-- Generation Time: Sep 21, 2021 at 04:49 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -107,6 +107,13 @@ CREATE TABLE `kolom_spp` (
   `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `kolom_spp`
+--
+
+INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `status_delete`) VALUES
+('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -145,6 +152,13 @@ CREATE TABLE `spp` (
   `total_pembayaran` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `spp`
+--
+
+INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_pembayaran`) VALUES
+('f1939fe2-f9cc-4f1d-a69e-78b535e07834', '4b1b083d-f695-4ad1-8c8a-2786587fbc78', 10000);
+
 -- --------------------------------------------------------
 
 --
@@ -158,6 +172,13 @@ CREATE TABLE `spp_detail` (
   `tanggal_bayar` date NOT NULL,
   `bayar_spp` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `spp_detail`
+--
+
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp`, `id_kolom_spp`, `tanggal_bayar`, `bayar_spp`) VALUES
+('da49a1b2-d4b1-4853-bb9e-cffc1a266219', 'f1939fe2-f9cc-4f1d-a69e-78b535e07834', '60f3492f-d8be-4f29-9014-478d314fe4ef', '2021-09-22', 10000);
 
 -- --------------------------------------------------------
 

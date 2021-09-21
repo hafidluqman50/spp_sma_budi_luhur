@@ -28,7 +28,7 @@
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
-                            <h4 class="header-title m-t-0">Tambah Data Kelas</h4>
+                            <h4 class="header-title m-t-0">Tambah Data SPP</h4>
                             
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Ajaran<span class="text-danger">*</span></label>
@@ -44,8 +44,11 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kelas<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <select name="kelas" class="form-control select2" required="required" disabled="disabled">
+                                        <select name="kelas" class="form-control select2" required="required">
                                             <option value="" selected="" disabled="">=== Pilih Kelas ===</option>
+                                            @foreach ($kelas as $value)
+                                            <option value="{{ $value->id_kelas }}">{{ $value->kelas }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -69,27 +72,31 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
-                            <div class="form-group row">
-                                <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
-                                <div class="col-7">
-                                    <select name="kolom_spp[]" class="form-control select2" required="required">
-                                        <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                        @foreach ($kolom_spp as $value)
-                                        <option value="{{ $value->id_kolom_spp }}">{{ $value->nama_kolom_spp }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-4 col-form-label">Nominal Bayar<span class="text-danger">*</span></label>
-                                <div class="col-7">
-                                    <input type="number" name="nominal_bayar[]" class="form-control">
+                            <div id="layout-bayar-spp">
+                                <div id="bayar-spp">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
+                                        <div class="col-7">
+                                            <select name="kolom_spp[]" class="form-control select2" required="required">
+                                                <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
+                                                @foreach ($kolom_spp as $value)
+                                                <option value="{{ $value->id_kolom_spp }}">{{ $value->nama_kolom_spp }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Nominal Bayar<span class="text-danger">*</span></label>
+                                        <div class="col-7">
+                                            <input type="number" name="nominal_bayar[]" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
-                                    <button class="btn btn-success" type="button">Tambah Input</button>
-                                    <button class="btn btn-danger" type="button">Hapus Input</button>
+                                    <button class="btn btn-success" type="button" id="tambah-input">Tambah Input</button>
+                                    <button class="btn btn-danger form-hide" type="button" id="hapus-input">Hapus Input</button>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -101,4 +108,29 @@
     </div>
     <!-- end wrapper -->
 
+@endsection
+
+@section('js')
+<script>
+    $(() => {
+        $('#tambah-input').click(() => {
+            $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
+        })
+
+        $('select[name="kelas"]').change(function() {
+            let val          = $(this).val();
+            let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
+            $.ajax({
+                url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
+            })
+            .done(function(done) {
+                $('select[name="siswa"]').removeAttr('disabled')
+                $('select[name="siswa"]').html(done)
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        })
+    })
+</script>
 @endsection
