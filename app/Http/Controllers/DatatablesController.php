@@ -201,4 +201,44 @@ class DatatablesController extends Controller
         })->make(true);
         return $datatables;
     }
+
+    public function dataSppDetail($id)
+    {
+        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                ->where('id_spp',$id)
+                                ->get();
+
+        $datatables = Datatables::of($spp_detail)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/detail/$action->id_spp/bayar/$action->id_spp_detail").'">
+                              <button class="btn btn-success"> Bayar </button>
+                           </a>
+                           <form action="'.url("/$this->level/spp/detail/$action->id_spp/delete/$action->id_spp_detail").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            return $column;
+        })->editColumn('bayar_spp',function($edit){
+            return format_rupiah($edit->bayar_spp);
+        })->editColumn('tanggal_bayar',function($edit){
+            if ($edit->tanggal_bayar == NULL) {
+                $tanggal_bayar = '-';
+            }
+            else {
+                $tanggal_bayar = human_date($edit->tanggal_bayar);
+            }
+            return $tanggal_bayar;
+        })->editColumn('status_bayar',function($edit){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Belum Bayar'],
+                1 => ['class'=>'badge badge-success','text'=>'Sudah Bayar']
+            ];
+            return '<span class="'.$array[$edit->status_bayar]['class'].'">'.$array[$edit->status_bayar]['text'].'</span>';
+        })->rawColumns(['action','status_bayar'])->make(true);
+        return $datatables;
+    }
 }

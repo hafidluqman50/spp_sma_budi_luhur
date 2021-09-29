@@ -8,6 +8,7 @@ use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use App\Models\KelasSiswa;
+use Illuminate\Support\Str;
 
 class KelasSiswaController extends Controller
 {
@@ -33,14 +34,19 @@ class KelasSiswaController extends Controller
         $siswa        = $request->siswa;
         $tahun_ajaran = $request->tahun_ajaran;
 
-        $data_kelas_siswa = [
-            'id_siswa'        => $siswa,
-            'id_kelas'        => $id,
-            'id_tahun_ajaran' => $tahun_ajaran,
-            'status_delete'   => 0
-        ];
+        foreach ($siswa as $key => $value) {
+            $id_kelas_siswa = (string)Str::uuid();
 
-        KelasSiswa::create($data_kelas_siswa);
+            $data_kelas_siswa[] = [
+                'id_kelas_siswa'  => $id_kelas_siswa,
+                'id_siswa'        => $siswa[$key],
+                'id_kelas'        => $id,
+                'id_tahun_ajaran' => $tahun_ajaran,
+                'status_delete'   => 0
+            ];
+        }
+
+        KelasSiswa::insert($data_kelas_siswa);
 
         return redirect('/admin/kelas/siswa/'.$id)->with('message','Berhasil Input Siswa');
     }

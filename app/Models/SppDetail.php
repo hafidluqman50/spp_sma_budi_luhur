@@ -8,7 +8,7 @@ use App\Models\Traits\UuidInsert;
 
 class SppDetail extends Model
 {
-    use HasFactory,UuidInsert;
+    use HasFactory, UuidInsert;
 
     protected $table      = 'spp_detail';
     protected $primaryKey = 'id_spp_detail';

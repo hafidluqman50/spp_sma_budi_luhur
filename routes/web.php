@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\KelasSiswaController as AdminKelasSiswaController
 use App\Http\Controllers\Admin\KantinController as AdminKantinController;
 use App\Http\Controllers\Admin\KolomSppController as AdminKolomSppController;
 use App\Http\Controllers\Admin\SppController as AdminSppController;
+use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-kantin',[DatatablesController::class, 'dataKantin']);
     Route::get('/data-kolom-spp',[DatatablesController::class, 'dataKolomSpp']);
     Route::get('/data-spp',[DatatablesController::class, 'dataSpp']);
+    Route::get('/data-spp/detail/{id}',[DatatablesController::class, 'dataSppDetail']);
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
@@ -131,7 +133,14 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp',[AdminSppController::class, 'index']);
     Route::get('/spp/tambah',[AdminSppController::class, 'tambah']);
     Route::post('/spp/save',[AdminSppController::class, 'save']);
+    Route::delete('/spp/delete/{id}',[AdminSppController::class, 'delete']);
     // ROUTE SPP END //
+
+    // ROUTE SPP DETAIL //
+    Route::get('/spp/detail/{id}',[AdminSppDetailController::class, 'index']);
+    Route::get('/spp/detail/{id}/bayar-semua',[AdminSppDetailController::class, 'formBayarSemua']);
+    Route::get('/spp/detail/{id}/bayar/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
+    // END ROUTE SPP DETAIL //
 });
 
 Route::get('/dashboard1', function () {

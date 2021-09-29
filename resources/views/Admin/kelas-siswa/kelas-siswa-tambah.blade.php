@@ -36,8 +36,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Siswa<span class="text-danger">*</span></label>
                                 <div class="col-7">
-                                    <select name="siswa" class="form-control select2" required="required">
-                                        <option value="" selected="" disabled="">=== Pilih Siswa ===</option>
+                                    <select name="siswa[]" class="form-control select2" required="required" multiple="multiple">
                                         @foreach ($siswa as $element)
                                         <option value="{{ $element->id_siswa }}">{{ $element->nisn.' | '.$element->nama_siswa }}</option>
                                         @endforeach

@@ -32,6 +32,7 @@ class SiswaController extends Controller
         $nisn            = $request->nisn;
         $nama_siswa      = $request->nama_siswa;
         $jenis_kelamin   = $request->jenis_kelamin;
+        $wilayah         = $request->wilayah;
         $tanggal_lahir   = date('Y-m-d');
         $nama_ayah       = $request->nama_ayah;
         $nama_ibu        = $request->nama_ibu;
@@ -44,6 +45,7 @@ class SiswaController extends Controller
             'nama_siswa'      => $nama_siswa,
             'jenis_kelamin'   => $jenis_kelamin,
             'tanggal_lahir'   => $tanggal_lahir,
+            'wilayah'         => $wilayah,
             'nama_ayah'       => $nama_ayah,
             'nama_ibu'        => $nama_ibu,
             'nomor_orang_tua' => $nomor_orang_tua,
