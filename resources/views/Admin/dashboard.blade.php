@@ -292,9 +292,9 @@
         </script>
 
         <!--Form Wizard-->
-        <script src="assets/plugins/jquery.steps/js/jquery.steps.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+        <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
+        <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
 
         <!--wizard initialization-->
-        <script src="assets/pages/jquery.wizard-init.js" type="text/javascript"></script>
+        <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
 @endsection
