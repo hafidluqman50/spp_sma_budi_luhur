@@ -19,8 +19,8 @@ class AuthController extends Controller
         $password = $request->password;
 
         $data_login = ['username' => $username, 'password' => $password,'status_delete' => 0];
-
-        if (Auth::attempt($data_login)) {
+        
+        if (Auth::attempt($data_login,true)) {
             if (Auth::user()->level_user == 2) {
                 return redirect('/admin/dashboard');
             }

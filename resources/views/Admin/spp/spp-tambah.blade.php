@@ -29,7 +29,6 @@
                                 </a>
                             </div>
                             <h4 class="header-title m-t-0">Tambah Data SPP</h4>
-                            
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Ajaran<span class="text-danger">*</span></label>
                                     <div class="col-7">
@@ -50,6 +49,20 @@
                                             <option value="{{ $value->id_kelas }}">{{ $value->kelas }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Siswa<span class="text-danger">*</span></label>
+                                    <div class="col-7">
+                                        <select name="siswa" class="form-control select2" required="required" disabled="disabled">
+                                            <option value="" selected="" disabled="">=== Pilih Siswa ===</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Bulan Tahun<span class="text-danger">*</span></label>
+                                    <div class="col-7">
+                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="{{ bulan_tahun(date('Y-m-d')) }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -77,6 +90,13 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
+                                        <div class="col-7">
+                                            <input type="number" name="nominal_spp[]" class="form-control" required="required" placeholder="Isi Nominal SPP">
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -100,25 +120,25 @@
 <script>
     $(() => {
         $('#tambah-input').click(() => {
+            $('#bayar-spp').find('.kolom-spp').last().select2('destroy')
             $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
-            // $('#kolom-spp').select2('destroy');
-            // $('#kolom-spp').select2();
+            $('#bayar-spp').find('.kolom-spp').last().select2()
         })
 
-        // $('select[name="kelas"]').change(function() {
-        //     let val          = $(this).val();
-        //     let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
-        //     $.ajax({
-        //         url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
-        //     })
-        //     .done(function(done) {
-        //         $('select[name="siswa"]').removeAttr('disabled')
-        //         $('select[name="siswa"]').html(done)
-        //     })
-        //     .fail(function() {
-        //         console.log("error");
-        //     });
-        // })
+        $('select[name="kelas"]').change(function() {
+            let val          = $(this).val();
+            let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
+            $.ajax({
+                url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
+            })
+            .done(function(done) {
+                $('select[name="siswa"]').removeAttr('disabled')
+                $('select[name="siswa"]').html(done)
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        })
     })
 </script>
 @endsection

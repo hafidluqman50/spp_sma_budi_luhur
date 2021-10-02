@@ -48,6 +48,7 @@
                                 <th>NISN</th>
                                 <th>Nama Siswa</th>
                                 <th>Kelas</th>
+                                <th>Tahun Ajaran</th>
                                 <th>Wilayah</th>
                                 <th>Total Pembayaran</th>
                                 <th>#</th>

@@ -13,10 +13,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Detail SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Bulan Tahun SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Detail SPP</h4>
+                        <h4 class="page-title">Data Bulan Tahun SPP</h4>
                     </div>
                 </div>
             </div>
@@ -28,14 +28,9 @@
                         <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/bulan-tahun/'.$id) }}">
+                            <a href="{{ url('/admin/spp/') }}">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
-                                </button>
-                            </a>
-                            <a href="{{ url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua') }}">
-                                <button class="btn btn-success">
-                                    <i class="fa fa-plus m-r-5"></i>Bayar Semua
                                 </button>
                             </a>
                         </div>
@@ -44,14 +39,11 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
-                        <table class="table table-hover table-bordered data-spp-detail force-fullwidth" id-spp-bulan-tahun="{{$id_bulan_tahun}}">
+                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="{{$id}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Pembayaran SPP</th>
-                                <th>Nominal Bayar</th>
-                                <th>Bayar</th>
-                                <th>Status Bayar</th>
+                                <th>Bulan Tahun</th>
                                 <th>#</th>
                             </tr>
                             </thead>
