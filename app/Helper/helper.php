@@ -38,3 +38,8 @@ function month($month) {
 	];
 	return $array[$month];
 }
+
+function bulan_tahun($date) {
+	$explode = explode('-',$date);
+	return month($explode[1]).', '.$explode[0];
+}

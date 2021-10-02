@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/save') }}" method="POST">
+            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -28,35 +28,29 @@
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
-                            <h4 class="header-title m-t-0">Tambah Data SPP</h4>
-                            
+                            <h4 class="header-title m-t-0">Bayar SPP</h4>
                                 <div class="form-group row">
-                                    <label class="col-4 col-form-label">Tahun Ajaran<span class="text-danger">*</span></label>
+                                    <label class="col-4 col-form-label">Tahun Ajaran</label>
                                     <div class="col-7">
-                                        <select name="tahun_ajaran" class="form-control select2" required="required">
-                                            <option value="" selected="" disabled="">=== Pilih Tahun Ajaran ===</option>
-                                            @foreach ($tahun_ajaran as $value)
-                                            <option value="{{ $value->id_tahun_ajaran }}">{{ $value->tahun_ajaran }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" value="{{ $spp->tahun_ajaran }}" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-4 col-form-label">Kelas<span class="text-danger">*</span></label>
+                                    <label class="col-4 col-form-label">Kelas</label>
                                     <div class="col-7">
-                                        <select name="kelas" class="form-control select2" required="required">
-                                            <option value="" selected="" disabled="">=== Pilih Kelas ===</option>
-                                            @foreach ($kelas as $value)
-                                            <option value="{{ $value->id_kelas }}">{{ $value->kelas }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" value="{{ $spp->kelas }}" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-8 offset-4">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                            Simpan
-                                        </button>
+                                    <label class="col-4 col-form-label">Siswa</label>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" value="{{ $spp->nisn.' - '.$spp->nama_siswa }}" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Bulan Tahun</label>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" value="{{ $spp->bulan_tahun }}" readonly="readonly">
                                     </div>
                                 </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -67,22 +61,30 @@
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
                                     <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
+                                        <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
-                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required">
-                                                <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                                @foreach ($kolom_spp as $value)
-                                                <option value="{{ $value->id_kolom_spp }}">{{ $value->nama_kolom_spp }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" class="form-control" value="{{ $spp->nama_kolom_spp }}" readonly="readonly">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-8 offset-4">
-                                    <button class="btn btn-success" type="button" id="tambah-input">Tambah Input</button>
-                                    <button class="btn btn-danger form-hide" type="button" id="hapus-input">Hapus Input</button>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Nominal Spp</label>
+                                        <div class="col-7">
+                                            <input type="text" class="form-control" value="{{ format_rupiah($spp->nominal_spp) }}" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Bayar</label>
+                                        <div class="col-7">
+                                            <input type="number" name="bayar_spp" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8 offset-4">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                                Simpan
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>

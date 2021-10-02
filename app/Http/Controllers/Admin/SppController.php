@@ -9,6 +9,7 @@ use App\Models\TahunAjaran;
 use App\Models\KolomSpp;
 use App\Models\Kelas;
 use App\Models\Spp;
+use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KelasSiswa;
 
@@ -62,35 +63,51 @@ class SppController extends Controller
 
         // SppDetail::insert($data_spp_detail);
         // Spp::where('id_spp',$id_spp)->update(['total_pembayaran' => $sum_total_bayar]);
-        $tahun_ajaran = $request->tahun_ajaran;
-        $kelas        = $request->kelas;
-        $kolom_spp    = $request->kolom_spp;
+        $tahun_ajaran  = $request->tahun_ajaran;
+        $kelas         = $request->kelas;
+        $siswa         = $request->siswa;
+        $bulan_tahun   = $request->bulan_tahun;
 
-        $get_siswa = KelasSiswa::where('id_tahun_ajaran',$tahun_ajaran)
-                                ->where('id_kelas',$kelas)
-                                ->get();
+        $kolom_spp        = $request->kolom_spp;
+        $nominal_spp      = $request->nominal_spp;
+        $total_pembayaran = array_sum($nominal_spp);
 
-        foreach ($get_siswa as $key => $value) {
+        // CHECK SISWA //
+        if (Spp::where('id_kelas_siswa',$siswa)->count() > 0) {
+            $id_spp = Spp::where('id_kelas_siswa',$siswa)->firstOrFail()->id_spp;
+        }
+        else {
             $id_spp = (string)Str::uuid();
             $data_spp = [
                 'id_spp'           => $id_spp,
-                'id_kelas_siswa'   => $value->id_kelas_siswa,
-                'total_pembayaran' => 0
+                'id_kelas_siswa'   => $siswa,
+                'total_pembayaran' => $total_pembayaran
             ];
-            Spp::create($data_spp);
+            Spp::create($data_spp);   
+        }
+        // END CHECK SISWA //
 
-            foreach ($kolom_spp as $index => $element) {
-                $id_spp_detail = (string)Str::uuid();
-                $data_spp_detail = [
-                    'id_spp_detail' => $id_spp_detail,
-                    'id_spp'        => $id_spp,
-                    'id_kolom_spp'  => $element,
-                    'bayar_spp'     => 0,
-                    'status_bayar'  => 0
-                ];
+        $id_spp_bulan_tahun = (string)Str::uuid();
+        $data_spp_bulan_tahun = [
+            'id_spp_bulan_tahun' => $id_spp_bulan_tahun,
+            'id_spp'             => $id_spp,
+            'bulan_tahun'        => $bulan_tahun
+        ];
 
-                SppDetail::create($data_spp_detail);
-            }
+        SppBulanTahun::create($data_spp_bulan_tahun);
+
+        foreach ($kolom_spp as $index => $element) {
+            $id_spp_detail = (string)Str::uuid();
+            $data_spp_detail = [
+                'id_spp_detail'      => $id_spp_detail,
+                'id_spp_bulan_tahun' => $id_spp_bulan_tahun,
+                'id_kolom_spp'       => $kolom_spp[$index],
+                'nominal_spp'        => $nominal_spp[$index],
+                'bayar_spp'          => 0,
+                'status_bayar'       => 0
+            ];
+
+            SppDetail::create($data_spp_detail);
         }
 
         return redirect('/admin/spp')->with('message','Berhasil Input Data SPP');

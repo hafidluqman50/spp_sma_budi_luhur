@@ -12,6 +12,7 @@ use App\Models\TahunAjaran;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
 use App\Models\Spp;
+use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use Auth;
@@ -183,7 +184,7 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($spp)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/detail/$action->id_spp").'">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp").'">
                               <button class="btn btn-info"> Detail </button>
                            </a>
                            <form action="'.url("/$this->level/spp/delete/$action->id_spp").'" method="POST">
@@ -202,19 +203,18 @@ class DatatablesController extends Controller
         return $datatables;
     }
 
-    public function dataSppDetail($id)
+    public function dataSppBulanTahun($id)
     {
-        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                                ->where('id_spp',$id)
-                                ->get();
+        $spp_bulan_tahun = SppBulanTahun::where('id_spp',$id)
+                                        ->get();
 
-        $datatables = Datatables::of($spp_detail)->addColumn('action',function($action){
+        $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/detail/$action->id_spp/bayar/$action->id_spp_detail").'">
-                              <button class="btn btn-success"> Bayar </button>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun").'">
+                              <button class="btn btn-info"> Detail </button>
                            </a>
-                           <form action="'.url("/$this->level/spp/detail/$action->id_spp/delete/$action->id_spp_detail").'" method="POST">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -222,6 +222,34 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->make(true);
+        return $datatables;
+    }
+
+    public function dataSppDetail($id)
+    {
+        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                ->where('spp_detail.id_spp_bulan_tahun',$id)
+                                ->get();
+
+        $datatables = Datatables::of($spp_detail)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
+                              <button class="btn btn-success"> Bayar </button>
+                           </a>
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            return $column;
+        })->editColumn('nominal_spp',function($edit){
+            return format_rupiah($edit->nominal_spp);
         })->editColumn('bayar_spp',function($edit){
             return format_rupiah($edit->bayar_spp);
         })->editColumn('tanggal_bayar',function($edit){
