@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 03, 2021 at 03:28 AM
+-- Generation Time: Oct 03, 2021 at 03:49 AM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -247,7 +247,7 @@ CREATE TABLE `users` (
   `name` varchar(75) NOT NULL,
   `username` varchar(75) NOT NULL,
   `password` varchar(75) NOT NULL,
-  `remember_token` varchar(75) NOT NULL,
+  `remember_token` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `level_user` int NOT NULL,
   `status_akun` int NOT NULL,
   `status_delete` int NOT NULL,
