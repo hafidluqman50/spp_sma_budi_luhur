@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 02, 2021 at 07:29 AM
+-- Generation Time: Oct 03, 2021 at 03:28 AM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -120,7 +120,9 @@ CREATE TABLE `kolom_spp` (
 --
 
 INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `status_delete`) VALUES
-('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 0);
+('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', 0),
+('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 0),
+('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', 0);
 
 -- --------------------------------------------------------
 
@@ -166,6 +168,7 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_pembayaran`) VALUES
+('2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', '4b1b083d-f695-4ad1-8c8a-2786587fbc78', 60000),
 ('d31e7fb1-3233-45b3-bbfd-9a1464ac2700', '0a2c3901-c957-4bf0-b58b-5bc238be3687', 10000);
 
 -- --------------------------------------------------------
@@ -185,6 +188,7 @@ CREATE TABLE `spp_bulan_tahun` (
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`) VALUES
+('1740d333-c883-44f3-8c16-edbca286b84e', '2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', 'Oktober, 2021'),
 ('450a8497-149c-4c6d-a1aa-518b94c3a575', 'd31e7fb1-3233-45b3-bbfd-9a1464ac2700', 'Oktober, 2021');
 
 -- --------------------------------------------------------
@@ -208,7 +212,10 @@ CREATE TABLE `spp_detail` (
 --
 
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `tanggal_bayar`, `bayar_spp`, `status_bayar`) VALUES
-('4bdaa503-4936-434a-885f-1baf095e94c8', '450a8497-149c-4c6d-a1aa-518b94c3a575', '60f3492f-d8be-4f29-9014-478d314fe4ef', 10000, '2021-10-02', 10000, 1);
+('1ec9873c-992b-4f6f-ba19-5e0c81276333', '1740d333-c883-44f3-8c16-edbca286b84e', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, '2021-10-02', 20000, 1),
+('4bdaa503-4936-434a-885f-1baf095e94c8', '450a8497-149c-4c6d-a1aa-518b94c3a575', '60f3492f-d8be-4f29-9014-478d314fe4ef', 10000, '2021-10-02', 10000, 1),
+('8afe89a8-e717-4d3a-950b-af49f3f694a5', '1740d333-c883-44f3-8c16-edbca286b84e', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 30000, '2021-10-02', 30000, 1),
+('caa0fafb-515f-4fdc-b62d-fe58b700be64', '1740d333-c883-44f3-8c16-edbca286b84e', '1971752f-5e6c-459f-8a13-c51327bb88e7', 10000, '2021-10-02', 10000, 1);
 
 -- --------------------------------------------------------
 
@@ -254,7 +261,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
 ('028b58d2-383f-4bd0-b46a-0e64f0d7c1cb', 'Ortu Malin Kundang', '008899823928', '$2y$10$atnVvFmuk1BPNpZxe63mk.erEzLpL2OfDdeTIQ6ZKRJh33PmDGh/u', '', 0, 1, 0, NULL),
 ('9be7f3cf-ceca-418c-93ba-ebe15d5aa197', 'Ortu Ujang Si Jangkung', '000888888', '$2y$10$Z2Vm3J3yOs/tt/rf7SjUDeqt7KH9mpjmNzkqEXooojdBQa7eSHcTK', '', 0, 1, 0, NULL),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', '', 2, 1, 0, NULL);
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'ugiLiYwSFjjcVgawZsnTINNjNGTjZD9OPhzLM2lrKs5zwEEqVmnA7Hf5TNxf', 2, 1, 0, NULL);
 
 --
 -- Indexes for dumped tables
