@@ -146,6 +146,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // ROUTE SPP DETAIL //
     Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}',[AdminSppDetailController::class, 'index']);
     Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar-semua',[AdminSppDetailController::class, 'formBayarSemua']);
+    Route::post('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar-semua/save',[AdminSppDetailController::class, 'bayarSemua']);
     Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
     Route::post('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
     Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
