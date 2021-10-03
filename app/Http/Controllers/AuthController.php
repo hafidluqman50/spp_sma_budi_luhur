@@ -27,6 +27,9 @@ class AuthController extends Controller
             else if(Auth::user()->level_user == 1) {
                 return redirect('/petugas/dashboard');
             }
+            else if(Auth::user()->level_user == 0) {
+                return redirect('/ortu/dashboard');
+            }
             else if(Auth::user()->status_akun == 0) {
                 return redirect('/')->with('log','Akun Non Aktif');
             }

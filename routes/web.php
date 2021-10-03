@@ -18,6 +18,10 @@ use App\Http\Controllers\Admin\SppBulanTahunController as AdminSppBulanTahunCont
 use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
 // END CONTROLLER ADMIN //
 
+// CONTROLLER ORTU //
+use App\Http\Controllers\Ortu\DashboardController as OrtuDashboardController;
+// END CONTROLLER ORTU //
+
 // CONTROLLER PETUGAS //
 
 // END CONTROLLER PETUGAS //
@@ -72,6 +76,13 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-spp',[DatatablesController::class, 'dataSpp']);
     Route::get('/data-spp/bulan-tahun/{id}',[DatatablesController::class, 'dataSppBulanTahun']);
     Route::get('/data-spp/detail/{id}',[DatatablesController::class, 'dataSppDetail']);
+    Route::get('/data-siswa-ortu',[DatatablesController::class, 'dataSiswaOrtu']);
+    Route::get('/data-spp/spp-ortu/{id}',[DatatablesController::class, 'dataSppOrtu']);
+    Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
+});
+
+Route::get('/oke',function(){
+    echo "mantap";
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
@@ -155,6 +166,12 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // ROUTE TUNGGAKAN //
     Route::get('/spp-tunggakan');
     // END ROUTE TUNGGAKAN //  
+});
+
+Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
+    Route::get('dashboard',[OrtuDashboardController::class, 'index']);
+    Route::get('spp/{id}',[OrtuDashboardController::class, 'spp']);
+    Route::get('spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
 });
 
 Route::get('/dashboard1', function () {

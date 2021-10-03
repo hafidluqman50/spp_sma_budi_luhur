@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        {{-- <div class="form-group ">
                             <div class="col-12">
                                 <div class="checkbox checkbox-primary">
                                     <input id="checkbox-signup" type="checkbox">
@@ -58,7 +58,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group text-center m-t-40">
                             <div class="col-12">

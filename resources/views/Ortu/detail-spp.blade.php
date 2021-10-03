@@ -1,4 +1,4 @@
-@extends('Admin.layout-app.layout')
+@extends('Ortu.layout-app.layout')
 
 @section('content')
 
@@ -26,25 +26,12 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
-                        
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/bulan-tahun/'.$id) }}">
-                                <button class="btn btn-default">
-                                    <i class="fa fa-arrow-left"></i> Kembali
-                                </button>
-                            </a>
-                            <a href="{{ url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua') }}">
-                                <button class="btn btn-success">
-                                    <i class="fa fa-plus m-r-5"></i>Bayar Semua
-                                </button>
+                            <a href="{{ url('/ortu/spp/'.$id) }}">
+                                <button class="btn btn-default" type="button">Kembali</button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
-                        <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
-                        </div>
-                        @endif
-                        <table class="table table-hover table-bordered data-spp-detail force-fullwidth" id-spp-bulan-tahun="{{$id_bulan_tahun}}">
+                        <table class="table table-hover table-bordered spp-ortu-detail force-fullwidth" id-spp-bulan-tahun="{{$id_detail}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -53,7 +40,6 @@
                                 <th>Tanggal Bayar</th>
                                 <th>Bayar</th>
                                 <th>Status Bayar</th>
-                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
