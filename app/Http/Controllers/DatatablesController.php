@@ -222,7 +222,13 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
-        })->make(true);
+        })->addColumn('status_pelunasan',function($add){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
+                1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
+            ];
+            return '<span class="'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['class'].'">'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['text'].'</span>';
+        })->rawColumns(['action','status_pelunasan'])->make(true);
         return $datatables;
     }
 
