@@ -32,6 +32,7 @@
                         <h4 class="header-title m-t-0">Tambah Data Kolom SPP</h4>
                         
                         <form action="{{ url('/admin/kolom-spp/update',$id) }}" method="POST">
+                            @method('PUT')
                             @csrf
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Kolom SPP<span class="text-danger">*</span></label>
