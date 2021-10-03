@@ -153,7 +153,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // END ROUTE SPP DETAIL //
 
     // ROUTE TUNGGAKAN //
-    Route::get('/spp-tunggakan')
+    Route::get('/spp-tunggakan');
     // END ROUTE TUNGGAKAN //  
 });
 

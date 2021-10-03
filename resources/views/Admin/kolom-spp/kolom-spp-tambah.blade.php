@@ -34,11 +34,29 @@
                         <form action="{{ url('/admin/kolom-spp/save') }}" method="POST">
                             @csrf
                             <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <button type="button" class="btn btn-default pilih-kantin waves-effect waves-light">
+                                        Pilih Kantin
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group row" id="input-kolom">
                                 <label class="col-4 col-form-label">Nama Kolom SPP<span class="text-danger">*</span></label>
                                 <div class="col-7">
                                     <input type="text" name="nama_kolom_spp" class="form-control" placeholder="Isi Nama Kolom SPP; Ex: Pembayaran Gedung;">
                                 </div>
                             </div>
+                            {{-- <div class="form-group row form-hide" id="input-kantin">
+                                <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <select name="kantin" class="form-control select2">
+                                        <option value="" selected="" disabled="">=== Pilih Kantin ===</option>
+                                        @foreach ($kantin as $element)
+                                        <option value="{{$}}"></option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">
@@ -56,4 +74,14 @@
     </div>
     <!-- end wrapper -->
 
+@endsection
+
+@section('js')
+<script>
+    $(() => {
+        $('.pilih-kantin').click(() => {
+
+        })
+    })
+</script>
 @endsection

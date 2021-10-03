@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kantin;
+use App\Models\KolomSpp;
 
 class KantinController extends Controller
 {
@@ -35,7 +36,14 @@ class KantinController extends Controller
             'status_delete'  => 0
         ];
 
+        $data_kolom_spp = [
+            'nama_kolom_spp'   => $nama_kantin,
+            'keterangan_kolom' => $biaya_perbulan,
+            'status_delete'    => 0
+        ];
+
         Kantin::create($data_kantin);
+        KolomSpp::create($data_kolom_spp);
 
         return redirect('/admin/kantin')->with('message','Berhasil Input Kantin');
     }
@@ -54,13 +62,23 @@ class KantinController extends Controller
         $lokasi_kantin  = $request->lokasi_kantin;
         $biaya_perbulan = $request->biaya_perbulan;
 
+        $kantin = Kantin::where('id_kantin', $id)->firstOrFail();
+        $kolom_spp = KolomSpp::where('nama_kolom_spp', $kantin->nama_kantin)->firstOrFail();
+
         $data_kantin = [
             'nama_kantin'    => $nama_kantin,
             'lokasi_kantin'  => $lokasi_kantin,
             'biaya_perbulan' => $biaya_perbulan
         ];
 
-        Kantin::where('id_kantin',$id)->update($data_kantin);
+        $data_kolom_spp = [
+            'nama_kolom_spp'   => $nama_kantin,
+            'keterangan_kolom' => $biaya_perbulan,
+            'status_delete'    => 0
+        ];
+
+        Kantin::where('id_kantin',$id)->update($data_kantin);  
+        KolomSpp::where('id_kolom_spp',$kolom_spp->id_kolom_spp)->update($data_kolom_spp);
 
         return redirect('/admin/kantin')->with('message','Berhasil Update Kantin');
     }

@@ -85,7 +85,7 @@
                                             <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required">
                                                 <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
                                                 @foreach ($kolom_spp as $value)
-                                                <option value="{{ $value->id_kolom_spp }}">{{ $value->nama_kolom_spp }}</option>
+                                                <option value="{{ $value->id_kolom_spp }}" keterangan="{{ $value->keterangan_kolom }}">{{ $value->nama_kolom_spp }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -138,6 +138,13 @@
             .fail(function() {
                 console.log("error");
             });
+        })
+
+        $(document).on('change','.kolom-spp',function(){
+            let val = $('option:selected',this).attr('keterangan')
+            if (val != '' || val != null) {
+                
+            }
         })
     })
 </script>
