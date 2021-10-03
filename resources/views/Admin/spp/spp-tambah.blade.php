@@ -125,6 +125,10 @@
             $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
             let clone = $('#bayar-spp').clone();
             $('#layout-bayar-spp').append(clone)
+            $('#kolom-spp').attr('kolom-id',kolom_attr++)
+            $('#nominal-spp').attr('nominal-id',nominal_attr++)
+            $('.bayar-spp:last').find('input').val('')
+            $('.bayar-spp:last').find('input').removeAttr('readonly')
             $('.kolom-spp').select2()
         })
 
@@ -146,7 +150,8 @@
         $(document).on('change','.kolom-spp',function(){
             let attr = $(this).attr('kolom-id')
             let val = $('option:selected',this).attr('keterangan')
-            if (val != '' || val != null) {
+            console.log(val)
+            if (val != '') {
                 $(`.nominal-spp[nominal-id="${attr}"]`).val(val)
                 $(`.nominal-spp[nominal-id="${attr}"]`).attr('readonly','readonly')
             }

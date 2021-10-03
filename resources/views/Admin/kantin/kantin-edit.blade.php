@@ -35,6 +35,7 @@
                         </p>
 
                         <form action="{{ url('/admin/kantin/update/'.$id) }}" method="POST">
+                            @method('PUT')
                             @csrf
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Kantin<span class="text-danger">*</span></label>
