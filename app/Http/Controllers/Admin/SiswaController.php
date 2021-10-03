@@ -87,7 +87,8 @@ class SiswaController extends Controller
     }
 
     public function update(Request $request,$id)
-    {
+    {   
+        $nisn_before     = Siswa::where('id_siswa',$id)->firstOrFail()->nisn;
         $nisn            = $request->nisn;
         $nama_siswa      = $request->nama_siswa;
         $jenis_kelamin   = $request->jenis_kelamin;
@@ -120,14 +121,13 @@ class SiswaController extends Controller
 
             Keluarga::where('id_siswa',$id)->update($data_keluarga);
         }
-
         $data_user = [
             'name'          => 'Ortu '.$nama_siswa,
             'username'      => $nisn,
             'password'      => bcrypt($nisn),
         ];
 
-        User::where('username',$nisn)->update($data_user);
+        User::where('username',$nisn_before)->update($data_user);
 
         return redirect('/admin/siswa')->with('message','Berhasil Update Siswa');
     }
