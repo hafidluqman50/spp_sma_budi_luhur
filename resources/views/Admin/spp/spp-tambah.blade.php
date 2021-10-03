@@ -78,11 +78,11 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
                             <div id="layout-bayar-spp">
-                                <div id="bayar-spp">
+                                <div id="bayar-spp" class="bayar-spp">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
                                         <div class="col-7">
-                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required">
+                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required" kolom-id="1">
                                                 <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
                                                 @foreach ($kolom_spp as $value)
                                                 <option value="{{ $value->id_kolom_spp }}" keterangan="{{ $value->keterangan_kolom }}">{{ $value->nama_kolom_spp }}</option>
@@ -93,7 +93,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
                                         <div class="col-7">
-                                            <input type="number" name="nominal_spp[]" class="form-control" required="required" placeholder="Isi Nominal SPP">
+                                            <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" nominal-id="1">
                                         </div>
                                     </div>
                                     <hr>
@@ -119,10 +119,13 @@
 @section('js')
 <script>
     $(() => {
+        var kolom_attr   = 2;
+        var nominal_attr = 2;
         $('#tambah-input').click(() => {
-            $('#bayar-spp').find('.kolom-spp').last().select2('destroy')
-            $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
-            $('#bayar-spp').find('.kolom-spp').last().select2()
+            $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
+            let clone = $('#bayar-spp').clone();
+            $('#layout-bayar-spp').append(clone)
+            $('.kolom-spp').select2()
         })
 
         $('select[name="kelas"]').change(function() {
@@ -141,9 +144,11 @@
         })
 
         $(document).on('change','.kolom-spp',function(){
+            let attr = $(this).attr('kolom-id')
             let val = $('option:selected',this).attr('keterangan')
             if (val != '' || val != null) {
-                
+                $(`.nominal-spp[nominal-id="${attr}"]`).val(val)
+                $(`.nominal-spp[nominal-id="${attr}"]`).attr('readonly','readonly')
             }
         })
     })

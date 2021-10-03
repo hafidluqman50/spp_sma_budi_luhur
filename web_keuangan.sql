@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 03, 2021 at 09:33 AM
+-- Generation Time: Oct 03, 2021 at 02:10 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -41,7 +41,8 @@ CREATE TABLE `kantin` (
 --
 
 INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
-('f19a4d1c-3e44-4027-9e7e-d125989edc21', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 0);
+('6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 0),
+('f19a4d1c-3e44-4027-9e7e-d125989edc21', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 1);
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,7 @@ INSERT INTO `keluarga` (`id_keluarga`, `id_siswa`, `id_siswa_keluarga`) VALUES
 CREATE TABLE `kolom_spp` (
   `id_kolom_spp` varchar(36) NOT NULL,
   `nama_kolom_spp` varchar(100) NOT NULL,
+  `keterangan_kolom` text,
   `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -119,10 +121,11 @@ CREATE TABLE `kolom_spp` (
 -- Dumping data for table `kolom_spp`
 --
 
-INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `status_delete`) VALUES
-('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', 0),
-('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 0),
-('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', 0);
+INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `keterangan_kolom`, `status_delete`) VALUES
+('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', NULL, 0),
+('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', NULL, 0),
+('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', '100000', 0),
+('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -272,8 +275,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
 ('028b58d2-383f-4bd0-b46a-0e64f0d7c1cb', 'Ortu Malin Kundang', '008899823928', '$2y$10$7lcinI8LjZu1XZWHL6jAQubT5q0/Sks1h8BT.Vi7BDSo0/8gA07L2', '', 0, 1, 0, NULL),
-('9be7f3cf-ceca-418c-93ba-ebe15d5aa197', 'Ortu Ujang Si Jangkung', '000888888', '$2y$10$Z2Vm3J3yOs/tt/rf7SjUDeqt7KH9mpjmNzkqEXooojdBQa7eSHcTK', '', 0, 1, 0, NULL),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'ugiLiYwSFjjcVgawZsnTINNjNGTjZD9OPhzLM2lrKs5zwEEqVmnA7Hf5TNxf', 2, 1, 0, NULL);
+('9be7f3cf-ceca-418c-93ba-ebe15d5aa197', 'Ortu Ujang Si Jangkung', '000888888', '$2y$10$Z2Vm3J3yOs/tt/rf7SjUDeqt7KH9mpjmNzkqEXooojdBQa7eSHcTK', 'f5JsvgkPeuFDs804Fsjl7aIb8BbcZgSuaiCGASUpJc5WwQ04Bfq3U2iHDydx', 0, 1, 0, NULL),
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'HbwQblBBQnzwJiL4SkkZzLCrQmc0B5trOiS76UKnxifkH3MOyRo8IrG2cXin', 2, 1, 0, NULL);
 
 --
 -- Indexes for dumped tables

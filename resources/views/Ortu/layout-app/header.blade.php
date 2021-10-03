@@ -119,20 +119,6 @@
                                     <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
-                                    </a>
 
                                     <!-- item-->
                                     <a href="{{ url('/logout') }}" class="dropdown-item notify-item">
@@ -151,71 +137,6 @@
                 </div> <!-- end container -->
             </div>
             <!-- end topbar-main -->
-
-            <div class="navbar-custom">
-                <div class="container">
-                    <div id="navigation">
-                        <!-- Navigation Menu-->
-                        <ul class="navigation-menu">
-
-                            <li class="has-submenu">
-                                <a href="{{ url('/admin/dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
-                            </li>
-
-                            <li class="has-submenu">
-                                <a href="#"><i class="md md-account-circle"></i>Data Siswa</a>
-                                <ul class="submenu">
-                                    <li><a href="{{ url('/admin/siswa') }}">Data Siswa</a></li>
-                                    <li><a href="{{ url('/admin/kelas') }}">Data Kelas</a></li>
-                                    <li><a href="{{ url('/admin/tahun-ajaran') }}">Data Tahun Ajaran</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has-submenu">
-                                <a href="{{ url('/admin/kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
-                            </li>
-
-                            <li class="has-submenu">
-                                <a href="#"><i class="fa fa-money"></i>Data SPP</a>
-                                <ul class="submenu">
-                                    <li><a href="{{ url('/admin/spp') }}">Data SPP</a></li>
-                                    <li><a href="{{ url('/admin/kolom-spp') }}">Data Kolom SPP</a></li>
-                                    <li><a href="{{ url('/admin/tunggakan-spp') }}">Data Tunggakan SPP</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has-submenu">
-                                <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
-                                <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Data Siswa</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Laporan Kantin</a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Tunggakan</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Laporan RAB</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- End navigation menu -->
-                    </div> <!-- end #navigation -->
-                </div> <!-- end container -->
-            </div> <!-- end navbar-custom -->
         </header>
         <!-- End Navigation Bar-->
 

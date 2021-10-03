@@ -250,6 +250,7 @@ $(() => {
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
             {data:'nominal_spp',name:'nominal_spp'},
             {data:'bayar_spp',name:'bayar_spp'},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
             {data:'status_bayar',name:'status_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
@@ -265,6 +266,97 @@ $(() => {
     });
     spp_detail.on( 'order.dt search.dt', function () {
         spp_detail.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var id_siswa = $('.spp-ortu').attr('id-siswa')
+    var spp_ortu = $('.spp-ortu').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/spp-ortu/'+id_siswa,
+        columns:[
+            {data:'id_spp_bulan_tahun',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'bulan_tahun',name:'bulan_tahun'},
+            {data:'status_pelunasan',name:'status_pelunasan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 2, 'asc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_ortu.on( 'order.dt search.dt', function () {
+        spp_ortu.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var id_detail_spp_ortu = $('.spp-ortu-detail').attr('id-spp-bulan-tahun')
+    var spp_detail_ortu = $('.spp-ortu-detail').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/spp-ortu/detail/'+id_detail_spp_ortu,
+        columns:[
+            {data:'id_spp_detail',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_kolom_spp',name:'nama_kolom_spp'},
+            {data:'nominal_spp',name:'nominal_spp'},
+            {data:'bayar_spp',name:'bayar_spp'},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'status_bayar',name:'status_bayar'}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_detail_ortu.on( 'order.dt search.dt', function () {
+        spp_detail_ortu.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var siswa_ortu = $('.siswa-ortu').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-siswa-ortu',
+        columns:[
+            {data:'id_kelas_siswa',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nisn',name:'nisn'},
+            {data:'nama_siswa',name:'nama_siswa'},
+            {data:'kelas',name:'kelas'},
+            {data:'tahun_ajaran',name:'tahun_ajaran'},
+            {data:'wilayah',name:'wilayah'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    siswa_ortu.on( 'order.dt search.dt', function () {
+        siswa_ortu.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         });
     }).draw();

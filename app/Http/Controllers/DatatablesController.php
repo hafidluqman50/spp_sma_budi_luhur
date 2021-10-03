@@ -24,7 +24,7 @@ class DatatablesController extends Controller
     function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'kasir' : (Auth::user()->level_user == 0 ? 'orang-tua' : ''));
+            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'kasir' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
             return $next($request);
         });
     }
@@ -268,6 +268,84 @@ class DatatablesController extends Controller
             }
             return $column;
         })->editColumn('nominal_spp',function($edit){
+            return format_rupiah($edit->nominal_spp);
+        })->editColumn('bayar_spp',function($edit){
+            return format_rupiah($edit->bayar_spp);
+        })->editColumn('tanggal_bayar',function($edit){
+            if ($edit->tanggal_bayar == NULL) {
+                $tanggal_bayar = '-';
+            }
+            else {
+                $tanggal_bayar = human_date($edit->tanggal_bayar);
+            }
+            return $tanggal_bayar;
+        })->editColumn('status_bayar',function($edit){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Belum Bayar'],
+                1 => ['class'=>'badge badge-success','text'=>'Sudah Bayar']
+            ];
+            return '<span class="'.$array[$edit->status_bayar]['class'].'">'.$array[$edit->status_bayar]['text'].'</span>';
+        })->rawColumns(['action','status_bayar'])->make(true);
+        return $datatables;
+    }
+
+    public function dataSiswaOrtu()
+    {
+        $siswa = KelasSiswa::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                            ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                            ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                            ->where('nisn',auth()->user()->username)
+                            ->get();
+
+        $datatables = Datatables::of($siswa)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/$action->id_kelas_siswa").'">
+                              <button class="btn btn-info"> Lihat SPP </button>
+                           </a>
+                       </div>
+                    ';
+            return $column;
+        })->editColumn('wilayah',function($edit){
+            return unslug_str($edit->wilayah);
+        })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataSppOrtu($id)
+    {
+        $spp_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')->where('id_kelas_siswa',$id)
+                                        ->get();
+
+        $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/$action->id_kelas_siswa/detail/$action->id_spp_bulan_tahun").'">
+                              <button class="btn btn-info"> Detail </button>
+                           </a>
+                       </div>
+                    ';
+            return $column;
+        })->addColumn('status_pelunasan',function($add){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
+                1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
+            ];
+            return '<span class="'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['class'].'">'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['text'].'</span>';
+        })->rawColumns(['action','status_pelunasan'])->make(true);
+        return $datatables;
+    }
+
+    public function dataSppOrtuDetail($id)
+    {
+        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                ->where('spp_detail.id_spp_bulan_tahun',$id)
+                                ->get();
+
+        $datatables = Datatables::of($spp_detail)->editColumn('nominal_spp',function($edit){
             return format_rupiah($edit->nominal_spp);
         })->editColumn('bayar_spp',function($edit){
             return format_rupiah($edit->bayar_spp);
