@@ -121,13 +121,13 @@ class SiswaController extends Controller
 
             Keluarga::where('id_siswa',$id)->update($data_keluarga);
         }
-        $data_user = [
+        $data_users = [
             'name'          => 'Ortu '.$nama_siswa,
             'username'      => $nisn,
             'password'      => bcrypt($nisn),
         ];
 
-        User::where('username',$nisn_before)->update($data_user);
+        User::where('username',$nisn_before)->update($data_users);
 
         return redirect('/admin/siswa')->with('message','Berhasil Update Siswa');
     }
