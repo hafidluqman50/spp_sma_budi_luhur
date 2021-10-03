@@ -151,6 +151,10 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::post('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
     Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
     // END ROUTE SPP DETAIL //
+
+    // ROUTE TUNGGAKAN //
+    Route::get('/spp-tunggakan')
+    // END ROUTE TUNGGAKAN //  
 });
 
 Route::get('/dashboard1', function () {

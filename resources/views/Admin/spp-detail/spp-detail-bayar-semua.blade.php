@@ -76,7 +76,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
+                                            <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar">
                                         </div>
                                     </div>
                                     <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">

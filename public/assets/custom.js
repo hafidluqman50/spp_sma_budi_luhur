@@ -219,6 +219,7 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
+            {data:'status_pelunasan',name:'status_pelunasan'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -227,7 +228,7 @@ $(() => {
         "class": "index",
         }],
         scrollX:true,
-        order: [[ 0, 'desc' ]],
+        order: [[ 2, 'asc' ]],
         responsive:true,
         fixedColumns: true
     });

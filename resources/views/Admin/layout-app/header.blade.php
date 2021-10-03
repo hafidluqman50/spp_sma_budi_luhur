@@ -185,10 +185,6 @@
                             </li>
 
                             <li class="has-submenu">
-                                <a href="#"><i class="md md-warning"></i>Data Tunggakan</a>
-                            </li>
-
-                            <li class="has-submenu">
                                 <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
                                 <ul class="submenu">
                                     <li class="has-submenu">
