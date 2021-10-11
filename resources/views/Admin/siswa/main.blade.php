@@ -31,6 +31,11 @@
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
+                            <a href="{{ url('/admin/siswa/import') }}">
+                                <button class="btn btn-success" style="cursor:pointer;">
+                                    <i class="fa fa-file-excel-o m-r-5"></i>Import
+                                </button>
+                            </a>
                         </div>
                         @if (session()->has('message'))
                         <div class="alert alert-success alert-dismissible">

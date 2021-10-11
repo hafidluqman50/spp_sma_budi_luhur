@@ -66,6 +66,18 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">Asal Kelompok</label>
+                                <div class="col-7">
+                                    <input type="text" name="asal_kelompok" class="form-control" required="required" placeholder="Isi Asal Kelompok">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label">Asal Wilayah</label>
+                                <div class="col-7">
+                                    <input type="text" name="asal_wilayah" class="form-control" required="required" placeholder="Isi Asal Wilayah">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-4 col-form-label">Wilayah<span class="text-danger">*</span></label>
                                 <div class="col-7">
                                     <select name="wilayah" id="" class="form-control" required="">
@@ -136,8 +148,8 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Keluarga</label>
                                 <div class="col-7">
-                                    <select name="keluarga" class="form-control select2">
-                                        <option value="" selected="" disabled="">=== Pilih Keluarga ===</option>
+                                    <select name="keluarga[]" class="form-control select2" multiple="multiple">
+                                        {{-- <option value="" selected="" disabled="">=== Pilih Keluarga ===</option> --}}
                                         @foreach ($keluarga as $element)
                                         <option value="{{ $element->id_siswa }}">{{ $element->nama_siswa.' | '.$element->nisn }}</option>
                                         @endforeach
@@ -165,7 +177,7 @@
 
 @section('js')
 <script>
-    // $(() => {
+    $(() => {
     //     $('#input-ortu-act').click(() => {
     //         $('#input-ortu').removeClass('form-hide')
     //         $('#input-ortu-act').addClass('form-hide')
@@ -179,6 +191,9 @@
     //         $('#input-ortu').addClass('form-hide')
     //         $('#input-ortu-act').removeClass('form-hide')
     //     })
-    // })
+        $('select[name="keluarga[]"]').select2({
+            placeholder:"=== Pilih Keluarga ==="
+        })
+    })
 </script>
 @endsection

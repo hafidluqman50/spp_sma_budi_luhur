@@ -1,9 +1,7 @@
-@extends('Admin.layout-app.layout')
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('css')
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -29,7 +27,7 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
@@ -39,11 +37,11 @@
                         </p>
                         <div class="form-group row">
                             <div class="col-8 offset-4">
-                                <a href="{{ url('/admin/siswa/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>
+                                <a href="<?php echo e(url('/admin/siswa/contoh-import')); ?>" class="text-danger">Silahkan Download Format Excel Disini!</a>
                             </div>
                         </div>
-                        <form method="POST" action="{{ url('/admin/siswa/import/save') }}" enctype="multipart/form-data">
-                            @csrf
+                        <form method="POST" action="<?php echo e(url('/admin/siswa/import/save')); ?>" enctype="multipart/form-data">
+                            <?php echo csrf_field(); ?>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
                                 <div class="col-7">
@@ -67,7 +65,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
-@endsection
+<?php $__env->startSection('js'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/siswa/siswa-import.blade.php ENDPATH**/ ?>
