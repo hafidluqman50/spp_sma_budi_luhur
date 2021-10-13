@@ -4,6 +4,11 @@ function format_rupiah($money) {
 	return $hasil_rupiah;
 }
 
+function reverse_date($date) {
+	$explode = explode('-',$date);
+	return $explode[2].'-'.$explode[1].'-'.$explode[0];
+}
+
 function unslug_str($str) {
 	if (strpos($str,'-') !== false) {
 		$get   = explode('-',$str);

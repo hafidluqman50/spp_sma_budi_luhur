@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
             <!-- Page-Title -->
@@ -18,13 +16,13 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/save') }}" method="POST">
-                @csrf
+            <form action="<?php echo e(url('/admin/spp/save')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
                             <div class="button-list" style="margin-bottom:1%;">
-                                <a href="{{ url()->previous() }}">
+                                <a href="<?php echo e(url()->previous()); ?>">
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
@@ -34,9 +32,9 @@
                                     <div class="col-7">
                                         <select name="tahun_ajaran" class="form-control select2" required="required">
                                             <option value="" selected="" disabled="">=== Pilih Tahun Ajaran ===</option>
-                                            @foreach ($tahun_ajaran as $value)
-                                            <option value="{{ $value->id_tahun_ajaran }}">{{ $value->tahun_ajaran }}</option>
-                                            @endforeach
+                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($value->id_tahun_ajaran); ?>"><?php echo e($value->tahun_ajaran); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -45,9 +43,9 @@
                                     <div class="col-7">
                                         <select name="kelas" class="form-control select2" required="required">
                                             <option value="" selected="" disabled="">=== Pilih Kelas ===</option>
-                                            @foreach ($kelas as $value)
-                                            <option value="{{ $value->id_kelas }}">{{ $value->kelas }}</option>
-                                            @endforeach
+                                            <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($value->id_kelas); ?>"><?php echo e($value->kelas); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -62,7 +60,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan Tahun<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="{{ bulan_tahun(date('Y-m-d')) }}">
+                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="<?php echo e(bulan_tahun(date('Y-m-d'))); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -84,9 +82,9 @@
                                         <div class="col-7">
                                             <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required" kolom-id="1">
                                                 <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                                @foreach ($kolom_spp as $value)
-                                                <option value="{{ $value->id_kolom_spp }}" keterangan="{{ $value->keterangan_kolom }}">{{ $value->nama_kolom_spp }}</option>
-                                                @endforeach
+                                                <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($value->id_kolom_spp); ?>" keterangan="<?php echo e($value->keterangan_kolom); ?>"><?php echo e($value->nama_kolom_spp); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
                                         </div>
                                     </div>
@@ -114,9 +112,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         var kolom_attr   = 2;
@@ -136,7 +134,7 @@
             let val          = $(this).val();
             let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
             $.ajax({
-                url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
+                url: "<?php echo e(url('/ajax/get-siswa/')); ?>"+`/${val}/${tahun_ajaran}`
             })
             .done(function(done) {
                 $('select[name="siswa"]').removeAttr('disabled')
@@ -158,4 +156,6 @@
         })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/spp/spp-tambah.blade.php ENDPATH**/ ?>

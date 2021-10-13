@@ -95,6 +95,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::post('/siswa/save',[AdminSiswaController::class, 'save']);
     Route::put('/siswa/update/{id}',[AdminSiswaController::class, 'update']);
     Route::delete('/siswa/delete/{id}',[AdminSiswaController::class, 'delete']);
+    Route::get('/siswa/import',[AdminSiswaController::class, 'formImport']);
+    Route::get('/siswa/contoh-import',[AdminSiswaController::class, 'contohImport']);
+    Route::post('/siswa/import/save',[AdminSiswaController::class, 'import']);
     // ROUTE SISWA END //
 
     // ROUTE KELAS //

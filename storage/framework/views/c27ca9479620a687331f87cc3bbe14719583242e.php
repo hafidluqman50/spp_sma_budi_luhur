@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
             <!-- Page-Title -->
@@ -9,8 +7,8 @@
                     <div class="page-title-box">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ url('/admin/siswa') }}">Data Siswa</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo e(url('/admin/dashboard')); ?>">Dashboard</a></li>
+                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/admin/siswa')); ?>">Data Siswa</a></li>
                             </ol>
                         </div>
                         <h4 class="page-title">Data Siswa</h4>
@@ -26,22 +24,22 @@
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/siswa/tambah') }}">
+                            <a href="<?php echo e(url('/admin/siswa/tambah')); ?>">
                                 <button class="btn btn-primary" style="cursor:pointer;">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
-                            <a href="{{ url('/admin/siswa/import') }}">
+                            <a href="<?php echo e(url('/admin/siswa/import')); ?>">
                                 <button class="btn btn-success" style="cursor:pointer;">
                                     <i class="fa fa-file-excel-o m-r-5"></i>Import
                                 </button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
+                        <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
-                        @endif
+                        <?php endif; ?>
                         <table class="table table-hover table-bordered data-siswa force-fullwidth">
                             <thead>
                             <tr>
@@ -65,4 +63,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/siswa/main.blade.php ENDPATH**/ ?>
