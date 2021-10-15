@@ -110,7 +110,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Keluarga</label>
                                 <div class="col-7">
-                                    <select name="keluarga" class="form-control select2" multiple="multiple">
+                                    <select name="keluarga[]" class="form-control select2" multiple="multiple">
                                         
                                         <?php $__currentLoopData = $keluarga; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($element->id_siswa); ?>"><?php echo e($element->nama_siswa.' | '.$element->nisn); ?></option>
@@ -153,7 +153,7 @@
     //         $('#input-ortu').addClass('form-hide')
     //         $('#input-ortu-act').removeClass('form-hide')
     //     })
-        $('select[name="keluarga"]').select2({
+        $('select[name="keluarga[]"]').select2({
             placeholder:"=== Pilih Keluarga ==="
         })
     })
