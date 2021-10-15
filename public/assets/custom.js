@@ -159,6 +159,7 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
+            {data:'keterangan_kolom',name:'keterangan_kolom'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -220,6 +221,7 @@ $(() => {
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
             {data:'status_pelunasan',name:'status_pelunasan'},
+            {data:'total_bayar',name:'total_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,

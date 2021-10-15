@@ -24,11 +24,13 @@ class KolomSppController extends Controller
 
     public function save(Request $request)
     {
-        $nama_kolom_spp = $request->nama_kolom_spp;
+        $nama_kolom_spp   = $request->nama_kolom_spp;
+        $keterangan_kolom = $request->keterangan;
 
         $data_kolom_spp = [
-            'nama_kolom_spp' => $nama_kolom_spp,
-            'status_delete'  => 0
+            'nama_kolom_spp'   => $nama_kolom_spp,
+            'keterangan_kolom' => $keterangan_kolom,
+            'status_delete'    => 0
         ];
 
         KolomSpp::create($data_kolom_spp);
@@ -46,10 +48,12 @@ class KolomSppController extends Controller
 
     public function update(Request $request,$id)
     {
-        $nama_kolom_spp = $request->nama_kolom_spp;
+        $nama_kolom_spp   = $request->nama_kolom_spp;
+        $keterangan_kolom = $request->keterangan;
 
         $data_kolom_spp = [
-            'nama_kolom_spp' => $nama_kolom_spp
+            'nama_kolom_spp'   => $nama_kolom_spp,
+            'keterangan_kolom' => $keterangan_kolom
         ];
 
         KolomSpp::where('id_kolom_spp',$id)->update($data_kolom_spp);

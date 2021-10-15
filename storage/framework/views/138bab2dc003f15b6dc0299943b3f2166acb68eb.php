@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
 
@@ -25,14 +23,14 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
                         <h4 class="header-title m-t-0">Tambah Data Kolom SPP</h4>
                         
-                        <form action="{{ url('/admin/kolom-spp/save') }}" method="POST">
-                            @csrf
+                        <form action="<?php echo e(url('/admin/kolom-spp/save')); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
                             <div class="form-group row" id="input-kolom">
                                 <label class="col-4 col-form-label">Nama Kolom SPP<span class="text-danger">*</span></label>
                                 <div class="col-7">
@@ -62,9 +60,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         $('.pilih-kantin').click(() => {
@@ -72,4 +70,6 @@
         })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/kolom-spp/kolom-spp-tambah.blade.php ENDPATH**/ ?>

@@ -43,8 +43,18 @@ class SppDetailController extends Controller
             'status_bayar'  => $status_bayar
         ];
 
+        $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                    ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                    ->firstOrFail()->id_spp;
+
+        $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+
+        $total_harus_bayar = $get_total_harus_bayar - $bayar_spp;
+
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
+
+        Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
 
         return redirect('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
     }
@@ -88,8 +98,18 @@ class SppDetailController extends Controller
                 'status_bayar'  => $status_bayar
             ];
 
+            $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                        ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                        ->firstOrFail()->id_spp;
+
+            $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+
+            $total_harus_bayar = $get_total_harus_bayar - $bayar_spp[$key];
+
             SppDetail::where('id_spp_detail',$id_detail[$key])
                     ->update($data_spp_detail);
+
+            Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         }
 
         return redirect('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');

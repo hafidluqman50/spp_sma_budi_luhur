@@ -171,9 +171,9 @@
                                 </ul>
                             </li>
 
-                            <li class="has-submenu">
+                            {{-- <li class="has-submenu">
                                 <a href="{{ url('/admin/kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
-                            </li>
+                            </li> --}}
 
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-money"></i>Data SPP</a>
