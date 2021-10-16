@@ -147,15 +147,15 @@
             });
         })
 
-        $(document).on('change','.kolom-spp',function(){
-            let attr = $(this).attr('kolom-id')
-            let val = $('option:selected',this).attr('keterangan')
-            console.log(val)
-            if (val != '') {
-                $(`.nominal-spp[nominal-id="${attr}"]`).val(val)
-                $(`.nominal-spp[nominal-id="${attr}"]`).attr('readonly','readonly')
-            }
-        })
+        // $(document).on('change','.kolom-spp',function(){
+        //     let attr = $(this).attr('kolom-id')
+        //     let val = $('option:selected',this).attr('keterangan')
+        //     console.log(val)
+        //     if (val != '') {
+        //         $(`.nominal-spp[nominal-id="${attr}"]`).val(val)
+        //         $(`.nominal-spp[nominal-id="${attr}"]`).attr('readonly','readonly')
+        //     }
+        // })
     })
 </script>
 @endsection

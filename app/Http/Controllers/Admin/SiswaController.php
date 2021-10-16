@@ -174,8 +174,7 @@ class SiswaController extends Controller
 
     public function contohImport()
     {
-
-        $fileName    = 'Contoh Format Import Buku.xlsx';
+        $fileName    = 'Contoh Format Import Siswa.xlsx';
         $spreadsheet = new Spreadsheet();
 
         $spreadsheet->getDefaultStyle()->getFont()->setName('Times New Roman');
@@ -192,46 +191,46 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('I1','Asal Kelompok');
         $spreadsheet->getActiveSheet()->setCellValue('J1','Asal Wilayah');
         $spreadsheet->getActiveSheet()->setCellValue('K1','Wilayah');
-        $spreadsheet->getActiveSheet()->setCellValue('L1','Nama Saudara/Keluarga');
+        // $spreadsheet->getActiveSheet()->setCellValue('L1','Nama Saudara/Keluarga');
 
         $spreadsheet->getActiveSheet()->setCellValue('A2','1');
         $spreadsheet->getActiveSheet()->setCellValue('B2','00088899912');
         $spreadsheet->getActiveSheet()->setCellValue('C2','Uchiha Bayu');
         $spreadsheet->getActiveSheet()->setCellValue('D2','laki-laki');
-        $spreadsheet->getActiveSheet()->setCellValue('E2','24-10-2001');
+        $spreadsheet->getActiveSheet()->setCellValue('E2',"'24-10-2001");
         $spreadsheet->getActiveSheet()->setCellValue('F2','Uchiha Saburo');
         $spreadsheet->getActiveSheet()->setCellValue('G2','Uchiha Ajeng');
         $spreadsheet->getActiveSheet()->setCellValue('H2','088888090');
         $spreadsheet->getActiveSheet()->setCellValue('I2','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J2','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K2','dalam-kota');
-        $spreadsheet->getActiveSheet()->setCellValue('L2','Uchiha Tiara');
+        // $spreadsheet->getActiveSheet()->setCellValue('L2','Uchiha Tiara');
 
         $spreadsheet->getActiveSheet()->setCellValue('A3','1');
         $spreadsheet->getActiveSheet()->setCellValue('B3','00088899913');
         $spreadsheet->getActiveSheet()->setCellValue('C3','Uchiha Tiara');
         $spreadsheet->getActiveSheet()->setCellValue('D3','perempuan');
-        $spreadsheet->getActiveSheet()->setCellValue('E3','24-10-2001');
+        $spreadsheet->getActiveSheet()->setCellValue('E3',"'01-10-2001");
         $spreadsheet->getActiveSheet()->setCellValue('F3','Uchiha Saburo');
         $spreadsheet->getActiveSheet()->setCellValue('G3','Uchiha Ajeng');
         $spreadsheet->getActiveSheet()->setCellValue('H3','088888090');
         $spreadsheet->getActiveSheet()->setCellValue('I3','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J3','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K3','dalam-kota');
-        $spreadsheet->getActiveSheet()->setCellValue('L3','-');
+        // $spreadsheet->getActiveSheet()->setCellValue('L3','-');
 
         $spreadsheet->getActiveSheet()->setCellValue('A4','1');
         $spreadsheet->getActiveSheet()->setCellValue('B4','00088899914');
         $spreadsheet->getActiveSheet()->setCellValue('C4','Uchiha Sukirman');
         $spreadsheet->getActiveSheet()->setCellValue('D4','laki-laki');
-        $spreadsheet->getActiveSheet()->setCellValue('E4','24-10-2001');
+        $spreadsheet->getActiveSheet()->setCellValue('E4',"'02-10-2001");
         $spreadsheet->getActiveSheet()->setCellValue('F4','Uchiha Saburo');
         $spreadsheet->getActiveSheet()->setCellValue('G4','Uchiha Ajeng');
         $spreadsheet->getActiveSheet()->setCellValue('H4','088888090');
         $spreadsheet->getActiveSheet()->setCellValue('I4','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J4','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K4','dalam-kota');
-        $spreadsheet->getActiveSheet()->setCellValue('L4','-');
+        // $spreadsheet->getActiveSheet()->setCellValue('L4','-');
 
         $styleAlignment = [
                         'alignment' => [
@@ -270,14 +269,14 @@ class SiswaController extends Controller
                 foreach ($sheet->getRowIterator() as $num => $row) {
                     if ($num > 1) {
                         $cells = $row->getCells();
-                        $id_siswa = (string)Str::uuid();
-                        $data_buku = [
-                            'id_siswa'        => $id_siswa,
+                        // $id_siswa = (string)Str::uuid();
+                        $data_siswa = [
+                            // 'id_siswa'        => $id_siswa,
                             'nisn'            => $cells[1]->getValue(),
                             'nama_siswa'      => $cells[2]->getValue(),
                             'slug_siswa'      => Str::slug($cells[2]->getValue(),'-'),
                             'jenis_kelamin'   => $cells[3]->getValue(),
-                            'tanggal_lahir'   => reverse_date($cells[4]->getValue()),
+                            'tanggal_lahir'   => import_date_excel($cells[4]->getValue()),
                             'nama_ayah'       => $cells[5]->getValue(),
                             'nama_ibu'        => $cells[6]->getValue(),
                             'nomor_orang_tua' => $cells[7]->getValue(),
@@ -286,7 +285,7 @@ class SiswaController extends Controller
                             'wilayah'         => $cells[10]->getValue(),
                             'status_delete'   => 0
                         ];
-                        Siswa::firstOrCreate($data_buku);
+                        Siswa::firstOrCreate($data_siswa);
 
                         // if ($cells[11]->getValue() != '-' || $cells[11]->getValue() != '') {
                         //     $id_keluarga = Siswa::where('slug_siswa',Str::slug($cells[11]->getValue(),'-'))->firstOrFail()->id_siswa;

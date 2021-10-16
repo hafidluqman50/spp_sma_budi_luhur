@@ -46,6 +46,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Kolom SPP</th>
+                                <th>Keterangan Kolom</th>
                                 <th>#</th>
                             </tr>
                             </thead>

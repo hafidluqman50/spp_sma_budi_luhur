@@ -214,6 +214,9 @@ class DatatablesController extends Controller
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun").'">
                               <button class="btn btn-info"> Detail </button>
                            </a>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/edit/$action->id_spp_bulan_tahun").'">
+                              <button class="btn btn-warning"> Edit </button>
+                           </a>
                            <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
@@ -222,6 +225,8 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->addColumn('total_bayar',function($add){
+            return format_rupiah($add->total_bayar);
         })->addColumn('status_pelunasan',function($add){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
