@@ -1,6 +1,6 @@
-@extends('Admin.layout-app.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -26,7 +26,7 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
@@ -35,8 +35,9 @@
                             Isilah form dibawah ini dengan teliti dan benar!
                         </p>
 
-                        <form action="{{ url('/admin/siswa/save') }}" method="POST">
-                            {{csrf_field()}}
+                        <form action="<?php echo e(url('/admin/siswa/save')); ?>" method="POST">
+                            <?php echo e(csrf_field()); ?>
+
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">NISN<span class="text-danger">*</span></label>
                                 <div class="col-7">
@@ -74,7 +75,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Asal Wilayah</label>
                                 <div class="col-7">
-                                    <input type="text" name="asal_wilayah" class="form-control" required="required" placeholder="Isi Asal Wilayah. Exp: Sangata/Samarinda/Tenggarong">
+                                    <input type="text" name="asal_wilayah" class="form-control" required="required" placeholder="Isi Asal Wilayah">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -100,45 +101,8 @@
                                     <input type="text" name="nama_ibu" class="form-control" required="required" placeholder="Isi Nama Ibu">
                                 </div>
                             </div>
-                            {{-- <div id="pilih-ortu">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Pilih Ayah</label>
-                                    <div class="col-7">
-                                        <select name="ayah" class="form-control select2" required="required">
-                                            <option value="" selected="" disabled="">=== Pilih Ayah ===</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Pilih Ibu</label>
-                                    <div class="col-7">
-                                        <select name="ibu" class="form-control select2" required="required">
-                                            <option value="" selected="" disabled="">=== Pilih Ibu ===</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="input-ortu" class="form-hide">
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Nama Ayah</label>
-                                    <div class="col-7">
-                                        <input type="text" name="nama_ayah" class="form-control" placeholder="Isi Nama Ayah">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-4 col-form-label">Nama Ibu</label>
-                                    <div class="col-7">
-                                        <input type="text" name="nama_ibu" class="form-control" placeholder="Isi Nama Ibu">
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="form-group row">
-                                <label class="col-4 col-form-label"></label>
-                                <div class="col-7">
-                                    <button class="btn btn-primary" id="input-ortu-act" type="button">Input Ortu</button>
-                                    <button class="btn btn-primary form-hide" id="pilih-ortu-act" type="button">Pilih Ortu</button>
-                                </div>
-                            </div> --}}
+                            
+                            
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">No WA Ortu<span class="text-danger">*</span></label>
                                 <div class="col-7">
@@ -149,10 +113,10 @@
                                 <label class="col-4 col-form-label">Keluarga</label>
                                 <div class="col-7">
                                     <select name="keluarga[]" class="form-control select2" multiple="multiple">
-                                        {{-- <option value="" selected="" disabled="">=== Pilih Keluarga ===</option> --}}
-                                        @foreach ($keluarga as $element)
-                                        <option value="{{ $element->id_siswa }}">{{ $element->nama_siswa.' | '.$element->nisn }}</option>
-                                        @endforeach
+                                        
+                                        <?php $__currentLoopData = $keluarga; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($element->id_siswa); ?>"><?php echo e($element->nama_siswa.' | '.$element->nisn); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -173,9 +137,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
     //     $('#input-ortu-act').click(() => {
@@ -196,4 +160,6 @@
         })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/siswa/siswa-tambah.blade.php ENDPATH**/ ?>
