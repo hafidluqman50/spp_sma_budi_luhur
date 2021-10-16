@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
+use App\Models\Spp;
 
 class SppDetailController extends Controller
 {
