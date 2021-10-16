@@ -63,7 +63,7 @@ class KolomSppController extends Controller
 
     public function delete($id)
     {
-        KolomSpp::where('id_kolom_spp')->update(['status_delete' => 1]);
+        KolomSpp::where('id_kolom_spp',$id)->update(['status_delete' => 1]);
 
         return redirect('/admin/kolom-spp')->with('message','Berhasil Hapus Kolom SPP');
     }
