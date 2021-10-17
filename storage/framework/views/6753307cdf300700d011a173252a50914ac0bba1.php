@@ -75,7 +75,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Asal Wilayah</label>
                                 <div class="col-7">
-                                    <input type="text" name="asal_wilayah" class="form-control" required="required" placeholder="Isi Asal Wilayah">
+                                    <input type="text" name="asal_wilayah" class="form-control" required="required" placeholder="Isi Asal Wilayah. Exp: Sangata/Samarinda/Tenggarong">
                                 </div>
                             </div>
                             <div class="form-group row">

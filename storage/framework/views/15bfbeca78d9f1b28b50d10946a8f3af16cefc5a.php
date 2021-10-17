@@ -50,7 +50,7 @@
                                 <th>Kelas</th>
                                 <th>Tahun Ajaran</th>
                                 <th>Wilayah</th>
-                                <th>Total Pembayaran</th>
+                                <th>Total Harus Bayar</th>
                                 <th>#</th>
                             </tr>
                             </thead>
