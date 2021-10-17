@@ -251,8 +251,8 @@ $(() => {
             }},
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
             {data:'nominal_spp',name:'nominal_spp'},
-            {data:'bayar_spp',name:'bayar_spp'},
             {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'bayar_spp',name:'bayar_spp'},
             {data:'status_bayar',name:'status_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],

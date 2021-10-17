@@ -154,7 +154,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE SPP BULAN TAHUN //
     Route::get('/spp/bulan-tahun/{id}',[AdminSppBulanTahunController::class, 'index']);
-    Route::get('/spp/bulan-tahun/{id}/delete{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'delete']);
+    Route::get('/spp/bulan-tahun/{id}/edit/{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'edit']);
+    Route::put('/spp/bulan-tahun/{id}/update/{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'update']);
+    Route::get('/spp/bulan-tahun/{id}/delete/{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'delete']);
     // END ROUTE SPP BULAN TAHUN //
 
     // ROUTE SPP DETAIL //

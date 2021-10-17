@@ -21,6 +21,7 @@ class KelasSiswa extends Model
                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
                     ->where('kelas_siswa.id_kelas',$id)
+                    ->where('kelas_siswa.status_delete',0)
                     ->get();
 
         return $get;
