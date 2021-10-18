@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
-use App\Models\Spp;
+use App\Models\SppBayar;
 
 class SppDetailController extends Controller
 {
@@ -75,13 +76,17 @@ class SppDetailController extends Controller
                                 ->where('id_spp_bulan_tahun',$id_bulan_tahun)
                                 ->get();
 
-        return view('Admin.spp-detail.spp-detail-bayar-semua',compact('title','id','id_bulan_tahun','spp','spp_bayar'));
+        $total_semua = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->sum('nominal_spp');
+
+        return view('Admin.spp-detail.spp-detail-bayar-semua',compact('title','id','id_bulan_tahun','total_semua','spp','spp_bayar'));
     }
 
     public function bayarSemua(Request $request,$id,$id_bulan_tahun)
     {
-        $id_detail = $request->id_detail;
-        $bayar_spp = $request->bayar_spp;
+        $id_detail   = $request->id_detail;
+        $bayar_spp   = $request->bayar_spp;
+        $total_biaya = $request->total_biaya;
+        $bayar_total = $request->bayar_total;
 
         foreach ($bayar_spp as $key => $value) {
             $spp_detail = SppDetail::where('id_spp_detail',$id_detail[$key])->firstOrFail();
@@ -112,6 +117,13 @@ class SppDetailController extends Controller
 
             Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         }
+
+        $data_spp_bayar = [
+            'id_spp_bulan_tahun' => $id_bulan_tahun,
+            'tanggal_bayar'      => date('Y-m-d'),
+            'nominal_bayar'      => $bayar_total
+        ];
+        SppBayar::create($data_spp_bayar);
 
         return redirect('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
     }

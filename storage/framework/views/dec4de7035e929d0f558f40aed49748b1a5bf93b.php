@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
             <!-- Page-Title -->
@@ -18,13 +16,13 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
-                @csrf
+            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
                             <div class="button-list" style="margin-bottom:1%;">
-                                <a href="{{ url()->previous() }}">
+                                <a href="<?php echo e(url()->previous()); ?>">
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
@@ -32,32 +30,32 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Ajaran</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ $spp->tahun_ajaran }}" readonly="readonly">
+                                        <input type="text" class="form-control" value="<?php echo e($spp->tahun_ajaran); ?>" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kelas</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ $spp->kelas }}" readonly="readonly">
+                                        <input type="text" class="form-control" value="<?php echo e($spp->kelas); ?>" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Siswa</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ $spp->nisn.' - '.$spp->nama_siswa }}" readonly="readonly">
+                                        <input type="text" class="form-control" value="<?php echo e($spp->nisn.' - '.$spp->nama_siswa); ?>" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan Tahun</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ $spp->bulan_tahun }}" readonly="readonly">
+                                        <input type="text" class="form-control" value="<?php echo e($spp->bulan_tahun); ?>" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ format_rupiah($total_semua) }}" readonly="readonly">
-                                        <input type="hidden" id="total-biaya" value="{{ $total_semua }}">
+                                        <input type="text" class="form-control" value="<?php echo e(format_rupiah($total_semua)); ?>" readonly="readonly">
+                                        <input type="hidden" id="total-biaya" value="<?php echo e($total_semua); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -73,17 +71,17 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
-                                    @foreach ($spp_bayar as $value)
+                                    <?php $__currentLoopData = $spp_bayar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="{{ $value->nama_kolom_spp }}" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e($value->nama_kolom_spp); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="{{ format_rupiah($value->nominal_spp) }}" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->nominal_spp)); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -92,9 +90,9 @@
                                             <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar">
                                         </div>
                                     </div>
-                                    <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">
+                                    <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
                                     <hr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <div class="form-group row">
                                         <div class="col-8 offset-4">
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">
@@ -113,9 +111,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         $('#tambah-input').click(() => {
@@ -128,7 +126,7 @@
         //     let val          = $(this).val();
         //     let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
         //     $.ajax({
-        //         url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
+        //         url: "<?php echo e(url('/ajax/get-siswa/')); ?>"+`/${val}/${tahun_ajaran}`
         //     })
         //     .done(function(done) {
         //         $('select[name="siswa"]').removeAttr('disabled')
@@ -140,4 +138,6 @@
         // })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/spp-detail/spp-detail-bayar-semua.blade.php ENDPATH**/ ?>
