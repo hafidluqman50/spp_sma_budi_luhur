@@ -28,7 +28,7 @@
                         <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/ortu/spp/'.$id) }}">
+                            <a href="{{ url('/admin/spp/') }}">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
@@ -39,13 +39,14 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
-                        <table class="table table-hover table-bordered spp-ortu-detail force-fullwidth" id-spp-bulan-tahun="{{$id_detail}}">
+                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="{{$id_bulan_tahun}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Tanggal Pembayaran</th>
                                 <th>Nominal Bayar</th>
                                 <th>Keterangan</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>

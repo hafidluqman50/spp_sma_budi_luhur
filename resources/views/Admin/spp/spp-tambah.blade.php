@@ -60,11 +60,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-4 col-form-label">Bulan Tahun<span class="text-danger">*</span></label>
+                                    <label class="col-4 col-form-label">Bulan<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="{{ bulan_tahun(date('Y-m-d')) }}">
+                                        <select name="bulan_spp" class="form-control select2" required="required">
+                                            <option value="" selected="" disabled="">=== Pilih Bulan ===</option>
+                                            @for ($i = 1; $i <= 12; $i++)
+                                            <option value="{{ month($i) }}">{{ month($i) }}</option>
+                                            @endfor
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Tahun<span class="text-danger">*</span></label>
+                                    <div class="col-7">
+                                        <input type="number" name="tahun_spp" class="form-control" required="required" placeholder="Isi Tahun; Ex: 2017;">
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <div class="col-8 offset-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">
@@ -122,6 +134,7 @@
         var kolom_attr   = 2;
         var nominal_attr = 2;
         $('#tambah-input').click(() => {
+            $('#hapus-input').removeClass('form-hide')
             $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
             let clone = $('#bayar-spp').clone();
             $('#layout-bayar-spp').append(clone)
@@ -130,6 +143,13 @@
             $('.bayar-spp:last').find('input').val('')
             $('.bayar-spp:last').find('input').removeAttr('readonly')
             $('.kolom-spp').select2()
+        })
+
+        $('#hapus-input').click(function() {
+            $('.bayar-spp').last().remove()
+            if ($('.bayar-spp').length == 1) {
+                $(this).addClass('form-hide')
+            }
         })
 
         $('select[name="kelas"]').change(function() {

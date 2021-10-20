@@ -191,7 +191,7 @@ $(() => {
             {data:'kelas',name:'kelas'},
             {data:'tahun_ajaran',name:'tahun_ajaran'},
             {data:'wilayah',name:'wilayah'},
-            {data:'total_pembayaran',name:'total_pembayaran'},
+            {data:'total_harus_bayar',name:'total_harus_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -221,7 +221,6 @@ $(() => {
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
             {data:'status_pelunasan',name:'status_pelunasan'},
-            {data:'total_bayar',name:'total_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -240,6 +239,36 @@ $(() => {
         });
     }).draw();
 
+    var id_spp_bulan_tahun_ = $('.data-spp-bayar').attr('id-bulan-tahun')
+    var spp_bayar = $('.data-spp-bayar').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/bayar/'+id_spp_bulan_tahun_,
+        columns:[
+            {data:'id_spp_bayar',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'keterangan_bayar',name:'keterangan_bayar'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_bayar.on( 'order.dt search.dt', function () {
+        spp_bayar.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
     var id_spp_bulan_tahun = $('.data-spp-detail').attr('id-spp-bulan-tahun')
     var spp_detail = $('.data-spp-detail').DataTable({
         processing:true,
@@ -251,8 +280,8 @@ $(() => {
             }},
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
             {data:'nominal_spp',name:'nominal_spp'},
-            {data:'tanggal_bayar',name:'tanggal_bayar'},
             {data:'bayar_spp',name:'bayar_spp'},
+            {data:'sisa_bayar',name:'sisa_bayar'},
             {data:'status_bayar',name:'status_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
@@ -307,14 +336,12 @@ $(() => {
         serverSide:true,
         ajax:base_url+'/datatables/data-spp/spp-ortu/detail/'+id_detail_spp_ortu,
         columns:[
-            {data:'id_spp_detail',searchable:false,render:function(data,type,row,meta){
+            {data:'id_spp_bayar',searchable:false,render:function(data,type,row,meta){
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
-            {data:'nama_kolom_spp',name:'nama_kolom_spp'},
-            {data:'nominal_spp',name:'nominal_spp'},
-            {data:'bayar_spp',name:'bayar_spp'},
             {data:'tanggal_bayar',name:'tanggal_bayar'},
-            {data:'status_bayar',name:'status_bayar'}
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'keterangan_bayar',name:'keterangan_bayar'}
         ],
         scrollCollapse: true,
         columnDefs: [ {

@@ -76,6 +76,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-spp',[DatatablesController::class, 'dataSpp']);
     Route::get('/data-spp/bulan-tahun/{id}',[DatatablesController::class, 'dataSppBulanTahun']);
     Route::get('/data-spp/detail/{id}',[DatatablesController::class, 'dataSppDetail']);
+    Route::get('/data-spp/bayar/{id}',[DatatablesController::class, 'dataSppBayar']);
     Route::get('/data-siswa-ortu',[DatatablesController::class, 'dataSiswaOrtu']);
     Route::get('/data-spp/spp-ortu/{id}',[DatatablesController::class, 'dataSppOrtu']);
     Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
@@ -159,17 +160,22 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/bulan-tahun/{id}/delete/{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'delete']);
     // END ROUTE SPP BULAN TAHUN //
 
-    // ROUTE SPP DETAIL //
-    Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}',[AdminSppDetailController::class, 'index']);
-    Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar-semua',[AdminSppDetailController::class, 'formBayarSemua']);
-    Route::post('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar-semua/save',[AdminSppDetailController::class, 'bayarSemua']);
-    Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
-    Route::post('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
-    Route::get('/spp/bulan-tahun/{id}/detail/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
-    // END ROUTE SPP DETAIL //
+    // ROUTE SPP LIHAT PEMBAYARAN //
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[AdminSppDetailController::class, 'lihatPembayaran']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'lihatPembayaranDelete']);
+    // END ROUTE SPP LIHAT PEMBAYARAN //
+
+    // ROUTE SPP LIHAT SPP //
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[AdminSppDetailController::class, 'index']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua',[AdminSppDetailController::class, 'formBayarSemua']);
+    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua/save',[AdminSppDetailController::class, 'bayarSemua']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
+    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
+    // END ROUTE SPP LIHAT SPP //
 
     // ROUTE TUNGGAKAN //
-    Route::get('/spp-tunggakan');
+    // Route::get('/spp-tunggakan');
     // END ROUTE TUNGGAKAN //  
 });
 

@@ -26,7 +26,14 @@ function human_date($date) {
 	return $explode[2].' '.month($explode[1]).' '.$explode[0];
 }
 
-function month($month) {
+function month($get_month) {
+	if (strlen($get_month) == 1) {
+		$month = '0'.(string)$get_month;
+	}
+	else {
+		$month = $get_month;
+	}
+	
 	$array = [
 		'01' => 'Januari',
 		'02' => 'Februari',

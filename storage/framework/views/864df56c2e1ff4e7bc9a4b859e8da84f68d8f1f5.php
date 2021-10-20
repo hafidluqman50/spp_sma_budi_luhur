@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -13,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Pembayaran SPP</h4>
+                        <h4 class="page-title">Data SPP</h4>
                     </div>
                 </div>
             </div>
@@ -25,27 +23,19 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
-                        
+                        <h4 class="m-t-0 header-title"><b>DATA SPP</b></h4>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/ortu/spp/'.$id) }}">
-                                <button class="btn btn-default">
-                                    <i class="fa fa-arrow-left"></i> Kembali
-                                </button>
+                            <a href="<?php echo e(url('/ortu/dashboard')); ?>">
+                                <button class="btn btn-default" type="button">Kembali</button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
-                        <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
-                        </div>
-                        @endif
-                        <table class="table table-hover table-bordered spp-ortu-detail force-fullwidth" id-spp-bulan-tahun="{{$id_detail}}">
+                        <table class="table table-hover table-bordered spp-ortu force-fullwidth" id-siswa="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Tanggal Pembayaran</th>
-                                <th>Nominal Bayar</th>
-                                <th>Keterangan</th>
+                                <th>Bulan Tahun</th>
+                                <th>Status Pelunasan</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,4 +48,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Ortu.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Ortu/spp.blade.php ENDPATH**/ ?>

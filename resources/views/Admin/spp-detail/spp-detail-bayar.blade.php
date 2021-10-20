@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
+            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -51,6 +51,25 @@
                                     <label class="col-4 col-form-label">Bulan Tahun</label>
                                     <div class="col-7">
                                         <input type="text" class="form-control" value="{{ $spp->bulan_tahun }}" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Total Biaya</label>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" value="{{ format_rupiah($spp->nominal_spp) }}" readonly="readonly">
+                                        <input type="hidden" id="total-biaya" value="{{ $spp->nominal_spp }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Bayar Total</label>
+                                    <div class="col-7">
+                                        <input type="number" name="bayar_total" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Keterangan</label>
+                                    <div class="col-7">
+                                        <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
                             <div class="visible-lg" style="height: 79px;"></div>

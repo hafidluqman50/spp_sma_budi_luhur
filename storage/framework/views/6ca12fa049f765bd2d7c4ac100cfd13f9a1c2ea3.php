@@ -39,6 +39,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">Keterangan</label>
+                                <div class="col-7">
+                                    <input type="text" name="keterangan" class="form-control" value="<?php echo e($row->keterangan); ?>" placeholder="Isi Keterangan; Ex: Lokasi Kantin Di Sebelah Ruang Guru;">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button type="submit" class="btn btn-warning waves-effect waves-light">
                                         Edit
