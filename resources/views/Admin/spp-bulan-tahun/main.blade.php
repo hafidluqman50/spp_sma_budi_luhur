@@ -45,7 +45,6 @@
                                 <th>No.</th>
                                 <th>Bulan Tahun</th>
                                 <th>Status Pelunasan</th>
-                                <th>Total Bayar</th>
                                 <th>#</th>
                             </tr>
                             </thead>

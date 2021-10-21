@@ -65,7 +65,7 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
                             <div id="layout-bayar-spp">
-                                <span class="text-danger" style="margin-bottom:2%;">Hanya Bisa Edit Pada Kolom SPP Yang Belum Dibayar</span>
+                                <span class="text-danger">Hanya Bisa Edit Pada Kolom SPP Yang Belum Dibayar</span>
                                 <?php $__currentLoopData = $row_kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div id="bayar-spp" class="bayar-spp">
                                     <div class="form-group row">
@@ -120,6 +120,10 @@
             $('.bayar-spp:last').find('input').val('')
             $('.bayar-spp:last').find('input').removeAttr('readonly')
             $('.kolom-spp').select2()
+        })
+
+        $('#hapus-input').click(function() {
+            $('.bayar-spp').last().remove()
         })
 
         $('select[name="kelas"]').change(function() {

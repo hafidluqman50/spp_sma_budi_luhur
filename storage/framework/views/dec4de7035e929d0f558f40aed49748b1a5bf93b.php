@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
+            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -62,6 +62,12 @@
                                     <label class="col-4 col-form-label">Bayar Total</label>
                                     <div class="col-7">
                                         <input type="number" name="bayar_total" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Keterangan</label>
+                                    <div class="col-7">
+                                        <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
                             <div class="visible-lg" style="height: 79px;"></div>

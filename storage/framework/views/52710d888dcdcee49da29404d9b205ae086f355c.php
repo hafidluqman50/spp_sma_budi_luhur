@@ -31,7 +31,7 @@
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua')); ?>">
+                            <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua')); ?>">
                                 <button class="btn btn-success">
                                     <i class="fa fa-plus m-r-5"></i>Bayar Semua
                                 </button>
@@ -48,8 +48,8 @@
                                 <th>No.</th>
                                 <th>Pembayaran SPP</th>
                                 <th>Nominal Bayar</th>
-                                <th>Tanggal Bayar</th>
                                 <th>Bayar</th>
+                                <th>Sisa Bayar</th>
                                 <th>Status Bayar</th>
                                 <th>#</th>
                             </tr>

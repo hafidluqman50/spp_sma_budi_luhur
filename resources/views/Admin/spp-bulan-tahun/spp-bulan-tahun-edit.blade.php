@@ -124,6 +124,10 @@
             $('.kolom-spp').select2()
         })
 
+        $('#hapus-input').click(function() {
+            $('.bayar-spp').last().remove()
+        })
+
         $('select[name="kelas"]').change(function() {
             let val          = $(this).val();
             let tahun_ajaran = $('select[name="tahun_ajaran"]').val();

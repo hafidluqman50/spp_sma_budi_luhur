@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 13, 2021 at 05:24 AM
+-- Generation Time: Oct 20, 2021 at 02:39 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -82,7 +82,8 @@ CREATE TABLE `kelas_siswa` (
 
 INSERT INTO `kelas_siswa` (`id_kelas_siswa`, `id_tahun_ajaran`, `id_siswa`, `id_kelas`, `status_delete`) VALUES
 ('0a2c3901-c957-4bf0-b58b-5bc238be3687', '7bbb36db-240a-48ee-af92-4669326778ee', 'c088bf43-ab82-4dc0-b87b-ee36a79ff8e4', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
-('4b1b083d-f695-4ad1-8c8a-2786587fbc78', '7bbb36db-240a-48ee-af92-4669326778ee', '9ffc8df5-0329-4c39-a069-870178ff3d74', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0);
+('4b1b083d-f695-4ad1-8c8a-2786587fbc78', '7bbb36db-240a-48ee-af92-4669326778ee', '9ffc8df5-0329-4c39-a069-870178ff3d74', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
+('c7ba8ef0-8528-4720-860e-ac54f2c4f60b', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 1);
 
 -- --------------------------------------------------------
 
@@ -156,12 +157,17 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kelamin`, `tanggal_lahir`, `nama_ayah`, `nama_ibu`, `nomor_orang_tua`, `asal_kelompok`, `asal_wilayah`, `wilayah`, `status_delete`) VALUES
 ('13c137e8-7344-4c50-a89b-160976ed620b', '00088899912', 'Uchiha Bayu', 'uchiha-bayu', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
+('2caf7e9a-012f-47d3-94d3-fe34a7c4d341', '00088899914', 'Uchiha Sukirman', 'uchiha-sukirman', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
+('2dcbdcdd-aafe-4360-9e51-e8ce865007a3', '00088899912', 'Uchiha Bayu', 'uchiha-bayu', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
+('30955d56-c74b-4135-9ff8-b6114fad7fc2', '00088899913', 'Uchiha Tiara', 'uchiha-tiara', 'perempuan', '2001-10-01', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 1),
+('5393caa8-1443-4030-8042-083e24f5278a', '00088899914', 'Uchiha Sukirman', 'uchiha-sukirman', 'laki-laki', '2001-10-02', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
 ('9ffc8df5-0329-4c39-a069-870178ff3d74', '000888888', 'Ujang Si Jangkung', 'ujang-si-jangkung', 'laki-laki', '2021-09-13', 'Uchiha Abi', 'Uchiha Ummi', '08889998989', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
+('a1245618-df0b-44c8-b87a-14c3776c19e0', '00088899913', 'Uchiha Tiara', 'uchiha-tiara', 'perempuan', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 1),
 ('a1f307cb-7352-40c8-8805-5b607b8fb58d', '0821231223', 'Test', '', 'laki-laki', '2021-10-03', 'testj', 'tetsm', '088888888', '-', 'Konohagakure No Sato', 'dalam-kota', 0),
 ('bfbb26b8-68f3-4bbe-8315-3f1cd0946c56', '00088899913', 'Uchiha Tiara', 'uchiha-tiara', 'perempuan', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
 ('c088bf43-ab82-4dc0-b87b-ee36a79ff8e4', '008899823928', 'Malin Kundang', 'malin-kundang', 'laki-laki', '2021-09-29', 'Kujang', 'Kujing', '088989809898', 'Clan Senju', 'Konohagakure No Sato', 'dalam-kota', 0),
 ('c31dc532-93c3-4a86-89e4-24076278dc51', '00088899914', 'Uchiha Sukirman', 'uchiha-sukirman', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0),
-('daaf7f34-708c-4f95-a3c1-841a80415d28', '00088899912', 'Uchiha Bayu', 'uchiha-bayu', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 0);
+('daaf7f34-708c-4f95-a3c1-841a80415d28', '00088899912', 'Uchiha Bayu', 'uchiha-bayu', 'laki-laki', '2001-10-24', 'Uchiha Saburo', 'Uchiha Ajeng', '088888090', 'Clan Uchiha', 'Konohagakure No Sato', 'dalam-kota', 1);
 
 -- --------------------------------------------------------
 
@@ -179,9 +185,31 @@ CREATE TABLE `spp` (
 -- Dumping data untuk tabel `spp`
 --
 
-INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_pembayaran`) VALUES
-('2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', '4b1b083d-f695-4ad1-8c8a-2786587fbc78', 60000),
-('d31e7fb1-3233-45b3-bbfd-9a1464ac2700', '0a2c3901-c957-4bf0-b58b-5bc238be3687', 10000);
+INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`) VALUES
+('88af9f3c-a852-4e5f-bc67-dda6693c5185', '0a2c3901-c957-4bf0-b58b-5bc238be3687', -150000),
+('dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'c7ba8ef0-8528-4720-860e-ac54f2c4f60b', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spp_bayar`
+--
+
+CREATE TABLE `spp_bayar` (
+  `id_spp_bayar` varchar(36) NOT NULL,
+  `id_spp_bulan_tahun` varchar(36) NOT NULL,
+  `tanggal_bayar` date NOT NULL,
+  `nominal_bayar` int NOT NULL,
+  `keterangan_bayar` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `spp_bayar`
+--
+
+INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `nominal_bayar`, `keterangan_bayar`) VALUES
+('bd0d81ec-1e65-49ef-acdd-494e4c71e76d', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '2021-10-20', 50000, 'Bayar Pembayaran Akademik'),
+('faa60848-e3b9-4e92-aebc-319a666986c6', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '2021-10-20', 50000, '');
 
 -- --------------------------------------------------------
 
@@ -200,11 +228,8 @@ CREATE TABLE `spp_bulan_tahun` (
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`) VALUES
-('02ea6e27-062a-46d5-977a-ff66fb562de8', '2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', 'Oktober, 2021'),
-('1740d333-c883-44f3-8c16-edbca286b84e', '2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', 'November, 2021'),
-('3d995dd7-7b2e-4672-b2b6-2dbea1166ceb', '2cf9729f-4c25-43a5-9ea1-6b363b3b0eef', 'Desember, 2021'),
-('450a8497-149c-4c6d-a1aa-518b94c3a575', 'd31e7fb1-3233-45b3-bbfd-9a1464ac2700', 'Oktober, 2021'),
-('bea46d81-f69d-4e26-8d3c-89930a4ca31a', 'd31e7fb1-3233-45b3-bbfd-9a1464ac2700', 'November, 2021');
+('cb157188-a94d-4bf4-8bc4-c736ad48d398', 'dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'Januari, 2017'),
+('cfa2bef7-c633-4866-84bc-4725bd04c23f', '88af9f3c-a852-4e5f-bc67-dda6693c5185', 'Oktober, 2021');
 
 -- --------------------------------------------------------
 
@@ -226,20 +251,9 @@ CREATE TABLE `spp_detail` (
 -- Dumping data untuk tabel `spp_detail`
 --
 
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `tanggal_bayar`, `bayar_spp`, `status_bayar`) VALUES
-('05ca2644-5d93-487e-99f4-84e061068ee9', '02ea6e27-062a-46d5-977a-ff66fb562de8', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 20000, NULL, 0, 0),
-('1ec9873c-992b-4f6f-ba19-5e0c81276333', '1740d333-c883-44f3-8c16-edbca286b84e', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, '2021-10-02', 20000, 1),
-('3cd8af8b-a300-491c-af52-b3bfba78b07f', 'bea46d81-f69d-4e26-8d3c-89930a4ca31a', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 10000, NULL, 0, 0),
-('3f9b9c51-abbc-493e-81df-b444d28f1caa', 'bea46d81-f69d-4e26-8d3c-89930a4ca31a', '60f3492f-d8be-4f29-9014-478d314fe4ef', 30000, NULL, 0, 0),
-('4bdaa503-4936-434a-885f-1baf095e94c8', '450a8497-149c-4c6d-a1aa-518b94c3a575', '60f3492f-d8be-4f29-9014-478d314fe4ef', 10000, '2021-10-02', 10000, 1),
-('5e81fada-4c11-4674-9331-8bc52a58eb06', '02ea6e27-062a-46d5-977a-ff66fb562de8', '1971752f-5e6c-459f-8a13-c51327bb88e7', 20000, NULL, 0, 0),
-('8afe89a8-e717-4d3a-950b-af49f3f694a5', '1740d333-c883-44f3-8c16-edbca286b84e', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 30000, '2021-10-03', 30000, 1),
-('9fb10c61-f723-45cd-b29b-e857dba7862e', '3d995dd7-7b2e-4672-b2b6-2dbea1166ceb', '1971752f-5e6c-459f-8a13-c51327bb88e7', 20000, NULL, 0, 0),
-('b155c695-21cb-4d36-892c-64d954a27fe5', '3d995dd7-7b2e-4672-b2b6-2dbea1166ceb', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 20000, NULL, 0, 0),
-('c08a714f-bc41-46fc-b914-cc18f9e64051', 'bea46d81-f69d-4e26-8d3c-89930a4ca31a', '1971752f-5e6c-459f-8a13-c51327bb88e7', 20000, NULL, 0, 0),
-('c1efc2a5-97e0-4d8e-8799-cfa2e31b4567', '02ea6e27-062a-46d5-977a-ff66fb562de8', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, NULL, 0, 0),
-('caa0fafb-515f-4fdc-b62d-fe58b700be64', '1740d333-c883-44f3-8c16-edbca286b84e', '1971752f-5e6c-459f-8a13-c51327bb88e7', 10000, '2021-10-02', 10000, 1),
-('f4817fb0-572a-45bc-a050-a94e83a7539c', '3d995dd7-7b2e-4672-b2b6-2dbea1166ceb', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, NULL, 0, 0);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `status_bayar`) VALUES
+('3e2d9c0f-74ae-4efa-b5ab-a472be973bc0', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1),
+('c0ea2ae8-9b05-437e-ab03-6315bedfe9bb', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1);
 
 -- --------------------------------------------------------
 
@@ -283,9 +297,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
-('028b58d2-383f-4bd0-b46a-0e64f0d7c1cb', 'Ortu Malin Kundang', '008899823928', '$2y$10$NKHV8LVdPblCTq58hbjoPelkcsJcZlSePXdVDu3lcPl9W4qGBgkZu', '', 0, 1, 0, NULL),
+('028b58d2-383f-4bd0-b46a-0e64f0d7c1cb', 'Ortu Malin Kundang', '008899823928', '$2y$10$NKHV8LVdPblCTq58hbjoPelkcsJcZlSePXdVDu3lcPl9W4qGBgkZu', 'PLdX6AC5r5QRoYUdkAQVSlI8poTHJsqshDjrWJaetegpowB3zlYKj8wMA7BH', 0, 1, 0, NULL),
 ('9be7f3cf-ceca-418c-93ba-ebe15d5aa197', 'Ortu Ujang Si Jangkung', '000888888', '$2y$10$fTlcZ9t8.d3QeiwweDy.1e0au1Exhxk50uskoRJ1mnPTtzi1GdNAy', 'f5JsvgkPeuFDs804Fsjl7aIb8BbcZgSuaiCGASUpJc5WwQ04Bfq3U2iHDydx', 0, 1, 0, NULL),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', '2hFL91EWrQBy5ymOpg8JinvVkx7f10OvQmEhczBfv9ktA0gQb5Wis5eHp7w2', 2, 1, 0, NULL),
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'vkeO87V8jVjP9sL1Pc81BNQ2qv7c8jLJjGsEEp3lQ66X7EFgjqkkLCs1U3fk', 2, 1, 0, NULL),
 ('e7670362-85b6-41b9-892f-22b016dba1d6', 'Ortu Test', '0821231223', '$2y$10$qSRmkUmCdZ1.a0SMgFy.sO9BQs/CL9Vp/UXXmUX79DN43U9ljzYXu', 'ziLWGwqbzYzpmlbj5Z8FwHctzQMvRPELn1aDMbIGM5TyASvZoQlgrWniuPCg', 0, 1, 0, NULL);
 
 --

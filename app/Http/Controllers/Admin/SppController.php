@@ -63,10 +63,13 @@ class SppController extends Controller
 
         // SppDetail::insert($data_spp_detail);
         // Spp::where('id_spp',$id_spp)->update(['total_pembayaran' => $sum_total_bayar]);
-        $tahun_ajaran  = $request->tahun_ajaran;
-        $kelas         = $request->kelas;
-        $siswa         = $request->siswa;
-        $bulan_tahun   = $request->bulan_tahun;
+        // $bulan_tahun = $request->bulan_tahun;
+        $tahun_ajaran = $request->tahun_ajaran;
+        $kelas        = $request->kelas;
+        $siswa        = $request->siswa;
+        $bulan        = $request->bulan_spp;
+        $tahun        = $request->tahun_spp;
+        $bulan_tahun  = $bulan.', '.$tahun;
 
         $kolom_spp        = $request->kolom_spp;
         $nominal_spp      = $request->nominal_spp;
@@ -79,9 +82,9 @@ class SppController extends Controller
         else {
             $id_spp = (string)Str::uuid();
             $data_spp = [
-                'id_spp'           => $id_spp,
-                'id_kelas_siswa'   => $siswa,
-                'total_pembayaran' => $total_pembayaran
+                'id_spp'            => $id_spp,
+                'id_kelas_siswa'    => $siswa,
+                'total_harus_bayar' => $total_pembayaran
             ];
             Spp::create($data_spp);   
         }

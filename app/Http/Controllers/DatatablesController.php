@@ -15,6 +15,7 @@ use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
+use App\Models\SppBayar;
 use Auth;
 
 class DatatablesController extends Controller
@@ -197,8 +198,8 @@ class DatatablesController extends Controller
             return $column;
         })->editColumn('wilayah',function($edit){
             return unslug_str($edit->wilayah);
-        })->editColumn('total_pembayaran',function($edit){
-            return format_rupiah($edit->total_pembayaran);
+        })->editColumn('total_harus_bayar',function($edit){
+            return format_rupiah($edit->total_harus_bayar);
         })->make(true);
         return $datatables;
     }
@@ -211,13 +212,16 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun").'">
-                              <button class="btn btn-info"> Detail </button>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                              <button class="btn btn-success"> Lihat Pembayaran </button>
                            </a>
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/edit/$action->id_spp_bulan_tahun").'">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat SPP </button>
+                           </a>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/edit/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
                               <button class="btn btn-warning"> Edit </button>
                            </a>
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST" style="margin-right:1%;">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -225,8 +229,6 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
-        })->addColumn('total_bayar',function($add){
-            return format_rupiah($add->total_bayar);
         })->addColumn('status_pelunasan',function($add){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
@@ -234,6 +236,29 @@ class DatatablesController extends Controller
             ];
             return '<span class="'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['class'].'">'.$array[SppBulanTahun::checkStatus($add->id_spp_bulan_tahun)]['text'].'</span>';
         })->rawColumns(['action','status_pelunasan'])->make(true);
+        return $datatables;
+    }
+
+    public function dataSppBayar($id)
+    {
+        $spp_bayar = SppBayar::where('id_spp_bulan_tahun',$id)->get();
+
+        $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
+            $column = '
+                    <div class="d-flex">
+                       <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                            <input type="hidden" name="_token" value="'.csrf_token().'">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                       </form>
+                   </div>
+                ';
+            return $column;
+        })->editColumn('nominal_bayar',function($edit){
+            return format_rupiah($edit->nominal_bayar);
+        })->editColumn('tanggal_bayar',function($edit){
+            return human_date($edit->tanggal_bayar);
+        })->make(true);
         return $datatables;
     }
 
@@ -276,14 +301,10 @@ class DatatablesController extends Controller
             return format_rupiah($edit->nominal_spp);
         })->editColumn('bayar_spp',function($edit){
             return format_rupiah($edit->bayar_spp);
-        })->editColumn('tanggal_bayar',function($edit){
-            if ($edit->tanggal_bayar == NULL) {
-                $tanggal_bayar = '-';
-            }
-            else {
-                $tanggal_bayar = human_date($edit->tanggal_bayar);
-            }
-            return $tanggal_bayar;
+        })->addColumn('sisa_bayar',function($edit){
+            $calc = $edit->nominal_spp - $edit->bayar_spp;
+
+            return format_rupiah($calc);
         })->editColumn('status_bayar',function($edit){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Belum Bayar'],
@@ -344,31 +365,13 @@ class DatatablesController extends Controller
 
     public function dataSppOrtuDetail($id)
     {
-        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                                ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                ->where('spp_detail.id_spp_bulan_tahun',$id)
-                                ->get();
+        $spp_bayar = SppBayar::where('id_spp_bulan_tahun',$id)->get();
 
-        $datatables = Datatables::of($spp_detail)->editColumn('nominal_spp',function($edit){
-            return format_rupiah($edit->nominal_spp);
-        })->editColumn('bayar_spp',function($edit){
-            return format_rupiah($edit->bayar_spp);
+        $datatables = Datatables::of($spp_bayar)->editColumn('nominal_bayar',function($edit){
+            return format_rupiah($edit->nominal_bayar);
         })->editColumn('tanggal_bayar',function($edit){
-            if ($edit->tanggal_bayar == NULL) {
-                $tanggal_bayar = '-';
-            }
-            else {
-                $tanggal_bayar = human_date($edit->tanggal_bayar);
-            }
-            return $tanggal_bayar;
-        })->editColumn('status_bayar',function($edit){
-            $array = [
-                0 => ['class'=>'badge badge-danger','text'=>'Belum Bayar'],
-                1 => ['class'=>'badge badge-success','text'=>'Sudah Bayar']
-            ];
-            return '<span class="'.$array[$edit->status_bayar]['class'].'">'.$array[$edit->status_bayar]['text'].'</span>';
-        })->rawColumns(['action','status_bayar'])->make(true);
+            return human_date($edit->tanggal_bayar);
+        })->make(true);
         return $datatables;
     }
 }
