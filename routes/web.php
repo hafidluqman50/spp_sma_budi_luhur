@@ -151,6 +151,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/tambah',[AdminSppController::class, 'tambah']);
     Route::post('/spp/save',[AdminSppController::class, 'save']);
     Route::delete('/spp/delete/{id}',[AdminSppController::class, 'delete']);
+    Route::get('/spp/import',[AdminSppController::class, 'formImport']);
+    Route::get('/spp/contoh-import',[AdminSppController::class, 'contohImport']);
+    Route::post('/spp/import/save',[AdminSppController::class, 'import']);
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 21, 2021 at 07:31 AM
+-- Generation Time: Oct 21, 2021 at 03:49 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -53,6 +53,7 @@ INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbul
 CREATE TABLE `kelas` (
   `id_kelas` varchar(36) NOT NULL,
   `kelas` varchar(15) NOT NULL,
+  `slug_kelas` varchar(100) NOT NULL,
   `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,8 +61,8 @@ CREATE TABLE `kelas` (
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `kelas`, `status_delete`) VALUES
-('218c14e3-cd16-4f72-84d5-83d696390fa6', 'XII RPL 1', 0);
+INSERT INTO `kelas` (`id_kelas`, `kelas`, `slug_kelas`, `status_delete`) VALUES
+('218c14e3-cd16-4f72-84d5-83d696390fa6', 'XII RPL 1', 'xii-rpl-1', 0);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,9 @@ CREATE TABLE `kelas_siswa` (
 INSERT INTO `kelas_siswa` (`id_kelas_siswa`, `id_tahun_ajaran`, `id_siswa`, `id_kelas`, `status_delete`) VALUES
 ('0a2c3901-c957-4bf0-b58b-5bc238be3687', '7bbb36db-240a-48ee-af92-4669326778ee', 'c088bf43-ab82-4dc0-b87b-ee36a79ff8e4', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
 ('4b1b083d-f695-4ad1-8c8a-2786587fbc78', '7bbb36db-240a-48ee-af92-4669326778ee', '9ffc8df5-0329-4c39-a069-870178ff3d74', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
-('c7ba8ef0-8528-4720-860e-ac54f2c4f60b', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 1);
+('ae33e2dc-d4ca-4e40-a067-bc6fdac63186', '7bbb36db-240a-48ee-af92-4669326778ee', 'bfbb26b8-68f3-4bbe-8315-3f1cd0946c56', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
+('c7ba8ef0-8528-4720-860e-ac54f2c4f60b', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 1),
+('ecbfa6dd-680c-4e3f-b633-64dbe915f350', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0);
 
 -- --------------------------------------------------------
 
@@ -115,6 +118,7 @@ INSERT INTO `keluarga` (`id_keluarga`, `id_siswa`, `id_siswa_keluarga`) VALUES
 CREATE TABLE `kolom_spp` (
   `id_kolom_spp` varchar(36) NOT NULL,
   `nama_kolom_spp` varchar(100) NOT NULL,
+  `slug_kolom_spp` varchar(100) NOT NULL,
   `keterangan_kolom` text,
   `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -123,12 +127,12 @@ CREATE TABLE `kolom_spp` (
 -- Dumping data for table `kolom_spp`
 --
 
-INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `keterangan_kolom`, `status_delete`) VALUES
-('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', NULL, 0),
-('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', '-', 0),
-('ca6d1c9c-a668-4b92-9934-60402b4a1668', 'Test', '-', 1),
-('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', NULL, 0),
-('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', NULL, 0);
+INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `slug_kolom_spp`, `keterangan_kolom`, `status_delete`) VALUES
+('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', 'pembayaran-akademik', NULL, 0),
+('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 'pembayaran-gedung', NULL, 0),
+('ca6d1c9c-a668-4b92-9934-60402b4a1668', 'Test', '', '-', 1),
+('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', 'kantin-pak-mamat', NULL, 0),
+('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', 'pembayaran-fasilitas', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -187,8 +191,8 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`) VALUES
-('88af9f3c-a852-4e5f-bc67-dda6693c5185', '0a2c3901-c957-4bf0-b58b-5bc238be3687', -150000),
-('dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'c7ba8ef0-8528-4720-860e-ac54f2c4f60b', 0);
+('16eab520-6bd5-499a-b5f4-d2ce57f6f734', 'c7ba8ef0-8528-4720-860e-ac54f2c4f60b', 10000),
+('faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'ae33e2dc-d4ca-4e40-a067-bc6fdac63186', 10000);
 
 -- --------------------------------------------------------
 
@@ -200,7 +204,9 @@ CREATE TABLE `spp_bayar` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
+  `total_biaya` int NOT NULL,
   `nominal_bayar` int NOT NULL,
+  `kembalian` int NOT NULL,
   `keterangan_bayar` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -208,9 +214,11 @@ CREATE TABLE `spp_bayar` (
 -- Dumping data for table `spp_bayar`
 --
 
-INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `nominal_bayar`, `keterangan_bayar`) VALUES
-('bd0d81ec-1e65-49ef-acdd-494e4c71e76d', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '2021-10-20', 50000, 'Bayar Pembayaran Akademik'),
-('faa60848-e3b9-4e92-aebc-319a666986c6', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '2021-10-20', 50000, '');
+INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `total_biaya`, `nominal_bayar`, `kembalian`, `keterangan_bayar`) VALUES
+('5063c859-388a-4b73-8fed-0541483fc6dc', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '2021-09-15', 20000, 30000, 10000, 'Pembayaran SPP September 2021'),
+('84238c46-4802-418a-ac65-a692684e34e2', 'a1b70f0e-2152-4348-871f-95f078e15a11', '2021-08-20', 20000, 20000, 0, 'Pembayaran Sisa Akademik Agustus 2021'),
+('8db5f102-7ead-47c1-be03-2c85e577e9c1', 'a1b70f0e-2152-4348-871f-95f078e15a11', '2021-08-14', 50000, 50000, 0, 'Pembayaran SPP Bulan Agustus'),
+('b4b69ab4-3685-497e-bafc-7f4a73d9a3f1', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '2021-09-13', 50000, 70000, 20000, 'Pembayaran Akademik September 2021');
 
 -- --------------------------------------------------------
 
@@ -229,8 +237,9 @@ CREATE TABLE `spp_bulan_tahun` (
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`) VALUES
-('cb157188-a94d-4bf4-8bc4-c736ad48d398', 'dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'Januari, 2017'),
-('cfa2bef7-c633-4866-84bc-4725bd04c23f', '88af9f3c-a852-4e5f-bc67-dda6693c5185', 'Oktober, 2021');
+('a1b70f0e-2152-4348-871f-95f078e15a11', '16eab520-6bd5-499a-b5f4-d2ce57f6f734', 'Agustus, 2021'),
+('b84f6106-fa15-47fa-b57a-9212c14dd2b2', 'faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'Oktober, 2021'),
+('e7f69a55-7373-4ff6-a19a-d6c5e7302070', 'faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'September, 2021');
 
 -- --------------------------------------------------------
 
@@ -252,8 +261,11 @@ CREATE TABLE `spp_detail` (
 --
 
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `status_bayar`) VALUES
-('3e2d9c0f-74ae-4efa-b5ab-a472be973bc0', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1),
-('c0ea2ae8-9b05-437e-ab03-6315bedfe9bb', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1);
+('0cc1ed89-b01f-4c40-912e-767fbebc365a', 'b84f6106-fa15-47fa-b57a-9212c14dd2b2', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 10000, 10000, 1),
+('219b4859-f0d6-4c24-9918-7c3ce7d6e0ed', 'a1b70f0e-2152-4348-871f-95f078e15a11', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1),
+('242e7031-3128-4533-ad77-52b94bc84ede', 'a1b70f0e-2152-4348-871f-95f078e15a11', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 0),
+('46e9ad34-62e0-4947-afa1-d91e97185818', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 0),
+('ca2da86c-39dd-4392-905e-5697e609c268', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1);
 
 -- --------------------------------------------------------
 

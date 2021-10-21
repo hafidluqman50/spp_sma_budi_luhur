@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KolomSpp;
+use Illuminate\Support\Str;
 
 class KolomSppController extends Controller
 {
@@ -29,6 +30,7 @@ class KolomSppController extends Controller
 
         $data_kolom_spp = [
             'nama_kolom_spp'   => $nama_kolom_spp,
+            'slug_kolom_spp'   => Str::slug($nama_kolom_spp,'-'),
             'keterangan_kolom' => $keterangan_kolom,
             'status_delete'    => 0
         ];
@@ -53,6 +55,7 @@ class KolomSppController extends Controller
 
         $data_kolom_spp = [
             'nama_kolom_spp'   => $nama_kolom_spp,
+            'slug_kolom_spp'   => Str::slug($nama_kolom_spp,'-'),
             'keterangan_kolom' => $keterangan_kolom
         ];
 

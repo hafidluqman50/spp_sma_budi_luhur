@@ -297,6 +297,17 @@ class SiswaController extends Controller
 
                         //     Keluarga::firstOrCreate($keluarga);
                         // }
+
+                        $data_user = [
+                            'name'          => 'Ortu '.$cells[2]->getValue(),
+                            'username'      => $cells[1]->getValue(),
+                            'password'      => bcrypt($cells[1]->getValue()),
+                            'level_user'    => 0,
+                            'status_akun'   => 1,
+                            'status_delete' => 0
+                        ];
+
+                        User::firstOrCreate($data_user);
                     }
                 }
             }

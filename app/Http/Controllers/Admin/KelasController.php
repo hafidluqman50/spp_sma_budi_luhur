@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use Illuminate\Support\Str;
 
 class KelasController extends Controller
 {
@@ -28,6 +29,7 @@ class KelasController extends Controller
 
         $data_kelas = [
             'kelas'         => $kelas,
+            'slug_kelas'    => Str::slug($kelas,'-'),
             'status_delete' => 0,
         ];   
 
@@ -49,7 +51,8 @@ class KelasController extends Controller
         $kelas = $request->kelas;
 
         $data_kelas = [
-            'kelas' => $kelas
+            'kelas'      => $kelas,
+            'slug_kelas' => Str::slug($kelas,'-')
         ];   
 
         Kelas::where('id_kelas',$id)->update($data_kelas);

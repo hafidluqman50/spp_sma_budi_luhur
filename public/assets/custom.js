@@ -249,7 +249,9 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'total_biaya',name:'total_biaya'},
             {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'kembalian',name:'kembalian'},
             {data:'keterangan_bayar',name:'keterangan_bayar'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
@@ -340,7 +342,9 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'total_biaya',name:'total_biaya'},
             {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'kembalian',name:'kembalian'},
             {data:'keterangan_bayar',name:'keterangan_bayar'}
         ],
         scrollCollapse: true,
