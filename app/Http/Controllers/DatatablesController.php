@@ -306,7 +306,12 @@ class DatatablesController extends Controller
         })->editColumn('bayar_spp',function($edit){
             return format_rupiah($edit->bayar_spp);
         })->addColumn('sisa_bayar',function($edit){
-            $calc = $edit->nominal_spp - $edit->bayar_spp;
+            if ($edit->bayar_spp > $edit->nominal_spp) {
+                $calc = $edit->bayar_spp - $edit->nominal_spp;
+            }
+            else {
+                $calc = $edit->nominal_spp - $edit->bayar_spp;
+            }
 
             return format_rupiah($calc);
         })->editColumn('status_bayar',function($edit){
