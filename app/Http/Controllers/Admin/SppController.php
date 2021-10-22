@@ -49,7 +49,7 @@ class SppController extends Controller
         //     'total_pembayaran' => 0,
         // ];
 
-        // Spp::create($data_spp);
+        // Spp::firstOrCreate($data_spp);
 
         // $sum_total_bayar = 0;
 
@@ -164,12 +164,12 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('F2','Agustus');
         $spreadsheet->getActiveSheet()->setCellValue('G2','2021');
         $spreadsheet->getActiveSheet()->setCellValue('H2','Pembayaran Akademik');
-        $spreadsheet->getActiveSheet()->setCellValue('I2','50000');
-        $spreadsheet->getActiveSheet()->setCellValue('J2','50000');
-        $spreadsheet->getActiveSheet()->setCellValue('K2','sudah-lunas');
+        $spreadsheet->getActiveSheet()->setCellValue('I2','1000000');
+        $spreadsheet->getActiveSheet()->setCellValue('J2','0');
+        $spreadsheet->getActiveSheet()->setCellValue('K2','belum-lunas');
         $spreadsheet->getActiveSheet()->setCellValue('H3','Pembayaran Gedung');
-        $spreadsheet->getActiveSheet()->setCellValue('I3','20000');
-        $spreadsheet->getActiveSheet()->setCellValue('J3','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('I3','600000');
+        $spreadsheet->getActiveSheet()->setCellValue('J3','0');
         $spreadsheet->getActiveSheet()->setCellValue('K3','belum-lunas');
         $spreadsheet->getActiveSheet()->mergeCells('A2:A3');
         $spreadsheet->getActiveSheet()->mergeCells('B2:B3');
@@ -353,9 +353,9 @@ class SppController extends Controller
                         if (Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->count() == 0) {
                             $data_spp = [
                                 'id_kelas_siswa'    => $get_id_kelas_siswa,
-                                'total_harus_bayar' => 0,
+                                'total_harus_bayar' => $cells[8]->getValue() - $cells[9]->getValue(),
                             ];
-                            Spp::create($data_spp);
+                            Spp::firstOrCreate($data_spp);
                             $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0]->id_spp;
                         }
                         else {
@@ -377,7 +377,7 @@ class SppController extends Controller
                                     'bulan_tahun' => $cells[5]->getValue().', '.$cells[6]->getValue()
                                 ];
 
-                                SppBulanTahun::create($data_spp_bulan_tahun);
+                                SppBulanTahun::firstOrCreate($data_spp_bulan_tahun);
 
                                 $get_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
                                                                   ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
@@ -403,7 +403,7 @@ class SppController extends Controller
                             'status_bayar'       => $status_bayar[$cells[10]->getValue()]
                         ];
 
-                        SppDetail::create($data_spp_detail);
+                        SppDetail::firstOrCreate($data_spp_detail);
                         if (!session()->has('spp')) {
                             $session_spp = [
                                 'id_kelas_siswa'     => $get_id_kelas_siswa,
@@ -462,7 +462,7 @@ class SppController extends Controller
                             'keterangan_bayar' => $cells[11]->getValue()
                         ];
 
-                        SppBayar::create($data_spp_bayar);
+                        SppBayar::firstOrCreate($data_spp_bayar);
                         if (!session()->has('pembayaran')) {
                             $session_spp = [
                                 'id_kelas_siswa'     => $get_id_kelas_siswa_,
