@@ -32,6 +32,7 @@ class SppDetailController extends Controller
         $bayar_spp     = $request->bayar_spp;
         $total_biaya   = $request->total_biaya;
         $bayar_total   = $request->bayar_total;
+        $kembalian     = $request->kembalian;
         $keterangan    = $request->keterangan_spp;
 
         $spp_detail = SppDetail::where('id_spp_detail',$id_detail)->firstOrFail();
@@ -62,13 +63,6 @@ class SppDetailController extends Controller
 
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
-
-        if ($bayar_total > $total_biaya) {
-            $kembalian = $bayar_total - $total_biaya;
-        }
-        else {
-            $kembalian = $total_biaya - $bayar_total;
-        }
 
         $data_spp_bayar = [
             'id_spp_bulan_tahun' => $id_bulan_tahun,
@@ -112,6 +106,7 @@ class SppDetailController extends Controller
         $bayar_spp     = $request->bayar_spp;
         $total_biaya   = $request->total_biaya;
         $bayar_total   = $request->bayar_total;
+        $kembalian     = $request->kembalian;
         $keterangan    = $request->keterangan_spp;
 
         foreach ($bayar_spp as $key => $value) {
@@ -145,13 +140,6 @@ class SppDetailController extends Controller
                     ->update($data_spp_detail);
 
             Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
-        }
-
-        if ($bayar_total > $total_biaya) {
-            $kembalian = $bayar_total - $total_biaya;
-        }
-        else {
-            $kembalian = $total_biaya - $bayar_total;
         }
 
         $data_spp_bayar = [
