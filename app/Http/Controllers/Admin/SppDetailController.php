@@ -30,13 +30,17 @@ class SppDetailController extends Controller
     {
         $tanggal_bayar = date('Y-m-d');
         $bayar_spp     = $request->bayar_spp;
-        $total_biay    = $request->total_biay;
+        $total_biaya   = $request->total_biaya;
         $bayar_total   = $request->bayar_total;
         $keterangan    = $request->keterangan_spp;
 
         $spp_detail = SppDetail::where('id_spp_detail',$id_detail)->firstOrFail();
 
-        if ($bayar_spp >= $spp_detail->nominal_spp) {
+        if ($bayar_spp > $spp_detail->nominal_spp) {
+            $status_bayar = 1;
+            $bayar_spp = $spp_detail->nominal_spp;
+        }
+        else if ($bayar_spp == $spp_detail->nominal_spp) {
             $status_bayar = 1;
         }
         else {
@@ -59,12 +63,19 @@ class SppDetailController extends Controller
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
 
+        if ($bayar_total > $total_biaya) {
+            $kembalian = $bayar_total - $total_biaya;
+        }
+        else {
+            $kembalian = $total_biaya - $bayar_total;
+        }
+
         $data_spp_bayar = [
             'id_spp_bulan_tahun' => $id_bulan_tahun,
             'tanggal_bayar'      => $tanggal_bayar,
             'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
-            'kembalian'          => $total_biaya - $bayar_total,
+            'kembalian'          => $kembalian,
             'keterangan_bayar'   => $keterangan
         ];
         SppBayar::create($data_spp_bayar);
@@ -106,7 +117,11 @@ class SppDetailController extends Controller
         foreach ($bayar_spp as $key => $value) {
             $spp_detail = SppDetail::where('id_spp_detail',$id_detail[$key])->firstOrFail();
 
-            if ($bayar_spp[$key] >= $spp_detail->nominal_spp) {
+            if ($bayar_spp[$key] > $spp_detail->nominal_spp) {
+                $status_bayar = 1;
+                $bayar_spp[$key] = $spp_detail->nominal_spp;
+            }
+            else if ($bayar_spp[$key] == $spp_detail->nominal_spp) {
                 $status_bayar = 1;
             }
             else {
@@ -132,12 +147,19 @@ class SppDetailController extends Controller
             Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         }
 
+        if ($bayar_total > $total_biaya) {
+            $kembalian = $bayar_total - $total_biaya;
+        }
+        else {
+            $kembalian = $total_biaya - $bayar_total;
+        }
+
         $data_spp_bayar = [
             'id_spp_bulan_tahun' => $id_bulan_tahun,
             'tanggal_bayar'      => $tanggal_bayar,
             'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
-            'kembalian'          => $total_biaya - $bayar_total,
+            'kembalian'          => $kembalian,
             'keterangan_bayar'   => $keterangan
         ];
         SppBayar::create($data_spp_bayar);
