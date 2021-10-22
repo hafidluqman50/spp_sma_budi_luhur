@@ -55,7 +55,7 @@
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
                                         <input type="text" class="form-control" value="<?php echo e(format_rupiah($total_semua)); ?>" readonly="readonly">
-                                        <input type="hidden" id="total-biaya" value="<?php echo e($total_semua); ?>">
+                                        <input type="hidden" name="total_biaya" id="total-biaya" value="<?php echo e($total_semua); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
