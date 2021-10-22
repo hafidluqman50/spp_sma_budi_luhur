@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 use App\Models\Siswa;
 use App\Models\Keluarga;
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\TahunAjaran;
+use App\Models\KelasSiswa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
@@ -180,6 +183,8 @@ class SiswaController extends Controller
         $spreadsheet->getDefaultStyle()->getFont()->setName('Times New Roman');
         $spreadsheet->getDefaultStyle()->getFont()->setSize('12');
 
+        $spreadsheet->setActiveSheetIndex(0)->setTitle('Data Siswa');
+
         $spreadsheet->getActiveSheet()->setCellValue('A1','No.');
         $spreadsheet->getActiveSheet()->setCellValue('B1','NISN');
         $spreadsheet->getActiveSheet()->setCellValue('C1','Nama Siswa');
@@ -191,7 +196,8 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('I1','Asal Kelompok');
         $spreadsheet->getActiveSheet()->setCellValue('J1','Asal Wilayah');
         $spreadsheet->getActiveSheet()->setCellValue('K1','Wilayah');
-        // $spreadsheet->getActiveSheet()->setCellValue('L1','Nama Saudara/Keluarga');
+        $spreadsheet->getActiveSheet()->setCellValue('L1','Kelas');
+        $spreadsheet->getActiveSheet()->setCellValue('M1','Tahun Ajaran');
 
         $spreadsheet->getActiveSheet()->setCellValue('A2','1');
         $spreadsheet->getActiveSheet()->setCellValue('B2','00088899912');
@@ -204,9 +210,10 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('I2','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J2','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K2','dalam-kota');
-        // $spreadsheet->getActiveSheet()->setCellValue('L2','Uchiha Tiara');
+        $spreadsheet->getActiveSheet()->setCellValue('L2','XII RPL 1');
+        $spreadsheet->getActiveSheet()->setCellValue('M2','2021/2022');
 
-        $spreadsheet->getActiveSheet()->setCellValue('A3','1');
+        $spreadsheet->getActiveSheet()->setCellValue('A3','2');
         $spreadsheet->getActiveSheet()->setCellValue('B3','00088899913');
         $spreadsheet->getActiveSheet()->setCellValue('C3','Uchiha Tiara');
         $spreadsheet->getActiveSheet()->setCellValue('D3','perempuan');
@@ -217,9 +224,10 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('I3','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J3','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K3','dalam-kota');
-        // $spreadsheet->getActiveSheet()->setCellValue('L3','-');
+        $spreadsheet->getActiveSheet()->setCellValue('L3','XII RPL 1');
+        $spreadsheet->getActiveSheet()->setCellValue('M3','2021/2022');
 
-        $spreadsheet->getActiveSheet()->setCellValue('A4','1');
+        $spreadsheet->getActiveSheet()->setCellValue('A4','3');
         $spreadsheet->getActiveSheet()->setCellValue('B4','00088899914');
         $spreadsheet->getActiveSheet()->setCellValue('C4','Uchiha Sukirman');
         $spreadsheet->getActiveSheet()->setCellValue('D4','laki-laki');
@@ -230,7 +238,8 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('I4','Clan Uchiha');
         $spreadsheet->getActiveSheet()->setCellValue('J4','Konohagakure No Sato');
         $spreadsheet->getActiveSheet()->setCellValue('K4','dalam-kota');
-        // $spreadsheet->getActiveSheet()->setCellValue('L4','-');
+        $spreadsheet->getActiveSheet()->setCellValue('L4','XII RPL 1');
+        $spreadsheet->getActiveSheet()->setCellValue('M4','2021/2022');
 
         $styleAlignment = [
                         'alignment' => [
@@ -251,6 +260,42 @@ class SiswaController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
 
+        $spreadsheet->createSheet();
+
+        $spreadsheet->setActiveSheetIndex(1)->setTitle('Data Keluarga Siswa');
+
+        $spreadsheet->getActiveSheet()->setCellValue('A1','No.');
+        $spreadsheet->getActiveSheet()->setCellValue('B1','NISN');
+        $spreadsheet->getActiveSheet()->setCellValue('C1','Nama Siswa');
+        $spreadsheet->getActiveSheet()->setCellValue('D1','Nama Keluarga/Saudara');
+
+        $spreadsheet->getActiveSheet()->setCellValue('A2','1');
+        $spreadsheet->getActiveSheet()->setCellValue('B2','00088899912');
+        $spreadsheet->getActiveSheet()->setCellValue('C2','Uchiha Bayu');
+        $spreadsheet->getActiveSheet()->setCellValue('D2','Uchiha Tiara');
+
+        $spreadsheet->getActiveSheet()->setCellValue('A3','2');
+        $spreadsheet->getActiveSheet()->setCellValue('B3','00088899913');
+        $spreadsheet->getActiveSheet()->setCellValue('C3','Uchiha Tiara');
+        $spreadsheet->getActiveSheet()->setCellValue('D3','Uchiha Bayu');
+        $spreadsheet->getActiveSheet()->setCellValue('D4','Uchiha Sukirman');
+
+        $spreadsheet->getActiveSheet()->mergeCells('A3:A4');
+        $spreadsheet->getActiveSheet()->mergeCells('B3:B4');
+        $spreadsheet->getActiveSheet()->mergeCells('C3:C4');
+
+        $styleAlignment = [
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                            'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                        ]];
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:D4')->applyFromArray($styleAlignment);
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'.$fileName.'"');
@@ -259,6 +304,7 @@ class SiswaController extends Controller
 
     public function import(Request $request)
     {
+        session()->forget('import_siswa');
         $file_import = $request->file_import;
 
         $reader = ReaderEntityFactory::createXLSXReader();
@@ -269,9 +315,7 @@ class SiswaController extends Controller
                 foreach ($sheet->getRowIterator() as $num => $row) {
                     if ($num > 1) {
                         $cells = $row->getCells();
-                        // $id_siswa = (string)Str::uuid();
                         $data_siswa = [
-                            // 'id_siswa'        => $id_siswa,
                             'nisn'            => $cells[1]->getValue(),
                             'nama_siswa'      => $cells[2]->getValue(),
                             'slug_siswa'      => Str::slug($cells[2]->getValue(),'-'),
@@ -285,18 +329,26 @@ class SiswaController extends Controller
                             'wilayah'         => $cells[10]->getValue(),
                             'status_delete'   => 0
                         ];
-                        Siswa::firstOrCreate($data_siswa);
 
-                        // if ($cells[11]->getValue() != '-' || $cells[11]->getValue() != '') {
-                        //     $id_keluarga = Siswa::where('slug_siswa',Str::slug($cells[11]->getValue(),'-'))->firstOrFail()->id_siswa;
+                        if (Siswa::where('nisn',$cells[1]->getValue())->count() == 0) {
+                            Siswa::create($data_siswa);
 
-                        //     $keluarga = [
-                        //         'id_siswa'          => $id_siswa,
-                        //         'id_siswa_keluarga' => $id_keluarga
-                        //     ];
+                            $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
+                        }
+                        else {
+                            $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;   
+                        }
 
-                        //     Keluarga::firstOrCreate($keluarga);
-                        // }
+                        $id_kelas        = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->get()[0]->id_kelas;
+                        $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->get()[0]->id_tahun_ajaran;
+
+                        $data_kelas_siswa = [
+                            'id_siswa'        => $id_siswa,
+                            'id_kelas'        => $id_kelas,
+                            'id_tahun_ajaran' => $id_tahun_ajaran,
+                            'status_delete'   => 0
+                        ];
+                        KelasSiswa::firstOrCreate($data_kelas_siswa);
 
                         $data_user = [
                             'name'          => 'Ortu '.$cells[2]->getValue(),
@@ -308,6 +360,38 @@ class SiswaController extends Controller
                         ];
 
                         User::firstOrCreate($data_user);
+                    }
+                }
+            }
+        }
+
+        $id_siswa_ = '';
+        foreach ($reader->getSheetIterator() as $sheet) {
+            if ($sheet->getIndex() === 1) {
+                foreach ($sheet->getRowIterator() as $num => $row) {
+                    if ($num > 1) {
+                        $cells = $row->getCells();
+                        if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '') {
+                            $id_siswa_ = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
+                        }
+                        else {
+                            $id_siswa_ = session()->get('import_siswa')['id_siswa'];
+                        }
+                        $id_siswa_keluarga = Siswa::where('slug_siswa',Str::slug($cells[3]->getValue(),'-'))->get()[0]->id_siswa;
+
+                        $data_keluarga = [
+                            'id_siswa'          => $id_siswa_,
+                            'id_siswa_keluarga' => $id_siswa_keluarga
+                        ];
+
+                        Keluarga::firstOrCreate($data_keluarga);
+
+                        if (!session()->has('import_siswa')) {
+                            session()->put('import_siswa',['id_siswa' => $id_siswa_]);
+                        }
+                        if (session()->has('import_siswa') && $cells[1]->getValue() != '') {
+                            session()->put('import_siswa',['id_siswa' => $id_siswa_]);   
+                        }
                     }
                 }
             }

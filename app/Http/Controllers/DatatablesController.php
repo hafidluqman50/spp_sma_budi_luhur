@@ -278,7 +278,7 @@ class DatatablesController extends Controller
             if ($action->status_bayar == 1) {
                 $column = '
                         <div class="d-flex">
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -289,10 +289,10 @@ class DatatablesController extends Controller
             else {
                 $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
                               <button class="btn btn-success"> Bayar </button>
                            </a>
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/detail/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
