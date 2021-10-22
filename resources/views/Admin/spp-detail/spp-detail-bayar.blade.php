@@ -57,7 +57,7 @@
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
                                         <input type="text" class="form-control" value="{{ format_rupiah($spp->nominal_spp) }}" readonly="readonly">
-                                        <input type="hidden" id="total-biaya" value="{{ $spp->nominal_spp }}">
+                                        <input type="hidden" name="total_biaya" id="total-biaya" value="{{ $spp->nominal_spp }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">

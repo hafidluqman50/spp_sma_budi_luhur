@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\UuidInsert;
+use Illuminate\Support\Str;
 
 class KelasSiswa extends Model
 {
@@ -22,6 +23,19 @@ class KelasSiswa extends Model
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
                     ->where('kelas_siswa.id_kelas',$id)
                     ->where('kelas_siswa.status_delete',0)
+                    ->get();
+
+        return $get;
+    }
+
+    public static function getSiswa($nisn,$kelas,$tahun_ajaran)
+    {
+        $get = self::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('nisn',$nisn)
+                    ->where('slug_kelas',Str::slug($kelas,'-'))
+                    ->where('tahun_ajaran',$tahun_ajaran)
                     ->get();
 
         return $get;

@@ -28,7 +28,7 @@
                         <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/') }}">
+                            <a href="{{ url('/admin/spp/bulan-tahun/'.$id) }}">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
@@ -44,7 +44,9 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Tanggal Pembayaran</th>
+                                <th>Total Biaya</th>
                                 <th>Nominal Bayar</th>
+                                <th>Kembalian</th>
                                 <th>Keterangan</th>
                                 <th>#</th>
                             </tr>

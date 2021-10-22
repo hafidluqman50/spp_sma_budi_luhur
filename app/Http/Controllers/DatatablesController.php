@@ -254,8 +254,12 @@ class DatatablesController extends Controller
                    </div>
                 ';
             return $column;
+        })->editColumn('total_biaya',function($edit){
+            return format_rupiah($edit->total_biaya);
         })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
+        })->editColumn('kembalian',function($edit){
+            return format_rupiah($edit->kembalian);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
         })->make(true);
@@ -367,8 +371,12 @@ class DatatablesController extends Controller
     {
         $spp_bayar = SppBayar::where('id_spp_bulan_tahun',$id)->get();
 
-        $datatables = Datatables::of($spp_bayar)->editColumn('nominal_bayar',function($edit){
+        $datatables = Datatables::of($spp_bayar)->editColumn('total_biaya',function($edit){
+            return format_rupiah($edit->total_biaya);
+        })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
+        })->editColumn('kembalian',function($edit){
+            return format_rupiah($edit->kembalian);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
         })->make(true);

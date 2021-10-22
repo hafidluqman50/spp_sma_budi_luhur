@@ -30,6 +30,7 @@ class SppDetailController extends Controller
     {
         $tanggal_bayar = date('Y-m-d');
         $bayar_spp     = $request->bayar_spp;
+        $total_biay    = $request->total_biay;
         $bayar_total   = $request->bayar_total;
         $keterangan    = $request->keterangan_spp;
 
@@ -61,7 +62,9 @@ class SppDetailController extends Controller
         $data_spp_bayar = [
             'id_spp_bulan_tahun' => $id_bulan_tahun,
             'tanggal_bayar'      => $tanggal_bayar,
+            'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
+            'kembalian'          => $total_biaya - $bayar_total,
             'keterangan_bayar'   => $keterangan
         ];
         SppBayar::create($data_spp_bayar);
@@ -132,7 +135,9 @@ class SppDetailController extends Controller
         $data_spp_bayar = [
             'id_spp_bulan_tahun' => $id_bulan_tahun,
             'tanggal_bayar'      => $tanggal_bayar,
+            'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
+            'kembalian'          => $total_biaya - $bayar_total,
             'keterangan_bayar'   => $keterangan
         ];
         SppBayar::create($data_spp_bayar);

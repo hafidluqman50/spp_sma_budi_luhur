@@ -44,7 +44,9 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Tanggal Pembayaran</th>
+                                <th>Total Biaya</th>
                                 <th>Nominal Bayar</th>
+                                <th>Kembalian</th>
                                 <th>Keterangan</th>
                             </tr>
                             </thead>
