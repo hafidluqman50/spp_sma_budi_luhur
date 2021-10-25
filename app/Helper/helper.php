@@ -4,6 +4,11 @@ function format_rupiah($money) {
 	return $hasil_rupiah;
 }
 
+function money_receipt($money) {
+	$hasil_rupiah = number_format($money,0,'','.');
+	return $hasil_rupiah;
+}
+
 function import_date_excel($date) {
 	$explode = explode('-',$date);
 	return $explode[2].'-'.$explode[1].'-'.ltrim($explode[0],"'");
