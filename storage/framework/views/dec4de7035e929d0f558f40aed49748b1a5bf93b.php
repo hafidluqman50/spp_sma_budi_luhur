@@ -54,20 +54,22 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" id="total-biaya-juga" value="<?php echo e(format_rupiah(0)); ?>" readonly="readonly">
-                                        <input type="hidden" name="total_biaya" id="total-biaya" value="0">
+                                        <input type="text" class="form-control" id="total-biaya" value="0" readonly="readonly">
+                                        <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bayar Total</label>
                                     <div class="col-7">
                                         <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                        <label for="" id="bayar-total-label">Rp. 0,00</label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kembalian</label>
                                     <div class="col-7">
                                         <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
+                                        <label for="" id="kembalian-label">Rp. 0,00</label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -99,7 +101,8 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar">
+                                            <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
+                                            <label for="" class="label-bayar-kolom-spp" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
                                     <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
@@ -149,6 +152,17 @@
         //     });
         // })
 
+        $(document).on('keyup','input[name="bayar_spp[]"]',function(){
+            var val  = $(this).val()
+            var attr = $(this).attr('id-kolom-spp')
+            if (val == '') {
+                $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+            }
+            else {
+                $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
         $(document).on('change','input[name="bayar_spp[]"]',function(){
             var val         = parseInt($(this).val())
             var total_biaya = parseInt($('#total-biaya').val())
@@ -157,20 +171,23 @@
             }
 
             let kalkulasi  = total_biaya + val
-            $('#total-biaya-juga').val(rupiah_format(kalkulasi))
+            $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
             $('#total-biaya').val(kalkulasi)
         })
 
         $('#bayar-total').keyup(function(){
-            let val         = parseInt($(this).val())
-            let total_biaya = parseInt($('#total-biaya').val())
+            let val         = $(this).val()
+            let total_biaya = $('#total-biaya').val()
             
-            if (val > total_biaya) {
-                $('#kembalian').val(val - total_biaya)
+            $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            if (parseInt(val) > parseInt(total_biaya)) {
+                $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
+                $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
             }
-            if (val == total_biaya) {
+            if (parseInt(val) == parseInt(total_biaya)) {
                 $('#kembalian').val(0)
-            }       
+                $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
+            } 
         })
     })
 </script>
