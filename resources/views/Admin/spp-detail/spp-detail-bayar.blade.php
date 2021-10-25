@@ -56,14 +56,20 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ format_rupiah($spp->nominal_spp) }}" readonly="readonly">
-                                        <input type="hidden" name="total_biaya" id="total-biaya" value="{{ $spp->nominal_spp }}">
+                                        <input type="text" class="form-control" id="total-biaya-juga" value="{{ format_rupiah(0) }}" readonly="readonly">
+                                        <input type="hidden" name="total_biaya" id="total-biaya" value="0">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bayar Total</label>
                                     <div class="col-7">
-                                        <input type="number" name="bayar_total" class="form-control" required="">
+                                        <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kembalian</label>
+                                    <div class="col-7">
+                                        <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -140,6 +146,30 @@
         //         console.log("error");
         //     });
         // })
+
+        $('input[name="bayar_spp[]"]').change(function(){
+            var val         = parseInt($(this).val())
+            var total_biaya = parseInt($('#total-biaya').val())
+            if (val == '') {
+                val = 0
+            }
+
+            let kalkulasi  = total_biaya + val
+            $('#total-biaya-juga').val(rupiah_format(kalkulasi))
+            $('#total-biaya').val(kalkulasi)
+        })
+
+        $('#bayar-total').keyup(function(){
+            let val         = parseInt($(this).val())
+            let total_biaya = parseInt($('#total-biaya').val())
+            
+            if (val > total_biaya) {
+                $('#kembalian').val(val - total_biaya)
+            }
+            if (val == total_biaya) {
+                $('#kembalian').val(0)
+            }       
+        })
     })
 </script>
 @endsection

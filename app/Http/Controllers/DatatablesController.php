@@ -229,6 +229,14 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->addColumn('total_kalkulasi',function($add){
+            $kalkulasi = 0;
+            $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->get();
+            foreach ($get_spp_detail as $key => $value) {
+                $kalkulasi = $kalkulasi + ($value->nominal_spp - $value->bayar_spp);
+            }
+
+            return format_rupiah($kalkulasi);
         })->addColumn('status_pelunasan',function($add){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
@@ -378,6 +386,14 @@ class DatatablesController extends Controller
 
         $datatables = Datatables::of($spp_bayar)->editColumn('total_biaya',function($edit){
             return format_rupiah($edit->total_biaya);
+        })->addColumn('total_kalkulasi',function($add){
+            $kalkulasi = 0;
+            $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->get();
+            foreach ($get_spp_detail as $key => $value) {
+                $kalkulasi = $kalkulasi + ($value->nominal_spp - $value->bayar_spp);
+            }
+
+            return format_rupiah($kalkulasi);
         })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
         })->editColumn('kembalian',function($edit){

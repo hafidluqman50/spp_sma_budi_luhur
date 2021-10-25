@@ -1,3 +1,11 @@
+function rupiah_format(string){
+    if (Math.sign(string) !== -1) {
+        reverse = string.toString().split('').reverse().join(''),
+        ribuan  = reverse.match(/\d{1,3}/g);
+        ribuan  = 'Rp. '+ribuan.join('.').split('').reverse().join('')+',00';
+        return ribuan;
+    }
+}
 $(() => {
 	// $('.data-tables').DataTable();
     $('.select2').select2();
@@ -221,6 +229,7 @@ $(() => {
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
             {data:'status_pelunasan',name:'status_pelunasan'},
+            {data:'total_kalkulasi',name:'total_kalkulasi'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -313,7 +322,8 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
-            {data:'status_pelunasan',name:'status_pelunasan'},
+            {data:'status_pelunasan',name:'status_pelunasan'},,
+            {data:'total_kalkulasi',name:'total_kalkulasi'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
