@@ -10,7 +10,7 @@ $(() => {
 	// $('.data-tables').DataTable();
     $('.select2').select2();
     
-	var base_url = 'http://project_work.web'
+	var base_url = 'http://localhost:8000'
 
     var siswa = $('.data-siswa').DataTable({
         processing:true,

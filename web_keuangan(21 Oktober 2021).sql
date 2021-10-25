@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 21, 2021 at 03:49 PM
+-- Generation Time: Oct 21, 2021 at 07:31 AM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,19 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kantin`
+-- Struktur dari tabel `kantin`
 --
 
 CREATE TABLE `kantin` (
   `id_kantin` varchar(36) NOT NULL,
   `nama_kantin` varchar(100) NOT NULL,
   `lokasi_kantin` text NOT NULL,
-  `biaya_perbulan` int NOT NULL,
-  `status_delete` int NOT NULL
+  `biaya_perbulan` int(11) NOT NULL,
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kantin`
+-- Dumping data untuk tabel `kantin`
 --
 
 INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
@@ -47,27 +46,26 @@ INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbul
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
   `id_kelas` varchar(36) NOT NULL,
   `kelas` varchar(15) NOT NULL,
-  `slug_kelas` varchar(100) NOT NULL,
-  `status_delete` int NOT NULL
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `kelas`, `slug_kelas`, `status_delete`) VALUES
-('218c14e3-cd16-4f72-84d5-83d696390fa6', 'XII RPL 1', 'xii-rpl-1', 0);
+INSERT INTO `kelas` (`id_kelas`, `kelas`, `status_delete`) VALUES
+('218c14e3-cd16-4f72-84d5-83d696390fa6', 'XII RPL 1', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas_siswa`
+-- Struktur dari tabel `kelas_siswa`
 --
 
 CREATE TABLE `kelas_siswa` (
@@ -75,34 +73,32 @@ CREATE TABLE `kelas_siswa` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `id_siswa` varchar(36) NOT NULL,
   `id_kelas` varchar(36) NOT NULL,
-  `status_delete` int NOT NULL
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kelas_siswa`
+-- Dumping data untuk tabel `kelas_siswa`
 --
 
 INSERT INTO `kelas_siswa` (`id_kelas_siswa`, `id_tahun_ajaran`, `id_siswa`, `id_kelas`, `status_delete`) VALUES
 ('0a2c3901-c957-4bf0-b58b-5bc238be3687', '7bbb36db-240a-48ee-af92-4669326778ee', 'c088bf43-ab82-4dc0-b87b-ee36a79ff8e4', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
 ('4b1b083d-f695-4ad1-8c8a-2786587fbc78', '7bbb36db-240a-48ee-af92-4669326778ee', '9ffc8df5-0329-4c39-a069-870178ff3d74', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
-('ae33e2dc-d4ca-4e40-a067-bc6fdac63186', '7bbb36db-240a-48ee-af92-4669326778ee', 'bfbb26b8-68f3-4bbe-8315-3f1cd0946c56', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0),
-('c7ba8ef0-8528-4720-860e-ac54f2c4f60b', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 1),
-('ecbfa6dd-680c-4e3f-b633-64dbe915f350', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 0);
+('c7ba8ef0-8528-4720-860e-ac54f2c4f60b', '7bbb36db-240a-48ee-af92-4669326778ee', '13c137e8-7344-4c50-a89b-160976ed620b', '218c14e3-cd16-4f72-84d5-83d696390fa6', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keluarga`
+-- Struktur dari tabel `keluarga`
 --
 
 CREATE TABLE `keluarga` (
   `id_keluarga` varchar(36) NOT NULL,
   `id_siswa` varchar(36) NOT NULL,
-  `id_siswa_keluarga` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `id_siswa_keluarga` varchar(36) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `keluarga`
+-- Dumping data untuk tabel `keluarga`
 --
 
 INSERT INTO `keluarga` (`id_keluarga`, `id_siswa`, `id_siswa_keluarga`) VALUES
@@ -112,32 +108,31 @@ INSERT INTO `keluarga` (`id_keluarga`, `id_siswa`, `id_siswa_keluarga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kolom_spp`
+-- Struktur dari tabel `kolom_spp`
 --
 
 CREATE TABLE `kolom_spp` (
   `id_kolom_spp` varchar(36) NOT NULL,
   `nama_kolom_spp` varchar(100) NOT NULL,
-  `slug_kolom_spp` varchar(100) NOT NULL,
-  `keterangan_kolom` text,
-  `status_delete` int NOT NULL
+  `keterangan_kolom` text DEFAULT NULL,
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kolom_spp`
+-- Dumping data untuk tabel `kolom_spp`
 --
 
-INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `slug_kolom_spp`, `keterangan_kolom`, `status_delete`) VALUES
-('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Pembayaran Akademik', 'pembayaran-akademik', NULL, 0),
-('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Pembayaran Gedung', 'pembayaran-gedung', NULL, 0),
-('ca6d1c9c-a668-4b92-9934-60402b4a1668', 'Test', '', '-', 1),
-('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', 'kantin-pak-mamat', NULL, 0),
-('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', 'pembayaran-fasilitas', NULL, 0);
+INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `keterangan_kolom`, `status_delete`) VALUES
+('1971752f-5e6c-459f-8a13-c51327bb88e7', 'Uang Makan', NULL, 0),
+('60f3492f-d8be-4f29-9014-478d314fe4ef', 'Tabungan Tes', NULL, 0),
+('a00b27c9-6242-4073-8130-bbd4f8419e1f', 'Asrama', NULL, 0),
+('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', '100000', 0),
+('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'SPP', NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
@@ -153,11 +148,11 @@ CREATE TABLE `siswa` (
   `asal_kelompok` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `asal_wilayah` varchar(100) NOT NULL,
   `wilayah` varchar(50) NOT NULL,
-  `status_delete` int NOT NULL
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kelamin`, `tanggal_lahir`, `nama_ayah`, `nama_ibu`, `nomor_orang_tua`, `asal_kelompok`, `asal_wilayah`, `wilayah`, `status_delete`) VALUES
@@ -177,22 +172,22 @@ INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kela
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spp`
+-- Struktur dari tabel `spp`
 --
 
 CREATE TABLE `spp` (
   `id_spp` varchar(36) NOT NULL,
   `id_kelas_siswa` varchar(36) NOT NULL,
-  `total_harus_bayar` int NOT NULL
+  `total_pembayaran` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `spp`
+-- Dumping data untuk tabel `spp`
 --
 
 INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`) VALUES
-('16eab520-6bd5-499a-b5f4-d2ce57f6f734', 'c7ba8ef0-8528-4720-860e-ac54f2c4f60b', 10000),
-('faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'ae33e2dc-d4ca-4e40-a067-bc6fdac63186', 10000);
+('88af9f3c-a852-4e5f-bc67-dda6693c5185', '0a2c3901-c957-4bf0-b58b-5bc238be3687', -150000),
+('dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'c7ba8ef0-8528-4720-860e-ac54f2c4f60b', 0);
 
 -- --------------------------------------------------------
 
@@ -204,9 +199,7 @@ CREATE TABLE `spp_bayar` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
-  `total_biaya` int NOT NULL,
   `nominal_bayar` int NOT NULL,
-  `kembalian` int NOT NULL,
   `keterangan_bayar` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -214,16 +207,14 @@ CREATE TABLE `spp_bayar` (
 -- Dumping data for table `spp_bayar`
 --
 
-INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `total_biaya`, `nominal_bayar`, `kembalian`, `keterangan_bayar`) VALUES
-('5063c859-388a-4b73-8fed-0541483fc6dc', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '2021-09-15', 20000, 30000, 10000, 'Pembayaran SPP September 2021'),
-('84238c46-4802-418a-ac65-a692684e34e2', 'a1b70f0e-2152-4348-871f-95f078e15a11', '2021-08-20', 20000, 20000, 0, 'Pembayaran Sisa Akademik Agustus 2021'),
-('8db5f102-7ead-47c1-be03-2c85e577e9c1', 'a1b70f0e-2152-4348-871f-95f078e15a11', '2021-08-14', 50000, 50000, 0, 'Pembayaran SPP Bulan Agustus'),
-('b4b69ab4-3685-497e-bafc-7f4a73d9a3f1', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '2021-09-13', 50000, 70000, 20000, 'Pembayaran Akademik September 2021');
+INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `nominal_bayar`, `keterangan_bayar`) VALUES
+('bd0d81ec-1e65-49ef-acdd-494e4c71e76d', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '2021-10-20', 50000, 'Bayar Pembayaran Akademik'),
+('faa60848-e3b9-4e92-aebc-319a666986c6', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '2021-10-20', 50000, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spp_bulan_tahun`
+-- Struktur dari tabel `spp_bulan_tahun`
 --
 
 CREATE TABLE `spp_bulan_tahun` (
@@ -233,54 +224,51 @@ CREATE TABLE `spp_bulan_tahun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `spp_bulan_tahun`
+-- Dumping data untuk tabel `spp_bulan_tahun`
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`) VALUES
-('a1b70f0e-2152-4348-871f-95f078e15a11', '16eab520-6bd5-499a-b5f4-d2ce57f6f734', 'Agustus, 2021'),
-('b84f6106-fa15-47fa-b57a-9212c14dd2b2', 'faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'Oktober, 2021'),
-('e7f69a55-7373-4ff6-a19a-d6c5e7302070', 'faf359cf-6dcd-4562-aaeb-3cccd528ee21', 'September, 2021');
+('cb157188-a94d-4bf4-8bc4-c736ad48d398', 'dc4ea26d-ef0b-4764-8ce1-51f5999c8295', 'Januari, 2017'),
+('cfa2bef7-c633-4866-84bc-4725bd04c23f', '88af9f3c-a852-4e5f-bc67-dda6693c5185', 'Oktober, 2021');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spp_detail`
+-- Struktur dari tabel `spp_detail`
 --
 
 CREATE TABLE `spp_detail` (
   `id_spp_detail` varchar(36) NOT NULL,
-  `id_spp_bulan_tahun` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `id_kolom_spp` varchar(36) NOT NULL,
-  `nominal_spp` int NOT NULL,
-  `bayar_spp` int NOT NULL,
-  `status_bayar` int NOT NULL
+  `nominal_spp` int(11) NOT NULL,
+  `tanggal_bayar` date DEFAULT NULL,
+  `bayar_spp` int(11) NOT NULL,
+  `status_bayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `spp_detail`
+-- Dumping data untuk tabel `spp_detail`
 --
 
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `status_bayar`) VALUES
-('0cc1ed89-b01f-4c40-912e-767fbebc365a', 'b84f6106-fa15-47fa-b57a-9212c14dd2b2', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 10000, 10000, 1),
-('219b4859-f0d6-4c24-9918-7c3ce7d6e0ed', 'a1b70f0e-2152-4348-871f-95f078e15a11', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1),
-('242e7031-3128-4533-ad77-52b94bc84ede', 'a1b70f0e-2152-4348-871f-95f078e15a11', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 0),
-('46e9ad34-62e0-4947-afa1-d91e97185818', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 0),
-('ca2da86c-39dd-4392-905e-5697e609c268', 'e7f69a55-7373-4ff6-a19a-d6c5e7302070', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1);
+('3e2d9c0f-74ae-4efa-b5ab-a472be973bc0', 'cb157188-a94d-4bf4-8bc4-c736ad48d398', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1),
+('c0ea2ae8-9b05-437e-ab03-6315bedfe9bb', 'cfa2bef7-c633-4866-84bc-4725bd04c23f', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tahun_ajaran`
+-- Struktur dari tabel `tahun_ajaran`
 --
 
 CREATE TABLE `tahun_ajaran` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `tahun_ajaran` varchar(10) NOT NULL,
-  `status_delete` int NOT NULL
+  `status_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tahun_ajaran`
+-- Dumping data untuk tabel `tahun_ajaran`
 --
 
 INSERT INTO `tahun_ajaran` (`id_tahun_ajaran`, `tahun_ajaran`, `status_delete`) VALUES
@@ -289,7 +277,7 @@ INSERT INTO `tahun_ajaran` (`id_tahun_ajaran`, `tahun_ajaran`, `status_delete`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -297,15 +285,15 @@ CREATE TABLE `users` (
   `name` varchar(75) NOT NULL,
   `username` varchar(75) NOT NULL,
   `password` varchar(75) NOT NULL,
-  `remember_token` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `level_user` int NOT NULL,
-  `status_akun` int NOT NULL,
-  `status_delete` int NOT NULL,
+  `remember_token` varchar(75) DEFAULT NULL,
+  `level_user` int(11) NOT NULL,
+  `status_akun` int(11) NOT NULL,
+  `status_delete` int(11) NOT NULL,
   `last_login` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
@@ -319,19 +307,19 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 --
 
 --
--- Indexes for table `kantin`
+-- Indeks untuk tabel `kantin`
 --
 ALTER TABLE `kantin`
   ADD PRIMARY KEY (`id_kantin`);
 
 --
--- Indexes for table `kelas`
+-- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
--- Indexes for table `kelas_siswa`
+-- Indeks untuk tabel `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
   ADD PRIMARY KEY (`id_kelas_siswa`),
@@ -340,7 +328,7 @@ ALTER TABLE `kelas_siswa`
   ADD KEY `id_tahun_ajaran` (`id_tahun_ajaran`);
 
 --
--- Indexes for table `keluarga`
+-- Indeks untuk tabel `keluarga`
 --
 ALTER TABLE `keluarga`
   ADD PRIMARY KEY (`id_keluarga`),
@@ -348,40 +336,33 @@ ALTER TABLE `keluarga`
   ADD KEY `id_siswa_keluarga` (`id_siswa_keluarga`);
 
 --
--- Indexes for table `kolom_spp`
+-- Indeks untuk tabel `kolom_spp`
 --
 ALTER TABLE `kolom_spp`
   ADD PRIMARY KEY (`id_kolom_spp`);
 
 --
--- Indexes for table `siswa`
+-- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id_siswa`);
 
 --
--- Indexes for table `spp`
+-- Indeks untuk tabel `spp`
 --
 ALTER TABLE `spp`
   ADD PRIMARY KEY (`id_spp`),
   ADD KEY `id_kelas_siswa` (`id_kelas_siswa`);
 
 --
--- Indexes for table `spp_bayar`
---
-ALTER TABLE `spp_bayar`
-  ADD PRIMARY KEY (`id_spp_bayar`),
-  ADD KEY `id_spp_bulan_tahun` (`id_spp_bulan_tahun`);
-
---
--- Indexes for table `spp_bulan_tahun`
+-- Indeks untuk tabel `spp_bulan_tahun`
 --
 ALTER TABLE `spp_bulan_tahun`
   ADD PRIMARY KEY (`id_spp_bulan_tahun`),
   ADD KEY `id_spp` (`id_spp`);
 
 --
--- Indexes for table `spp_detail`
+-- Indeks untuk tabel `spp_detail`
 --
 ALTER TABLE `spp_detail`
   ADD PRIMARY KEY (`id_spp_detail`),
@@ -389,59 +370,53 @@ ALTER TABLE `spp_detail`
   ADD KEY `id_spp_bulan_tahun` (`id_spp_bulan_tahun`);
 
 --
--- Indexes for table `tahun_ajaran`
+-- Indeks untuk tabel `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
   ADD PRIMARY KEY (`id_tahun_ajaran`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_users`);
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `kelas_siswa`
+-- Ketidakleluasaan untuk tabel `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  ADD CONSTRAINT `kelas_siswa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `kelas_siswa_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `kelas_siswa_ibfk_3` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id_tahun_ajaran`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_siswa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_siswa_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_siswa_ibfk_3` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id_tahun_ajaran`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `keluarga`
+-- Ketidakleluasaan untuk tabel `keluarga`
 --
 ALTER TABLE `keluarga`
-  ADD CONSTRAINT `keluarga_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `keluarga_ibfk_2` FOREIGN KEY (`id_siswa_keluarga`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `keluarga_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `keluarga_ibfk_2` FOREIGN KEY (`id_siswa_keluarga`) REFERENCES `siswa` (`id_siswa`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `spp`
+-- Ketidakleluasaan untuk tabel `spp`
 --
 ALTER TABLE `spp`
-  ADD CONSTRAINT `spp_ibfk_1` FOREIGN KEY (`id_kelas_siswa`) REFERENCES `kelas_siswa` (`id_kelas_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `spp_ibfk_1` FOREIGN KEY (`id_kelas_siswa`) REFERENCES `kelas_siswa` (`id_kelas_siswa`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `spp_bayar`
---
-ALTER TABLE `spp_bayar`
-  ADD CONSTRAINT `spp_bayar_ibfk_1` FOREIGN KEY (`id_spp_bulan_tahun`) REFERENCES `spp_bulan_tahun` (`id_spp_bulan_tahun`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `spp_bulan_tahun`
+-- Ketidakleluasaan untuk tabel `spp_bulan_tahun`
 --
 ALTER TABLE `spp_bulan_tahun`
   ADD CONSTRAINT `spp_bulan_tahun_ibfk_1` FOREIGN KEY (`id_spp`) REFERENCES `spp` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `spp_detail`
+-- Ketidakleluasaan untuk tabel `spp_detail`
 --
 ALTER TABLE `spp_detail`
-  ADD CONSTRAINT `spp_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `spp_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON UPDATE CASCADE,
   ADD CONSTRAINT `spp_detail_ibfk_3` FOREIGN KEY (`id_spp_bulan_tahun`) REFERENCES `spp_bulan_tahun` (`id_spp_bulan_tahun`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

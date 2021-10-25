@@ -1,6 +1,6 @@
-@extends('Admin.layout-app.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -255,18 +255,18 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
     
         <!-- Required datatable js -->
-        <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
         <!-- Buttons examples -->
-        <script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.buttons.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/buttons.bootstrap4.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/jszip.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/datatables/pdfmake.min.js')); ?>"></script>
         <script src="assets/plugins/datatables/vfs_fonts.js"></script>
         <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
         <script src="assets/plugins/datatables/buttons.print.min.js"></script>
@@ -292,9 +292,11 @@
         </script>
 
         <!--Form Wizard-->
-        <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
-        <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
+        <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
 
         <!--wizard initialization-->
-        <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
-@endsection
+        <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/dashboard.blade.php ENDPATH**/ ?>
