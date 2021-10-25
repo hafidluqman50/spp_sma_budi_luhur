@@ -188,6 +188,7 @@
                             <h3>Print Out</h3>
                             <section>
                                 <div class="form-group clearfix">
+                                    <a href="<?php echo e(url('/struk')); ?>" class="btn btn-success btn-right">Cetak</a>
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
                                         <table>
