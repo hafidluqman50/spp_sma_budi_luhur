@@ -1,11 +1,9 @@
-@extends('Admin.layout-app.layout')
-
-@section('css')
+<?php $__env->startSection('css'); ?>
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="assets/plugins/morris/morris.css">
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -147,9 +145,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
     <!-- Counterup  -->
     <script src="assets/plugins/waypoints/lib/jquery.waypoints.js"></script>
     <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
@@ -158,4 +156,6 @@
     <script src="assets/plugins/raphael/raphael-min.js"></script>
 
     <script src="assets/pages/jquery.dashboard_4.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/dashboard-persentase.blade.php ENDPATH**/ ?>

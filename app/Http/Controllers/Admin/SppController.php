@@ -400,6 +400,7 @@ class SppController extends Controller
                             'id_kolom_spp'       => $id_kolom_spp,
                             'nominal_spp'        => $cells[8]->getValue(),
                             'bayar_spp'          => $cells[9]->getValue(),
+                            'sisa_bayar'         => $cells[8]->getValue() - $cells[9]->getValue(),
                             'status_bayar'       => $status_bayar[$cells[10]->getValue()]
                         ];
 

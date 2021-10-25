@@ -29,7 +29,7 @@
                             <i class="md md-attach-money text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">12.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_hari_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Hari Ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -42,7 +42,7 @@
                             <i class="fa fa-money text-success"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">28.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_bulan_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Bulan ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -55,7 +55,7 @@
                             <i class="fa fa-edit text-purple"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">99.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter">{{ money_receipt($total_uang_kantin) }}</b></h3>
                             <p class="text-muted mb-0">Total Uang Kantin</p>
                         </div>
                         <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                             <i class="md md-warning text-danger"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">354.313.00</b></h3>
+                            <h3 class="text-dark"><b class="counter">{{ money_receipt($total_tunggakan) }}</b></h3>
                             <p class="text-muted mb-0">Total Tunggakan</p>
                         </div>
                         <div class="clearfix"></div>
@@ -94,19 +94,31 @@
                                     <div class="">
                                         <select class="form-control">
                                             <option selected selected>--- Pilih Kelas ---</option>
-                                            <option>Kelas X</option>
-                                            <option>Kelas XI</option>
-                                            <option>Kelas XII</option>
+                                            @foreach ($kelas as $element)
+                                            <option value="{{ $element->id_kelas }}">{{ $element->kelas }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group clearfix">
-                                    <label class="control-label " for="userName1">Nama Lengkap *</label>
+                                    <label class="control-label " for="userName1">Tahun Ajaran *</label>
                                     <div class="">
-                                        <select class="form-control">
-                                            <option selected selected>--- Pilih Nama Siswa ---</option>
-                                            <option>Khoirulli Nurul Fatimah</option>
-                                            <option>Hafiidz Luqmanul Hakim</option>
+                                        <select class="form-control" name="tahun_ajaran">
+                                            <option selected selected>--- Pilih Tahun Ajaran ---</option>
+                                            @foreach ($tahun_ajaran as $element)
+                                            <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="control-label " for="userName1">Siswa *</label>
+                                    <div class="">
+                                        <select class="form-control" name="siswa">
+                                            <option selected selected>--- Pilih Siswa ---</option>
+                                            @foreach ($tahun_ajaran as $element)
+                                            <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

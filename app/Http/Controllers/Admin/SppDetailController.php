@@ -50,6 +50,7 @@ class SppDetailController extends Controller
 
         $data_spp_detail = [
             'bayar_spp'     => $bayar_spp,
+            'sisa_bayar'    => $spp_detail->nominal_spp - $bayar_spp,
             'status_bayar'  => $status_bayar
         ];
 
@@ -125,6 +126,7 @@ class SppDetailController extends Controller
 
             $data_spp_detail = [
                 'bayar_spp'     => $bayar_spp[$key],
+                'sisa_bayar'    => $spp_detail->nominal_spp - $bayar_spp[$key],
                 'status_bayar'  => $status_bayar
             ];
 
