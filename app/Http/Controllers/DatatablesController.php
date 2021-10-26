@@ -230,11 +230,7 @@ class DatatablesController extends Controller
                     ';
             return $column;
         })->addColumn('total_kalkulasi',function($add){
-            $kalkulasi = 0;
-            $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->get();
-            foreach ($get_spp_detail as $key => $value) {
-                $kalkulasi = $kalkulasi + ($value->nominal_spp - $value->bayar_spp);
-            }
+            $kalkulasi = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->sum('sisa_bayar');
 
             return format_rupiah($kalkulasi);
         })->addColumn('status_pelunasan',function($add){
@@ -370,6 +366,10 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->addColumn('total_kalkulasi',function($add){
+            $kalkulasi = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->sum('sisa_bayar');
+
+            return format_rupiah($kalkulasi);
         })->addColumn('status_pelunasan',function($add){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
