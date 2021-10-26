@@ -37,11 +37,11 @@ class SppDetailController extends Controller
 
         $spp_detail = SppDetail::where('id_spp_detail',$id_detail)->firstOrFail();
 
-        if ($bayar_spp > $spp_detail->nominal_spp) {
+        if ($bayar_spp > $spp_detail->sisa_bayar) {
             $status_bayar = 1;
-            $bayar_spp = $spp_detail->nominal_spp;
+            $bayar_spp = $spp_detail->sisa_bayar;
         }
-        else if ($bayar_spp == $spp_detail->nominal_spp) {
+        else if ($bayar_spp == $spp_detail->sisa_bayar) {
             $status_bayar = 1;
         }
         else {
@@ -50,7 +50,7 @@ class SppDetailController extends Controller
 
         $data_spp_detail = [
             'bayar_spp'     => $bayar_spp,
-            'sisa_bayar'    => $spp_detail->nominal_spp - $bayar_spp,
+            'sisa_bayar'    => $spp_detail->sisa_bayar - $bayar_spp,
             'status_bayar'  => $status_bayar
         ];
 
@@ -76,8 +76,10 @@ class SppDetailController extends Controller
         SppBayar::create($data_spp_bayar);
 
         Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+        $spp_detail_row = SppDetail::getBayarById($id_detail);
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun'));
     }
 
     public function formBayarSemua($id,$id_bulan_tahun)
@@ -113,11 +115,11 @@ class SppDetailController extends Controller
         foreach ($bayar_spp as $key => $value) {
             $spp_detail = SppDetail::where('id_spp_detail',$id_detail[$key])->firstOrFail();
 
-            if ($bayar_spp[$key] > $spp_detail->nominal_spp) {
+            if ($bayar_spp[$key] > $spp_detail->sisa_bayar) {
                 $status_bayar = 1;
-                $bayar_spp[$key] = $spp_detail->nominal_spp;
+                $bayar_spp[$key] = $spp_detail->sisa_bayar;
             }
-            else if ($bayar_spp[$key] == $spp_detail->nominal_spp) {
+            else if ($bayar_spp[$key] == $spp_detail->sisa_bayar) {
                 $status_bayar = 1;
             }
             else {
@@ -126,7 +128,7 @@ class SppDetailController extends Controller
 
             $data_spp_detail = [
                 'bayar_spp'     => $bayar_spp[$key],
-                'sisa_bayar'    => $spp_detail->nominal_spp - $bayar_spp[$key],
+                'sisa_bayar'    => $spp_detail->sisa_bayar - $bayar_spp[$key],
                 'status_bayar'  => $status_bayar
             ];
 
@@ -153,8 +155,10 @@ class SppDetailController extends Controller
             'keterangan_bayar'   => $keterangan
         ];
         SppBayar::create($data_spp_bayar);
+        $spp_detail_row = SppDetail::getBayarById($id_detail);
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun'));
     }
 
     public function delete($id,$id_bulan_tahun,$id_detail)

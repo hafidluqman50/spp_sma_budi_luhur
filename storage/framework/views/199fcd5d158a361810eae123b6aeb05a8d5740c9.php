@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Out</title>
     <style>
-        @media print {
+        @media  print {
             a {
                 display: none;
             }
         }
     </style>
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <section>
-    <a href="{{ url('/admin/spp') }}">
+    <a href="<?php echo e(url('/admin/spp')); ?>">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -55,4 +55,4 @@
     window.print();
 </script>
 </body>
-</html>
+</html><?php /**PATH /var/www/web_keuangan/resources/views/Admin/struk.blade.php ENDPATH**/ ?>

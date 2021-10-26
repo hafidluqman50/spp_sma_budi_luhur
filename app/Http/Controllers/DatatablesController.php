@@ -324,8 +324,8 @@ class DatatablesController extends Controller
             return format_rupiah($calc);
         })->editColumn('status_bayar',function($edit){
             $array = [
-                0 => ['class'=>'badge badge-danger','text'=>'Belum Bayar'],
-                1 => ['class'=>'badge badge-success','text'=>'Sudah Bayar']
+                0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
+                1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
             ];
             return '<span class="'.$array[$edit->status_bayar]['class'].'">'.$array[$edit->status_bayar]['text'].'</span>';
         })->rawColumns(['action','status_bayar'])->make(true);

@@ -56,7 +56,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" id="total-biaya" value="0" readonly="readonly">
+                                        <input type="text" class="form-control" name="total_biaya" id="total-biaya" value="0" readonly="readonly">
                                         <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
                                     </div>
                                 </div>

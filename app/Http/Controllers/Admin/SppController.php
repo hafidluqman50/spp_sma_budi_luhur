@@ -82,6 +82,11 @@ class SppController extends Controller
         // CHECK SISWA //
         if (Spp::where('id_kelas_siswa',$siswa)->count() > 0) {
             $id_spp = Spp::where('id_kelas_siswa',$siswa)->firstOrFail()->id_spp;
+            $total_harus_bayar_spp = Spp::where('id_spp',$id_spp)->firstOrFail()->total_harus_bayar;
+            $data_spp = [
+                'total_harus_bayar' => $total_pembayaran + $total_harus_bayar_spp
+            ];
+            Spp::where('id_spp',$id_spp)->update($data_spp);
         }
         else {
             $id_spp = (string)Str::uuid();
@@ -111,6 +116,7 @@ class SppController extends Controller
                 'id_kolom_spp'       => $kolom_spp[$index],
                 'nominal_spp'        => $nominal_spp[$index],
                 'bayar_spp'          => 0,
+                'sisa_bayar'         => $nominal_spp[$index],
                 'status_bayar'       => 0
             ];
 

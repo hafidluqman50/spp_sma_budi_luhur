@@ -54,14 +54,22 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Total Biaya</label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="<?php echo e(format_rupiah($spp->nominal_spp)); ?>" readonly="readonly">
-                                        <input type="hidden" name="total_biaya" id="total-biaya" value="<?php echo e($spp->nominal_spp); ?>">
+                                        <input type="text" class="form-control" name="total_biaya" id="total-biaya" value="0" readonly="readonly">
+                                        <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bayar Total</label>
                                     <div class="col-7">
-                                        <input type="number" name="bayar_total" class="form-control" required="">
+                                        <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                        <label for="" id="bayar-total-label">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kembalian</label>
+                                    <div class="col-7">
+                                        <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
+                                        <label for="" id="kembalian-label">Rp. 0,00</label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -86,13 +94,14 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($spp->nominal_spp)); ?>" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($spp->sisa_bayar)); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
                                             <input type="number" name="bayar_spp" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
+                                            <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -138,6 +147,44 @@
         //         console.log("error");
         //     });
         // })
+
+        $('input[name="bayar_spp"]').keyup(function(){
+            var val  = $(this).val()
+            console.log(val)
+            if (val == '') {
+                $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(0)}</b>`)
+            }
+            else {
+                $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
+        $('input[name="bayar_spp"]').change(function(){
+            var val         = parseInt($(this).val())
+            var total_biaya = parseInt($('#total-biaya').val())
+            if (val == '') {
+                val = 0
+            }
+
+            let kalkulasi  = total_biaya + val
+            $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}<b>`)
+            $('#total-biaya').val(kalkulasi)
+        })
+
+        $('#bayar-total').keyup(function(){
+            let val         = $(this).val()
+            let total_biaya = $('#total-biaya').val()
+            
+            $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            if (parseInt(val) > parseInt(total_biaya)) {
+                $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
+                $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
+            }
+            if (parseInt(val) == parseInt(total_biaya)) {
+                $('#kembalian').val(0)
+                $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
+            }
+        })
     })
 </script>
 <?php $__env->stopSection(); ?>

@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <a href="{{ url('/admin/spp') }}">
+    <a href="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -26,25 +26,25 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>Khoirulli Nurul Fatimah</td>
+                    <td>{{ $spp_detail_row->nama_siswa }}</td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>Lima Juta Rupiah</td>
+                    <td>{{ format_rupiah($total_biaya) }}</td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan Oktober 2020 - Februari 2021</td>
+                    <td>SPP Bulan {{ $spp_detail_row->bulan_tahun }}</td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>5.000.000</td>
+                    <td>{{ ucwords(terbilang($total_biaya)) }}</td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, 9 September 2021</p>
+            <p class="text-right">Samarinda, {{ human_date($tanggal_bayar) }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
             <p class="text-right"><b>Nuridina Sari</b></p>
         </div>
