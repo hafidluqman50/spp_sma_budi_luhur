@@ -92,7 +92,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Kelas *</label>
                                     <div class="">
-                                        <select class="form-control">
+                                        <select class="form-control select2" name="kelas">
                                             <option selected selected>--- Pilih Kelas ---</option>
                                             @foreach ($kelas as $element)
                                             <option value="{{ $element->id_kelas }}">{{ $element->kelas }}</option>
@@ -103,7 +103,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Tahun Ajaran *</label>
                                     <div class="">
-                                        <select class="form-control" name="tahun_ajaran">
+                                        <select class="form-control select2" name="tahun_ajaran">
                                             <option selected selected>--- Pilih Tahun Ajaran ---</option>
                                             @foreach ($tahun_ajaran as $element)
                                             <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
@@ -114,11 +114,8 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Siswa *</label>
                                     <div class="">
-                                        <select class="form-control" name="siswa">
+                                        <select class="form-control select2" name="siswa" disabled="">
                                             <option selected selected>--- Pilih Siswa ---</option>
-                                            @foreach ($tahun_ajaran as $element)
-                                            <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
-                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -236,27 +233,15 @@
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>Khoirulli Nurul Fatimah</td>
-                                <td>Dalam Kota</td>
-                                <td>10.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>M. Afnan</td>
-                                <td>Luar Kota</td>
-                                <td>15.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>31 Agustus 2021</td>
-                                <td>Mirza Ghozi</td>
-                                <td>Komplek</td>
-                                <td>400.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
+                                @foreach ($transaksi_terakhir as $element)
+                                <tr>
+                                    <td>{{ human_date($element->tanggal_bayar) }}</td>
+                                    <td>{{ $element->nama_siswa }}</td>
+                                    <td>{{ unslug_str($element->wilayah) }}</td>
+                                    <td>{{ format_rupiah($element->nominal_bayar) }}</td>
+                                    <td><a href="{{ url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -270,43 +255,50 @@
 @endsection
 
 @section('js')
-    
-        <!-- Required datatable js -->
-        <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
-        <!-- Buttons examples -->
-        <script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
-        <script src="assets/plugins/datatables/vfs_fonts.js"></script>
-        <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.print.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.colVis.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    {{-- <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script> --}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').DataTable();
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#datatable').DataTable();
+            //Buttons examples
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                // buttons: ['copy', 'excel', 'pdf', 'colvis']
+            });
 
-                //Buttons examples
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'pdf', 'colvis']
+            // table.buttons().container()
+            //         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        } );
+
+    </script>
+
+    <!--Form Wizard-->
+    <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
+
+    <!--wizard initialization-->
+    <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
+    <script>
+        $(() => {
+            $('select[name="tahun_ajaran"]').change(function() {
+                let tahun_ajaran = $(this).val()
+                let kelas        = $('select[name="kelas"]').val()
+
+                $.ajax({
+                    url: "{{ url('/ajax/get-siswa/') }}/"+kelas+'/'+tahun_ajaran
+                })
+                .done(function(done) {
+                    $('select[name="siswa"]').removeAttr('disabled')
+                    $('select[name="siswa"]').html(done)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
                 });
-
-                table.buttons().container()
-                        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            } );
-
-        </script>
-
-        <!--Form Wizard-->
-        <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
-        <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
-
-        <!--wizard initialization-->
-        <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
+                
+            })
+        })
+    </script>
 @endsection

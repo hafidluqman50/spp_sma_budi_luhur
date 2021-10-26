@@ -90,7 +90,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Kelas *</label>
                                     <div class="">
-                                        <select class="form-control">
+                                        <select class="form-control select2" name="kelas">
                                             <option selected selected>--- Pilih Kelas ---</option>
                                             <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($element->id_kelas); ?>"><?php echo e($element->kelas); ?></option>
@@ -101,7 +101,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Tahun Ajaran *</label>
                                     <div class="">
-                                        <select class="form-control" name="tahun_ajaran">
+                                        <select class="form-control select2" name="tahun_ajaran">
                                             <option selected selected>--- Pilih Tahun Ajaran ---</option>
                                             <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
@@ -112,11 +112,8 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Siswa *</label>
                                     <div class="">
-                                        <select class="form-control" name="siswa">
+                                        <select class="form-control select2" name="siswa" disabled="">
                                             <option selected selected>--- Pilih Siswa ---</option>
-                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -234,27 +231,15 @@
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>Khoirulli Nurul Fatimah</td>
-                                <td>Dalam Kota</td>
-                                <td>10.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>M. Afnan</td>
-                                <td>Luar Kota</td>
-                                <td>15.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>31 Agustus 2021</td>
-                                <td>Mirza Ghozi</td>
-                                <td>Komplek</td>
-                                <td>400.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
+                                <?php $__currentLoopData = $transaksi_terakhir; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td><?php echo e(human_date($element->tanggal_bayar)); ?></td>
+                                    <td><?php echo e($element->nama_siswa); ?></td>
+                                    <td><?php echo e(unslug_str($element->wilayah)); ?></td>
+                                    <td><?php echo e(format_rupiah($element->nominal_bayar)); ?></td>
+                                    <td><a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun)); ?>"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -269,44 +254,51 @@
 
 <?php $__env->startSection('js'); ?>
     
-        <!-- Required datatable js -->
-        <script src="<?php echo e(asset('assets/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
-        <!-- Buttons examples -->
-        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.buttons.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/buttons.bootstrap4.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/jszip.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/pdfmake.min.js')); ?>"></script>
-        <script src="assets/plugins/datatables/vfs_fonts.js"></script>
-        <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.print.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.colVis.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').DataTable();
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#datatable').DataTable();
+            //Buttons examples
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                // buttons: ['copy', 'excel', 'pdf', 'colvis']
+            });
 
-                //Buttons examples
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'pdf', 'colvis']
+            // table.buttons().container()
+            //         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        } );
+
+    </script>
+
+    <!--Form Wizard-->
+    <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
+
+    <!--wizard initialization-->
+    <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
+    <script>
+        $(() => {
+            $('select[name="tahun_ajaran"]').change(function() {
+                let tahun_ajaran = $(this).val()
+                let kelas        = $('select[name="kelas"]').val()
+
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/get-siswa/')); ?>/"+kelas+'/'+tahun_ajaran
+                })
+                .done(function(done) {
+                    $('select[name="siswa"]').removeAttr('disabled')
+                    $('select[name="siswa"]').html(done)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
                 });
-
-                table.buttons().container()
-                        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            } );
-
-        </script>
-
-        <!--Form Wizard-->
-        <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
-        <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
-
-        <!--wizard initialization-->
-        <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
+                
+            })
+        })
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/dashboard.blade.php ENDPATH**/ ?>

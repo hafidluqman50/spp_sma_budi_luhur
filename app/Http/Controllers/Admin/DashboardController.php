@@ -34,6 +34,16 @@ class DashboardController extends Controller
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran'));
+        $transaksi_terakhir = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                    // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                    // ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                    ->orderBy('tanggal_bayar','DESC')
+                                    ->limit(3)
+                                    ->get();
+
+        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir'));
     }
 }
