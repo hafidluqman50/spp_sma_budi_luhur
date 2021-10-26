@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
+            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -53,6 +53,31 @@
                                         <input type="text" class="form-control" value="<?php echo e($spp->bulan_tahun); ?>" readonly="readonly">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Total Biaya</label>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" id="total-biaya-juga" value="<?php echo e(format_rupiah(0)); ?>" readonly="readonly">
+                                        <input type="hidden" name="total_biaya" id="total-biaya" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Bayar Total</label>
+                                    <div class="col-7">
+                                        <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kembalian</label>
+                                    <div class="col-7">
+                                        <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Keterangan</label>
+                                    <div class="col-7">
+                                        <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
+                                    </div>
+                                </div>
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
@@ -70,7 +95,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->nominal_spp)); ?>" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->nominal_spp - $value->bayar_spp)); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -125,6 +150,30 @@
         //         console.log("error");
         //     });
         // })
+
+        $(document).on('change','input[name="bayar_spp[]"]',function(){
+            var val         = parseInt($(this).val())
+            var total_biaya = parseInt($('#total-biaya').val())
+            if (val == '') {
+                val = 0
+            }
+
+            let kalkulasi  = total_biaya + val
+            $('#total-biaya-juga').val(rupiah_format(kalkulasi))
+            $('#total-biaya').val(kalkulasi)
+        })
+
+        $('#bayar-total').keyup(function(){
+            let val         = parseInt($(this).val())
+            let total_biaya = parseInt($('#total-biaya').val())
+            
+            if (val > total_biaya) {
+                $('#kembalian').val(val - total_biaya)
+            }
+            if (val == total_biaya) {
+                $('#kembalian').val(0)
+            }       
+        })
     })
 </script>
 <?php $__env->stopSection(); ?>

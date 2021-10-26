@@ -1,5 +1,9 @@
 @extends('Admin.layout-app.layout')
 
+@section('css')
+    <link href= "{{asset('assets/plugins/custombox/css/custombox.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <div class="wrapper">
@@ -147,31 +151,32 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Januari 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Februari 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
-                                        </tr>
-                                        <tr>
                                             <th scope="row">3</th>
                                             <td>Maret 2021</td>
                                             <td>250.000</td>
                                             <td>600.000</td>
                                             <td>50.000</td>
                                             <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
+                                            <td>
+                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a>
+                                            
+                                                <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-full">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                DETAIL PEMBAYARAN
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                isi disini
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -180,6 +185,7 @@
                             <h3>Print Out</h3>
                             <section>
                                 <div class="form-group clearfix">
+                                    <a href="{{url('/struk')}}" class="btn btn-success">Cetak</a>
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
                                         <table>
@@ -252,27 +258,25 @@
     </div>
     <!-- end wrapper -->
 
+    <!-- Modal -->
+    <div id="custom-modal" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="custom-modal-title">Modal title</h4>
+        <div class="custom-modal-text">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </div>
+    </div>
+
 @endsection
 
 @section('js')
     {{-- <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script> --}}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable').DataTable();
-
-            //Buttons examples
-            var table = $('#datatable-buttons').DataTable({
-                lengthChange: false,
-                // buttons: ['copy', 'excel', 'pdf', 'colvis']
-            });
-
-            // table.buttons().container()
-            //         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-        } );
-
-    </script>
 
     <!--Form Wizard-->
+    <script src="{{asset('assets/plugins/custombox/js/custombox.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/custombox/js/legacy.min.js')}}"></script>
     <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
 

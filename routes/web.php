@@ -263,3 +263,7 @@ Route::get('/datakelas', function () {
 Route::get('/detailkelas', function () {
     return view('data-tunggal-kelas-detail');
 });
+
+Route::get('/struk', function () {
+    return view('Admin/struk');
+});

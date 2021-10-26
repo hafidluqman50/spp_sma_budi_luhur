@@ -13,10 +13,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Bulan Tahun SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Bulan Tahun SPP</h4>
+                        <h4 class="page-title">Data Pembayaran SPP</h4>
                     </div>
                 </div>
             </div>
@@ -25,10 +25,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/admin/spp/')); ?>">
+                            <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
@@ -39,13 +39,15 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Total Biaya</th>
+                                <th>Nominal Bayar</th>
+                                <th>Kembalian</th>
+                                <th>Keterangan</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -61,4 +63,4 @@
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/spp-bulan-tahun/main.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/spp-bayar/main.blade.php ENDPATH**/ ?>

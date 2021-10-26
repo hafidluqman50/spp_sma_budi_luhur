@@ -35,6 +35,11 @@
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
+                            <a href="<?php echo e(url('/admin/spp/import')); ?>">
+                                <button class="btn btn-success">
+                                    <i class="fa fa-file-excel-o m-r-5"></i>Import
+                                </button>
+                            </a>
                         </div>
                         <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">

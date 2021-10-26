@@ -1,5 +1,9 @@
 
 
+<?php $__env->startSection('css'); ?>
+    <link href= "<?php echo e(asset('assets/plugins/custombox/css/custombox.css')); ?>" rel="stylesheet">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
@@ -29,7 +33,7 @@
                             <i class="md md-attach-money text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">12.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($transaksi_hari_ini)); ?></b></h3>
                             <p class="text-muted mb-0">Transaksi Hari Ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -42,7 +46,7 @@
                             <i class="fa fa-money text-success"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">28.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($transaksi_bulan_ini)); ?></b></h3>
                             <p class="text-muted mb-0">Transaksi Bulan ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -55,7 +59,7 @@
                             <i class="fa fa-edit text-purple"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">99.000.000</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($total_uang_kantin)); ?></b></h3>
                             <p class="text-muted mb-0">Total Uang Kantin</p>
                         </div>
                         <div class="clearfix"></div>
@@ -68,7 +72,7 @@
                             <i class="md md-warning text-danger"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">354.313.00</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($total_tunggakan)); ?></b></h3>
                             <p class="text-muted mb-0">Total Tunggakan</p>
                         </div>
                         <div class="clearfix"></div>
@@ -94,19 +98,31 @@
                                     <div class="">
                                         <select class="form-control">
                                             <option selected selected>--- Pilih Kelas ---</option>
-                                            <option>Kelas X</option>
-                                            <option>Kelas XI</option>
-                                            <option>Kelas XII</option>
+                                            <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_kelas); ?>"><?php echo e($element->kelas); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group clearfix">
-                                    <label class="control-label " for="userName1">Nama Lengkap *</label>
+                                    <label class="control-label " for="userName1">Tahun Ajaran *</label>
                                     <div class="">
-                                        <select class="form-control">
-                                            <option selected selected>--- Pilih Nama Siswa ---</option>
-                                            <option>Khoirulli Nurul Fatimah</option>
-                                            <option>Hafiidz Luqmanul Hakim</option>
+                                        <select class="form-control" name="tahun_ajaran">
+                                            <option selected selected>--- Pilih Tahun Ajaran ---</option>
+                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="control-label " for="userName1">Siswa *</label>
+                                    <div class="">
+                                        <select class="form-control" name="siswa">
+                                            <option selected selected>--- Pilih Siswa ---</option>
+                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -138,31 +154,32 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Januari 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Februari 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
-                                        </tr>
-                                        <tr>
                                             <th scope="row">3</th>
                                             <td>Maret 2021</td>
                                             <td>250.000</td>
                                             <td>600.000</td>
                                             <td>50.000</td>
                                             <td>100.000</td>
-                                            <td><a href="" class="btn btn-danger btn-sm waves-effect waves-light">Bayar</a></td>
+                                            <td>
+                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a>
+                                            
+                                                <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-full">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                DETAIL PEMBAYARAN
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                isi disini
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -171,6 +188,7 @@
                             <h3>Print Out</h3>
                             <section>
                                 <div class="form-group clearfix">
+                                    <a href="<?php echo e(url('/struk')); ?>" class="btn btn-success btn-right">Cetak</a>
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
                                         <table>
@@ -255,9 +273,24 @@
     </div>
     <!-- end wrapper -->
 
+    <!-- Modal -->
+    <div id="custom-modal" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="custom-modal-title">Modal title</h4>
+        <div class="custom-modal-text">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </div>
+    </div>
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
+
+        <!-- Modal-Effect -->
+        <script src="<?php echo e(asset('assets/plugins/custombox/js/custombox.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/custombox/js/legacy.min.js')); ?>"></script>
     
         <!-- Required datatable js -->
         <script src="<?php echo e(asset('assets/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
