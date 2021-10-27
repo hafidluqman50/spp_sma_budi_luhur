@@ -96,7 +96,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Kelas *</label>
                                     <div class="">
-                                        <select class="form-control">
+                                        <select class="form-control select2" name="kelas">
                                             <option selected selected>--- Pilih Kelas ---</option>
                                             <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($element->id_kelas); ?>"><?php echo e($element->kelas); ?></option>
@@ -107,7 +107,7 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Tahun Ajaran *</label>
                                     <div class="">
-                                        <select class="form-control" name="tahun_ajaran">
+                                        <select class="form-control select2" name="tahun_ajaran">
                                             <option selected selected>--- Pilih Tahun Ajaran ---</option>
                                             <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
@@ -118,11 +118,8 @@
                                 <div class="form-group clearfix">
                                     <label class="control-label " for="userName1">Siswa *</label>
                                     <div class="">
-                                        <select class="form-control" name="siswa">
+                                        <select class="form-control select2" name="siswa" disabled="">
                                             <option selected selected>--- Pilih Siswa ---</option>
-                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -134,10 +131,10 @@
                             <h3>Data Tunggakan</h3>
                             <section>
                                 <div class="card-box">
-                                    <h4 class="m-t-0 header-title">Tunggakan An. Khoirulli Nurul Fatimah</h4>
-                                    <p class="text-muted font-14 m-b-20">
-                                        Siswa Luar Kota/Dalam Kota/Komplek <br>
-                                        Makan di Pondok/Kantin Bu Mus/Bu Yusron/Bu Zahira/Bu Wandi/Bu Malik
+                                    <h4 class="m-t-0 header-title" id="tunggakan_an">Tunggakan An. </h4>
+                                    <p class="text-muted font-14 m-b-20" id="info_siswa">
+                                        - <br>
+                                        -
                                     </p>
 
                                     <table class="table table-hover">
@@ -145,40 +142,17 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Bulan, Tahun</th>
-                                            <th>SPP</th>
-                                            <th>Makan</th>
-                                            <th>Tab Tes</th>
-                                            <th>Asrama</th>
+                                            
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">3</th>
+                                            <th scope="row">1</th>
                                             <td>Maret 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td>
-                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a>
                                             
-                                                <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
-                                                    <div class="modal-dialog modal-full">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                DETAIL PEMBAYARAN
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                isi disini
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div><!-- /.modal -->
+                                            <td>
+                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a><!-- /.modal -->
                                             </td>
                                         </tr>
                                         </tbody>
@@ -188,32 +162,32 @@
                             <h3>Print Out</h3>
                             <section>
                                 <div class="form-group clearfix">
-                                    <a href="<?php echo e(url('/struk')); ?>" class="btn btn-success btn-right">Cetak</a>
+                                    <a href="<?php echo e(url('/struk')); ?>" class="btn btn-success">Cetak</a>
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
                                         <table>
                                             <tr>
                                                 <td>Nama</td>
                                                 <td>:</td>
-                                                <td>Khoirulli Nurul Fatimah</td>
+                                                <td id="nama_siswa">Khoirulli Nurul Fatimah</td>
                                             </tr>
                                             <tr>
                                                 <td>Uang Sejumlah</td>
                                                 <td>:</td>
-                                                <td>Lima Juta Rupiah</td>
+                                                <td id="total">Lima Juta Rupiah</td>
                                             </tr>
                                             <tr>
                                                 <td>Untuk Pembayaran</td>
                                                 <td>:</td>
-                                                <td>SPP Bulan Oktober 2020 - Februari 2021</td>
+                                                <td id="range_pembayaran">SPP Bulan Oktober 2020 - Februari 2021</td>
                                             </tr>
                                             <tr>
                                                 <td>Terbilang Rp.</td>
                                                 <td>:</td>
-                                                <td>5.000.000</td>
+                                                <td id="terbilang">5.000.000</td>
                                             </tr>
                                         </table>
-                                        <p class="text-right">Samarinda, 9 September 2021</p>
+                                        <p class="text-right" id="tanggal_spp">Samarinda, <?php echo e(human_date(date('Y-m-d'))); ?></p>
                                         <p class="text-right"><b>Bendahara</b></p><br><br>
                                         <p class="text-right"><b>Nuridina Sari</b></p>
                                     </div>
@@ -224,6 +198,88 @@
                     </div>
                 </div>
             </div><!-- End row -->
+
+            <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            DETAIL PEMBAYARAN
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Bulan Tahun</label>
+                                        <div class="col-7">
+                                            <input type="text" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Total Biaya</label>
+                                        <div class="col-7">
+                                            <input type="text" class="form-control" id="total-biaya" value="0" readonly="readonly">
+                                            <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Bayar Total</label>
+                                        <div class="col-7">
+                                            <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                            <label for="" id="bayar-total-label">Rp. 0,00</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Kembalian</label>
+                                        <div class="col-7">
+                                            <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
+                                            <label for="" id="kembalian-label">Rp. 0,00</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Keterangan</label>
+                                        <div class="col-7">
+                                            <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
+                                        </div>
+                                    </div>
+                                    <div class="visible-lg" style="height: 79px;"></div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="card-box">
+                                        <div id="layout-bayar-spp">
+                                            <div id="bayar-spp">
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Kolom Spp</label>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control" readonly="readonly">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Nominal Spp</label>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control" readonly="readonly">
+                                                        <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Bayar</label>
+                                                    <div class="col-7">
+                                                        <input type="number" name="bayar_spp" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="visible-lg" style="height: 79px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
 
             <div class="row">
                 <div class="col-12">
@@ -242,27 +298,15 @@
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>Khoirulli Nurul Fatimah</td>
-                                <td>Dalam Kota</td>
-                                <td>10.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>01 September 2021</td>
-                                <td>M. Afnan</td>
-                                <td>Luar Kota</td>
-                                <td>15.000.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
-                            <tr>
-                                <td>31 Agustus 2021</td>
-                                <td>Mirza Ghozi</td>
-                                <td>Komplek</td>
-                                <td>400.000</td>
-                                <td><a href="" class="btn btn-success btn-sm waves-effect waves-light">Lihat</a></td>
-                            </tr>
+                                <?php $__currentLoopData = $transaksi_terakhir; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td><?php echo e(human_date($element->tanggal_bayar)); ?></td>
+                                    <td><?php echo e($element->nama_siswa); ?></td>
+                                    <td><?php echo e(unslug_str($element->wilayah)); ?></td>
+                                    <td><?php echo e(format_rupiah($element->nominal_bayar)); ?></td>
+                                    <td><a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun)); ?>"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -287,49 +331,58 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
-
-        <!-- Modal-Effect -->
-        <script src="<?php echo e(asset('assets/plugins/custombox/js/custombox.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/custombox/js/legacy.min.js')); ?>"></script>
     
-        <!-- Required datatable js -->
-        <script src="<?php echo e(asset('assets/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
-        <!-- Buttons examples -->
-        <script src="<?php echo e(asset('assets/plugins/datatables/dataTables.buttons.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/buttons.bootstrap4.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/jszip.min.js')); ?>"></script>
-        <script src="<?php echo e(asset('assets/plugins/datatables/pdfmake.min.js')); ?>"></script>
-        <script src="assets/plugins/datatables/vfs_fonts.js"></script>
-        <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.print.min.js"></script>
-        <script src="assets/plugins/datatables/buttons.colVis.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#datatable').DataTable();
+    <!--Form Wizard-->
+    <script src="<?php echo e(asset('assets/plugins/custombox/js/custombox.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/custombox/js/legacy.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
 
-                //Buttons examples
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'pdf', 'colvis']
+    <!--wizard initialization-->
+    <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
+    <script>
+        $(() => {
+            $('select[name="tahun_ajaran"]').change(function() {
+                let tahun_ajaran = $(this).val()
+                let kelas        = $('select[name="kelas"]').val()
+
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/get-siswa/')); ?>/"+kelas+'/'+tahun_ajaran
+                })
+                .done(function(done) {
+                    $('select[name="siswa"]').removeAttr('disabled')
+                    $('select[name="siswa"]').html(done)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
                 });
+                
+            })
 
-                table.buttons().container()
-                        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            } );
+            $('a[href="#next"]').click(function() {
+                let kelas        = $('select[name="kelas"]').val()
+                let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+                let siswa        = $('select[name="siswa"]').val()
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/tampil-tunggakan/')); ?>/"+kelas+tahun_ajaran+siswa
+                })
+                .done(function(done) {
 
-        </script>
-
-        <!--Form Wizard-->
-        <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
-        <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
-
-        <!--wizard initialization-->
-        <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            })
+        })
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/dashboard.blade.php ENDPATH**/ ?>

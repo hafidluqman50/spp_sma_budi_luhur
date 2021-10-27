@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <a href="<?php echo e(url('/admin/spp')); ?>">
+    <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)); ?>">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -26,25 +26,25 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>Khoirulli Nurul Fatimah</td>
+                    <td><?php echo e($spp_detail_row->nama_siswa); ?></td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>Lima Juta Rupiah</td>
+                    <td><?php echo e(format_rupiah($total_biaya)); ?></td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan Oktober 2020 - Februari 2021</td>
+                    <td>SPP Bulan <?php echo e($spp_detail_row->bulan_tahun); ?></td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>5.000.000</td>
+                    <td><?php echo e(ucwords(terbilang($total_biaya))); ?></td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, 9 September 2021</p>
+            <p class="text-right">Samarinda, <?php echo e(human_date($tanggal_bayar)); ?></p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
             <p class="text-right"><b>Nuridina Sari</b></p>
         </div>
@@ -55,4 +55,4 @@
     window.print();
 </script>
 </body>
-</html><?php /**PATH /var/www/web_keuangan/resources/views/Admin/struk.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\xampp\htdocs\web_keuangan\resources\views/Admin/spp-detail/struk.blade.php ENDPATH**/ ?>
