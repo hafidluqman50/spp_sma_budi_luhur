@@ -49,9 +49,9 @@ class SppDetailController extends Controller
         }
 
         $data_spp_detail = [
-            'bayar_spp'     => $bayar_spp,
-            'sisa_bayar'    => $spp_detail->sisa_bayar - $bayar_spp,
-            'status_bayar'  => $status_bayar
+            'bayar_spp'    => $spp_detail->bayar_spp + $bayar_spp,
+            'sisa_bayar'   => $spp_detail->sisa_bayar - $bayar_spp,
+            'status_bayar' => $status_bayar
         ];
 
         $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
@@ -127,9 +127,9 @@ class SppDetailController extends Controller
             }
 
             $data_spp_detail = [
-                'bayar_spp'     => $bayar_spp[$key],
-                'sisa_bayar'    => $spp_detail->sisa_bayar - $bayar_spp[$key],
-                'status_bayar'  => $status_bayar
+                'bayar_spp'    => $spp_detail->bayar_spp + $bayar_spp[$key],
+                'sisa_bayar'   => $spp_detail->sisa_bayar - $bayar_spp[$key],
+                'status_bayar' => $status_bayar
             ];
 
             $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')

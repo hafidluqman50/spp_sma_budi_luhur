@@ -95,7 +95,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->nominal_spp - $value->bayar_spp)); ?>" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->sisa_bayar)); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">

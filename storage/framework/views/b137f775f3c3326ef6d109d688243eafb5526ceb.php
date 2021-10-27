@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <a href="<?php echo e(url('/admin/spp')); ?>">
+    <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)); ?>">
         Kembali
     </a>
     <div class="form-group clearfix">
