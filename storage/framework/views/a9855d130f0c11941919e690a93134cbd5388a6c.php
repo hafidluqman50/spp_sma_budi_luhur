@@ -144,15 +144,8 @@
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Maret 2021</td>
-                                            
-                                            <td>
-                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a><!-- /.modal -->
-                                            </td>
-                                        </tr>
+                                        <tbody id="tunggakan-table">
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -245,25 +238,7 @@
                                     <div class="card-box">
                                         <div id="layout-bayar-spp">
                                             <div id="bayar-spp">
-                                                <div class="form-group row">
-                                                    <label class="col-4 col-form-label">Kolom Spp</label>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control" readonly="readonly">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-4 col-form-label">Nominal Spp</label>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control" readonly="readonly">
-                                                        <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-4 col-form-label">Bayar</label>
-                                                    <div class="col-7">
-                                                        <input type="number" name="bayar_spp" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="visible-lg" style="height: 79px;"></div>
@@ -347,7 +322,7 @@
                 let kelas        = $('select[name="kelas"]').val()
 
                 $.ajax({
-                    url: "<?php echo e(url('/ajax/get-siswa/')); ?>/"+kelas+'/'+tahun_ajaran
+                    url: "<?php echo e(url('/ajax/get-siswa-dashboard/')); ?>/"+kelas+'/'+tahun_ajaran
                 })
                 .done(function(done) {
                     $('select[name="siswa"]').removeAttr('disabled')
@@ -366,11 +341,15 @@
                 let kelas        = $('select[name="kelas"]').val()
                 let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
                 let siswa        = $('select[name="siswa"]').val()
+
+                $('#tunggakan-table').html('<tr><td colspan="3">Loading...</td></tr>')
                 $.ajax({
-                    url: "<?php echo e(url('/ajax/tampil-tunggakan/')); ?>/"+kelas+tahun_ajaran+siswa
+                    url: "<?php echo e(url('/ajax/get-tunggakan/')); ?>/"+siswa+'/'+kelas+'/'+tahun_ajaran
                 })
                 .done(function(done) {
-
+                    $('#tunggakan-table').html(done.table)
+                    $('#tunggakan_an').html(`Tunggakan an. ${done.siswa['nama_siswa']}`)
+                    $('#info_siswa').html(done.siswa['wilayah'])
                 })
                 .fail(function() {
                     console.log("error");
@@ -379,6 +358,25 @@
                     console.log("complete");
                 });
                 
+            })
+
+            $(document).on('click','.tombol-bayar',function(){
+                let attr = $(this).attr('id-spp-bulan-tahun')
+                $(this).html('Loading...')
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/get-tunggakan-detail/')); ?>/"+attr
+                })
+                .done(function(done) {
+                    $('#full-width-modal').modal('show')
+                    $(this).html('Bayar')
+                    $('#bayar-spp').html(done)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
             })
         })
     </script>

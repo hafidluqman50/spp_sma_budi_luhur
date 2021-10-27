@@ -64,6 +64,9 @@ Route::get('/logout',[AuthController::class, 'logout']);
 Route::group(['prefix' => 'ajax'],function() {
     // Route::get('/get-kelas-by-tahun-ajaran/{id}',[AjaxController::class, 'getKelasByTahunAjaran']);
     Route::get('/get-siswa/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswa']);
+    Route::get('/get-siswa-dashboard/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswaDashboard']);
+    Route::get('/get-tunggakan/{id_siswa}/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getTunggakan']);
+    Route::get('/get-tunggakan-detail/{id_bulan_tahun}',[AjaxController::class, 'getTunggakanDetail']);
 });
 
 Route::group(['prefix' => 'datatables'],function(){
