@@ -326,7 +326,7 @@ class SiswaController extends Controller
                             'nomor_orang_tua' => $cells[7]->getValue(),
                             'asal_kelompok'   => $cells[8]->getValue(),
                             'asal_wilayah'    => $cells[9]->getValue(),
-                            'wilayah'         => $cells[10]->getValue(),
+                            'wilayah'         => Str::slug($cells[10]->getValue(),'-'),
                             'status_delete'   => 0
                         ];
 
@@ -336,11 +336,11 @@ class SiswaController extends Controller
                             $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
                         }
                         else {
-                            $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;   
+                            $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
                         }
 
-                        $id_kelas        = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->get()[0]->id_kelas;
-                        $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->get()[0]->id_tahun_ajaran;
+                        $id_kelas        = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->where('status_delete',0)->get()[0]->id_kelas;
+                        $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->where('status_delete',0)->get()[0]->id_tahun_ajaran;
 
                         $data_kelas_siswa = [
                             'id_siswa'        => $id_siswa,

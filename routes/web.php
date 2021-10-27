@@ -174,7 +174,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua/save',[AdminSppDetailController::class, 'bayarSemua']);
     Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
     Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'formBayar']);
     // END ROUTE SPP LIHAT SPP //
 
     // ROUTE TUNGGAKAN //
