@@ -341,6 +341,7 @@
     <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
     <script>
         $(() => {
+            $('table#datatable').DataTable();
             $('select[name="tahun_ajaran"]').change(function() {
                 let tahun_ajaran = $(this).val()
                 let kelas        = $('select[name="kelas"]').val()
