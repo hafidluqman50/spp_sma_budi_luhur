@@ -32,8 +32,8 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
 
-        <script src="{{asset('assets/Datatables/DataTables-1.11.2/js/jquery.dataTables.js')}}"></script>
-        <script src="{{asset('assets/Datatables/DataTables-1.11.2/js/dataTables.bootstrap4.js')}}"></script>
+        <script src="{{asset('assets/DataTables/DataTables-1.11.2/js/jquery.dataTables.js')}}"></script>
+        <script src="{{asset('assets/DataTables/DataTables-1.11.2/js/dataTables.bootstrap4.js')}}"></script>
         <script src="{{asset('assets/select2-4.1.0-rc.0/dist/js/select2.min.js')}}"></script>
         <script src="{{ asset('assets/custom.js') }}"></script>
 
