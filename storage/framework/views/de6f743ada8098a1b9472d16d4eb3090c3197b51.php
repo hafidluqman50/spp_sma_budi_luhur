@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="Aplikasi Keuangan SMA Budi Luhur Samarinda" name="description" />
         <meta content="SMA Budi Luhur" name="author" />
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <link rel="shortcut icon" href="<?php echo e(asset('assets/images/sma.png')); ?>">

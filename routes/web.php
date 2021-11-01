@@ -67,6 +67,7 @@ Route::group(['prefix' => 'ajax'],function() {
     Route::get('/get-siswa-dashboard/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswaDashboard']);
     Route::get('/get-tunggakan/{id_siswa}/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getTunggakan']);
     Route::get('/get-tunggakan-detail/{id_bulan_tahun}',[AjaxController::class, 'getTunggakanDetail']);
+    Route::post('/get-bayar',[AjaxController::class, 'getBayar']);
 });
 
 Route::group(['prefix' => 'datatables'],function(){
@@ -91,6 +92,7 @@ Route::get('/oke',function(){
 
 Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/dashboard',[AdminDashboardController::class, 'index']);
+    Route::get('/dashboard/bayar-spp',[AdminDashboardController::class, 'bayarSppDashboard']);
 
     // ROUTE SISWA //
     Route::get('/siswa',[AdminSiswaController::class, 'index']);

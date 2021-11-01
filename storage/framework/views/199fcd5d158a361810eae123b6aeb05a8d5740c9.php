@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <a href="<?php echo e(url('/admin/spp')); ?>">
+    <a href="<?php echo e(url('/admin/dashboard')); ?>">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -26,25 +26,25 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>Khoirulli Nurul Fatimah</td>
+                    <td><?php echo e($data_master['nama_siswa']); ?></td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>Lima Juta Rupiah</td>
+                    <td><?php echo e(format_rupiah($data_master['total_bayar'])); ?></td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan Oktober 2020 - Februari 2021</td>
+                    <td>SPP Bulan <?php echo e($data_master['untuk_pembayaran']); ?></td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>5.000.000</td>
+                    <td><?php echo e($data_master['terbilang']); ?></td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, 9 September 2021</p>
+            <p class="text-right">Samarinda, <?php echo e($data_master['tanggal_spp_convert']); ?></p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
             <p class="text-right"><b>Nuridina Sari</b></p>
         </div>

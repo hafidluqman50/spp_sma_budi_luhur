@@ -175,25 +175,25 @@
                                             <tr>
                                                 <td>Nama</td>
                                                 <td>:</td>
-                                                <td id="nama_siswa">Khoirulli Nurul Fatimah</td>
+                                                <td id="nama_siswa">-</td>
                                             </tr>
                                             <tr>
                                                 <td>Uang Sejumlah</td>
                                                 <td>:</td>
-                                                <td id="total">Lima Juta Rupiah</td>
+                                                <td id="total">-</td>
                                             </tr>
                                             <tr>
                                                 <td>Untuk Pembayaran</td>
                                                 <td>:</td>
-                                                <td id="range_pembayaran">SPP Bulan Oktober 2020 - Februari 2021</td>
+                                                <td id="range_pembayaran">-</td>
                                             </tr>
                                             <tr>
                                                 <td>Terbilang Rp.</td>
                                                 <td>:</td>
-                                                <td id="terbilang">5.000.000</td>
+                                                <td id="terbilang">-</td>
                                             </tr>
                                         </table>
-                                        <p class="text-right" id="tanggal_spp">Samarinda, {{ human_date(date('Y-m-d')) }}</p>
+                                        <p class="text-right" id="tanggal_spp">-</p>
                                         <p class="text-right"><b>Bendahara</b></p><br><br>
                                         <p class="text-right"><b>Nuridina Sari</b></p>
                                     </div>
@@ -211,60 +211,57 @@
                         <div class="modal-header">
                             DETAIL PEMBAYARAN
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Bulan Tahun</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" readonly="readonly">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Total Biaya</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" id="total-biaya" value="0" readonly="readonly">
-                                            <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Bayar Total</label>
-                                        <div class="col-7">
-                                            <input type="number" name="bayar_total" id="bayar-total" class="form-control">
-                                            <label for="" id="bayar-total-label">Rp. 0,00</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kembalian</label>
-                                        <div class="col-7">
-                                            <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
-                                            <label for="" id="kembalian-label">Rp. 0,00</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Keterangan</label>
-                                        <div class="col-7">
-                                            <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
-                                        </div>
-                                    </div>
-                                    <div class="visible-lg" style="height: 79px;"></div>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="card-box">
-                                        <div id="layout-bayar-spp">
-                                            <div id="bayar-spp">
-                                                
+                        <form id="form-spp">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12" >
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Total Biaya</label>
+                                            <div class="col-7">
+                                                <input type="text" name="total_biaya" class="form-control" id="total-biaya" value="0" readonly="readonly">
+                                                <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Bayar Total</label>
+                                            <div class="col-7">
+                                                <input type="number" name="bayar_total" id="bayar-total" class="form-control">
+                                                <label for="" id="bayar-total-label">Rp. 0,00</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Kembalian</label>
+                                            <div class="col-7">
+                                                <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
+                                                <label for="" id="kembalian-label">Rp. 0,00</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Keterangan</label>
+                                            <div class="col-7">
+                                                <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="id_spp_bulan_tahun">
                                         <div class="visible-lg" style="height: 79px;"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="card-box">
+                                            <div id="layout-bayar-spp">
+                                                <div id="bayar-spp">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="visible-lg" style="height: 79px;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary waves-effect waves-light">Simpan</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary waves-effect" id="close-bayar" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="act-simpan">Simpan</button>
+                            </div>
+                        </form>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
@@ -376,22 +373,25 @@
                     });
                 }
                 else if ($(this).attr('keterangan') == 'bayar-spp') {
-                    $(this).removeAttr('keterangan')
-                    $.ajax({
-                        url: "{{ url('/ajax/get-bayar-spp/') }}"
-                    })
-                    .done(function(done) {
+                    // $(this).removeAttr('keterangan')
+                    // $.ajax({
+                    //     url: "{{ url('/ajax/get-bayar/') }}"
+                    // })
+                    // .done(function(done) {
 
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("complete");
-                    });
-                    
+                    // })
+                    // .fail(function() {
+                    //     console.log("error");
+                    // })
+                    // .always(function() {
+                    //     console.log("complete");
+                    // });
                 }
                 
+            })
+
+            $('a[href="#finish"]').click(function(){
+                window.location.href="{{ url('/admin/dashboard/bayar-spp') }}"
             })
 
             $(document).on('click','.tombol-bayar',function(){
@@ -401,9 +401,10 @@
                     url: "{{ url('/ajax/get-tunggakan-detail/') }}/"+attr
                 })
                 .done(function(done) {
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${attr}"]`).html('Bayar')
                     $('#full-width-modal').modal('show')
-                    $(this).html('Bayar')
-                    $('#bayar-spp').html(done)
+                    $('#bayar-spp').html(done.kolom_spp)
+                    $('input[name="id_spp_bulan_tahun"]').val(done.id_spp_bulan_tahun)
                 })
                 .fail(function() {
                     console.log("error");
@@ -411,6 +412,102 @@
                 .always(function() {
                     console.log("complete");
                 });
+            })
+
+            $('#close-bayar').click(function(){
+                $('#form-spp').find('input').val('')
+                // $('#form-spp').find('label').html(rupiah_format(0))
+                $('#total-biaya-juga').html(rupiah_format(0))
+                $('#bayar-total-label').html(rupiah_format(0))
+                $('#kembalian-label').html(rupiah_format(0))
+
+                $('#total-biaya').val(0)
+                $('#bayar-spp').html('')
+                $('#full-width-modal').modal('hide')
+            })
+
+            $('#form-spp').submit(function(e){
+                e.preventDefault()
+                let val = $(this).serialize()
+                $('#act-simpan').html('Loading...')
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: "{{ url('/ajax/get-bayar/') }}",
+                    type: 'POST',
+                    data: val,
+                })
+                .done(function(done) {
+                    $('#act-simpan').html('Simpan')
+
+                    $('#form-spp').find('input').val('')
+                    $('#total-biaya-juga').html(rupiah_format(0))
+                    $('#bayar-total-label').html(rupiah_format(0))
+                    $('#kembalian-label').html(rupiah_format(0))
+
+                    $('#total-biaya').val(0)
+                    $('#bayar-spp').html('')
+                    $('#full-width-modal').modal('hide')
+
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).html('Sudah Bayar')
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).attr('disabled','disabled')
+
+                    $('#nama_siswa').html(done.nama_siswa)
+                    $('#total').html(done.total_bayar_rupiah)
+                    $('#range_pembayaran').html(done.untuk_pembayaran)
+                    $('#terbilang').html(done.terbilang)
+                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            })
+
+            $(document).on('keyup','input[name="bayar_spp[]"]',function(){
+                var val  = $(this).val()
+                var attr = $(this).attr('id-kolom-spp')
+                if (val == '') {
+                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+                }
+                else {
+                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+                }
+            })
+
+            $(document).on('change','input[name="bayar_spp[]"]',function(){
+                var val         = parseInt($(this).val())
+                var total_biaya = parseInt($('#total-biaya').val())
+                if (val == '') {
+                    val = 0
+                }
+
+                let kalkulasi  = total_biaya + val
+                $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
+                $('#total-biaya').val(kalkulasi)
+            })
+
+            $('#bayar-total').keyup(function(){
+                let val         = $(this).val()
+                let total_biaya = $('#total-biaya').val()
+                
+                $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+                if (parseInt(val) > parseInt(total_biaya)) {
+                    $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
+                    $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
+                }
+                if (parseInt(val) == parseInt(total_biaya)) {
+                    $('#kembalian').val(0)
+                    $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
+                } 
             })
         })
     </script>
