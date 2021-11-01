@@ -446,6 +446,7 @@
                     $('#total').html(done.total_bayar_rupiah)
                     $('#range_pembayaran').html(done.untuk_pembayaran)
                     $('#terbilang').html(done.terbilang)
+                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
                 })
                 .fail(function() {
                     console.log("error");
