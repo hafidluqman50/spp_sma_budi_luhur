@@ -1,10 +1,8 @@
-@extends('Admin.layout-app.layout')
+<?php $__env->startSection('css'); ?>
+    <link href= "<?php echo e(asset('assets/plugins/custombox/css/custombox.css')); ?>" rel="stylesheet">
+<?php $__env->stopSection(); ?>
 
-@section('css')
-    <link href= "{{asset('assets/plugins/custombox/css/custombox.css')}}" rel="stylesheet">
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -33,7 +31,7 @@
                             <i class="md md-attach-money text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_hari_ini) }}</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($transaksi_hari_ini)); ?></b></h3>
                             <p class="text-muted mb-0">Transaksi Hari Ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -46,7 +44,7 @@
                             <i class="fa fa-money text-success"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_bulan_ini) }}</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($transaksi_bulan_ini)); ?></b></h3>
                             <p class="text-muted mb-0">Transaksi Bulan ini</p>
                         </div>
                         <div class="clearfix"></div>
@@ -59,7 +57,7 @@
                             <i class="fa fa-edit text-purple"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">{{ money_receipt($total_uang_kantin) }}</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($total_uang_kantin)); ?></b></h3>
                             <p class="text-muted mb-0">Total Uang Kantin</p>
                         </div>
                         <div class="clearfix"></div>
@@ -72,7 +70,7 @@
                             <i class="md md-warning text-danger"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b class="counter">{{ money_receipt($total_tunggakan) }}</b></h3>
+                            <h3 class="text-dark"><b class="counter"><?php echo e(money_receipt($total_tunggakan)); ?></b></h3>
                             <p class="text-muted mb-0">Total Tunggakan</p>
                         </div>
                         <div class="clearfix"></div>
@@ -98,9 +96,9 @@
                                     <div class="">
                                         <select class="form-control select2" name="kelas">
                                             <option selected selected>--- Pilih Kelas ---</option>
-                                            @foreach ($kelas as $element)
-                                            <option value="{{ $element->id_kelas }}">{{ $element->kelas }}</option>
-                                            @endforeach
+                                            <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_kelas); ?>"><?php echo e($element->kelas); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -109,9 +107,9 @@
                                     <div class="">
                                         <select class="form-control select2" name="tahun_ajaran">
                                             <option selected selected>--- Pilih Tahun Ajaran ---</option>
-                                            @foreach ($tahun_ajaran as $element)
-                                            <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
-                                            @endforeach
+                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -142,25 +140,12 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Bulan, Tahun</th>
-                                            {{-- <th>SPP</th>
-                                            <th>Makan</th>
-                                            <th>Tab Tes</th>
-                                            <th>Asrama</th> --}}
+                                            
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody id="tunggakan-table">
-                                        {{-- <tr>
-                                            <th scope="row">1</th>
-                                            <td>Maret 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td>
-                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a>
-                                            </td>
-                                        </tr> --}}
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -168,7 +153,7 @@
                             <h3>Print Out</h3>
                             <section>
                                 <div class="form-group clearfix">
-                                    {{-- <a href="{{url('/struk')}}" class="btn btn-success">Cetak</a> --}}
+                                    
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
                                         <table id="kwitansi">
@@ -283,15 +268,15 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($transaksi_terakhir as $element)
+                                <?php $__currentLoopData = $transaksi_terakhir; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <td>{{ human_date($element->tanggal_bayar) }}</td>
-                                    <td>{{ $element->nama_siswa }}</td>
-                                    <td>{{ unslug_str($element->wilayah) }}</td>
-                                    <td>{{ format_rupiah($element->nominal_bayar) }}</td>
-                                    <td><a href="{{ url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                    <td><?php echo e(human_date($element->tanggal_bayar)); ?></td>
+                                    <td><?php echo e($element->nama_siswa); ?></td>
+                                    <td><?php echo e(unslug_str($element->wilayah)); ?></td>
+                                    <td><?php echo e(format_rupiah($element->nominal_bayar)); ?></td>
+                                    <td><a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun)); ?>"><button class="btn btn-primary waves-light">Lihat</button></a></td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -313,19 +298,19 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
-    {{-- <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script> --}}
+<?php $__env->startSection('js'); ?>
+    
 
     <!--Form Wizard-->
-    <script src="{{asset('assets/plugins/custombox/js/custombox.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/custombox/js/legacy.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')}}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
+    <script src="<?php echo e(asset('assets/plugins/custombox/js/custombox.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/custombox/js/legacy.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/jquery.steps/js/jquery.steps.min.js')); ?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo e(asset('assets/plugins/jquery-validation/js/jquery.validate.min.js')); ?>"></script>
 
     <!--wizard initialization-->
-    <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
+    <script src="<?php echo e(asset('assets/pages/jquery.wizard-init.js')); ?>" type="text/javascript"></script>
     <script>
         $(() => {
             $('table#datatable').DataTable();
@@ -334,7 +319,7 @@
                 let kelas        = $('select[name="kelas"]').val()
 
                 $.ajax({
-                    url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
+                    url: "<?php echo e(url('/ajax/get-siswa-dashboard/')); ?>/"+kelas+'/'+tahun_ajaran
                 })
                 .done(function(done) {
                     $('select[name="siswa"]').removeAttr('disabled')
@@ -358,7 +343,7 @@
 
                     $('#tunggakan-table').html('<tr><td colspan="3">Loading...</td></tr>')
                     $.ajax({
-                        url: "{{ url('/ajax/get-tunggakan/') }}/"+siswa+'/'+kelas+'/'+tahun_ajaran
+                        url: "<?php echo e(url('/ajax/get-tunggakan/')); ?>/"+siswa+'/'+kelas+'/'+tahun_ajaran
                     })
                     .done(function(done) {
                         $('#tunggakan-table').html(done.table)
@@ -375,7 +360,7 @@
                 else if ($(this).attr('keterangan') == 'bayar-spp') {
                     // $(this).removeAttr('keterangan')
                     // $.ajax({
-                    //     url: "{{ url('/ajax/get-bayar/') }}"
+                    //     url: "<?php echo e(url('/ajax/get-bayar/')); ?>"
                     // })
                     // .done(function(done) {
 
@@ -391,14 +376,14 @@
             })
 
             $('a[href="#finish"]').click(function(){
-                window.location.href="{{ url('/admin/dashboard/bayar-spp') }}"
+                window.location.href="<?php echo e(url('/admin/dashboard/bayar-spp')); ?>"
             })
 
             $(document).on('click','.tombol-bayar',function(){
                 let attr = $(this).attr('id-spp-bulan-tahun')
                 $(this).html('Loading...')
                 $.ajax({
-                    url: "{{ url('/ajax/get-tunggakan-detail/') }}/"+attr
+                    url: "<?php echo e(url('/ajax/get-tunggakan-detail/')); ?>/"+attr
                 })
                 .done(function(done) {
                     $(`.tombol-bayar[id-spp-bulan-tahun="${attr}"]`).html('Bayar')
@@ -438,7 +423,7 @@
                 });
 
                 $.ajax({
-                    url: "{{ url('/ajax/get-bayar/') }}",
+                    url: "<?php echo e(url('/ajax/get-bayar/')); ?>",
                     type: 'POST',
                     data: val,
                 })
@@ -461,7 +446,6 @@
                     $('#total').html(done.total_bayar_rupiah)
                     $('#range_pembayaran').html(done.untuk_pembayaran)
                     $('#terbilang').html(done.terbilang)
-                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
                 })
                 .fail(function() {
                     console.log("error");
@@ -511,4 +495,6 @@
             })
         })
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/dashboard.blade.php ENDPATH**/ ?>
