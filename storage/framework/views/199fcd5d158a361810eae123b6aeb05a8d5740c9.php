@@ -11,8 +11,13 @@
                 display: none;
             }
         }
+
+        @page{
+            size:A6;
+            margin:0;
+        }
     </style>
-    <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" class="btn btn-primary" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <section>
