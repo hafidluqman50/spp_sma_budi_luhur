@@ -46,7 +46,7 @@
             </table>
             <p class="text-right">Samarinda, {{ $data_master['tanggal_spp_convert'] }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b>Nuridina Sari</b></p>
+            <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
         </div>
     </div>
 </section>

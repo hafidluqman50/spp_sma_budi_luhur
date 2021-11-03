@@ -46,7 +46,7 @@
             </table>
             <p class="text-right">Samarinda, {{ human_date($tanggal_bayar) }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b>Nuridina Sari</b></p>
+            <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
         </div>
     </div>
 </section>

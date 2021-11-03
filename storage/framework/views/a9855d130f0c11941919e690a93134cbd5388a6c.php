@@ -180,7 +180,7 @@
                                         </table>
                                         <p class="text-right" id="tanggal_spp">-</p>
                                         <p class="text-right"><b>Bendahara</b></p><br><br>
-                                        <p class="text-right"><b>Nuridina Sari</b></p>
+                                        <p class="text-right"><b><?php echo e($petugas->nama_petugas); ?></b></p>
                                     </div>
                                 </div>
                             </section>
@@ -446,6 +446,7 @@
                     $('#total').html(done.total_bayar_rupiah)
                     $('#range_pembayaran').html(done.untuk_pembayaran)
                     $('#terbilang').html(done.terbilang)
+                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
                 })
                 .fail(function() {
                     console.log("error");

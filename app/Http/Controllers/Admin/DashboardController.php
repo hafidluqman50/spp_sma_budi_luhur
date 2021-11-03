@@ -10,6 +10,7 @@ use App\Models\Spp;
 use App\Models\SppBayar;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
+use App\Models\Petugas;
 
 class DashboardController extends Controller
 {
@@ -46,7 +47,9 @@ class DashboardController extends Controller
                                     ->limit(3)
                                     ->get();
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir'));
+        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
+        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas'));
     }
 
     public function bayarSppDashboard()
@@ -98,7 +101,9 @@ class DashboardController extends Controller
             ];
             SppBayar::create($data_spp_bayar);
 
-            return view('Admin.struk',compact('data_master'));
+            $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
+            return view('Admin.struk',compact('data_master','petugas'));
         }
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\SppBayar;
+use App\Models\Petugas;
 
 class SppDetailController extends Controller
 {
@@ -78,8 +79,10 @@ class SppDetailController extends Controller
         Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
+        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
         // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun'));
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
     }
 
     public function formBayarSemua($id,$id_bulan_tahun)
@@ -157,8 +160,10 @@ class SppDetailController extends Controller
         SppBayar::create($data_spp_bayar);
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
+        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
         // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun'));
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
     }
 
     public function delete($id,$id_bulan_tahun,$id_detail)

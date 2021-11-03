@@ -404,4 +404,34 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var petugas = $('.data-petugas').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-petugas`,
+        columns:[
+            {data:'id_petugas',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_petugas',name:'nama_petugas'},
+            {data:'username',name:'username'},
+            {data:'jabatan_petugas',name:'jabatan_petugas'},
+            {data:'status_akun',name:'status_akun'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        targets: 0
+        }],
+        order: [[ 1, 'desc' ]],
+        scrollX:true,
+        fixedColumns: true
+    });
+    petugas.on( 'order.dt search.dt', function () {
+        petugas.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

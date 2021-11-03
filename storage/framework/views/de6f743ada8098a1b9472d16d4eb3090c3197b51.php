@@ -210,6 +210,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="has-submenu">
+                                <a href="<?php echo e(url('/admin/data-petugas')); ?>"><i class="fa fa-users"></i>Data Petugas</a>
+                            </li>
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
