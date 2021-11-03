@@ -16,6 +16,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayar;
+use App\Models\Petugas;
 use Auth;
 
 class DatatablesController extends Controller
@@ -394,6 +395,37 @@ class DatatablesController extends Controller
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
         })->make(true);
+        return $datatables;
+    }
+
+    public function dataPetugas()
+    {
+        $petugas    = Petugas::showData();
+        $datatables = Datatables::of($petugas)->addColumn('action',function($action){
+            $array = [
+                0 => ['class'=>'btn-success','text'=>'Aktifkan'],
+                1 => ['class'=>'btn-danger','text'=>'Nonaktifkan']
+            ];
+            $column = '<a href="'.url("/admin/data-petugas/edit/$action->id_petugas").'">
+                          <button class="btn btn-warning"> Edit </button>
+                       </a>
+                       <a href="'.url("/admin/data-petugas/delete/$action->id_petugas").'">
+                           <button class="btn btn-danger" onclick="return confirm(\'Yakin Hapus ?\');"> Hapus </button>
+                       </a>
+                       <a href="'.url("/admin/data-petugas/status-petugas/$action->id_petugas").'">
+                            <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
+                       </a>
+                    ';
+            return $column;
+        })->editColumn('jabatan_petugas',function($edit){
+            return unslug_str($edit->jabatan_petugas);
+        })->editColumn('status_akun',function($status){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Non Aktif'],
+                1 => ['class'=>'badge badge-success','text'=>'Aktif']
+            ];
+            return '<span class="'.$array[$status->status_akun]['class'].'">'.$array[$status->status_akun]['text'].'</span>';
+        })->rawColumns(['status_akun','action'])->make(true);
         return $datatables;
     }
 }

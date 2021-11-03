@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Nov 01, 2021 at 08:50 AM
+-- Generation Time: Nov 03, 2021 at 09:36 AM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -137,6 +137,27 @@ INSERT INTO `kolom_spp` (`id_kolom_spp`, `nama_kolom_spp`, `slug_kolom_spp`, `ke
 ('ca6d1c9c-a668-4b92-9934-60402b4a1668', 'Test', '', '-', 1),
 ('ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 'Kantin Pak Mamat', 'kantin-pak-mamat', NULL, 0),
 ('ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 'Pembayaran Fasilitas', 'pembayaran-fasilitas', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petugas`
+--
+
+CREATE TABLE `petugas` (
+  `id_petugas` varchar(36) NOT NULL,
+  `id_users` varchar(36) NOT NULL,
+  `nama_petugas` varchar(100) NOT NULL,
+  `jabatan_petugas` varchar(50) NOT NULL,
+  `status_delete` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `petugas`
+--
+
+INSERT INTO `petugas` (`id_petugas`, `id_users`, `nama_petugas`, `jabatan_petugas`, `status_delete`) VALUES
+('e69121d7-1178-4b76-8427-0d87e74d97a0', '1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Hashirama Senju', 'bendahara-internal', 0);
 
 -- --------------------------------------------------------
 
@@ -322,6 +343,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('0c24e046-950a-4832-a5af-01695715a79c', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$i6Pwtlv.PutfMHsw.7WsfeVyU3Pr8CsB5W6ZG/nd5Klzhn4ZJ70Vq', NULL, 0, 1, 0, NULL),
 ('12678de9-e470-4240-8999-39c3d6bb0461', 'Ortu Uchiha Tiara', '00088899913', '$2y$10$a5lasKYHKhv7xCF3MnIHH.IWMJtAr.afdB.ZWq.rkcYRlxGBSJGUy', NULL, 0, 1, 0, NULL),
 ('1befa194-0db4-40fa-ad43-bbf7460ed570', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$ECSvgq125ypeQc2pYHz6SOvIHhkwsJXl3ZOE4wAm/Rws4Ob6sDNWm', NULL, 0, 1, 0, NULL),
+('1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Hashirama Senju', 'hashirama', '$2y$10$aK4zvWko6TuJVgAp9LxDVOjyVDRuy06xOwGmEJ26YS7fyIDyRtCDq', NULL, 1, 1, 0, NULL),
 ('1c4a3859-8ec5-4e86-bf73-87f518974351', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$xx.BQSWGfuRTO7KHHPn4Cut/Ri4pOxWCAakQmMCb2cljxMmp4I3NW', NULL, 0, 1, 0, NULL),
 ('26dbf0d2-e4fe-4f59-be62-c50176146809', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$zSCxhvTxlojk/uD9qSg/5OpH00IvW4tImGALNs8JWgUnysihdtnPa', NULL, 0, 1, 0, NULL),
 ('2f0b9a4f-1f8c-493e-ad56-1e061037ff67', 'Ortu Uchiha Tiara', '00088899913', '$2y$10$sOEtlPh2Y.vOkjMboF4SXOAGMchrEgKJpFdavguoLwjnnIrQiOXhW', NULL, 0, 1, 0, NULL),
@@ -397,6 +419,13 @@ ALTER TABLE `kolom_spp`
   ADD PRIMARY KEY (`id_kolom_spp`);
 
 --
+-- Indexes for table `petugas`
+--
+ALTER TABLE `petugas`
+  ADD PRIMARY KEY (`id_petugas`),
+  ADD KEY `id_users` (`id_users`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -461,6 +490,12 @@ ALTER TABLE `kelas_siswa`
 ALTER TABLE `keluarga`
   ADD CONSTRAINT `keluarga_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `keluarga_ibfk_2` FOREIGN KEY (`id_siswa_keluarga`) REFERENCES `siswa` (`id_siswa`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+--
+-- Constraints for table `petugas`
+--
+ALTER TABLE `petugas`
+  ADD CONSTRAINT `petugas_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp`

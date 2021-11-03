@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\KolomSppController as AdminKolomSppController;
 use App\Http\Controllers\Admin\SppController as AdminSppController;
 use App\Http\Controllers\Admin\SppBulanTahunController as AdminSppBulanTahunController;
 use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
+use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER ORTU //
@@ -84,6 +85,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-siswa-ortu',[DatatablesController::class, 'dataSiswaOrtu']);
     Route::get('/data-spp/spp-ortu/{id}',[DatatablesController::class, 'dataSppOrtu']);
     Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
+    Route::get('/data-petugas',[DatatablesController::class, 'dataPetugas']);
 });
 
 Route::get('/oke',function(){
@@ -185,6 +187,16 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // ROUTE TUNGGAKAN //
     // Route::get('/spp-tunggakan');
     // END ROUTE TUNGGAKAN //  
+
+    // ROUTE DATA PETUGAS //
+    Route::get('/data-petugas',[AdminPetugasController::class, 'index']);
+    Route::get('/data-petugas/tambah',[AdminPetugasController::class, 'tambah']);
+    Route::post('/data-petugas/save',[AdminPetugasController::class, 'save']);
+    Route::get('/data-petugas/edit/{id}',[AdminPetugasController::class, 'edit']);
+    Route::put('/data-petugas/update/{id}',[AdminPetugasController::class, 'update']);
+    Route::delete('/data-petugas/delete/{id}',[AdminPetugasController::class, 'delete']);
+    Route::get('/data-petugas/status-petugas/{id}',[AdminPetugasController::class, 'statusPetugas']);
+    // END ROUTE DATA PETUGAS //
 });
 
 Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
