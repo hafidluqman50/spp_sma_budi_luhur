@@ -36,7 +36,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Petugas</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_petugas" class="form-control" placeholder="Isi Nama Petugas" required="required">
+                                    <input type="text" name="nama_petugas" class="form-control" placeholder="Isi Nama Petugas" required="required" value="{{ old('nama_petugas') != '' ? old('nama_petugas') : '' }}">
                                 </div>
                             </div>
                             <div class="form-group row">
