@@ -24,12 +24,12 @@ use App\Http\Controllers\Ortu\DashboardController as OrtuDashboardController;
 // END CONTROLLER ORTU //
 
 // CONTROLLER PETUGAS //
-
+use App\Http\Controllers\Petugas\DashboardController as PetugasDashboardController;
+use App\Http\Controllers\Petugas\KolomSppController as PetugasKolomSppController;
+use App\Http\Controllers\Petugas\SppController as PetugasSppController;
+use App\Http\Controllers\Petugas\SppBulanTahunController as PetugasSppBulanTahunController;
+use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailController;
 // END CONTROLLER PETUGAS //
-
-// CONTROLLER ORANG TUA //
-
-// END CONTROLLER ORANG TUA //
 
 /*
 |--------------------------------------------------------------------------
@@ -197,6 +197,48 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::delete('/data-petugas/delete/{id}',[AdminPetugasController::class, 'delete']);
     Route::get('/data-petugas/status-petugas/{id}',[AdminPetugasController::class, 'statusPetugas']);
     // END ROUTE DATA PETUGAS //
+});
+
+Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
+    // ROUTE KOLOM SPP //
+    Route::get('/kolom-spp',[PetugasKolomSppController::class, 'index']);
+    Route::get('/kolom-spp/tambah',[PetugasKolomSppController::class, 'tambah']);
+    Route::post('/kolom-spp/save',[PetugasKolomSppController::class, 'save']);
+    Route::get('/kolom-spp/edit/{id}',[PetugasKolomSppController::class, 'edit']);
+    Route::put('/kolom-spp/update/{id}',[PetugasKolomSppController::class, 'update']);
+    Route::delete('/kolom-spp/delete/{id}',[PetugasKolomSppController::class, 'delete']);
+    // END ROUTE KOLOM SPP //
+
+    // ROUTE SPP //
+    Route::get('/spp',[PetugasSppController::class, 'index']);
+    Route::get('/spp/tambah',[PetugasSppController::class, 'tambah']);
+    Route::post('/spp/save',[PetugasSppController::class, 'save']);
+    Route::delete('/spp/delete/{id}',[PetugasSppController::class, 'delete']);
+    Route::get('/spp/import',[PetugasSppController::class, 'formImport']);
+    Route::get('/spp/contoh-import',[PetugasSppController::class, 'contohImport']);
+    Route::post('/spp/import/save',[PetugasSppController::class, 'import']);
+    // ROUTE SPP END //
+
+    // ROUTE SPP BULAN TAHUN //
+    Route::get('/spp/bulan-tahun/{id}',[PetugasSppBulanTahunController::class, 'index']);
+    Route::get('/spp/bulan-tahun/{id}/edit/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'edit']);
+    Route::put('/spp/bulan-tahun/{id}/update/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'update']);
+    Route::delete('/spp/bulan-tahun/{id}/delete/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'delete']);
+    // END ROUTE SPP BULAN TAHUN //
+
+    // ROUTE SPP LIHAT PEMBAYARAN //
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[PetugasSppDetailController::class, 'lihatPembayaran']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDelete']);
+    // END ROUTE SPP LIHAT PEMBAYARAN //
+
+    // ROUTE SPP LIHAT SPP //
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[PetugasSppDetailController::class, 'index']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua',[PetugasSppDetailController::class, 'formBayarSemua']);
+    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua/save',[PetugasSppDetailController::class, 'bayarSemua']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}',[PetugasSppDetailController::class, 'formBayar']);
+    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[PetugasSppDetailController::class, 'bayar']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'formBayar']);
+    // END ROUTE SPP LIHAT SPP //
 });
 
 Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
