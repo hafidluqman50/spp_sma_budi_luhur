@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,17 +14,17 @@ class SppDetailController extends Controller
 {
     public function index($id,$id_bulan_tahun)
     {
-        $title = 'SPP Detail | Admin';
+        $title = 'SPP Detail | Petugas';
 
-        return view('Admin.spp-detail.main',compact('title','id','id_bulan_tahun'));
+        return view('Petugas.spp-detail.main',compact('title','id','id_bulan_tahun'));
     }
 
     public function formBayar($id,$id_bulan_tahun,$id_detail)
     {
-        $title = 'Form Bayar | Admin';
+        $title = 'Form Bayar | Petugas';
         $spp   = SppDetail::getBayarById($id_detail);
 
-        return view('Admin.spp-detail.spp-detail-bayar',compact('title','id','id_bulan_tahun','id_detail','spp'));
+        return view('Petugas.spp-detail.spp-detail-bayar',compact('title','id','id_bulan_tahun','id_detail','spp'));
     }
 
     public function bayar(Request $request,$id,$id_bulan_tahun,$id_detail)
@@ -81,13 +81,13 @@ class SppDetailController extends Controller
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
-        // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
+        // return redirect('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        return view('Petugas.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
     }
 
     public function formBayarSemua($id,$id_bulan_tahun)
     {
-        $title = 'Form Bayar Semua | Admin';
+        $title = 'Form Bayar Semua | Petugas';
         $spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
                             ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
                             ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
@@ -102,7 +102,7 @@ class SppDetailController extends Controller
 
         $total_semua = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->sum('nominal_spp');
 
-        return view('Admin.spp-detail.spp-detail-bayar-semua',compact('title','id','id_bulan_tahun','total_semua','spp','spp_bayar'));
+        return view('Petugas.spp-detail.spp-detail-bayar-semua',compact('title','id','id_bulan_tahun','total_semua','spp','spp_bayar'));
     }
 
     public function bayarSemua(Request $request,$id,$id_bulan_tahun)
@@ -162,8 +162,8 @@ class SppDetailController extends Controller
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
-        // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
+        // return redirect('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
+        return view('Petugas.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
     }
 
     public function delete($id,$id_bulan_tahun,$id_detail)
@@ -172,12 +172,12 @@ class SppDetailController extends Controller
                     ->where('id_spp_detail',$id_detail)
                     ->delete();
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
+        return redirect('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
     }
 
     public function lihatPembayaran($id,$id_bulan_tahun)
     {   
         $title = 'Lihat Pembayaran';
-        return view('Admin.spp-bayar.main',compact('title','id','id_bulan_tahun'));
+        return view('Petugas.spp-bayar.main',compact('title','id','id_bulan_tahun'));
     }
 }

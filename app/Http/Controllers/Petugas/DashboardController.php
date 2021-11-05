@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class DashboardController extends Controller
             session()->forget('bayar_spp');
         }
         
-        $title = 'Dashboard | Admin';
+        $title = 'Dashboard | Petugas';
         $page  = 'dashboard';
         $transaksi_hari_ini = SppBayar::where('tanggal_bayar',date('Y-m-d'))
                                         ->sum('nominal_bayar');
@@ -49,7 +49,7 @@ class DashboardController extends Controller
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas'));
+        return view('Petugas.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas'));
     }
 
     public function bayarSppDashboard()
@@ -103,7 +103,7 @@ class DashboardController extends Controller
 
             $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
-            return view('Admin.struk',compact('data_master','petugas'));
+            return view('Petugas.struk',compact('data_master','petugas'));
         }
     }
 }

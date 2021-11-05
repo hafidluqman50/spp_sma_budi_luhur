@@ -1,4 +1,4 @@
-@extends('Admin.layout-app.layout')
+@extends('Petugas.layout-app.layout')
 
 @section('css')
     <link href= "{{asset('assets/plugins/custombox/css/custombox.css')}}" rel="stylesheet">
@@ -289,7 +289,7 @@
                                     <td>{{ $element->nama_siswa }}</td>
                                     <td>{{ unslug_str($element->wilayah) }}</td>
                                     <td>{{ format_rupiah($element->nominal_bayar) }}</td>
-                                    <td><a href="{{ url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                    <td><a href="{{ url('/petugas/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -391,7 +391,7 @@
             })
 
             $('a[href="#finish"]').click(function(){
-                window.location.href="{{ url('/admin/dashboard/bayar-spp') }}"
+                window.location.href="{{ url('/petugas/dashboard/bayar-spp') }}"
             })
 
             $(document).on('click','.tombol-bayar',function(){

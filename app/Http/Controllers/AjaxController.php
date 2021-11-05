@@ -55,6 +55,12 @@ class AjaxController extends Controller
                                         // ->distinct('spp_bulan_tahun.id_spp_bulan_tahun')
                                         ->get();
 
+        if (count($get_bulan_tunggakan) == 0) {
+            $table[] = '<tr>
+                            <td colspan="3" align="center">Data Tidak Ada</td>
+                        </tr>';
+        }
+
         foreach ($get_bulan_tunggakan as $key => $value) {
             $no = $key+1;
 

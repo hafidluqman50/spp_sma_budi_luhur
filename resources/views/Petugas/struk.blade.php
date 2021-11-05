@@ -11,12 +11,17 @@
                 display: none;
             }
         }
+
+        @page{
+            size:A6;
+            margin:0;
+        }
     </style>
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" class="btn btn-primary" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <section>
-    <a href="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
+    <a href="{{ url('/petugas/dashboard') }}">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -26,25 +31,25 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>{{ $spp_detail_row->nama_siswa }}</td>
+                    <td>{{ $data_master['nama_siswa'] }}</td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>{{ format_rupiah($total_biaya) }}</td>
+                    <td>{{ format_rupiah($data_master['total_bayar']) }}</td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan {{ $spp_detail_row->bulan_tahun }}</td>
+                    <td>SPP Bulan {{ $data_master['untuk_pembayaran'] }}</td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>{{ ucwords(terbilang($total_biaya)) }}</td>
+                    <td>{{ $data_master['terbilang'] }}</td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, {{ human_date($tanggal_bayar) }}</p>
+            <p class="text-right">Samarinda, {{ $data_master['tanggal_spp_convert'] }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
             <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
         </div>
