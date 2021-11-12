@@ -330,7 +330,7 @@ class SiswaController extends Controller
                             'status_delete'   => 0
                         ];
 
-                        if (Siswa::where('nisn',$cells[1]->getValue())->count() == 0) {
+                        if (Siswa::where('nisn',$cells[1]->getValue())->where('status_delete',0)->count() == 0) {
                             Siswa::create($data_siswa);
 
                             $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
