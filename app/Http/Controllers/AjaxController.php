@@ -45,32 +45,39 @@ class AjaxController extends Controller
 
         $siswa = ['nama_siswa' => $get_siswa->nama_siswa, 'wilayah' => unslug_str($get_siswa->wilayah)];
 
-        $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->firstOrFail()->id_spp;
+        if (Spp::where('id_kelas_siswa',$id_kelas_siswa)->count() != 0) {
+            $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->get()->id_spp;
 
-        $get_bulan_tunggakan = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                        ->where('id_spp',$id_spp)
-                                        ->where('sisa_bayar','!=',0)
-                                        ->select('spp_bulan_tahun.id_spp_bulan_tahun')
-                                        ->groupBy('spp_bulan_tahun.id_spp_bulan_tahun')
-                                        // ->distinct('spp_bulan_tahun.id_spp_bulan_tahun')
-                                        ->get();
+            $get_bulan_tunggakan = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->where('id_spp',$id_spp)
+                                            ->where('sisa_bayar','!=',0)
+                                            ->select('spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->groupBy('spp_bulan_tahun.id_spp_bulan_tahun')
+                                            // ->distinct('spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->get();
 
-        if (count($get_bulan_tunggakan) == 0) {
+            if (count($get_bulan_tunggakan) == 0) {
+                $table[] = '<tr>
+                                <td colspan="3" align="center">Data Tidak Ada</td>
+                            </tr>';
+            }
+
+            foreach ($get_bulan_tunggakan as $key => $value) {
+                $no = $key+1;
+
+                $get_spp_bulan_tahun = SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)->firstOrFail();
+
+                $table[] = '<tr>
+                                <td>'.$no.'</td>
+                                <td>'.$get_spp_bulan_tahun->bulan_tahun.'</td>
+                                <td><button type="button" class="btn btn-primary tombol-bayar" id="tombol-bayar" id-spp-bulan-tahun="'.$value->id_spp_bulan_tahun.'">Bayar</button></td>
+                            </tr>';
+            }
+        }
+        else {
             $table[] = '<tr>
                             <td colspan="3" align="center">Data Tidak Ada</td>
-                        </tr>';
-        }
-
-        foreach ($get_bulan_tunggakan as $key => $value) {
-            $no = $key+1;
-
-            $get_spp_bulan_tahun = SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)->firstOrFail();
-
-            $table[] = '<tr>
-                            <td>'.$no.'</td>
-                            <td>'.$get_spp_bulan_tahun->bulan_tahun.'</td>
-                            <td><button type="button" class="btn btn-primary tombol-bayar" id="tombol-bayar" id-spp-bulan-tahun="'.$value->id_spp_bulan_tahun.'">Bayar</button></td>
-                        </tr>';
+                        </tr>';   
         }
 
         return response()->json(['siswa' => $siswa,'table' => $table]);
