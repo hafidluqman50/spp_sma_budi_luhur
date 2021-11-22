@@ -34,6 +34,9 @@
         <!-- App css -->
         <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('assets/css/icons.css')); ?>" rel="stylesheet" type="text/css" />
+        
+        <link rel="stylesheet" href="<?php echo e(asset('assets/selectize/dist/css/selectize.css')); ?>">
+        <link rel="stylesheet" href="<?php echo e(asset('assets/selectize/dist/css/selectize.bootstrap4.css')); ?>">
         <link href="<?php echo e(asset('assets/css/style.css')); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('assets/css/custom.css')); ?>" rel="stylesheet" type="text/css" />
 
@@ -179,7 +182,7 @@
                                 <ul class="submenu">
                                     <li><a href="<?php echo e(url('/admin/spp')); ?>">Data SPP</a></li>
                                     <li><a href="<?php echo e(url('/admin/kolom-spp')); ?>">Data Kolom SPP</a></li>
-                                    <li><a href="<?php echo e(url('/admin/tunggakan-spp')); ?>">Data Tunggakan SPP</a></li>
+                                    
                                 </ul>
                             </li>
 

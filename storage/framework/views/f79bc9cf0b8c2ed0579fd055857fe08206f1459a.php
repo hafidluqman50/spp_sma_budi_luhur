@@ -92,7 +92,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
                                         <div class="col-7">
-                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required" kolom-id="1">
+                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="1">
                                                 <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
                                                 <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <option value="<?php echo e($value->id_kolom_spp); ?>" keterangan="<?php echo e($value->keterangan_kolom); ?>"><?php echo e($value->nama_kolom_spp); ?></option>
@@ -133,14 +133,23 @@
         var nominal_attr = 2;
         $('#tambah-input').click(() => {
             $('#hapus-input').removeClass('form-hide')
-            $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
+            $('.kolom-spp').each(function(){
+                if ($(this)[0].selectize) { // requires [0] to select the proper object
+                    var value = $(this).val(); // store the current value of the select/input
+                    $(this)[0].selectize.destroy(); // destroys selectize()
+                    $(this).val(value);  // set back the value of the select/input
+                }
+            })
             let clone = $('#bayar-spp').clone();
             $('#layout-bayar-spp').append(clone)
             $('#kolom-spp').attr('kolom-id',kolom_attr++)
             $('#nominal-spp').attr('nominal-id',nominal_attr++)
             $('.bayar-spp:last').find('input').val('')
             $('.bayar-spp:last').find('input').removeAttr('readonly')
-            $('.kolom-spp').select2()
+            $('.kolom-spp').selectize({
+                create:true,
+                sortField:'text'
+            })
         })
 
         $('#hapus-input').click(function() {

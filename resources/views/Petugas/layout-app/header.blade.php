@@ -172,7 +172,7 @@
                                 <ul class="submenu">
                                     <li><a href="{{ url('/petugas/spp') }}">Data SPP</a></li>
                                     <li><a href="{{ url('/petugas/kolom-spp') }}">Data Kolom SPP</a></li>
-                                    <li><a href="{{ url('/petugas/tunggakan-spp') }}">Data Tunggakan SPP</a></li>
+                                    {{-- <li><a href="{{ url('/petugas/tunggakan-spp') }}">Data Tunggakan SPP</a></li> --}}
                                 </ul>
                             </li>
 

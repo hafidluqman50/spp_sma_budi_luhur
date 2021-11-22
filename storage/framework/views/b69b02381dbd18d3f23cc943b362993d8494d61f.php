@@ -35,6 +35,7 @@
         <script src="<?php echo e(asset('assets/DataTables/DataTables-1.11.2/js/jquery.dataTables.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/DataTables/DataTables-1.11.2/js/dataTables.bootstrap4.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/select2-4.1.0-rc.0/dist/js/select2.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/selectize/dist/js/standalone/selectize.min.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/custom.js')); ?>"></script>
 
         
