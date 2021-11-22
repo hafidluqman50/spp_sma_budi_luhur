@@ -35,6 +35,15 @@
                         <p class="text-muted font-14 m-b-20">
                             Import File excel sesuai dengan format yang telah tersedia!
                         </p>
+                        <?php if(session()->has('log')): ?>
+                        <div class="alert alert-danger">
+                            <?php echo e(session('log')); ?> <button class="close">X</button>
+                        </div>
+                        <?php endif; ?>
+                        <div class="alert alert-warning">
+                            <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, serta kolom spp</li>
+                            <li style="color:black;">Mohon cek kembali nisn, nama siswa, kelas, tahun ajaran, serta kolom spp. Pastikan data tersebut telah terdata di sistem!</li>
+                        </div>
                         <div class="form-group row">
                             <div class="col-8 offset-4">
                                 <a href="<?php echo e(url('/admin/spp/contoh-import')); ?>" class="text-danger">Silahkan Download Format Excel Disini!</a>
