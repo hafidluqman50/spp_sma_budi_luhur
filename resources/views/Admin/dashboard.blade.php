@@ -329,6 +329,25 @@
     <script>
         $(() => {
             $('table#datatable').DataTable();
+            $('select[name="kelas"]').change(function() {
+                let kelas        = $(this).val()
+                let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+                
+                $.ajax({
+                    url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
+                })
+                .done(function(done) {
+                    $('select[name="siswa"]').removeAttr('disabled')
+                    $('select[name="siswa"]').html(done)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            })
             $('select[name="tahun_ajaran"]').change(function() {
                 let tahun_ajaran = $(this).val()
                 let kelas        = $('select[name="kelas"]').val()

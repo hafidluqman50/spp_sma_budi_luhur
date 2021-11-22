@@ -338,17 +338,25 @@ class SiswaController extends Controller
                         else {
                             $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
                         }
-
+                        
+                        // }
                         $id_kelas        = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->where('status_delete',0)->get()[0]->id_kelas;
                         $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->where('status_delete',0)->get()[0]->id_tahun_ajaran;
 
-                        $data_kelas_siswa = [
-                            'id_siswa'        => $id_siswa,
-                            'id_kelas'        => $id_kelas,
-                            'id_tahun_ajaran' => $id_tahun_ajaran,
-                            'status_delete'   => 0
-                        ];
-                        KelasSiswa::firstOrCreate($data_kelas_siswa);
+                        $check_kelas_siswa = KelasSiswa::where('id_kelas',$id_kelas)
+                                                        ->where('id_tahun_ajaran',$id_tahun_ajaran)
+                                                        ->where('id_siswa',$id_siswa)
+                                                        ->count();
+                                                        
+                        if ($check_kelas_siswa == 0) {
+                            $data_kelas_siswa = [
+                                'id_siswa'        => $id_siswa,
+                                'id_kelas'        => $id_kelas,
+                                'id_tahun_ajaran' => $id_tahun_ajaran,
+                                'status_delete'   => 0
+                            ];
+                            KelasSiswa::firstOrCreate($data_kelas_siswa);
+                        }
 
                         $data_user = [
                             'name'          => 'Ortu '.$cells[2]->getValue(),
