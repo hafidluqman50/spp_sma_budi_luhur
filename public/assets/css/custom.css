@@ -5,3 +5,7 @@
 .force-fullwidth {
 	width:100%!important;
 }
+
+.btn {
+	cursor: pointer;
+}

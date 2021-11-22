@@ -338,10 +338,24 @@ class SiswaController extends Controller
                         else {
                             $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
                         }
-                        
-                        // }
-                        $id_kelas        = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->where('status_delete',0)->get()[0]->id_kelas;
-                        $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->where('status_delete',0)->get()[0]->id_tahun_ajaran;
+
+                        $check_kelas = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))
+                                            ->where('status_delete',0)->count();
+
+                        if ($check_kelas == 0) {
+                            return redirect('/admin/siswa/import')->with('log','Kelas '.$cells[11]->getValue().' tidak ditemukan! mohon cek kembali data kelas');
+                        }
+                        else {
+                            $id_kelas = Kelas::where('slug_kelas',Str::slug($cells[11]->getValue(),'-'))->where('status_delete',0)->get()[0]->id_kelas;
+                        }
+
+                        $check_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->where('status_delete',0)->count();
+                        if ($check_tahun_ajaran == 0) {
+                            return redirect('/admin/siswa/import')->with('log','Tahun Ajaran '.$cells[12]->getValue().' tidak ditemukan! mohon cek kembali data tahun ajaran');
+                        }
+                        else {
+                            $id_tahun_ajaran = TahunAjaran::where('tahun_ajaran',$cells[12]->getValue())->where('status_delete',0)->get()[0]->id_tahun_ajaran;
+                        }
 
                         $check_kelas_siswa = KelasSiswa::where('id_kelas',$id_kelas)
                                                         ->where('id_tahun_ajaran',$id_tahun_ajaran)
@@ -380,12 +394,25 @@ class SiswaController extends Controller
                     if ($num > 1) {
                         $cells = $row->getCells();
                         if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '') {
-                            $id_siswa_ = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
+                            $check_siswa = Siswa::where('nisn',$cells[1]->getValue())->count();
+                            if ($check_siswa == 0) {
+                                return redirect('admin/siswa/import/')->with('log','Siswa '.$cells[2].' tidak ditemukan di sheet Data Keluarga! mohon cek kembali data siswa');
+                            }
+                            else {
+                                $id_siswa_ = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
+                            }
                         }
                         else {
                             $id_siswa_ = session()->get('import_siswa')['id_siswa'];
                         }
-                        $id_siswa_keluarga = Siswa::where('slug_siswa',Str::slug($cells[3]->getValue(),'-'))->get()[0]->id_siswa;
+
+                        $check_siswa_keluarga = Siswa::where('slug_siswa',Str::slug($cells[3]->getValue(),'-'))->count();
+                        if ($check_siswa_keluarga == 0) {
+                            return redirect('/admin/siswa/import')->with('log','Siswa '.$cells[2]->getValue().' tidak ditemukan di sheet Data Keluarga! mohon cek kembali data siswa');
+                        }
+                        else {
+                            $id_siswa_keluarga = Siswa::where('slug_siswa',Str::slug($cells[3]->getValue(),'-'))->get()[0]->id_siswa;
+                        }
 
                         $data_keluarga = [
                             'id_siswa'          => $id_siswa_,
