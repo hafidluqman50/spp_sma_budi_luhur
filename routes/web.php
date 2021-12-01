@@ -30,6 +30,7 @@ use App\Http\Controllers\Petugas\SppController as PetugasSppController;
 use App\Http\Controllers\Petugas\SppBulanTahunController as PetugasSppBulanTahunController;
 use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailController;
 // END CONTROLLER PETUGAS //
+use Twilio\Rest\Client; 
 
 /*
 |--------------------------------------------------------------------------
@@ -56,11 +57,31 @@ use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailControll
 // });
 
 
+Route::get('/test-replace',function(){
+    echo find_replace_strip('Januari, 2021 - Maret, 2021','Februari, 2022');
+});
+
 Route::group(['middleware'=>'is.login'],function(){
     Route::get('/',[AuthController::class, 'index']);
     Route::post('/login',[AuthController::class, 'login']);
 });
 Route::get('/logout',[AuthController::class, 'logout']);
+
+Route::get('/test-whatsapp',function(){
+ 
+$sid    = getenv('TWILLIO_AUTH_SID'); 
+$token  = getenv('TWILLIO_AUTH_TOKEN'); 
+$from   = getenv('TWILLIO_WHATSAPP_FROM');
+$twilio = new Client($sid, $token);
+ 
+$message = $twilio->messages 
+                  ->create("whatsapp:+6285236894171", // to 
+                           array( 
+                               "from" => "whatsapp:$from",       
+                               "body" => "Test BOSS" 
+                           ) 
+                  ); 
+});
 
 Route::group(['prefix' => 'ajax'],function() {
     // Route::get('/get-kelas-by-tahun-ajaran/{id}',[AjaxController::class, 'getKelasByTahunAjaran']);

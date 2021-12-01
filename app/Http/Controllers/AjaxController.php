@@ -128,37 +128,45 @@ class AjaxController extends Controller
 
         if (!session()->has('bayar_spp')) {
             $session_bayar = ['data_master' => '', 'data_spp' => []];
-            $get_spp_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                                                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                                                ->where('id_spp_bulan_tahun',$id_spp_bulan_tahun)
-                                                ->firstOrFail();
-            $data_master = [
-                'nama_siswa'          => $get_spp_bulan_tahun->nama_siswa,
-                'wilayah'             => unslug_str($get_spp_bulan_tahun->wilayah),
-                'total_bayar'         => $total_biaya,
-                'total_bayar_rupiah'  => format_rupiah($total_biaya),
-                'bayar_total'         => $bayar_total,
-                'kembalian'           => $kembalian,
-                'terbilang'           => ucwords(terbilang($total_biaya)),
-                'untuk_pembayaran'    => $get_spp_bulan_tahun->bulan_tahun,
-                'tanggal_spp'         => date('Y-m-d'),
-                'tanggal_spp_convert' => human_date(date('Y-m-d')),
-                'id_spp_bulan_tahun'  => $id_spp_bulan_tahun,
-                'keterangan'          => $keterangan_spp
-            ];
-
-            foreach ($id_spp_detail as $key => $value) {
-                $data_spp[] = [
-                    'id_spp_detail'      => $id_spp_detail[$key],
-                    'bayar_spp'          => $bayar_spp[$key]
-                ];
-            }
-            $session_bayar['data_master'] = $data_master;
-            array_push($session_bayar['data_spp'], $data_spp);
-
-            session()->put('bayar_spp',$session_bayar);
         }
+
+        $get_spp_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                            ->where('id_spp_bulan_tahun',$id_spp_bulan_tahun)
+                                            ->firstOrFail();
+        $data_master = [
+            'nama_siswa'          => $get_spp_bulan_tahun->nama_siswa,
+            'wilayah'             => unslug_str($get_spp_bulan_tahun->wilayah),
+            'total_bayar'         => $total_biaya,
+            'total_bayar_rupiah'  => format_rupiah($total_biaya),
+            'bayar_total'         => $bayar_total,
+            'kembalian'           => $kembalian,
+            'terbilang'           => ucwords(terbilang($total_biaya)),
+            'untuk_pembayaran'    => $get_spp_bulan_tahun->bulan_tahun,
+            'tanggal_spp'         => date('Y-m-d'),
+            'tanggal_spp_convert' => human_date(date('Y-m-d')),
+            'id_spp_bulan_tahun'  => $id_spp_bulan_tahun,
+            'keterangan'          => $keterangan_spp
+        ];
+
+        if (session()->has('bayar_spp')) {
+            $check_data_master = session()->get('bayar_spp')['data_master'];
+            if ($check_data_master != '') {
+                
+            }
+        }
+
+        foreach ($id_spp_detail as $key => $value) {
+            $data_spp[] = [
+                'id_spp_detail'      => $id_spp_detail[$key],
+                'bayar_spp'          => $bayar_spp[$key]
+            ];
+        }
+        $session_bayar['data_master'] = $data_master;
+        array_push($session_bayar['data_spp'], $data_spp);
+
+        session()->put('bayar_spp',$session_bayar);
 
         return response()->json($data_master);
     }
