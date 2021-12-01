@@ -153,14 +153,27 @@ class AjaxController extends Controller
         if (session()->has('bayar_spp')) {
             $check_data_master = session()->get('bayar_spp')['data_master'];
             if ($check_data_master != '') {
-                
+                $data_master = [
+                    'nama_siswa'          => $get_spp_bulan_tahun->nama_siswa,
+                    'wilayah'             => unslug_str($get_spp_bulan_tahun->wilayah),
+                    'total_bayar'         => $check_data_master['total_bayar'] + $total_biaya,
+                    'total_bayar_rupiah'  => format_rupiah($check_data_master['total_bayar'] + $total_biaya),
+                    'bayar_total'         => $check_data_master['bayar_total'] + $bayar_total,
+                    'kembalian'           => $check_data_master['kembalian'] + $kembalian,
+                    'terbilang'           => ucwords(terbilang($check_data_master['total_bayar'] + $total_biaya)),
+                    'untuk_pembayaran'    => find_replace_strip($check_data_master['untuk_pembayaran'],$get_spp_bulan_tahun->bulan_tahun),
+                    'tanggal_spp'         => date('Y-m-d'),
+                    'tanggal_spp_convert' => human_date(date('Y-m-d')),
+                    'id_spp_bulan_tahun'  => $id_spp_bulan_tahun,
+                    'keterangan'          => $check_data_master['keterangan'].', '.$keterangan_spp
+                ];      
             }
         }
 
         foreach ($id_spp_detail as $key => $value) {
             $data_spp[] = [
                 'id_spp_detail'      => $id_spp_detail[$key],
-                'bayar_spp'          => $bayar_spp[$key]
+                'bayar_spp'          => $bayar_spp[$key],
             ];
         }
         $session_bayar['data_master'] = $data_master;
