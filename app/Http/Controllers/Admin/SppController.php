@@ -452,10 +452,10 @@ class SppController extends Controller
                     if ($num > 1) {
                         $cells = $row->getCells();
                         if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '' && $cells[3]->getValue() != '' && $cells[4]->getValue() != '') {
-                            $check_kelas_siswa = KelasSiswa::checkSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue());
+                            $check_kelas_siswa_ = KelasSiswa::checkSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue());
 
-                            if ($check_kelas_siswa == 'true') {
-                                $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+                            if ($check_kelas_siswa_ == 'true') {
+                                $get_id_kelas_siswa_ = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                             }
                             else {
                                 return redirect('/admin/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
@@ -473,6 +473,7 @@ class SppController extends Controller
                         }
 
                         if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '') {
+                            // dd([$get_id_spp_,$cells[5]->getValue().', '.$cells[6]->getValue()]);
                             $get_id_spp_bulan_tahun_ = SppBulanTahun::where('id_spp',$get_id_spp_)
                                                               ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                               ->get()[0]->id_spp_bulan_tahun;

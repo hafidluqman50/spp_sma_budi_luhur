@@ -56,7 +56,7 @@ class DashboardController extends Controller
     {
         if (session()->has('bayar_spp')) {
             $session_bayar_spp = session()->get('bayar_spp');
-            $data_master       = $session_bayar_spp['data_master'];
+            // $data_master       = $session_bayar_spp['data_master'];
 
             foreach ($session_bayar_spp['data_spp'] as $key => $value) {
                 $spp_detail = SppDetail::where('id_spp_detail',$value[$key]['id_spp_detail'])->firstOrFail();
@@ -91,15 +91,18 @@ class DashboardController extends Controller
 
                 Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
             }
-            $data_spp_bayar = [
-                'id_spp_bulan_tahun' => $data_master['id_spp_bulan_tahun'],
-                'tanggal_bayar'      => $data_master['tanggal_spp'],
-                'total_biaya'        => $data_master['total_bayar'],
-                'nominal_bayar'      => $data_master['bayar_total'],
-                'kembalian'          => $data_master['kembalian'],
-                'keterangan_bayar'   => $data_master['keterangan']
-            ];
-            SppBayar::create($data_spp_bayar);
+            
+            foreach ($session_bayar_spp['data_spp_rincian'] as $key => $value) {
+                $data_spp_bayar = [
+                    'id_spp_bulan_tahun' => $session_bayar_spp['data_spp_rincian'][$key]['id_spp_bulan_tahun'],
+                    'tanggal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['tanggal_spp'],
+                    'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
+                    'nominal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['bayar_total'],
+                    'kembalian'          => $session_bayar_spp['data_spp_rincian'][$key]['kembalian'],
+                    'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan']
+                ];
+                SppBayar::create($data_spp_bayar);   
+            }
 
             $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
