@@ -102,6 +102,7 @@
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
                                             <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
+                                            <input type="hidden" class="old-nominal" value="0" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
                                             <label for="" class="label-bayar-kolom-spp" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
@@ -164,13 +165,26 @@
         })
 
         $(document).on('change','input[name="bayar_spp[]"]',function(){
-            var val         = parseInt($(this).val())
+            var val         = $(this).val()
             var total_biaya = parseInt($('#total-biaya').val())
+            var attr        = $(this).attr('id-kolom-spp')
+            var old_bayar   = parseInt($(`.old-nominal[id-kolom-spp="${attr}"]`).val())
+
             if (val == '') {
                 val = 0
+                total_biaya = total_biaya - old_bayar
+                $(`.old-nominal[id-kolom-spp="${attr}"]`).val(val)
+            }
+            else {
+                if (old_bayar == 0) {
+                    $(`.old-nominal[id-kolom-spp="${attr}"]`).val(parseInt(val))
+                }
+                else {
+                    total_biaya = total_biaya - old_bayar
+                }
             }
 
-            let kalkulasi  = total_biaya + val
+            let kalkulasi  = total_biaya + parseInt(val)
             $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
             $('#total-biaya').val(kalkulasi)
         })
