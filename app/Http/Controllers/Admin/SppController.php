@@ -379,12 +379,18 @@ class SppController extends Controller
                             $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0]->id_spp;
                         }
                         else {
-                            $session_id_spp = session()->get('spp')['id_spp'];
-                            $get_spp = Spp::where('id_spp',$session_id_spp)->get()[0];
+                            if (session()->has('spp')) {
+                                $session_id_spp = session()->get('spp')['id_spp'];
+                                $get_spp = Spp::where('id_spp',$session_id_spp)->get()[0];
+                            }
+                            else {
+                                $get_spp    = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0];       
+                                $get_id_spp = $get_spp->id_spp;
+                            }
                             $data_spp = [
                                 'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[8]->getValue() - $cells[9]->getValue())
                             ];
-                            Spp::where('id_spp',$session_id_spp)->update($data_spp);
+                            Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
                         }
 
                         if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '') {
@@ -402,6 +408,12 @@ class SppController extends Controller
                                 $get_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
                                                                   ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                                   ->get()[0]->id_spp_bulan_tahun;
+                            }
+                            else {
+                                $get_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
+                                                                  ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
+                                                                  ->get()[0]->id_spp_bulan_tahun;
+                                $session_id_spp_bulan_tahun = '';
                             }
                         }
                         else {
