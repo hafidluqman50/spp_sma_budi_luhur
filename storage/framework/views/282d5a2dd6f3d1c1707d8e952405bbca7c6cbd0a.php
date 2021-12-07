@@ -37,6 +37,10 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
+                        <h5>NISN : <?php echo e($siswa->nisn); ?></h5>
+                        <h5>Nama Siswa : <?php echo e($siswa->nama_siswa); ?></h5>
+                        <h5>Kelas : <?php echo e($siswa->kelas); ?></h5>
+                        <h5>Tahun Ajaran : <?php echo e($siswa->tahun_ajaran); ?></h5>
                         <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
                             <thead>
                             <tr>

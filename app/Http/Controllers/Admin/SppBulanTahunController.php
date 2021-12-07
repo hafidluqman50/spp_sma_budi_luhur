@@ -13,8 +13,9 @@ class SppBulanTahunController extends Controller
     public function index($id)
     {
         $title = 'SPP Bulan Tahun';
+        $siswa = SppBulanTahun::getSiswa($id);
 
-        return view('Admin.spp-bulan-tahun.main',compact('title','id'));
+        return view('Admin.spp-bulan-tahun.main',compact('title','id','siswa'));
     }
 
     public function edit($id,$id_bulan_tahun)

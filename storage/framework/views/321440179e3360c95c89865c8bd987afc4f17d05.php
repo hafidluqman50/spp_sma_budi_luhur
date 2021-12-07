@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -28,22 +26,18 @@
                         <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/') }}">
+                            <a href="<?php echo e(url('/petugas/spp/')); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
+                        <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
-                        @endif
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="{{$id}}">
+                        <?php endif; ?>
+                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -63,4 +57,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Petugas.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Petugas/spp-bulan-tahun/main.blade.php ENDPATH**/ ?>

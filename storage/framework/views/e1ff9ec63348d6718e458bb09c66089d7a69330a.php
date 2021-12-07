@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -13,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Bulan Tahun SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Bulan Tahun SPP</h4>
+                        <h4 class="page-title">Data Pembayaran SPP</h4>
                     </div>
                 </div>
             </div>
@@ -25,31 +23,29 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/') }}">
+                            <a href="<?php echo e(url('/petugas/spp/bulan-tahun/'.$id)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
+                        <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
-                        @endif
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="{{$id}}">
+                        <?php endif; ?>
+                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Total Biaya</th>
+                                <th>Nominal Bayar</th>
+                                <th>Kembalian</th>
+                                <th>Keterangan</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -63,4 +59,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Petugas.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Petugas/spp-bayar/main.blade.php ENDPATH**/ ?>

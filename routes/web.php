@@ -193,7 +193,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE SPP LIHAT PEMBAYARAN //
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[AdminSppDetailController::class, 'lihatPembayaran']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'lihatPembayaranDelete']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'lihatPembayaranDelete']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
     // ROUTE SPP LIHAT SPP //
@@ -221,6 +221,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
+    Route::get('/dashboard',[PetugasDashboardController::class, 'index']);
+    Route::get('/dashboard/bayar-spp',[PetugasDashboardController::class, 'bayarSppDashboard']);
+
     // ROUTE KOLOM SPP //
     Route::get('/kolom-spp',[PetugasKolomSppController::class, 'index']);
     Route::get('/kolom-spp/tambah',[PetugasKolomSppController::class, 'tambah']);
