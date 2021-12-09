@@ -26,7 +26,7 @@ class DatatablesController extends Controller
     function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'kasir' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
+            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
             return $next($request);
         });
     }
@@ -246,12 +246,12 @@ class DatatablesController extends Controller
 
     public function dataSppBayar($id)
     {
-        $spp_bayar = SppBayar::where('id_spp_bulan_tahun',$id)->get();
+        $spp_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
             $column = '
                     <div class="d-flex">
-                       <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                       <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
                             <input type="hidden" name="_token" value="'.csrf_token().'">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>

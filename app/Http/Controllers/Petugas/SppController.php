@@ -123,14 +123,14 @@ class SppController extends Controller
             SppDetail::create($data_spp_detail);
         }
 
-        return redirect('/admin/spp')->with('message','Berhasil Input Data SPP');
+        return redirect('/petugas/spp')->with('message','Berhasil Input Data SPP');
     }
 
     public function delete($id)
     {
         Spp::where('id_spp',$id)->delete();
 
-        return redirect('/admin/spp')->with('message','Berhasil Delete Data SPP');
+        return redirect('/petugas/spp')->with('message','Berhasil Delete Data SPP');
     }
 
     public function formImport()
@@ -350,10 +350,24 @@ class SppController extends Controller
                     if ($num > 1) {
                         $cells = $row->getCells();
                         if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '' && $cells[3]->getValue() != '' && $cells[4]->getValue() != '') {
-                            $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+                            $check_kelas_siswa = KelasSiswa::checkSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue());
+
+                            if ($check_kelas_siswa == 'true') {
+                                $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+                            }
+                            else {
+                                return redirect('/petugas/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                            }
                         }
                         else {
                             $session_id_kelas_siswa = session()->get('spp')['id_kelas_siswa'];
+                        }
+
+                        $check_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[7]->getValue(),'-'))
+                                                 ->count();
+
+                        if ($check_kolom_spp == 0) { 
+                            return redirect('/petugas/spp/import')->with('log','Kolom Spp '.$cells[7].' tidak ditemukan! Mohon cek kembali data kolom spp');
                         }
 
                         if (Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->count() == 0) {
@@ -438,7 +452,14 @@ class SppController extends Controller
                     if ($num > 1) {
                         $cells = $row->getCells();
                         if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '' && $cells[3]->getValue() != '' && $cells[4]->getValue() != '') {
-                            $get_id_kelas_siswa_ = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+                            $check_kelas_siswa_ = KelasSiswa::checkSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue());
+
+                            if ($check_kelas_siswa_ == 'true') {
+                                $get_id_kelas_siswa_ = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+                            }
+                            else {
+                                return redirect('/petugas/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                            }
                         }
                         else {
                             $session_id_kelas_siswa = session()->get('pembayaran')['id_kelas_siswa'];

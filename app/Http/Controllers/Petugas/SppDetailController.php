@@ -15,8 +15,9 @@ class SppDetailController extends Controller
     public function index($id,$id_bulan_tahun)
     {
         $title = 'SPP Detail | Petugas';
+        $siswa = SppDetail::getSiswa($id_bulan_tahun);
 
-        return view('Petugas.spp-detail.main',compact('title','id','id_bulan_tahun'));
+        return view('Petugas.spp-detail.main',compact('title','id','id_bulan_tahun','siswa'));
     }
 
     public function formBayar($id,$id_bulan_tahun,$id_detail)
@@ -178,6 +179,17 @@ class SppDetailController extends Controller
     public function lihatPembayaran($id,$id_bulan_tahun)
     {   
         $title = 'Lihat Pembayaran';
+        $siswa = SppBayar::getSiswa($id_bulan_tahun);
+
         return view('Petugas.spp-bayar.main',compact('title','id','id_bulan_tahun'));
+    }
+
+    public function lihatPembayaranDelete($id,$id_bulan_tahun,$id_detail)
+    {   
+        SppBayar::where('id_spp_bulan_tahun',$id_bulan_tahun)
+                ->where('id_spp_bayar',$id_detail)
+                ->delete();
+
+        return redirect('/petugas/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun)->with('message','Berhasil Delete Pembayaran SPP');
     }
 }

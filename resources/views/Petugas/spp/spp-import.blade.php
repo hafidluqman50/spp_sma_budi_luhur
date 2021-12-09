@@ -42,6 +42,15 @@
                                 <a href="{{ url('/petugas/spp/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>
                             </div>
                         </div>
+                        @if (session()->has('log'))
+                        <div class="alert alert-danger">
+                            {{ session('log') }} <button class="close">X</button>
+                        </div>
+                        @endif
+                        <div class="alert alert-warning">
+                            <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, serta kolom spp</li>
+                            <li style="color:black;">Mohon cek kembali nisn, nama siswa, kelas, tahun ajaran, serta kolom spp. Pastikan data tersebut telah terdata di sistem!</li>
+                        </div>
                         <form method="POST" action="{{ url('/petugas/spp/import/save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">

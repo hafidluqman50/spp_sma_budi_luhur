@@ -34,6 +34,8 @@
         <!-- App css -->
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.bootstrap4.css')}}">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" />
 
@@ -172,7 +174,7 @@
                                 <ul class="submenu">
                                     <li><a href="{{ url('/petugas/spp') }}">Data SPP</a></li>
                                     <li><a href="{{ url('/petugas/kolom-spp') }}">Data Kolom SPP</a></li>
-                                    <li><a href="{{ url('/petugas/tunggakan-spp') }}">Data Tunggakan SPP</a></li>
+                                    {{-- <li><a href="{{ url('/petugas/tunggakan-spp') }}">Data Tunggakan SPP</a></li> --}}
                                 </ul>
                             </li>
 

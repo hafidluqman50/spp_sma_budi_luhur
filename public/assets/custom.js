@@ -8,6 +8,10 @@ function rupiah_format(string){
 }
 $(() => {
 	// $('.data-tables').DataTable();
+    $('.selectize').selectize({
+        create:true,
+        sortField:'text'
+    });
     $('.select2').select2();
     
 	var base_url = 'http://localhost:8000'

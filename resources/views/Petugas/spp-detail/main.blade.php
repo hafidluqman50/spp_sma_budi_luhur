@@ -44,6 +44,10 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
+                        <h5>NISN : {{ $siswa->nisn }}</h5>
+                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
+                        <h5>Kelas : {{ $siswa->kelas }}</h5>
+                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
                         <table class="table table-hover table-bordered data-spp-detail force-fullwidth" id-spp-bulan-tahun="{{$id_bulan_tahun}}">
                             <thead>
                             <tr>

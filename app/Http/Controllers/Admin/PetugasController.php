@@ -112,7 +112,7 @@ class PetugasController extends Controller
     public function delete($id)
     {
         $get = Petugas::where('id_petugas',$id);
-        $foto = $get->firstOrFail()->foto_profile;
+        // $foto = $get->firstOrFail()->foto_profile;
         User::where('id_users',$get->firstOrFail()->id_users)->update(['status_delete'=>1]);
         $get->update(['status_delete' => 1]);
 

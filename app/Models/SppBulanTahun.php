@@ -29,4 +29,17 @@ class SppBulanTahun extends Model
 
         return $status;
     }
+
+    public static function getSiswa($id)
+    {
+        $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('spp_bulan_tahun.id_spp',$id)
+                    ->firstOrFail();
+
+        return $get;
+    }
 }
