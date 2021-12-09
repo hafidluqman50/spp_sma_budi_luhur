@@ -343,7 +343,7 @@ class SppController extends Controller
         $get_id_spp_             = '';
         $get_id_spp_bulan_tahun_ = '';
         // END SHEET 2 //
-
+        
         foreach ($reader->getSheetIterator() as $sheet) {
             if ($sheet->getIndex() === 0) {
                 foreach ($sheet->getRowIterator() as $num => $row) {
@@ -354,6 +354,11 @@ class SppController extends Controller
 
                             if ($check_kelas_siswa == 'true') {
                                 $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+
+                                $data_spp = [
+                                    'total_harus_bayar' => 0
+                                ];
+                                Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->update($data_spp);
                             }
                             else {
                                 return redirect('/admin/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
