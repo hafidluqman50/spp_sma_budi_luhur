@@ -474,14 +474,14 @@ class SppController extends Controller
                             }
                         }
                         else {
-                            $session_id_kelas_siswa = session()->get('pembayaran')['id_kelas_siswa'];
+                            $session_id_kelas_siswa_ = session()->get('pembayaran')['id_kelas_siswa'];
                         }
 
                         if ($get_id_kelas_siswa_ != '') {
                             $get_id_spp_ = Spp::where('id_kelas_siswa',$get_id_kelas_siswa_)->get()[0]->id_spp;
                         }
                         else {
-                            $get_id_spp_ = Spp::where('id_kelas_siswa',$session_id_kelas_siswa)->get()[0]->id_spp;   
+                            $get_id_spp_ = Spp::where('id_kelas_siswa',$session_id_kelas_siswa_)->get()[0]->id_spp;   
                         }
 
                         if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '') {
@@ -491,11 +491,11 @@ class SppController extends Controller
                                                               ->get()[0]->id_spp_bulan_tahun;
                         }
                         else {
-                            $session_id_spp_bulan_tahun = session()->get('pembayaran')['id_spp_bulan_tahun'];
+                            $session_id_spp_bulan_tahun_ = session()->get('pembayaran')['id_spp_bulan_tahun'];
                         }
                         
                         $data_spp_bayar = [
-                            'id_spp_bulan_tahun' => $get_id_spp_bulan_tahun_ == '' ? $session_id_spp_bulan_tahun : $get_id_spp_bulan_tahun_,
+                            'id_spp_bulan_tahun' => $get_id_spp_bulan_tahun_ == '' ? $session_id_spp_bulan_tahun_ : $get_id_spp_bulan_tahun_,
                             'tanggal_bayar'    => import_date_excel($cells[7]->getValue()),
                             'total_biaya'      => $cells[8]->getValue(),
                             'nominal_bayar'    => $cells[9]->getValue(),
@@ -512,7 +512,7 @@ class SppController extends Controller
                             ];
                             session()->put('pembayaran',$session_spp);
                         }
-                        if (session()->has('pembayaran') && $get_id_kelas_siswa != '') {
+                        if (session()->has('pembayaran') && $get_id_kelas_siswa_ != '') {
                             $session_spp = [
                                 'id_kelas_siswa'     => $get_id_kelas_siswa_,
                                 'id_spp'             => $get_id_spp_,
