@@ -343,7 +343,7 @@ class SppController extends Controller
         $get_id_spp_             = '';
         $get_id_spp_bulan_tahun_ = '';
         // END SHEET 2 //
-
+        
         foreach ($reader->getSheetIterator() as $sheet) {
             if ($sheet->getIndex() === 0) {
                 foreach ($sheet->getRowIterator() as $num => $row) {
@@ -354,6 +354,11 @@ class SppController extends Controller
 
                             if ($check_kelas_siswa == 'true') {
                                 $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+
+                                $data_spp = [
+                                    'total_harus_bayar' => 0
+                                ];
+                                Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->update($data_spp);
                             }
                             else {
                                 return redirect('/petugas/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
@@ -379,12 +384,18 @@ class SppController extends Controller
                             $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0]->id_spp;
                         }
                         else {
-                            $session_id_spp = session()->get('spp')['id_spp'];
-                            $get_spp = Spp::where('id_spp',$session_id_spp)->get()[0];
+                            if (session()->has('spp')) {
+                                $session_id_spp = session()->get('spp')['id_spp'];
+                                $get_spp = Spp::where('id_spp',$session_id_spp)->get()[0];
+                            }
+                            else {
+                                $get_spp    = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0];       
+                                $get_id_spp = $get_spp->id_spp;
+                            }
                             $data_spp = [
                                 'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[8]->getValue() - $cells[9]->getValue())
                             ];
-                            Spp::where('id_spp',$session_id_spp)->update($data_spp);
+                            Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
                         }
 
                         if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '') {
@@ -402,6 +413,12 @@ class SppController extends Controller
                                 $get_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
                                                                   ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                                   ->get()[0]->id_spp_bulan_tahun;
+                            }
+                            else {
+                                $get_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
+                                                                  ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
+                                                                  ->get()[0]->id_spp_bulan_tahun;
+                                $session_id_spp_bulan_tahun = '';
                             }
                         }
                         else {
@@ -462,27 +479,28 @@ class SppController extends Controller
                             }
                         }
                         else {
-                            $session_id_kelas_siswa = session()->get('pembayaran')['id_kelas_siswa'];
+                            $session_id_kelas_siswa_ = session()->get('pembayaran')['id_kelas_siswa'];
                         }
 
                         if ($get_id_kelas_siswa_ != '') {
                             $get_id_spp_ = Spp::where('id_kelas_siswa',$get_id_kelas_siswa_)->get()[0]->id_spp;
                         }
                         else {
-                            $get_id_spp_ = Spp::where('id_kelas_siswa',$session_id_kelas_siswa)->get()[0]->id_spp;   
+                            $get_id_spp_ = Spp::where('id_kelas_siswa',$session_id_kelas_siswa_)->get()[0]->id_spp;   
                         }
 
                         if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '') {
+                            // dd([$get_id_spp_,$cells[5]->getValue().', '.$cells[6]->getValue()]);
                             $get_id_spp_bulan_tahun_ = SppBulanTahun::where('id_spp',$get_id_spp_)
                                                               ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                               ->get()[0]->id_spp_bulan_tahun;
                         }
                         else {
-                            $session_id_spp_bulan_tahun = session()->get('pembayaran')['id_spp_bulan_tahun'];
+                            $session_id_spp_bulan_tahun_ = session()->get('pembayaran')['id_spp_bulan_tahun'];
                         }
                         
                         $data_spp_bayar = [
-                            'id_spp_bulan_tahun' => $get_id_spp_bulan_tahun_ == '' ? $session_id_spp_bulan_tahun : $get_id_spp_bulan_tahun_,
+                            'id_spp_bulan_tahun' => $get_id_spp_bulan_tahun_ == '' ? $session_id_spp_bulan_tahun_ : $get_id_spp_bulan_tahun_,
                             'tanggal_bayar'    => import_date_excel($cells[7]->getValue()),
                             'total_biaya'      => $cells[8]->getValue(),
                             'nominal_bayar'    => $cells[9]->getValue(),
@@ -499,7 +517,7 @@ class SppController extends Controller
                             ];
                             session()->put('pembayaran',$session_spp);
                         }
-                        if (session()->has('pembayaran') && $get_id_kelas_siswa != '') {
+                        if (session()->has('pembayaran') && $get_id_kelas_siswa_ != '') {
                             $session_spp = [
                                 'id_kelas_siswa'     => $get_id_kelas_siswa_,
                                 'id_spp'             => $get_id_spp_,
