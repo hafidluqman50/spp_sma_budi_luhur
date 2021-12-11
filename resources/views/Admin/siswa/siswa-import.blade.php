@@ -37,6 +37,15 @@
                         <p class="text-muted font-14 m-b-20">
                             Import File excel sesuai dengan format yang telah tersedia!
                         </p>
+                        @if (session()->has('log'))
+                        <div class="alert alert-danger">
+                            {{ session('log') }} <button class="close">X</button>
+                        </div>
+                        @endif
+                        <div class="alert alert-warning">
+                            <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, serta sheet keluarga</li>
+                            <li style="color:black;">Mohon cek kembali kelas dan tahun ajaran, kelas dan tahun ajaran harus terdata terlebih dahulu sebelum import siswa</li>
+                        </div>
                         <div class="form-group row">
                             <div class="col-8 offset-4">
                                 <a href="{{ url('/admin/siswa/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>

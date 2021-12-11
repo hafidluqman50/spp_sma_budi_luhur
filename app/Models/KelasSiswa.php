@@ -28,6 +28,26 @@ class KelasSiswa extends Model
         return $get;
     }
 
+    public static function checkSiswa($nisn,$kelas,$tahun_ajaran)
+    {
+        $count = self::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('nisn',$nisn)
+                    ->where('slug_kelas',Str::slug($kelas,'-'))
+                    ->where('tahun_ajaran',$tahun_ajaran)
+                    ->count();
+
+        if ($count == 0) {
+            $value = 'false';
+        }
+        else {
+            $value = 'true';
+        }
+
+        return $value;
+    }
+
     public static function getSiswa($nisn,$kelas,$tahun_ajaran)
     {
         $get = self::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')

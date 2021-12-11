@@ -329,28 +329,53 @@
     <script>
         $(() => {
             $('table#datatable').DataTable();
+            $('select[name="kelas"]').change(function() {
+                let kelas        = $(this).val()
+                let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+
+                if (tahun_ajaran != '' && kelas != '') {
+                    $.ajax({
+                        url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
+                    })
+                    .done(function(done) {
+                        $('select[name="siswa"]').removeAttr('disabled')
+                        $('select[name="siswa"]').html(done)
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                }
+                
+            })
+
             $('select[name="tahun_ajaran"]').change(function() {
                 let tahun_ajaran = $(this).val()
                 let kelas        = $('select[name="kelas"]').val()
 
-                $.ajax({
-                    url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
-                })
-                .done(function(done) {
-                    $('select[name="siswa"]').removeAttr('disabled')
-                    $('select[name="siswa"]').html(done)
-                })
-                .fail(function() {
-                    console.log("error");
-                })
-                .always(function() {
-                    console.log("complete");
-                });
-                
+                if (tahun_ajaran != '' && kelas != '') {
+                    $.ajax({
+                        url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
+                    })
+                    .done(function(done) {
+                        $('select[name="siswa"]').removeAttr('disabled')
+                        $('select[name="siswa"]').html(done)
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                }
+
             })
 
             $('a[href="#next"]').click(function() {
                 if ($(this).attr('keterangan') == null || $(this).attr('keterangan') == '') {
+                    $('a[href="#previous"]').attr('keterangan','previous-spp')
                     $(this).attr('keterangan','bayar-spp')
                     let kelas        = $('select[name="kelas"]').val()
                     let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
@@ -386,8 +411,20 @@
                     // .always(function() {
                     //     console.log("complete");
                     // });
+                    $('a[href="#previous"]').attr('keterangan','previous-finish')
                 }
                 
+            })
+
+            $('a[href="#previous"]').click(function(){
+                console.log($(this).attr('keterangan'))
+                if ($(this).attr('keterangan') == 'previous-finish') {
+                    $(this).attr('keterangan','previous-spp')
+                }
+                else if ($(this).attr('keterangan') == 'previous-spp') {
+                    $('a[href="#next"]').attr('keterangan','')
+                    $(this).attr('keterangan','')
+                }
             })
 
             $('a[href="#finish"]').click(function(){

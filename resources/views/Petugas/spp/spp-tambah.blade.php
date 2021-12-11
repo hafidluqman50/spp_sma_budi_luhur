@@ -135,14 +135,23 @@
         var nominal_attr = 2;
         $('#tambah-input').click(() => {
             $('#hapus-input').removeClass('form-hide')
-            $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
+            $('.kolom-spp').each(function(){
+                if ($(this)[0].selectize) { // requires [0] to select the proper object
+                    var value = $(this).val(); // store the current value of the select/input
+                    $(this)[0].selectize.destroy(); // destroys selectize()
+                    $(this).val(value);  // set back the value of the select/input
+                }
+            })
             let clone = $('#bayar-spp').clone();
             $('#layout-bayar-spp').append(clone)
             $('#kolom-spp').attr('kolom-id',kolom_attr++)
             $('#nominal-spp').attr('nominal-id',nominal_attr++)
             $('.bayar-spp:last').find('input').val('')
             $('.bayar-spp:last').find('input').removeAttr('readonly')
-            $('.kolom-spp').select2()
+            $('.kolom-spp').selectize({
+                create:true,
+                sortField:'text'
+            })
         })
 
         $('#hapus-input').click(function() {

@@ -9,6 +9,25 @@ function money_receipt($money) {
 	return $hasil_rupiah;
 }
 
+function find_replace_strip($str1,$str2) {
+	$affix = ' - ';
+	$check = strpos($str1,$affix);
+
+	if ($check !== false) {
+		$awal_str  = strstr($str1,' - ',true);
+		$akhir_str = strstr($str1,' - ');
+
+		$replace = str_replace($akhir_str,' - '.$str2,$akhir_str);
+
+		$return_str = $awal_str.''.$replace;
+	}
+	else {
+		$return_str = $str1.' - '.$str2;
+	}
+
+	return $return_str;
+}
+
 function import_date_excel($date) {
 	$explode = explode('-',$date);
 	return $explode[2].'-'.$explode[1].'-'.ltrim($explode[0],"'");
