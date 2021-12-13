@@ -499,7 +499,15 @@ class SppController extends Controller
                                 ];
                             }
 
-                            SppDetail::firstOrCreate($data_spp_detail);
+                            if (SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])->count() != 0) {
+                                SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
+                                        ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
+                                        ->update($data_spp_detail);
+                            }
+                            else {
+                                SppDetail::firstOrCreate($data_spp_detail);
+                            }
+                            
                             if (!session()->has('spp')) {
                                 $session_spp = [
                                     'id_kelas_siswa'     => $get_id_kelas_siswa,
