@@ -508,7 +508,7 @@ class SppController extends Controller
                                     $kalkulasi = 0 + $data_spp_detail['sisa_bayar'];
                                 }
                                 else {
-                                    $kalkulasi = $get_total_harus_bayar_spp + $data_spp['sisa_bayar'];
+                                    $kalkulasi = $get_total_harus_bayar_spp + $data_spp_detail['sisa_bayar'];
                                 }
 
                                 Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $kalkulasi]);
