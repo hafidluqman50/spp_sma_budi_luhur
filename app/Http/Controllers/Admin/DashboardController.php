@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
         $total_uang_kantin = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                                         ->where('slug_kolom_spp','like','%uang-makan%')
-                                        ->sum('bayar_spp');
+                                        ->sum('sisa_bayar');
 
         $total_tunggakan = SppDetail::where('status_bayar',0)->sum('sisa_bayar');
 
