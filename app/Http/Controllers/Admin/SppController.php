@@ -505,7 +505,7 @@ class SppController extends Controller
 
                                 $get_total_harus_bayar_spp = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
                                 if ($get_total_harus_bayar_spp != 0) {
-                                    $kalkulasi = 0 + $data_spp['sisa_bayar'];
+                                    $kalkulasi = 0 + $data_spp_detail['sisa_bayar'];
                                 }
                                 else {
                                     $kalkulasi = $get_total_harus_bayar_spp + $data_spp['sisa_bayar'];
