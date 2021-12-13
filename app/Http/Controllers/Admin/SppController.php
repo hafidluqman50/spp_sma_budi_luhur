@@ -443,7 +443,6 @@ class SppController extends Controller
                                 }
                             }
 
-
                             $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[7]->getValue(),'-'))
                                                      ->get()[0]->id_kolom_spp;
 
@@ -503,11 +502,21 @@ class SppController extends Controller
                                 SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
                                         ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
                                         ->update($data_spp_detail);
+
+                                $get_total_harus_bayar_spp = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+                                if ($get_total_harus_bayar_spp != 0) {
+                                    $kalkulasi = 0 + $data_spp['sisa_bayar'];
+                                }
+                                else {
+                                    $kalkulasi = $get_total_harus_bayar_spp + $data_spp['sisa_bayar'];
+                                }
+
+                                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $kalkulasi]);
                             }
                             else {
                                 SppDetail::firstOrCreate($data_spp_detail);
                             }
-                            
+
                             if (!session()->has('spp')) {
                                 $session_spp = [
                                     'id_kelas_siswa'     => $get_id_kelas_siswa,
