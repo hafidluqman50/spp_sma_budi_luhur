@@ -498,20 +498,18 @@ class SppController extends Controller
                                 ];
                             }
 
-                            if (SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])->count() != 0) {
+                            if (SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
+                                        ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])->count() != 0) {
+
                                 SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
                                         ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
                                         ->update($data_spp_detail);
 
-                                $get_total_harus_bayar_spp = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
-                                if ($get_total_harus_bayar_spp != 0) {
-                                    $kalkulasi = 0 + $data_spp_detail['sisa_bayar'];
-                                }
-                                else {
-                                    $kalkulasi = $get_total_harus_bayar_spp + $data_spp_detail['sisa_bayar'];
-                                }
+                                $sum_sisa_bayar = SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
+                                                            ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
+                                                            ->sum('sisa_bayar');
 
-                                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $kalkulasi]);
+                                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $sum_sisa_bayar]);
                             }
                             else {
                                 SppDetail::firstOrCreate($data_spp_detail);
