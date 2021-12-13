@@ -56,7 +56,7 @@ class DashboardController extends Controller
     {
         if (session()->has('bayar_spp')) {
             $session_bayar_spp = session()->get('bayar_spp');
-            // $data_master       = $session_bayar_spp['data_master'];
+            $data_master       = $session_bayar_spp['data_master'];
 
             foreach ($session_bayar_spp['data_spp'] as $key => $value) {
                 $spp_detail = SppDetail::where('id_spp_detail',$value[$key]['id_spp_detail'])->firstOrFail();
