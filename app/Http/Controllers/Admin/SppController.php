@@ -505,15 +505,20 @@ class SppController extends Controller
                                         ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
                                         ->update($data_spp_detail);
 
-                                $sum_sisa_bayar = SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
-                                                            ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
-                                                            ->sum('sisa_bayar');
-
-                                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $sum_sisa_bayar]);
+                                // $sum_sisa_bayar = SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
+                                //                             ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
+                                //                             ->sum('sisa_bayar');
                             }
                             else {
                                 SppDetail::firstOrCreate($data_spp_detail);
                             }
+
+                            $sum_sisa_bayar = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                                    ->where('spp.id_spp',$get_id_spp)
+                                                    ->sum('sisa_bayar');
+
+                            Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $sum_sisa_bayar]);
 
                             if (!session()->has('spp')) {
                                 $session_spp = [
