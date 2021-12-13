@@ -119,6 +119,7 @@ class AjaxController extends Controller
     public function getBayar(Request $request)
     {
         $id_spp_bulan_tahun = $request->id_spp_bulan_tahun;
+        $tanggal_spp        = $request->tanggal_spp;
         $total_biaya        = $request->total_biaya;
         $bayar_total        = $request->bayar_total;
         $kembalian          = $request->kembalian;
