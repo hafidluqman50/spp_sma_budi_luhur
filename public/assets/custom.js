@@ -285,6 +285,37 @@ $(() => {
         });
     }).draw();
 
+    var id_spp_bulan_tahun_petugas_ = $('.data-spp-bayar-petugas').attr('id-bulan-tahun')
+    var spp_bayar_petugas = $('.data-spp-bayar-petugas').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/bayar/'+id_spp_bulan_tahun_petugas_,
+        columns:[
+            {data:'id_spp_bayar',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'total_biaya',name:'total_biaya'},
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'kembalian',name:'kembalian'},
+            {data:'keterangan_bayar',name:'keterangan_bayar'}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_bayar_petugas.on( 'order.dt search.dt', function () {
+        spp_bayar_petugas.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
     var id_spp_bulan_tahun = $('.data-spp-detail').attr('id-spp-bulan-tahun')
     var spp_detail = $('.data-spp-detail').DataTable({
         processing:true,

@@ -175,7 +175,9 @@
                                 </ul>
                             </li>
 
-                            
+                            <li class="has-submenu">
+                                <a href="<?php echo e(url('/admin/kantin')); ?>"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                            </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-money"></i>Data SPP</a>
@@ -215,6 +217,9 @@
                             </li>
                             <li class="has-submenu">
                                 <a href="<?php echo e(url('/admin/data-petugas')); ?>"><i class="fa fa-users"></i>Data Petugas</a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="<?php echo e(url('/admin/data-kepsek')); ?>"><i class="fa fa-users"></i>Data Kepsek</a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->

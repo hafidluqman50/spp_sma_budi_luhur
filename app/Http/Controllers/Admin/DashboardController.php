@@ -23,10 +23,10 @@ class DashboardController extends Controller
         $title = 'Dashboard | Admin';
         $page  = 'dashboard';
         $transaksi_hari_ini = SppBayar::where('tanggal_bayar',date('Y-m-d'))
-                                        ->sum('nominal_bayar');
+                                        ->sum('total_biaya');
 
         $transaksi_bulan_ini = SppBayar::whereMonth('tanggal_bayar',date('m'))
-                                        ->sum('nominal_bayar');
+                                        ->sum('total_biaya');
 
         $total_uang_kantin = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                                         ->where('slug_kolom_spp','like','%uang-makan%')
@@ -44,7 +44,6 @@ class DashboardController extends Controller
                                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                                     // ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
                                     ->orderBy('tanggal_bayar','DESC')
-                                    ->limit(3)
                                     ->get();
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
