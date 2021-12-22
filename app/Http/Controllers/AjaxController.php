@@ -46,7 +46,7 @@ class AjaxController extends Controller
         $siswa = ['nama_siswa' => $get_siswa->nama_siswa, 'wilayah' => unslug_str($get_siswa->wilayah)];
 
         if (Spp::where('id_kelas_siswa',$id_kelas_siswa)->count() != 0) {
-            $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->get()->id_spp;
+            $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->get()[0]->id_spp;
 
             $get_bulan_tunggakan = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                             ->where('id_spp',$id_spp)
@@ -119,6 +119,7 @@ class AjaxController extends Controller
     public function getBayar(Request $request)
     {
         $id_spp_bulan_tahun = $request->id_spp_bulan_tahun;
+        $tanggal_spp        = date('Y-m-d');
         $total_biaya        = $request->total_biaya;
         $bayar_total        = $request->bayar_total;
         $kembalian          = $request->kembalian;

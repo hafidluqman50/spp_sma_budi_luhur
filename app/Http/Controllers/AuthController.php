@@ -21,11 +21,14 @@ class AuthController extends Controller
         $data_login = ['username' => $username, 'password' => $password,'status_delete' => 0];
         
         if (Auth::attempt($data_login,true)) {
-            if (Auth::user()->level_user == 2) {
+            if (Auth::user()->level_user == 3) {
                 return redirect('/admin/dashboard');
             }
-            else if(Auth::user()->level_user == 1) {
+            else if(Auth::user()->level_user == 2) {
                 return redirect('/petugas/dashboard');
+            }
+            else if(Auth::user()->level_user == 1) {
+                return redirect('/kepsek/dashboard');
             }
             else if(Auth::user()->level_user == 0) {
                 return redirect('/ortu/dashboard');

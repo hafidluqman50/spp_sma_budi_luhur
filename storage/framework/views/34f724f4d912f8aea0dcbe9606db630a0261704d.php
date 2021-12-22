@@ -54,7 +54,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
                                 <div class="col-7">
-                                    <input type="file" name="file_import" class="form-control" required="required">
+                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
                                 </div>
                             </div>
                             <div class="form-group row">

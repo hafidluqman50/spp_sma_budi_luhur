@@ -1,4 +1,4 @@
-@extends('Petugas.layout-app.layout')
+@extends('Kepsek.layout-app.layout')
 
 @section('content')
 
@@ -28,22 +28,17 @@
                         <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/petugas/spp/bulan-tahun/'.$id) }}">
+                            <a href="{{ url('/kepsek/spp/bulan-tahun/'.$id) }}">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
-                        <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
-                        </div>
-                        @endif
                         <h5>NISN : {{ $siswa->nisn }}</h5>
                         <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
                         <h5>Kelas : {{ $siswa->kelas }}</h5>
                         <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
-                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="{{$id_bulan_tahun}}">
+                        <table class="table table-hover table-bordered data-spp-bayar-kepsek force-fullwidth" id-bulan-tahun="{{$id_bulan_tahun}}">
                             <thead>
                             <tr>
                                 <th>No.</th>

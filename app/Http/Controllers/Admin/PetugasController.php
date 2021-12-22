@@ -41,7 +41,7 @@ class PetugasController extends Controller
             'name'          => $nama_petugas,
             'username'      => $username,
             'password'      => bcrypt($password),
-            'level_user'    => 1,
+            'level_user'    => 2,
             'status_akun'   => 1,
             'status_delete' => 0
         ];

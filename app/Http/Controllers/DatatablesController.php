@@ -17,6 +17,7 @@ use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayar;
 use App\Models\Petugas;
+use App\Models\Kepsek;
 use Auth;
 
 class DatatablesController extends Controller
@@ -26,7 +27,7 @@ class DatatablesController extends Controller
     function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
+            $this->level = Auth::user()->level_user == 3 ? 'admin' : (Auth::user()->level_user == 2 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
             return $next($request);
         });
     }
@@ -249,15 +250,18 @@ class DatatablesController extends Controller
         $spp_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
-            $column = '
-                    <div class="d-flex">
-                       <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
-                            <input type="hidden" name="_token" value="'.csrf_token().'">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                       </form>
-                   </div>
-                ';
+            $column = '';
+            if ($this->level == 'admin') {
+                $column = '
+                        <div class="d-flex">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            }
             return $column;
         })->editColumn('total_biaya',function($edit){
             return format_rupiah($edit->total_biaya);
@@ -280,30 +284,48 @@ class DatatablesController extends Controller
                                 ->get();
 
         $datatables = Datatables::of($spp_detail)->addColumn('action',function($action){
-            if ($action->status_bayar == 1) {
-                $column = '
-                        <div class="d-flex">
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
-                                <input type="hidden" name="_token" value="'.csrf_token().'">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                           </form>
-                       </div>
-                    ';
+            if ($this->level == 'admin') {
+                if ($action->status_bayar == 1) {
+                    $column = '
+                            <div class="d-flex">
+                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                }
+                else {
+                    $column = '
+                            <div class="d-flex">
+                                <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
+                                  <button class="btn btn-success"> Bayar </button>
+                               </a>
+                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                }
             }
-            else {
-                $column = '
-                        <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
-                              <button class="btn btn-success"> Bayar </button>
-                           </a>
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
-                                <input type="hidden" name="_token" value="'.csrf_token().'">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                           </form>
-                       </div>
-                    ';
+            else if ($this->level == 'petugas') {
+                if ($action->status_bayar == 1) {
+                    $column = ' ';
+                }
+                else {
+                    $column = '
+                            <div class="d-flex">
+                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                }
             }
             return $column;
         })->editColumn('nominal_spp',function($edit){
@@ -419,6 +441,35 @@ class DatatablesController extends Controller
             return $column;
         })->editColumn('jabatan_petugas',function($edit){
             return unslug_str($edit->jabatan_petugas);
+        })->editColumn('status_akun',function($status){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Non Aktif'],
+                1 => ['class'=>'badge badge-success','text'=>'Aktif']
+            ];
+            return '<span class="'.$array[$status->status_akun]['class'].'">'.$array[$status->status_akun]['text'].'</span>';
+        })->rawColumns(['status_akun','action'])->make(true);
+        return $datatables;
+    }
+
+    public function dataKepsek()
+    {
+        $kepsek     = Kepsek::showData();
+        $datatables = Datatables::of($kepsek)->addColumn('action',function($action){
+            $array = [
+                0 => ['class'=>'btn-success','text'=>'Aktifkan'],
+                1 => ['class'=>'btn-danger','text'=>'Nonaktifkan']
+            ];
+            $column = '<a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
+                          <button class="btn btn-warning"> Edit </button>
+                       </a>
+                       <a href="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'">
+                           <button class="btn btn-danger" onclick="return confirm(\'Yakin Hapus ?\');"> Hapus </button>
+                       </a>
+                       <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
+                            <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
+                       </a>
+                    ';
+            return $column;
         })->editColumn('status_akun',function($status){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Non Aktif'],
