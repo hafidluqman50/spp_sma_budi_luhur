@@ -55,7 +55,6 @@ class SppBulanTahunController extends Controller
                 'id_spp_bulan_tahun' => $id_bulan_tahun,
                 'id_kolom_spp'       => $kolom_spp[$key],
                 'nominal_spp'        => $nominal_spp[$key],
-                'tanggal_bayar'      => null,
                 'bayar_spp'          => 0,
                 'status_bayar'       => 0
             ];
