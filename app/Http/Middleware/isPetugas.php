@@ -18,10 +18,10 @@ class isPetugas
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->level_user == 1 && Auth::user()->status_akun == 1) {
+            if (Auth::user()->level_user == 2 && Auth::user()->status_akun == 1) {
                 true;
             }
-            elseif (Auth::user()->level_user != 1) {
+            elseif (Auth::user()->level_user != 2) {
                 return redirect('/');
             }
             elseif (Auth::user()->status_delete == 1 || Auth::user()->status_akun == 0) {

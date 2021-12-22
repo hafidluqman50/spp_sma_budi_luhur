@@ -17,6 +17,7 @@ use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayar;
 use App\Models\Petugas;
+use App\Models\Kepsek;
 use Auth;
 
 class DatatablesController extends Controller
@@ -26,7 +27,7 @@ class DatatablesController extends Controller
     function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->level = Auth::user()->level_user == 2 ? 'admin' : (Auth::user()->level_user == 1 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
+            $this->level = Auth::user()->level_user == 3 ? 'admin' : (Auth::user()->level_user == 2 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
             return $next($request);
         });
     }
@@ -440,6 +441,35 @@ class DatatablesController extends Controller
             return $column;
         })->editColumn('jabatan_petugas',function($edit){
             return unslug_str($edit->jabatan_petugas);
+        })->editColumn('status_akun',function($status){
+            $array = [
+                0 => ['class'=>'badge badge-danger','text'=>'Non Aktif'],
+                1 => ['class'=>'badge badge-success','text'=>'Aktif']
+            ];
+            return '<span class="'.$array[$status->status_akun]['class'].'">'.$array[$status->status_akun]['text'].'</span>';
+        })->rawColumns(['status_akun','action'])->make(true);
+        return $datatables;
+    }
+
+    public function dataKepsek()
+    {
+        $kepsek     = Kepsek::showData();
+        $datatables = Datatables::of($kepsek)->addColumn('action',function($action){
+            $array = [
+                0 => ['class'=>'btn-success','text'=>'Aktifkan'],
+                1 => ['class'=>'btn-danger','text'=>'Nonaktifkan']
+            ];
+            $column = '<a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
+                          <button class="btn btn-warning"> Edit </button>
+                       </a>
+                       <a href="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'">
+                           <button class="btn btn-danger" onclick="return confirm(\'Yakin Hapus ?\');"> Hapus </button>
+                       </a>
+                       <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
+                            <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
+                       </a>
+                    ';
+            return $column;
         })->editColumn('status_akun',function($status){
             $array = [
                 0 => ['class'=>'badge badge-danger','text'=>'Non Aktif'],

@@ -20,10 +20,6 @@ use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
 use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 // END CONTROLLER ADMIN //
 
-// CONTROLLER ORTU //
-use App\Http\Controllers\Ortu\DashboardController as OrtuDashboardController;
-// END CONTROLLER ORTU //
-
 // CONTROLLER PETUGAS //
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboardController;
 use App\Http\Controllers\Petugas\KolomSppController as PetugasKolomSppController;
@@ -31,6 +27,25 @@ use App\Http\Controllers\Petugas\SppController as PetugasSppController;
 use App\Http\Controllers\Petugas\SppBulanTahunController as PetugasSppBulanTahunController;
 use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailController;
 // END CONTROLLER PETUGAS //
+
+// CONTROLLER KEPSEK //
+use App\Http\Controllers\Kepsek\DashboardController as KepsekDashboardController;
+use App\Http\Controllers\Kepsek\SiswaController as KepsekSiswaController;
+use App\Http\Controllers\Kepsek\KelasController as KepsekKelasController;
+use App\Http\Controllers\Kepsek\TahunAjaranController as KepsekTahunAjaranController;
+use App\Http\Controllers\Kepsek\KelasSiswaController as KepsekKelasSiswaController;
+use App\Http\Controllers\Kepsek\KantinController as KepsekKantinController;
+use App\Http\Controllers\Kepsek\KolomSppController as KepsekKolomSppController;
+use App\Http\Controllers\Kepsek\SppController as KepsekSppController;
+use App\Http\Controllers\Kepsek\SppBulanTahunController as KepsekSppBulanTahunController;
+use App\Http\Controllers\Kepsek\SppDetailController as KepsekSppDetailController;
+use App\Http\Controllers\Kepsek\PetugasController as KepsekPetugasController;
+
+// END CONTROLLER KEPSEK //
+
+// CONTROLLER ORTU //
+use App\Http\Controllers\Ortu\DashboardController as OrtuDashboardController;
+// END CONTROLLER ORTU //
 use Twilio\Rest\Client; 
 
 /*
@@ -108,6 +123,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-spp/spp-ortu/{id}',[DatatablesController::class, 'dataSppOrtu']);
     Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
     Route::get('/data-petugas',[DatatablesController::class, 'dataPetugas']);
+    Route::get('/data-kepsek',[DatatablesController::class, 'dataKepsek']);
 });
 
 Route::get('/oke',function(){
@@ -270,6 +286,54 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
     Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[PetugasSppDetailController::class, 'bayar']);
     // Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'delete']);
     // END ROUTE SPP LIHAT SPP //
+});
+
+Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
+    Route::get('/dashboard',[KepsekDashboardController::class,'dashboard']);
+
+     // ROUTE SISWA //
+    Route::get('/siswa',[KepsekSiswaController::class, 'index']);
+    // ROUTE SISWA END //
+
+    // ROUTE KELAS //
+    Route::get('/kelas',[KepsekKelasController::class, 'index']);
+    // ROUTE KELAS END //
+
+    // ROUTE TAHUN AJARAN //
+    Route::get('/tahun-ajaran',[KepsekTahunAjaranController::class, 'index']);
+    // ROUTE TAHUN AJARAN END //
+
+    // ROUTE KELAS SISWA //
+    Route::get('/kelas/siswa/{id}',[KepsekKelasSiswaController::class, 'index']);
+    // ROUTE KELAS SISWA END //
+
+    // ROUTE KANTIN //
+    Route::get('/kantin',[KepsekKantinController::class, 'index']);
+    // ROUTE KANTIN END //
+
+    // ROUTE KOLOM SPP //
+    Route::get('/kolom-spp',[KepsekKolomSppController::class, 'index']);
+    // END ROUTE KOLOM SPP //
+
+    // ROUTE SPP //
+    Route::get('/spp',[KepsekSppController::class, 'index']);
+    // ROUTE SPP END //
+
+    // ROUTE SPP BULAN TAHUN //
+    Route::get('/spp/bulan-tahun/{id}',[KepsekSppBulanTahunController::class, 'index']);
+    // END ROUTE SPP BULAN TAHUN //
+
+    // ROUTE SPP LIHAT PEMBAYARAN //
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[KepsekSppDetailController::class, 'lihatPembayaran']);
+    // END ROUTE SPP LIHAT PEMBAYARAN //
+
+    // ROUTE SPP LIHAT SPP //
+    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[KepsekSppDetailController::class, 'index']);
+    // END ROUTE SPP LIHAT SPP //
+
+    // ROUTE DATA PETUGAS //
+    Route::get('/data-petugas',[KepsekPetugasController::class, 'index']);
+    // END ROUTE DATA PETUGAS //
 });
 
 Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){

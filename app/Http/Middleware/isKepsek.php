@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Auth;
 
-class isAdmin
+class isKepsek
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,10 @@ class isAdmin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->level_user == 3 && Auth::user()->status_akun == 1) {
+            if (Auth::user()->level_user == 1 && Auth::user()->status_akun == 1) {
                 true;
             }
-            elseif (Auth::user()->level_user != 3) {
+            elseif (Auth::user()->level_user != 1) {
                 return redirect('/');
             }
             elseif (Auth::user()->status_delete == 1 || Auth::user()->status_akun == 0) {
