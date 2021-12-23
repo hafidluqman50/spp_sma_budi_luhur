@@ -35,6 +35,7 @@ class SppBulanTahunController extends Controller
                                 ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                 ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
                                 ->where('spp_detail.id_spp_bulan_tahun',$id_bulan_tahun)
+                                ->where('bayar_spp',0)
                                 ->where('status_bayar',0)
                                 ->get();
 
@@ -63,7 +64,7 @@ class SppBulanTahunController extends Controller
             SppDetail::create($data_kolom_spp);
         }
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
+        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
     }
 
     public function delete($id,$id_bulan_tahun)
