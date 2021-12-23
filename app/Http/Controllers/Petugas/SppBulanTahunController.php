@@ -56,6 +56,7 @@ class SppBulanTahunController extends Controller
                 'id_kolom_spp'       => $kolom_spp[$key],
                 'nominal_spp'        => $nominal_spp[$key],
                 'bayar_spp'          => 0,
+                'sisa_bayar'         => $nominal_spp[$key],
                 'status_bayar'       => 0
             ];
 
