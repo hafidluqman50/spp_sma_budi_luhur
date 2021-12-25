@@ -55,6 +55,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
+                                    <div class="col-7">
+                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="{{ $row->nama_kantin }}" disabled="disabled">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-8 offset-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">
                                             Simpan

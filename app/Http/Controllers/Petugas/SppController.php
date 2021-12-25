@@ -13,6 +13,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\KelasSiswa;
+use App\Models\Kantin;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
@@ -32,8 +33,9 @@ class SppController extends Controller
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
         $kolom_spp    = KolomSpp::where('status_delete',0)->get();
+        $kantin       = Kantin::where('status_delete',0)->get();
 
-        return view('Petugas.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas'));
+        return view('Petugas.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas','kantin'));
     }
 
     public function save(Request $request)
@@ -74,6 +76,7 @@ class SppController extends Controller
         $bulan        = $request->bulan_spp;
         $tahun        = $request->tahun_spp;
         $bulan_tahun  = $bulan.', '.$tahun;
+        $kantin       = $request->kantin;
 
         $kolom_spp        = $request->kolom_spp;
         $nominal_spp      = $request->nominal_spp;
@@ -103,7 +106,8 @@ class SppController extends Controller
         $data_spp_bulan_tahun = [
             'id_spp_bulan_tahun' => $id_spp_bulan_tahun,
             'id_spp'             => $id_spp,
-            'bulan_tahun'        => $bulan_tahun
+            'bulan_tahun'        => $bulan_tahun,
+            'id_kantin'          => $kantin
         ];
 
         SppBulanTahun::create($data_spp_bulan_tahun);

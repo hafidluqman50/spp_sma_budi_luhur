@@ -13,6 +13,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\KelasSiswa;
+use App\Models\Kantin;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
@@ -32,8 +33,9 @@ class SppController extends Controller
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
         $kolom_spp    = KolomSpp::where('status_delete',0)->get();
+        $kantin       = Kantin::where('status_delete',0)->get();
 
-        return view('Admin.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas'));
+        return view('Admin.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas','kantin'));
     }
 
     public function save(Request $request)
