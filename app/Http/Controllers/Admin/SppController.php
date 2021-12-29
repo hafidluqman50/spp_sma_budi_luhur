@@ -419,7 +419,7 @@ class SppController extends Controller
 
                                             if ($cek_spp_kolom_detail == 0) {
                                                 $data_spp = [
-                                                    'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[8]->getValue() - $cells[9]->getValue())
+                                                    'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
                                                 ];
                                                 Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
                                             }
@@ -504,10 +504,10 @@ class SppController extends Controller
                                     $data_spp_detail = [
                                         'id_spp_bulan_tahun' => $session_id_spp_bulan_tahun,
                                         'id_kolom_spp'       => $id_kolom_spp,
-                                        'nominal_spp'        => $cells[8]->getValue(),
-                                        'bayar_spp'          => $cells[9]->getValue(),
-                                        'sisa_bayar'         => $cells[8]->getValue() - $cells[9]->getValue(),
-                                        'status_bayar'       => $status_bayar[$cells[10]->getValue()]
+                                        'nominal_spp'        => $cells[9]->getValue(),
+                                        'bayar_spp'          => $cells[10]->getValue(),
+                                        'sisa_bayar'         => $cells[9]->getValue() - $cells[10]->getValue(),
+                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()]
                                     ];
                                 }
 
