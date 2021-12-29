@@ -62,7 +62,7 @@
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button class="btn btn-primary waves-effect waves-light">
-                                        Simpan
+                                        Import SPP
                                     </button>
                                 </div>
                             </div>
