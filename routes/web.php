@@ -199,6 +199,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/import',[AdminSppController::class, 'formImport']);
     Route::get('/spp/contoh-import',[AdminSppController::class, 'contohImport']);
     Route::post('/spp/import/save',[AdminSppController::class, 'import']);
+    Route::post('/spp/kantin/import/save',[AdminSppController::class, 'importSPPKantin']);
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //
@@ -264,6 +265,7 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
     Route::get('/spp/import',[PetugasSppController::class, 'formImport']);
     Route::get('/spp/contoh-import',[PetugasSppController::class, 'contohImport']);
     Route::post('/spp/import/save',[PetugasSppController::class, 'import']);
+    Route::post('/spp/kantin/import/save',[PetugasSppController::class, 'importSPPKantin']);
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //

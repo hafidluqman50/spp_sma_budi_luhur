@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 22, 2021 at 09:32 AM
+-- Generation Time: Dec 30, 2021 at 03:27 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -25,12 +25,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `history_proses_spp`
+--
+
+CREATE TABLE `history_proses_spp` (
+  `id_history_proses_spp` varchar(36) NOT NULL,
+  `text` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kantin`
 --
 
 CREATE TABLE `kantin` (
   `id_kantin` varchar(36) NOT NULL,
   `nama_kantin` varchar(100) NOT NULL,
+  `slug_nama_kantin` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `lokasi_kantin` text NOT NULL,
   `biaya_perbulan` int NOT NULL,
   `status_delete` int NOT NULL
@@ -40,9 +54,10 @@ CREATE TABLE `kantin` (
 -- Dumping data for table `kantin`
 --
 
-INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
-('6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 0),
-('f19a4d1c-3e44-4027-9e7e-d125989edc21', 'Kantin Pak Mamat', 'Disamping Rumah Pak Mamat', 100000, 1);
+INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `slug_nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
+('3630bc38-3357-453b-99c7-4470f7582b73', 'Dapur', 'dapur', '-', 0, 0),
+('6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 'Kantin Pak Mamat', '', 'Disamping Rumah Pak Mamat', 100000, 0),
+('f19a4d1c-3e44-4027-9e7e-d125989edc21', 'Kantin Pak Mamat', '', 'Disamping Rumah Pak Mamat', 100000, 1);
 
 -- --------------------------------------------------------
 
@@ -201,7 +216,8 @@ CREATE TABLE `spp_bayar` (
 CREATE TABLE `spp_bulan_tahun` (
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `id_spp` varchar(36) NOT NULL,
-  `bulan_tahun` varchar(30) NOT NULL
+  `bulan_tahun` varchar(30) NOT NULL,
+  `id_kantin` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -297,7 +313,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('cc15fb6f-5384-4a18-a337-4d5a86550a06', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$ZtkMw5FwJq.sBhhAMyosQOe6hT7DvWQm6v6ZDGenxnNr9uU9c735a', NULL, 0, 1, 0, NULL),
 ('cdc9076d-b515-4de5-8bb5-bb18cb7f7c1b', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$bQAWZUOo.201E1r3AmNXDeqzcuXGIQH2POYfkcBOTIjLMD4mZd8cu', NULL, 0, 1, 0, NULL),
 ('d0c70a75-07df-44fb-9afe-f6449838ef79', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$IQheafLh31iarHDIfHm6MuGZZGglxRc/oyQBNSNvTXCrN9tkAvBgO', NULL, 0, 1, 0, NULL),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'cRDHbVxMTnxec7VGDQ5uS0OB4u8rA91IfAzIjNutzlh3Hsli1qGhDnPoUHMF', 3, 1, 0, NULL),
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'hyuDKQ0DIhfQlKRw9T8Y8WnkRSTqONeTUWAA3bbYmBSJjmtLidZ95BsOE4ON', 3, 1, 0, NULL),
 ('d9dd0013-0d43-4cf2-a994-79d21bd71aa2', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$qzGQSOrVfnoW/8XnuV.tFeF5Yvifma3d6XL5FjfbKRNfEDtCh62HS', NULL, 0, 1, 0, NULL),
 ('e36f22fd-c164-4b05-a610-b9b12efa9dff', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$2ZmRQnTyM3EVg/WCPHyjhuu0DVNOQL.cQ5.9Vyjk7F0ax18oQ3VDy', NULL, 0, 1, 0, NULL),
 ('e7670362-85b6-41b9-892f-22b016dba1d6', 'Ortu Test', '0821231223', '$2y$10$qSRmkUmCdZ1.a0SMgFy.sO9BQs/CL9Vp/UXXmUX79DN43U9ljzYXu', 'ziLWGwqbzYzpmlbj5Z8FwHctzQMvRPELn1aDMbIGM5TyASvZoQlgrWniuPCg', 0, 1, 0, NULL),
@@ -308,6 +324,12 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `history_proses_spp`
+--
+ALTER TABLE `history_proses_spp`
+  ADD PRIMARY KEY (`id_history_proses_spp`);
 
 --
 -- Indexes for table `kantin`

@@ -208,7 +208,8 @@ class DatatablesController extends Controller
 
     public function dataSppBulanTahun($id)
     {
-        $spp_bulan_tahun = SppBulanTahun::where('id_spp',$id)
+        $spp_bulan_tahun = SppBulanTahun::leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                                        ->where('id_spp',$id)
                                         ->get();
 
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
@@ -231,6 +232,15 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->editColumn('nama_kantin',function($edit){
+            if ($edit->nama_kantin == NULL || $edit->nama_kantin == '') {
+                $nama_kantin = '-';
+            }
+            else {
+                $nama_kantin = $edit->nama_kantin;
+            }
+            
+            return $nama_kantin;
         })->addColumn('total_kalkulasi',function($add){
             $kalkulasi = SppDetail::where('id_spp_bulan_tahun',$add->id_spp_bulan_tahun)->sum('sisa_bayar');
 

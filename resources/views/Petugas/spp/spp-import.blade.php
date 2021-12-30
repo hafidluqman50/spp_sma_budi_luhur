@@ -48,21 +48,37 @@
                         </div>
                         @endif
                         <div class="alert alert-warning">
-                            <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, serta kolom spp</li>
-                            <li style="color:black;">Mohon cek kembali nisn, nama siswa, kelas, tahun ajaran, serta kolom spp. Pastikan data tersebut telah terdata di sistem!</li>
+                            <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, nama kantin, serta kolom spp</li>
+                            <li style="color:black;">Mohon cek kembali nisn, nama siswa, kelas, tahun ajaran, nama kantin, serta kolom spp. Pastikan data tersebut telah terdata di sistem!</li>
                         </div>
-                        <form method="POST" action="{{ url('/petugas/spp/import/save') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/petugas/spp/kantin/import/save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
                                 <div class="col-7">
-                                    <input type="file" name="file_import" class="form-control" required="required">
+                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button class="btn btn-primary waves-effect waves-light">
-                                        Simpan
+                                        Import SPP Kantin
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <form method="POST" action="{{ url('/petugas/spp/import/save') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <button class="btn btn-primary waves-effect waves-light">
+                                        Import SPP
                                     </button>
                                 </div>
                             </div>

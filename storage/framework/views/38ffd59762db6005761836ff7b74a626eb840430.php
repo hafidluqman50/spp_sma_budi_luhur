@@ -46,6 +46,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Bulan Tahun</th>
+                                <th>Kantin</th>
                                 <th>Status Pelunasan</th>
                                 <th>Sisa Bayar</th>
                                 <th>#</th>

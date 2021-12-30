@@ -76,6 +76,17 @@
                                         <input type="number" name="tahun_spp" class="form-control" required="required" placeholder="Isi Tahun; Ex: 2017;">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kantin</label>
+                                    <div class="col-7">
+                                        <select name="kantin" class="form-control select2" required>
+                                            <option value="" selected disabled>=== Pilih Kantin ===</option>
+                                            @foreach ($kantin as $element)
+                                            <option value="{{ $element->id_kantin }}">{{ $element->nama_kantin }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <div class="col-8 offset-4">

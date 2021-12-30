@@ -23,6 +23,7 @@ class SppBulanTahunController extends Controller
         $title = 'Edit SPP Bulan Tahun';
 
         $row = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                            ->join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                             ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
                             ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                             ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
@@ -35,6 +36,7 @@ class SppBulanTahunController extends Controller
                                 ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                 ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
                                 ->where('spp_detail.id_spp_bulan_tahun',$id_bulan_tahun)
+                                ->where('bayar_spp',0)
                                 ->where('status_bayar',0)
                                 ->get();
 
@@ -55,15 +57,15 @@ class SppBulanTahunController extends Controller
                 'id_spp_bulan_tahun' => $id_bulan_tahun,
                 'id_kolom_spp'       => $kolom_spp[$key],
                 'nominal_spp'        => $nominal_spp[$key],
-                'tanggal_bayar'      => null,
                 'bayar_spp'          => 0,
+                'sisa_bayar'         => $nominal_spp[$key],
                 'status_bayar'       => 0
             ];
 
             SppDetail::create($data_kolom_spp);
         }
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/detail/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
+        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
     }
 
     public function delete($id,$id_bulan_tahun)
