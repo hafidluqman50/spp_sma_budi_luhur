@@ -368,18 +368,26 @@ class SppController extends Controller
                                         $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                                     }
                                     else {
-                                        return redirect('/admin/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                        return redirect('/admin/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
                                     }
                                 }
                                 else {
                                     $session_id_kelas_siswa = session()->get('spp')['id_kelas_siswa'];
                                 }
 
+                                if ($cells[7]->getValue() != '') {
+                                    $check_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))
+                                                             ->count();
+                                    if ($check_kantin == 0) { 
+                                        return redirect('/admin/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
+                                    }
+                                }
+
                                 $check_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
                                                          ->count();
 
                                 if ($check_kolom_spp == 0) { 
-                                    return redirect('/admin/spp/import')->with('log','Kolom Spp '.$cells[8].' tidak ditemukan! Mohon cek kembali data kolom spp');
+                                    return redirect('/admin/spp/import')->with('log','Kolom Spp " '.$cells[8].' " tidak ditemukan! Mohon cek kembali data kolom spp');
                                 }
 
                                 if (Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->count() == 0) {
@@ -518,9 +526,9 @@ class SppController extends Controller
                                             ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
                                             ->update($data_spp_detail);
 
-                                    // $sum_sisa_bayar = SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
-                                    //                             ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
-                                    //                             ->sum('sisa_bayar');
+                                    $sum_sisa_bayar = SppDetail::where('id_spp_bulan_tahun',$data_spp_detail['id_spp_bulan_tahun'])
+                                                                ->where('id_kolom_spp',$data_spp_detail['id_kolom_spp'])
+                                                                ->sum('sisa_bayar');
                                 }
                                 else {
                                     SppDetail::firstOrCreate($data_spp_detail);
@@ -689,4 +697,75 @@ class SppController extends Controller
 
         return redirect('/admin/spp')->with('message','Berhasil Import SPP');
     }
+
+    public function importSPPKantin(Request $request)
+    {
+        $file_import = $request->file_import;
+
+        foreach ($file_import as $key => $value) {
+            $reader = ReaderEntityFactory::createXLSXReader();
+            $reader->open($file_import[$key]);
+            
+            // SHEET 1
+            $get_id_kelas_siswa     = '';
+            $get_id_spp             = '';
+            // END SHEET 1
+            
+            foreach ($reader->getSheetIterator() as $sheet) {
+                if ($sheet->getIndex() === 0) {
+                    if (strtoupper($sheet->getName()) == 'SPP') {
+                        foreach ($sheet->getRowIterator() as $num => $row) {
+                            if ($num > 1) {
+                                $cells = $row->getCells();
+                                if ($cells[1]->getValue() != '' && $cells[2]->getValue() != '' && $cells[3]->getValue() != '' && $cells[4]->getValue() != '') {
+                                    $check_kelas_siswa = KelasSiswa::checkSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue());
+
+                                    if ($check_kelas_siswa == 'true') {
+                                        $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
+
+                                        $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->firstOrFail()->id_spp;
+                                    }
+                                    else {
+                                        return redirect('/admin/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                    }
+                                }
+
+                                if ($cells[7]->getValue() != '') {
+                                    $check_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))
+                                                             ->count();
+                                    if ($check_kantin == 0) { 
+                                        return redirect('/admin/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
+                                    }
+                                }
+
+                                if ($cells[5]->getValue() != '' && $cells[6]->getValue() != '' && $cells[7]->getValue() != '') {
+                                    $count_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
+                                                                          ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
+                                                                          ->count();
+                                    $id_kantin = Kantin::where('slug_nama_kantin',$cells[7]->getValue())->get()[0]->id_kantin;
+                                    if ($count_spp_bulan_tahun == 0) {
+                                        $data_spp_bulan_tahun = [
+                                            'id_spp'      => $get_id_spp,
+                                            'bulan_tahun' => $cells[5]->getValue().', '.$cells[6]->getValue(),
+                                            'id_kantin'   => $id_kantin
+                                        ];
+
+                                        SppBulanTahun::where('id_spp',$get_id_spp)
+                                                    ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
+                                                    ->update($data_spp_bulan_tahun);
+                                    }
+                                }
+                            }
+                        }   
+                    }
+                }
+            }
+
+            $reader->close();
+        }
+
+        return redirect('/admin/spp')->with('message','Berhasil Import SPP Kantin');
+    }
+
+    // public function 
 }
