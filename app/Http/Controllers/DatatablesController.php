@@ -498,11 +498,13 @@ class DatatablesController extends Controller
     {
         $history_proses_spp = HistoryProsesSpp::all();
         $datatables = Datatables::of($history_proses_spp)->addColumn('action',function($action){
-            $column = '<a href="'.url("/admin/spp/history-spp/$action->id_history_proses_spp").'">
+            $column = '<a href="'.url("/$this->level/spp/history-spp/$action->id_history_proses_spp").'">
                           <button class="btn btn-info"> Detail </button>
                        </a>
                     ';
             return $column;
+        })->editColumn('text',function($edit){
+            return Str::limit($edit->text,70);
         })->editColumn('created_at',function($edit){
             $explode = explode(' ',$edit->created_at);
             return human_date($explode[0]).' '.$explode[1];
