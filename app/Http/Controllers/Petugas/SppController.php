@@ -14,6 +14,7 @@ use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
+use Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
@@ -96,7 +97,8 @@ class SppController extends Controller
             $data_spp = [
                 'id_spp'            => $id_spp,
                 'id_kelas_siswa'    => $siswa,
-                'total_harus_bayar' => $total_pembayaran
+                'total_harus_bayar' => $total_pembayaran,
+                'id_users'          => Auth::user()->id_users
             ];
             Spp::create($data_spp);   
         }

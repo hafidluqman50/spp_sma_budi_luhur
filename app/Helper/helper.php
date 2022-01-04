@@ -4,6 +4,47 @@ function format_rupiah($money) {
 	return $hasil_rupiah;
 }
 
+function count_history_unread_navbar() {
+	$get = App\Models\HistoryProsesSpp::where('status_terbaca',0)->count();
+
+	return $get;
+}
+
+function get_history_navbar() {
+	$get = App\Models\HistoryProsesSpp::orderBy('created_at','DESC')->get();
+
+	return $get;
+}
+
+function time_elapsed_string($datetime, $full = false) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
 function money_receipt($money) {
 	$hasil_rupiah = number_format($money,0,'','.');
 	return $hasil_rupiah;

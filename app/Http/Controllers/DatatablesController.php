@@ -18,6 +18,7 @@ use App\Models\KolomSpp;
 use App\Models\SppBayar;
 use App\Models\Petugas;
 use App\Models\Kepsek;
+use App\Models\HistoryProsesSpp;
 use Auth;
 
 class DatatablesController extends Controller
@@ -182,6 +183,7 @@ class DatatablesController extends Controller
                     ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->join('users','spp.id_users','=','users.id_users')
                     ->get();
 
         $datatables = Datatables::of($spp)->addColumn('action',function($action){
@@ -257,7 +259,9 @@ class DatatablesController extends Controller
 
     public function dataSppBayar($id)
     {
-        $spp_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
+        $spp_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->join('users','spp_bayar.id_users','=','users.id_users')
+                            ->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
             $column = '';
@@ -487,6 +491,22 @@ class DatatablesController extends Controller
             ];
             return '<span class="'.$array[$status->status_akun]['class'].'">'.$array[$status->status_akun]['text'].'</span>';
         })->rawColumns(['status_akun','action'])->make(true);
+        return $datatables;
+    }
+
+    public function dataHistorySpp()
+    {
+        $history_proses_spp = HistoryProsesSpp::all();
+        $datatables = Datatables::of($history_proses_spp)->addColumn('action',function($action){
+            $column = '<a href="'.url("/admin/spp/history-spp/$action->id_history_proses_spp").'">
+                          <button class="btn btn-info"> Detail </button>
+                       </a>
+                    ';
+            return $column;
+        })->editColumn('created_at',function($edit){
+            $explode = explode(' ',$edit->created_at);
+            return human_date($explode[0]).' '.$explode[1];
+        })->rawColumns(['text','action'])->make(true);
         return $datatables;
     }
 }

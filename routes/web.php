@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\SppBulanTahunController as AdminSppBulanTahunCont
 use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
 use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
 use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
+use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -124,6 +125,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
     Route::get('/data-petugas',[DatatablesController::class, 'dataPetugas']);
     Route::get('/data-kepsek',[DatatablesController::class, 'dataKepsek']);
+    Route::get('/data-history-spp',[DatatablesController::class, 'dataHistorySpp']);
 });
 
 Route::get('/oke',function(){
@@ -222,6 +224,11 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[AdminSppDetailController::class, 'bayar']);
     Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'delete']);
     // END ROUTE SPP LIHAT SPP //
+
+    // ROUTE SPP HISTORY //
+    Route::get('/spp/history-spp',[AdminHistorySppController::class, 'index']);
+    Route::get('/spp/history-spp/{id}',[AdminHistorySppController::class, 'detail']);
+    // END ROUTE SPP HISTORY //
 
     // ROUTE DATA PETUGAS //
     Route::get('/data-petugas',[AdminPetugasController::class, 'index']);

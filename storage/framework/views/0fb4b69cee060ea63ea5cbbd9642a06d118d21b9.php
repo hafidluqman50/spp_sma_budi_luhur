@@ -54,6 +54,7 @@
                                 <th>Tahun Ajaran</th>
                                 <th>Wilayah</th>
                                 <th>Total Harus Bayar</th>
+                                <th>Input By</th>
                                 <th>#</th>
                             </tr>
                             </thead>

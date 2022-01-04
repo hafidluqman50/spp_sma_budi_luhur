@@ -14,6 +14,7 @@ use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
+use Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
@@ -96,7 +97,8 @@ class SppController extends Controller
             $data_spp = [
                 'id_spp'            => $id_spp,
                 'id_kelas_siswa'    => $siswa,
-                'total_harus_bayar' => $total_pembayaran
+                'total_harus_bayar' => $total_pembayaran,
+                'id_users'          => Auth::user()->id_users
             ];
             Spp::create($data_spp);   
         }
@@ -395,6 +397,7 @@ class SppController extends Controller
                                     $data_spp = [
                                         'id_kelas_siswa'    => $get_id_kelas_siswa,
                                         'total_harus_bayar' => $cells[9]->getValue() - $cells[10]->getValue(),
+                                        'id_users'          => Auth::user()->id_users
                                     ];
                                     Spp::firstOrCreate($data_spp);
                                     $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0]->id_spp;
@@ -469,7 +472,7 @@ class SppController extends Controller
                                     $count_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
                                                                           ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                                           ->count();
-                                    $id_kantin = Kantin::where('slug_nama_kantin',$cells[7]->getValue())->get()[0]->id_kantin;
+                                    $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))->get()[0]->id_kantin;
                                     if ($count_spp_bulan_tahun == 0) {
                                         $data_spp_bulan_tahun = [
                                             'id_spp'      => $get_id_spp,
@@ -667,7 +670,8 @@ class SppController extends Controller
                                 'total_biaya'      => $cells[8]->getValue(),
                                 'nominal_bayar'    => $cells[9]->getValue(),
                                 'kembalian'        => $cells[10]->getValue(),
-                                'keterangan_bayar' => $cells[11]->getValue()
+                                'keterangan_bayar' => $cells[11]->getValue(),
+                                'id_users'         => Auth::user()->id_users
                             ];
 
                             SppBayar::firstOrCreate($data_spp_bayar);
