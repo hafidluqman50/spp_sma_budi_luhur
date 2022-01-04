@@ -264,8 +264,8 @@ class DatatablesController extends Controller
                             ->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
-            $column = '';
-            if ($this->level == 'admin') {
+            // $column = '';
+            // if ($this->level == 'admin') {
                 $column = '
                         <div class="d-flex">
                            <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
@@ -275,7 +275,7 @@ class DatatablesController extends Controller
                            </form>
                        </div>
                     ';
-            }
+            // }
             return $column;
         })->editColumn('total_biaya',function($edit){
             return format_rupiah($edit->total_biaya);
@@ -298,7 +298,7 @@ class DatatablesController extends Controller
                                 ->get();
 
         $datatables = Datatables::of($spp_detail)->addColumn('action',function($action){
-            if ($this->level == 'admin') {
+            // if ($this->level == 'admin') {
                 if ($action->status_bayar == 1) {
                     $column = '
                             <div class="d-flex">
@@ -324,23 +324,23 @@ class DatatablesController extends Controller
                            </div>
                         ';
                 }
-            }
-            else if ($this->level == 'petugas') {
-                if ($action->status_bayar == 1) {
-                    $column = ' ';
-                }
-                else {
-                    $column = '
-                            <div class="d-flex">
-                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
-                                    <input type="hidden" name="_token" value="'.csrf_token().'">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                               </form>
-                           </div>
-                        ';
-                }
-            }
+            // }
+            // else if ($this->level == 'petugas') {
+            //     if ($action->status_bayar == 1) {
+            //         $column = ' ';
+            //     }
+            //     else {
+            //         $column = '
+            //                 <div class="d-flex">
+            //                    <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+            //                         <input type="hidden" name="_token" value="'.csrf_token().'">
+            //                         <input type="hidden" name="_method" value="DELETE">
+            //                         <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+            //                    </form>
+            //                </div>
+            //             ';
+            //     }
+            // }
             return $column;
         })->editColumn('nominal_spp',function($edit){
             return format_rupiah($edit->nominal_spp);

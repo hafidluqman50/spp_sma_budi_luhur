@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
+use App\Models\HistoryProsesSpp;
 
 class SppBulanTahunController extends Controller
 {
     public function index($id)
     {
         $title = 'SPP Bulan Tahun';
-        $siswa = SppBulanTahun::getSiswa($id_bulan_tahun);
+        $siswa = SppBulanTahun::getSiswa($id);
 
         return view('Petugas.spp-bulan-tahun.main',compact('title','id','siswa'));
     }
@@ -70,6 +71,12 @@ class SppBulanTahunController extends Controller
 
     public function delete($id,$id_bulan_tahun)
     {
+        $spp_row = SppBulanTahun::getRowById($id_bulan_tahun);
+        $text_history = Auth::user()->name.' telah menghapus data SPP <b>'.$spp_row->nama_siswa.' '.$spp_row->kelas.' '.$spp_row->tahun_ajaran.'</b> Bulan Tahun : <b>'.$spp_row->bulan_tahun.'</b>';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
+
         SppBulanTahun::where('id_spp',$id)
                     ->where('id_spp_bulan_tahun',$id_bulan_tahun)
                     ->delete();
