@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -30,22 +28,22 @@
                         </p>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/spp/tambah') }}">
+                            <a href="<?php echo e(url('/admin/spp/tambah')); ?>">
                                 <button class="btn btn-primary">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
-                            <a href="{{ url('/admin/spp/import') }}">
+                            <a href="<?php echo e(url('/admin/spp/import')); ?>">
                                 <button class="btn btn-success">
                                     <i class="fa fa-file-excel-o m-r-5"></i>Import
                                 </button>
                             </a>
                         </div>
-                        @if (session()->has('message'))
+                        <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
-                        @endif
+                        <?php endif; ?>
                         <table class="table table-hover table-bordered data-spp force-fullwidth">
                             <thead>
                             <tr>
@@ -70,4 +68,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/spp/main.blade.php ENDPATH**/ ?>

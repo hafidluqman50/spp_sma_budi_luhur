@@ -205,6 +205,7 @@ $(() => {
             {data:'tahun_ajaran',name:'tahun_ajaran'},
             {data:'wilayah',name:'wilayah'},
             {data:'total_harus_bayar',name:'total_harus_bayar'},
+            {data:'name',name:'name'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -268,6 +269,7 @@ $(() => {
             {data:'nominal_bayar',name:'nominal_bayar'},
             {data:'kembalian',name:'kembalian'},
             {data:'keterangan_bayar',name:'keterangan_bayar'},
+            {data:'name',name:'name'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -331,7 +333,8 @@ $(() => {
             {data:'total_biaya',name:'total_biaya'},
             {data:'nominal_bayar',name:'nominal_bayar'},
             {data:'kembalian',name:'kembalian'},
-            {data:'keterangan_bayar',name:'keterangan_bayar'}
+            {data:'keterangan_bayar',name:'keterangan_bayar'},
+            {data:'name',name:'name'}
         ],
         scrollCollapse: true,
         columnDefs: [ {
@@ -792,4 +795,32 @@ $(() => {
         });
     }).draw();
     // END DATATABLES KEPSEK //
+
+    var history_spp = $('.data-history-spp').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-history-spp/',
+        columns:[
+            {data:'id_history_proses_spp',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'text',name:'text'},
+            {data:'created_at',name:'created_at'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    history_spp.on( 'order.dt search.dt', function () {
+        history_spp.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

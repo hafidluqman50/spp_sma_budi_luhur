@@ -52,6 +52,7 @@
                                 <th>Nominal Bayar</th>
                                 <th>Kembalian</th>
                                 <th>Keterangan</th>
+                                <th>Input By</th>
                             </tr>
                             </thead>
                             <tbody>

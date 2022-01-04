@@ -9,6 +9,8 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\Petugas;
+use App\Models\HistoryProsesSpp;
+use Auth;
 
 class SppDetailController extends Controller
 {
@@ -73,7 +75,8 @@ class SppDetailController extends Controller
             'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
             'kembalian'          => $kembalian,
-            'keterangan_bayar'   => $keterangan
+            'keterangan_bayar'   => $keterangan,
+            'id_users'           => Auth::user()->id_users
         ];
         SppBayar::create($data_spp_bayar);
 
@@ -81,6 +84,13 @@ class SppDetailController extends Controller
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
+        $spp_row = SppDetail::getBayarById($id_detail);
+
+        $text_history = Auth::user()->name.' telah membayar SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom_spp.'</b> Sebesar <b>'.format_rupiah($bayar_spp).'</b> dan dengan total nominal bayar sebesar <b>'.format_rupiah($bayar_total).'</b>';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
 
         // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
         return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
@@ -148,6 +158,13 @@ class SppDetailController extends Controller
                     ->update($data_spp_detail);
 
             Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+
+            $spp_row = SppDetail::getBayarById($id_detail[$key]);
+
+            $text_history = Auth::user()->name.' telah membayar SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom_spp.'</b> Sebesar <b>'.format_rupiah($bayar_spp[$key]).'</b> dan dengan total nominal bayar sebesar <b>'.format_rupiah($bayar_total).'</b>';
+
+            $history = ['text' => $text_history,'status_terbaca' => 0];
+            HistoryProsesSpp::create($history);
         }
 
         $data_spp_bayar = [
@@ -156,7 +173,8 @@ class SppDetailController extends Controller
             'total_biaya'        => $total_biaya,
             'nominal_bayar'      => $bayar_total,
             'kembalian'          => $kembalian,
-            'keterangan_bayar'   => $keterangan
+            'keterangan_bayar'   => $keterangan,
+            'id_users'           => Auth::user()->id_users
         ];
         SppBayar::create($data_spp_bayar);
         $spp_detail_row = SppDetail::getBayarById($id_detail);
@@ -173,6 +191,13 @@ class SppDetailController extends Controller
                     ->where('id_spp_detail',$id_detail)
                     ->delete();
 
+        $spp_row = SppDetail::getBayarById($id_detail);
+
+        $text_history = Auth::user()->name.' telah menghapus SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom.'</b>';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
+
         return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
     }
 
@@ -186,6 +211,14 @@ class SppDetailController extends Controller
 
     public function lihatPembayaranDelete($id,$id_bulan_tahun,$id_detail)
     {   
+
+        $spp_row = SppBayar::getBayarById($id_detail);
+
+        $text_history = Auth::user()->name.' telah menghapus Pembayaran : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Dengan jumlah Total Biaya : <b>'.format_rupiah($spp_row->total_biaya).'</b>, Nominal Bayar : <b>'.format_rupiah($spp_row->nominal_bayar).'</b>, dan Kembalian : <b>'.format_rupiah($spp_row->kembalian).'</b> dengan Keterangan : <b>'.$spp_row->keterangan.'</b> yang telah diinput oleh <b>'.$spp_row->name.'</b>';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
+
         SppBayar::where('id_spp_bulan_tahun',$id_bulan_tahun)
                 ->where('id_spp_bayar',$id_detail)
                 ->delete();
