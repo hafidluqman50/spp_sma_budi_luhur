@@ -27,6 +27,7 @@ use App\Http\Controllers\Petugas\KolomSppController as PetugasKolomSppController
 use App\Http\Controllers\Petugas\SppController as PetugasSppController;
 use App\Http\Controllers\Petugas\SppBulanTahunController as PetugasSppBulanTahunController;
 use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailController;
+use App\Http\Controllers\Petugas\HistorySppController as PetugasHistorySppController;
 // END CONTROLLER PETUGAS //
 
 // CONTROLLER KEPSEK //
@@ -295,6 +296,11 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
     Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[PetugasSppDetailController::class, 'bayar']);
     // Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'delete']);
     // END ROUTE SPP LIHAT SPP //
+
+    // ROUTE SPP HISTORY //
+    Route::get('/spp/history-spp',[PetugasHistorySppController::class, 'index']);
+    Route::get('/spp/history-spp/{id}',[PetugasHistorySppController::class, 'detail']);
+    // END ROUTE SPP HISTORY //
 });
 
 Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
