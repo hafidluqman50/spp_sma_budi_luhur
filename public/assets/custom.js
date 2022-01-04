@@ -334,7 +334,8 @@ $(() => {
             {data:'nominal_bayar',name:'nominal_bayar'},
             {data:'kembalian',name:'kembalian'},
             {data:'keterangan_bayar',name:'keterangan_bayar'},
-            {data:'name',name:'name'}
+            {data:'name',name:'name'},
+            {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
         columnDefs: [ {

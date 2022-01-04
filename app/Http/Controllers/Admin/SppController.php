@@ -14,6 +14,7 @@ use App\Models\SppDetail;
 use App\Models\SppBayar;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
+use App\Models\HistoryProsesSpp;
 use Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -134,6 +135,13 @@ class SppController extends Controller
 
     public function delete($id)
     {
+        $spp_row = Spp::getRowById($id);
+
+        $text_history = Auth::user()->name.' telah menghapus data SPP <b>'.$spp_row->nama_siswa.' '.$spp_row->kelas.' '.$spp_row->tahun_ajaran.'</b>';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
+        
         Spp::where('id_spp',$id)->delete();
 
         return redirect('/admin/spp')->with('message','Berhasil Delete Data SPP');
@@ -603,7 +611,8 @@ class SppController extends Controller
                                     'total_biaya'      => $cells[8]->getValue(),
                                     'nominal_bayar'    => $cells[9]->getValue(),
                                     'kembalian'        => $cells[10]->getValue(),
-                                    'keterangan_bayar' => $cells[11]->getValue()
+                                    'keterangan_bayar' => $cells[11]->getValue(),
+                                    'id_users'         => Auth::user()->id_users
                                 ];
 
                                 SppBayar::firstOrCreate($data_spp_bayar);
@@ -699,6 +708,11 @@ class SppController extends Controller
             $reader->close();
         }
 
+        $text_history = Auth::user()->name.' telah import data SPP';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
+
         return redirect('/admin/spp')->with('message','Berhasil Import SPP');
     }
 
@@ -767,6 +781,11 @@ class SppController extends Controller
 
             $reader->close();
         }
+
+        $text_history = Auth::user()->name.' telah import data SPP Kantin';
+
+        $history = ['text' => $text_history,'status_terbaca' => 0];
+        HistoryProsesSpp::create($history);
 
         return redirect('/admin/spp')->with('message','Berhasil Import SPP Kantin');
     }
