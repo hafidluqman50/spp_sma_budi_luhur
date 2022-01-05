@@ -760,18 +760,17 @@ class SppController extends Controller
                                     $count_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
                                                                           ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                                           ->count();
-                                    $id_kantin = Kantin::where('slug_nama_kantin',$cells[7]->getValue())->get()[0]->id_kantin;
-                                    if ($count_spp_bulan_tahun == 0) {
+                                    $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))
+                                                        ->get()[0]->id_kantin;
+                                    // if ($count_spp_bulan_tahun == 0) {
                                         $data_spp_bulan_tahun = [
-                                            'id_spp'      => $get_id_spp,
-                                            'bulan_tahun' => $cells[5]->getValue().', '.$cells[6]->getValue(),
                                             'id_kantin'   => $id_kantin
                                         ];
 
                                         SppBulanTahun::where('id_spp',$get_id_spp)
                                                     ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                     ->update($data_spp_bulan_tahun);
-                                    }
+                                    // }
                                 }
                             }
                         }   
