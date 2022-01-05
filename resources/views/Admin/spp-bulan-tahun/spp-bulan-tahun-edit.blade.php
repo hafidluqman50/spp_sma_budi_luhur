@@ -75,22 +75,35 @@
                             <div id="layout-bayar-spp">
                                 <span class="text-danger">Hanya Bisa Edit Pada Kolom SPP Yang Belum Dibayar</span>
                                 @foreach ($row_kolom_spp as $key => $element)
-                                <div id="bayar-spp" class="bayar-spp">
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
-                                        <div class="col-7">
-                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="{{ $key+1 }}">
-                                                <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                                @foreach ($kolom_spp as $value)
-                                                <option value="{{ $value->id_kolom_spp }}" {!!$value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : '' !!}>{{ $value->nama_kolom_spp }}</option>
-                                                @endforeach
-                                            </select>
+                                @php
+                                    $no = $key+1
+                                @endphp
+                                <div id="bayar-spp" class="bayar-spp" id-spp="{{$no}}">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
+                                                <div class="col-7">
+                                                    <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="{{ $no }}">
+                                                        <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
+                                                        @foreach ($kolom_spp as $value)
+                                                        <option value="{{ $value->id_kolom_spp }}" {!!$value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : '' !!}>{{ $value->nama_kolom_spp }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
+                                                <div class="col-7">
+                                                    <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="{{ $element->nominal_spp }}" nominal-id="{{ $no }}">
+                                                    <label for="" class="label-nominal-spp" nominal-id="{{ $no }}"><b>{{ format_rupiah($element->nominal_spp) }}</b></label>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
-                                        <div class="col-7">
-                                            <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="{{ $element->nominal_spp }}" nominal-id="{{ $key+1 }}">
+                                        <div class="col-md-2">
+                                            @if ($no > 1)
+                                                <button class="btn btn-danger hapus-input" type="button" id="hapus-input" btn-id="{{ $no }}"><span class="dripicons-trash"></span></button>
+                                            @endif
                                         </div>
                                     </div>
                                     <hr>
@@ -100,7 +113,6 @@
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button class="btn btn-success" type="button" id="tambah-input">Tambah Input</button>
-                                    <button class="btn btn-danger" type="button" id="hapus-input">Hapus Input</button>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -156,6 +168,22 @@
             .fail(function() {
                 console.log("error");
             });
+        })
+
+        $('input[name="nominal_spp[]"]').keyup(function(){
+            var val  = $(this).val()
+            var attr = $(this).attr('nominal-id')
+            if (val == '') {
+                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+            }
+            else {
+                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
+        $(document).on('click','.hapus-input',function() {
+            let attr = $(this).attr('btn-id')
+            $(`.bayar-spp[id-spp="${attr}"]`).remove()
         })
 
         // $(document).on('change','.kolom-spp',function(){

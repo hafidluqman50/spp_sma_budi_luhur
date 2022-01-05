@@ -53,6 +53,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
+                                    <div class="col-7">
+                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="<?php echo e($row->nama_kantin); ?>" disabled="disabled">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-8 offset-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">
                                             Simpan
@@ -67,22 +73,35 @@
                             <div id="layout-bayar-spp">
                                 <span class="text-danger">Hanya Bisa Edit Pada Kolom SPP Yang Belum Dibayar</span>
                                 <?php $__currentLoopData = $row_kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div id="bayar-spp" class="bayar-spp">
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
-                                        <div class="col-7">
-                                            <select name="kolom_spp[]" id="kolom-spp" class="form-control select2 kolom-spp" required="required" kolom-id="<?php echo e($key+1); ?>">
-                                                <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                                <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option value="<?php echo e($value->id_kolom_spp); ?>" <?php echo $value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : ''; ?>><?php echo e($value->nama_kolom_spp); ?></option>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </select>
+                                <?php
+                                    $no = $key+1
+                                ?>
+                                <div id="bayar-spp" class="bayar-spp" id-spp="<?php echo e($no); ?>">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
+                                                <div class="col-7">
+                                                    <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="<?php echo e($no); ?>">
+                                                        <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
+                                                        <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($value->id_kolom_spp); ?>" <?php echo $value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : ''; ?>><?php echo e($value->nama_kolom_spp); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
+                                                <div class="col-7">
+                                                    <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="<?php echo e($element->nominal_spp); ?>" nominal-id="<?php echo e($no); ?>">
+                                                    <label for="" class="label-nominal-spp" nominal-id="<?php echo e($no); ?>"><b><?php echo e(format_rupiah($element->nominal_spp)); ?></b></label>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
-                                        <div class="col-7">
-                                            <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="<?php echo e($element->nominal_spp); ?>" nominal-id="<?php echo e($key+1); ?>">
+                                        <div class="col-md-2">
+                                            <?php if($no > 1): ?>
+                                                <button class="btn btn-danger hapus-input" type="button" id="hapus-input" btn-id="<?php echo e($no); ?>"><span class="dripicons-trash"></span></button>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <hr>
@@ -92,7 +111,6 @@
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button class="btn btn-success" type="button" id="tambah-input">Tambah Input</button>
-                                    <button class="btn btn-danger" type="button" id="hapus-input">Hapus Input</button>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -112,14 +130,23 @@
         var kolom_attr   = 2;
         var nominal_attr = 2;
         $('#tambah-input').click(() => {
-            $('.bayar-spp:last').find('.kolom-spp').select2('destroy')
+            $('.kolom-spp').each(function(){
+                if ($(this)[0].selectize) { // requires [0] to select the proper object
+                    var value = $(this).val(); // store the current value of the select/input
+                    $(this)[0].selectize.destroy(); // destroys selectize()
+                    $(this).val(value);  // set back the value of the select/input
+                }
+            })
             let clone = $('#bayar-spp').clone();
             $('#layout-bayar-spp').append(clone)
             $('#kolom-spp').attr('kolom-id',kolom_attr++)
             $('#nominal-spp').attr('nominal-id',nominal_attr++)
             $('.bayar-spp:last').find('input').val('')
             $('.bayar-spp:last').find('input').removeAttr('readonly')
-            $('.kolom-spp').select2()
+            $('.kolom-spp').selectize({
+                create:true,
+                sortField:'text'
+            })
         })
 
         $('#hapus-input').click(function() {
@@ -139,6 +166,22 @@
             .fail(function() {
                 console.log("error");
             });
+        })
+
+        $('input[name="nominal_spp[]"]').keyup(function(){
+            var val  = $(this).val()
+            var attr = $(this).attr('nominal-id')
+            if (val == '') {
+                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+            }
+            else {
+                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
+        $(document).on('click','.hapus-input',function() {
+            let attr = $(this).attr('btn-id')
+            $(`.bayar-spp[id-spp="${attr}"]`).remove()
         })
 
         // $(document).on('change','.kolom-spp',function(){
