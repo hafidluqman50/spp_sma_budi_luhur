@@ -51,7 +51,7 @@
                                 <a href="{{ url('/admin/spp/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>
                             </div>
                         </div>
-                        {{-- <form method="POST" action="{{ url('/admin/spp/kantin/import/save') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/admin/spp/kantin/import/save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
@@ -66,7 +66,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form> --}}
+                        </form>
                         <form method="POST" action="{{ url('/admin/spp/import/save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
