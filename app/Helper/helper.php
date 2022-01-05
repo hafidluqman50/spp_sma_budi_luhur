@@ -11,7 +11,7 @@ function count_history_unread_navbar() {
 }
 
 function get_history_navbar() {
-	$get = App\Models\HistoryProsesSpp::orderBy('created_at','DESC')->get();
+	$get = App\Models\HistoryProsesSpp::orderBy('created_at','DESC')->limit(6)->get();
 
 	return $get;
 }
