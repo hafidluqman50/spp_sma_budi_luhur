@@ -715,6 +715,7 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
+            {data:'nama_kantin',name:'nama_kantin'},
             {data:'status_pelunasan',name:'status_pelunasan'},
             {data:'total_kalkulasi',name:'total_kalkulasi'}
         ],
@@ -821,6 +822,33 @@ $(() => {
     });
     history_spp.on( 'order.dt search.dt', function () {
         history_spp.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var laporan_kantin = $('.laporan-kantin').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/laporan-kantin/',
+        columns:[
+            {data:'id_kantin',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_kantin',name:'nama_kantin'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    laporan_kantin.on( 'order.dt search.dt', function () {
+        laporan_kantin.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         });
     }).draw();

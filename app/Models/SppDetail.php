@@ -12,7 +12,6 @@ class SppDetail extends Model
 
     protected $table      = 'spp_detail';
     protected $primaryKey = 'id_spp_detail';
-    public $timestamps    = false;
     protected $guarded    = [];
 
     public static function getSiswa($id)

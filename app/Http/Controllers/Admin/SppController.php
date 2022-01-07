@@ -510,7 +510,9 @@ class SppController extends Controller
                                         'nominal_spp'        => $cells[9]->getValue(),
                                         'bayar_spp'          => $cells[10]->getValue(),
                                         'sisa_bayar'         => $cells[9]->getValue() - $cells[10]->getValue(),
-                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()]
+                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()],
+                                        'created_at'         => date('Y-m-d H:i:s'),
+                                        'updated_at'         => NULL
                                     ];
                                 }
                                 else {
@@ -526,7 +528,9 @@ class SppController extends Controller
                                         'nominal_spp'        => $cells[9]->getValue(),
                                         'bayar_spp'          => $cells[10]->getValue(),
                                         'sisa_bayar'         => $cells[9]->getValue() - $cells[10]->getValue(),
-                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()]
+                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()],
+                                        'created_at'         => date('Y-m-d H:i:s'),
+                                        'updated_at'         => NULL
                                     ];
                                 }
 
