@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Kepsek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,8 +12,8 @@ class PetugasController extends Controller
 {
     public function index()
     {
-        $title = 'Data Petugas | Admin';
+        $title = 'Data Petugas | Kepsek';
 
-        return view('Admin.petugas.main',compact('title'));
+        return view('Kepsek.petugas.main',compact('title'));
     }
 }

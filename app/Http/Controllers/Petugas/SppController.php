@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kasir;
+namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,20 +24,20 @@ class SppController extends Controller
 {
     public function index()
     {
-        $title = 'SPP | Kasir';
+        $title = 'SPP | Petugas';
 
-        return view('Kasir.spp.main',compact('title'));
+        return view('Petugas.spp.main',compact('title'));
     }
 
     public function tambah()
     {
-        $title        = 'Tambah SPP | Kasir';
+        $title        = 'Tambah SPP | Petugas';
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
         $kolom_spp    = KolomSpp::where('status_delete',0)->get();
         $kantin       = Kantin::where('status_delete',0)->get();
 
-        return view('Kasir.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas','kantin'));
+        return view('Petugas.spp.spp-tambah',compact('title','tahun_ajaran','kolom_spp','kelas','kantin'));
     }
 
     public function save(Request $request)
@@ -130,7 +130,7 @@ class SppController extends Controller
             SppDetail::create($data_spp_detail);
         }
 
-        return redirect('/kasir/spp')->with('message','Berhasil Input Data SPP');
+        return redirect('/petugas/spp')->with('message','Berhasil Input Data SPP');
     }
 
     public function delete($id)
@@ -144,14 +144,14 @@ class SppController extends Controller
         
         Spp::where('id_spp',$id)->delete();
 
-        return redirect('/kasir/spp')->with('message','Berhasil Delete Data SPP');
+        return redirect('/petugas/spp')->with('message','Berhasil Delete Data SPP');
     }
 
     public function formImport()
     {
-        $title = 'Form Import | Kasir';
+        $title = 'Form Import | Petugas';
 
-        return view('Kasir.spp.spp-import',compact('title'));
+        return view('Petugas.spp.spp-import',compact('title'));
     }
 
     public function contohImport()
@@ -378,7 +378,7 @@ class SppController extends Controller
                                         $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                                     }
                                     else {
-                                        return redirect('/kasir/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                        return redirect('/petugas/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
                                     }
                                 }
                                 else {
@@ -389,7 +389,7 @@ class SppController extends Controller
                                     $check_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))
                                                              ->count();
                                     if ($check_kantin == 0) { 
-                                        return redirect('/kasir/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
+                                        return redirect('/petugas/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
                                     }
                                 }
 
@@ -397,7 +397,7 @@ class SppController extends Controller
                                                          ->count();
 
                                 if ($check_kolom_spp == 0) { 
-                                    return redirect('/kasir/spp/import')->with('log','Kolom Spp " '.$cells[8].' " tidak ditemukan! Mohon cek kembali data kolom spp');
+                                    return redirect('/petugas/spp/import')->with('log','Kolom Spp " '.$cells[8].' " tidak ditemukan! Mohon cek kembali data kolom spp');
                                 }
 
                                 if (Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->count() == 0) {
@@ -510,7 +510,9 @@ class SppController extends Controller
                                         'nominal_spp'        => $cells[9]->getValue(),
                                         'bayar_spp'          => $cells[10]->getValue(),
                                         'sisa_bayar'         => $cells[9]->getValue() - $cells[10]->getValue(),
-                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()]
+                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()],
+                                        'created_at'         => date('Y-m-d H:i:s'),
+                                        'updated_at'         => NULL
                                     ];
                                 }
                                 else {
@@ -526,7 +528,9 @@ class SppController extends Controller
                                         'nominal_spp'        => $cells[9]->getValue(),
                                         'bayar_spp'          => $cells[10]->getValue(),
                                         'sisa_bayar'         => $cells[9]->getValue() - $cells[10]->getValue(),
-                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()]
+                                        'status_bayar'       => $status_bayar[$cells[11]->getValue()],
+                                        'created_at'         => date('Y-m-d H:i:s'),
+                                        'updated_at'         => NULL
                                     ];
                                 }
 
@@ -582,7 +586,7 @@ class SppController extends Controller
                                         $get_id_kelas_siswa_ = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                                     }
                                     else {
-                                        return redirect('/kasir/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                        return redirect('/petugas/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
                                     }
                                 }
                                 else {
@@ -650,7 +654,7 @@ class SppController extends Controller
                                     $get_id_kelas_siswa_ = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                                 }
                                 else {
-                                    return redirect('/kasir/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                    return redirect('/petugas/spp/import')->with('log','Siswa '.$cells[2]->getValue().' pada sheet Pembayaran tidak ditemukan di kelas siswa! Mohon periksa kembali!');
                                 }
                             }
                             else {
@@ -713,7 +717,7 @@ class SppController extends Controller
         $history = ['text' => $text_history,'status_terbaca' => 0];
         HistoryProsesSpp::create($history);
 
-        return redirect('/kasir/spp')->with('message','Berhasil Import SPP');
+        return redirect('/petugas/spp')->with('message','Berhasil Import SPP');
     }
 
     public function importSPPKantin(Request $request)
@@ -744,7 +748,7 @@ class SppController extends Controller
                                         $get_id_spp = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->firstOrFail()->id_spp;
                                     }
                                     else {
-                                        return redirect('/kasir/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                        return redirect('/petugas/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
                                     }
                                 }
 
@@ -752,7 +756,7 @@ class SppController extends Controller
                                     $check_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))
                                                              ->count();
                                     if ($check_kantin == 0) { 
-                                        return redirect('/kasir/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
+                                        return redirect('/petugas/spp/import')->with('log','Data Kantin " '.$cells[7].' " tidak ditemukan! Mohon cek kembali data kantin');
                                     }
                                 }
 
@@ -786,7 +790,7 @@ class SppController extends Controller
         $history = ['text' => $text_history,'status_terbaca' => 0];
         HistoryProsesSpp::create($history);
 
-        return redirect('/kasir/spp')->with('message','Berhasil Import SPP Kantin');
+        return redirect('/petugas/spp')->with('message','Berhasil Import SPP Kantin');
     }
 
     // public function 

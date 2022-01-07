@@ -511,4 +511,17 @@ class DatatablesController extends Controller
         })->rawColumns(['text','action'])->make(true);
         return $datatables;
     }
+
+    public function laporanKantin()
+    {
+        $kantin = Kantin::get();
+        $datatables = Datatables::of($kantin)->addColumn('action',function($action){
+            $column = '<div class="d-flex">
+                            <input type="hidden" name="kantin_nama" value="'.$action->nama_kantin.'">
+                            <button class="btn btn-success" name="btn_cetak" value="laporan-kantin"> Cetak Laporan </button>
+                       </div>';
+            return $column;
+        })->make(true);
+        return $datatables;
+    }
 }

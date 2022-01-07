@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Kepsek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,8 +19,8 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        $title = 'Data Siswa | Admin';
+        $title = 'Data Siswa | Kepsek';
 
-        return view('Admin.siswa.main',compact('title'));
+        return view('Kepsek.siswa.main',compact('title'));
     }
 }

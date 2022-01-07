@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
 use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
 use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
+use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -127,6 +128,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-petugas',[DatatablesController::class, 'dataPetugas']);
     Route::get('/data-kepsek',[DatatablesController::class, 'dataKepsek']);
     Route::get('/data-history-spp',[DatatablesController::class, 'dataHistorySpp']);
+    Route::get('/laporan-kantin',[DatatablesController::class, 'laporanKantin']);
 });
 
 Route::get('/oke',function(){
@@ -241,7 +243,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-petugas/status-petugas/{id}',[AdminPetugasController::class, 'statusPetugas']);
     // END ROUTE DATA PETUGAS //
 
-    // ROUTE DATA PETUGAS //
+    // ROUTE DATA KEPSEK //
     Route::get('/data-kepsek',[AdminKepsekController::class, 'index']);
     Route::get('/data-kepsek/tambah',[AdminKepsekController::class, 'tambah']);
     Route::post('/data-kepsek/save',[AdminKepsekController::class, 'save']);
@@ -249,7 +251,12 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::put('/data-kepsek/update/{id}',[AdminKepsekController::class, 'update']);
     Route::delete('/data-kepsek/delete/{id}',[AdminKepsekController::class, 'delete']);
     Route::get('/data-kepsek/status-kepsek/{id}',[AdminKepsekController::class, 'statusPetugas']);
-    // END ROUTE DATA PETUGAS //
+    // END ROUTE DATA KEPSEK //
+
+    // ROUTE LAPORAN //
+    Route::get('/laporan-kantin',[AdminLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
+    // END ROUTE LAPORAN //
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){

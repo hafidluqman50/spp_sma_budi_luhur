@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Kepsek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,6 +15,6 @@ class SppBulanTahunController extends Controller
         $title = 'SPP Bulan Tahun';
         $siswa = SppBulanTahun::getSiswa($id);
 
-        return view('Admin.spp-bulan-tahun.main',compact('title','id','siswa'));
+        return view('Kepsek.spp-bulan-tahun.main',compact('title','id','siswa'));
     }
 }

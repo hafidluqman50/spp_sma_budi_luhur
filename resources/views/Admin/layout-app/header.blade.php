@@ -190,7 +190,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Laporan Kantin</a>
+                                        <a href="{{ url('/admin/laporan-kantin') }}">Laporan Kantin</a>
                                     </li>
                                     <li class="has-submenu">
                                         <a href="#">Laporan Tunggakan</a>
