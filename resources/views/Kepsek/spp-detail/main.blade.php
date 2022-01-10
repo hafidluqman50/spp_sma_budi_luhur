@@ -1,4 +1,4 @@
-@extends('Admin.layout-app.layout')
+@extends('Kepsek.layout-app.layout')
 
 @section('content')
 

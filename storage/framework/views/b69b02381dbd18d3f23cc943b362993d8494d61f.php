@@ -37,6 +37,7 @@
         <script src="<?php echo e(asset('assets/select2-4.1.0-rc.0/dist/js/select2.min.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/selectize/dist/js/standalone/selectize.min.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/custom.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/Bootstrap-Datepicker/dist/js/bootstrap-datepicker.min.js')); ?>"></script>
 
         
         

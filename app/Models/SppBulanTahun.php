@@ -13,7 +13,6 @@ class SppBulanTahun extends Model
 
     protected $table      = 'spp_bulan_tahun';
     protected $primaryKey = 'id_spp_bulan_tahun';
-    public $timestamps    = false;
     protected $guarded    = [];
 
     public static function checkStatus($id)

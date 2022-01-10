@@ -16,6 +16,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
 use App\Models\Petugas;
 use App\Models\Kepsek;
 use App\Models\HistoryProsesSpp;
@@ -266,15 +267,16 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
             // $column = '';
             // if ($this->level == 'admin') {
-                $column = '
-                        <div class="d-flex">
+                $column = '<div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Detail Pembayaran </button>
+                           </a>
                            <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
                            </form>
-                       </div>
-                    ';
+                       </div>';
             // }
             return $column;
         })->editColumn('total_biaya',function($edit){
@@ -283,6 +285,31 @@ class DatatablesController extends Controller
             return format_rupiah($edit->nominal_bayar);
         })->editColumn('kembalian',function($edit){
             return format_rupiah($edit->kembalian);
+        })->editColumn('tanggal_bayar',function($edit){
+            return human_date($edit->tanggal_bayar);
+        })->make(true);
+        return $datatables;
+    }
+
+    public function dataSppBayarDetail($id)
+    {
+        $spp_bayar_detail = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                            ->where('id_spp_bayar',$id)->get();
+
+        $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
+            // $column = '';
+            // if ($this->level == 'admin') {
+                $column = '<div class="d-flex">
+                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar/delete/$action->id_spp_bayar_detail").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>';
+            // }
+            return $column;
+        })->editColumn('nominal_bayar',function($edit){
+            return format_rupiah($edit->nominal_bayar);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
         })->make(true);

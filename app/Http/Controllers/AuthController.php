@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Auth;
 
 class AuthController extends Controller
@@ -21,6 +22,7 @@ class AuthController extends Controller
         $data_login = ['username' => $username, 'password' => $password,'status_delete' => 0];
         
         if (Auth::attempt($data_login,true)) {
+            $this->lastLogin(Auth::user()->id_users);
             if (Auth::user()->level_user == 3) {
                 return redirect('/admin/dashboard');
             }
@@ -48,5 +50,9 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    // public function 
+    public function lastLogin($id)
+    {
+        User::where('id_users',$id)
+            ->update(['last_login' => date('Y-m-d H:i:s')]);
+    }
 }

@@ -39,6 +39,7 @@
         <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.bootstrap4.css')}}">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{asset('assets/Bootstrap-Datepicker/dist/css/bootstrap-datepicker.min.css')}}">
 
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 

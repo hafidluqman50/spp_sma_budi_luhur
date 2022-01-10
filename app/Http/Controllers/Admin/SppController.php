@@ -267,6 +267,8 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('J1','Total Bayar');
         $spreadsheet->getActiveSheet()->setCellValue('K1','Kembalian');
         $spreadsheet->getActiveSheet()->setCellValue('L1','Keterangan');
+        $spreadsheet->getActiveSheet()->setCellValue('M1','SPP');
+        $spreadsheet->getActiveSheet()->setCellValue('N1','Nominal Bayar');
 
         $spreadsheet->getActiveSheet()->setCellValue('A2','1');
         $spreadsheet->getActiveSheet()->setCellValue('B2','00088899912');
@@ -280,11 +282,15 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('J2','50000');
         $spreadsheet->getActiveSheet()->setCellValue('K2','0');
         $spreadsheet->getActiveSheet()->setCellValue('L2','Pembayaran SPP Bulan Agustus');
+        $spreadsheet->getActiveSheet()->setCellValue('M2','Pembayaran Gedung');
+        $spreadsheet->getActiveSheet()->setCellValue('N2','10000');
         $spreadsheet->getActiveSheet()->setCellValue('H3',"'20-08-2021");
         $spreadsheet->getActiveSheet()->setCellValue('I3','20000');
         $spreadsheet->getActiveSheet()->setCellValue('J3','20000');
         $spreadsheet->getActiveSheet()->setCellValue('K3','0');
         $spreadsheet->getActiveSheet()->setCellValue('L3','Pembayaran Sisa Akademik Agustus 2021');
+        $spreadsheet->getActiveSheet()->setCellValue('M3','Pembayaran Akademik');
+        $spreadsheet->getActiveSheet()->setCellValue('N3','20000');
         $spreadsheet->getActiveSheet()->mergeCells('A2:A3');
         $spreadsheet->getActiveSheet()->mergeCells('B2:B3');
         $spreadsheet->getActiveSheet()->mergeCells('C2:C3');
@@ -305,11 +311,15 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('J4','70000');
         $spreadsheet->getActiveSheet()->setCellValue('K4','20000');
         $spreadsheet->getActiveSheet()->setCellValue('L4','Pembayaran Akademik September 2021');
+        $spreadsheet->getActiveSheet()->setCellValue('M4','Pembayaran Akademik');
+        $spreadsheet->getActiveSheet()->setCellValue('N4','20000');
         $spreadsheet->getActiveSheet()->setCellValue('H5',"'15-09-2021");
         $spreadsheet->getActiveSheet()->setCellValue('I5','20000');
         $spreadsheet->getActiveSheet()->setCellValue('J5','30000');
         $spreadsheet->getActiveSheet()->setCellValue('K5','10000');
         $spreadsheet->getActiveSheet()->setCellValue('L5','Pembayaran SPP September 2021');
+        $spreadsheet->getActiveSheet()->setCellValue('M5','Pembayaran Gedung');
+        $spreadsheet->getActiveSheet()->setCellValue('N5','10000');
         $spreadsheet->getActiveSheet()->mergeCells('A4:A4');
         $spreadsheet->getActiveSheet()->mergeCells('B4:B5');
         $spreadsheet->getActiveSheet()->mergeCells('C4:C5');
@@ -324,7 +334,7 @@ class SppController extends Controller
                             'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
                         ]];
 
-        $spreadsheet->getActiveSheet()->getStyle('A1:K6')->applyFromArray($styleAlignment);
+        $spreadsheet->getActiveSheet()->getStyle('A1:N6')->applyFromArray($styleAlignment);
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
@@ -337,6 +347,8 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
 
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

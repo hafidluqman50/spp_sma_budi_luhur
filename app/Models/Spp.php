@@ -12,7 +12,6 @@ class Spp extends Model
 
     protected $table      = 'spp';
     protected $primaryKey = 'id_spp';
-    public $timestamps    = false;
     protected $guarded    = [];
 
     public static function getRowById($id)
