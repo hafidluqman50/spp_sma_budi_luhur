@@ -25,11 +25,16 @@
                         <h4 class="m-t-0 header-title"><b>LAPORAN KANTIN</b></h4>
                         <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <input type="date" name="from" class="form-control" required>
+                                <div class="col-md-4 offset-md-2">
+                                    <select name="bulan_laporan" class="form-control select2" required>
+                                        <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
+                                        <?php for($i = 1; $i <= 12; $i++): ?>
+                                        <option value="<?php echo e($i); ?>"><?php echo e(month(zero_front_number($i))); ?></option>
+                                        <?php endfor; ?>
+                                    </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="date" name="to" class="form-control" required>
+                                <div class="col-md-4">
+                                    <input type="text" name="tahun_laporan" class="form-control" id="datepicker" required>
                                 </div>
                             </div>
                             <table class="table table-hover table-bordered laporan-kantin force-fullwidth">
@@ -51,6 +56,20 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<script>
+    $(() => {
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose:true, //to close picker once year is selected
+            orientation: 'bottom'
+        });
+    })
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/laporan/laporan-kantin.blade.php ENDPATH**/ ?>

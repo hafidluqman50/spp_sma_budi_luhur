@@ -49,7 +49,22 @@
                                 <a href="<?php echo e(url('/admin/spp/contoh-import')); ?>" class="text-danger">Silahkan Download Format Excel Disini!</a>
                             </div>
                         </div>
-                        
+                        <form method="POST" action="<?php echo e(url('/admin/spp/kantin/import/save')); ?>" enctype="multipart/form-data">
+                            <?php echo csrf_field(); ?>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <button class="btn btn-primary waves-effect waves-light">
+                                        Import SPP Kantin
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                         <form method="POST" action="<?php echo e(url('/admin/spp/import/save')); ?>" enctype="multipart/form-data">
                             <?php echo csrf_field(); ?>
                             <div class="form-group row">

@@ -13,7 +13,6 @@ class SppBayar extends Model
 
     protected $table      = 'spp_bayar';
     protected $primaryKey = 'id_spp_bayar';
-    public $timestamps    = false;
     protected $guarded    = [];
 
     // public static function getSiswa($id)

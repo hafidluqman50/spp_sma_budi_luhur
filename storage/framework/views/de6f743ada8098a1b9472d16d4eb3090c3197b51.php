@@ -39,6 +39,7 @@
         <link rel="stylesheet" href="<?php echo e(asset('assets/selectize/dist/css/selectize.bootstrap4.css')); ?>">
         <link href="<?php echo e(asset('assets/css/style.css')); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('assets/css/custom.css')); ?>" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="<?php echo e(asset('assets/Bootstrap-Datepicker/dist/css/bootstrap-datepicker.min.css')); ?>">
 
         <script src="<?php echo e(asset('assets/js/modernizr.min.js')); ?>"></script>
 

@@ -16,6 +16,11 @@ function get_history_navbar() {
 	return $get;
 }
 
+function zero_front_number($num) {
+	$num_padded = sprintf("%02d", $num);
+	return $num_padded;
+}
+
 function time_elapsed_string($datetime, $full = false) {
     $now = new DateTime;
     $ago = new DateTime($datetime);

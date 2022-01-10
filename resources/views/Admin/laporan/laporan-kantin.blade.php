@@ -27,11 +27,16 @@
                         <h4 class="m-t-0 header-title"><b>LAPORAN KANTIN</b></h4>
                         <form action="{{ url('/admin/laporan/cetak') }}">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <input type="date" name="from" class="form-control" required>
+                                <div class="col-md-4 offset-md-2">
+                                    <select name="bulan_laporan" class="form-control select2" required>
+                                        <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
+                                        @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}">{{ month(zero_front_number($i)) }}</option>
+                                        @endfor
+                                    </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="date" name="to" class="form-control" required>
+                                <div class="col-md-4">
+                                    <input type="text" name="tahun_laporan" class="form-control" id="datepicker" required>
                                 </div>
                             </div>
                             <table class="table table-hover table-bordered laporan-kantin force-fullwidth">
@@ -53,4 +58,18 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
+@endsection
+
+@section('js')
+<script>
+    $(() => {
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose:true, //to close picker once year is selected
+            orientation: 'bottom'
+        });
+    })
+</script>
 @endsection
