@@ -11,6 +11,7 @@ use App\Models\SppBayar;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
 use App\Models\Petugas;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -98,7 +99,8 @@ class DashboardController extends Controller
                     'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
                     'nominal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['bayar_total'],
                     'kembalian'          => $session_bayar_spp['data_spp_rincian'][$key]['kembalian'],
-                    'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan']
+                    'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan'],
+                    'id_users'           => Auth::user()->id_users
                 ];
                 SppBayar::create($data_spp_bayar);   
             }
