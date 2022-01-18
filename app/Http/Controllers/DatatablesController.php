@@ -535,17 +535,20 @@ class DatatablesController extends Controller
                 0 => ['class'=>'btn-success','text'=>'Aktifkan'],
                 1 => ['class'=>'btn-danger','text'=>'Nonaktifkan']
             ];
-            $column = '<a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
-                          <button class="btn btn-warning"> Edit </button>
-                       </a>
-                       <form action="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'" method="POST">
-                            <input type="hidden" name="_token" value="'.csrf_token().'">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                       </form>
-                       <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
-                            <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
-                       </a>
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
+                              <button class="btn btn-warning"> Edit </button>
+                           </a>
+                           <form action="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                           <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
+                                <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
+                           </a>
+                       </div>
                     ';
             return $column;
         })->editColumn('status_akun',function($status){

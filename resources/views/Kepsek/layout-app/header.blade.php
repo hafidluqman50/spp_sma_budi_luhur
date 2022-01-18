@@ -79,7 +79,7 @@
                                 </a>
                                 <!-- End mobile menu toggle-->
                             </li>
-                            <li class="list-inline-item dropdown notification-list">
+                            {{-- <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <i class="dripicons-bell noti-icon"></i>
@@ -115,7 +115,7 @@
                                     </a>
 
                                 </div>
-                            </li>
+                            </li> --}}
 
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
