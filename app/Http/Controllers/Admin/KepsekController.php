@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kepsek;
+use Illuminate\Support\Str;
 
 class KepsekController extends Controller
 {
@@ -40,7 +41,7 @@ class KepsekController extends Controller
             'name'          => $nama_kepsek,
             'username'      => $username,
             'password'      => bcrypt($password),
-            'level_user'    => 2,
+            'level_user'    => 1,
             'status_akun'   => 1,
             'status_delete' => 0
         ];
@@ -48,9 +49,10 @@ class KepsekController extends Controller
         User::create($data_user);
 
         $data_kepsek = [
-            'nip_kepsek'     => $nip_kepsek,
-            'nama_kepsek'    => $nama_kepsek,
-            'id_users'       => $id_users,
+            'nip_kepsek'    => $nip_kepsek,
+            'nama_kepsek'   => $nama_kepsek,
+            'id_users'      => $id_users,
+            'status_delete' => 0
         ];
 
         Kepsek::create($data_kepsek);

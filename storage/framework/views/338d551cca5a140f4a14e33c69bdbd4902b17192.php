@@ -9,8 +9,8 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Petugas</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Data Petugas</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Kepsek</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Data Kepsek</a></li>
                             </ol>
                         </div>
                     </div>
@@ -27,9 +27,9 @@
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data Petugas</h4>
+                        <h4 class="header-title m-t-0">Tambah Data Kepsek</h4>
                         
-                        <form action="<?php echo e(url('/admin/data-petugas/save')); ?>" method="POST" oninput="re_type_password.setCustomValidity(re_type_password.value != password.value ? 'Passwords do not match.' : '')">
+                        <form action="<?php echo e(url('/admin/data-kepsek/save')); ?>" method="POST" oninput="re_type_password.setCustomValidity(re_type_password.value != password.value ? 'Passwords do not match.' : '')">
                             <?php echo csrf_field(); ?>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nip Kepsek</label>

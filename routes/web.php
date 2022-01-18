@@ -314,7 +314,7 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
 });
 
 Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
-    Route::get('/dashboard',[KepsekDashboardController::class,'dashboard']);
+    Route::get('/dashboard',[KepsekDashboardController::class,'index']);
 
      // ROUTE SISWA //
     Route::get('/siswa',[KepsekSiswaController::class, 'index']);

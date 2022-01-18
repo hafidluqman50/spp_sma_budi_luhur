@@ -60,12 +60,12 @@ class LaporanController extends Controller
                 $no = $key+1;
                 $spreadsheet->getActiveSheet()->setCellValue('A'.$cell,$no);
                 $spreadsheet->getActiveSheet()->setCellValue('B'.$cell,$value->nama_siswa);
-                if ($value->nominal_bayar == $value->nominal_spp) {
+                if ($value->nominal_spp == $value->sisa_bayar) {
                     $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,'');
                     $spreadsheet->getActiveSheet()->setCellValue('D'.$cell,'BELUM');
                 }
                 else {
-                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,$value->nominal_spp);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,$value->bayar_spp);
                     $spreadsheet->getActiveSheet()->setCellValue('D'.$cell,'SUDAH');   
                 }
                 $cell++;

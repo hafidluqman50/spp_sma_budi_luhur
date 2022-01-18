@@ -47,6 +47,7 @@
                                 <th>Nominal Bayar</th>
                                 <th>Kembalian</th>
                                 <th>Keterangan</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
