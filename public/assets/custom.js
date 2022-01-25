@@ -13,6 +13,8 @@ $(() => {
         sortField:'text'
     });
     $('.select2').select2();
+
+    $('.datatable').DataTable();
     
 	// var base_url = 'http://localhost:8000'
     var base_url = 'http://project_work.web'

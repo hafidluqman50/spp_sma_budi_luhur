@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use App\Models\SppDetail;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Str;
 
 class LaporanController extends Controller
@@ -17,6 +18,24 @@ class LaporanController extends Controller
         $title = 'Laporan Kantin';
 
         return view('Admin.laporan.laporan-kantin',compact('title'));
+    }
+
+    public function laporanDataSiswaView()
+    {
+        $title        = 'Laporan Data Siswa';
+        $kelas        = ['X','XI','XII'];
+        $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
+
+        return view('Admin.laporan.laporan-data-siswa',compact('title','kelas','tahun_ajaran'));
+    }
+
+    public function laporanTunggakanView()
+    {
+        $title = 'Laporan Tunggakan';
+        $kelas = ['X','XI','XII'];
+        $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
+
+        return view('Admin.laporan.laporan-tunggakan',compact('title','kelas','tahun_ajaran'));
     }
 
     public function laporanCetak(Request $request)
@@ -70,6 +89,18 @@ class LaporanController extends Controller
                 }
                 $cell++;
             }
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell,'Total');
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,'=SUM(C2:C'.$cell.')');
+            $spreadsheet->getActiveSheet()->mergeCells('A'.$cell.':B'.$cell);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$cell.':B'.$cell)->applyFromArray([
+                'alignment'=>[
+                    'horizontal'=>\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                ]
+            ]);
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A1:D'.$cell)->applyFromArray($styleTable);
 
             $spreadsheet->getActiveSheet()->getStyle('C2:C'.$cell)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
             $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);

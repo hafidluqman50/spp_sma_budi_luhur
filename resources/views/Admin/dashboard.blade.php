@@ -142,25 +142,12 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Bulan, Tahun</th>
-                                            {{-- <th>SPP</th>
-                                            <th>Makan</th>
-                                            <th>Tab Tes</th>
-                                            <th>Asrama</th> --}}
+                                            <th>Sisa Bayar</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody id="tunggakan-table">
-                                        {{-- <tr>
-                                            <th scope="row">1</th>
-                                            <td>Maret 2021</td>
-                                            <td>250.000</td>
-                                            <td>600.000</td>
-                                            <td>50.000</td>
-                                            <td>100.000</td>
-                                            <td>
-                                                <a href="" type="button" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#full-width-modal">Bayar</a>
-                                            </td>
-                                        </tr> --}}
+                                            
                                         </tbody>
                                     </table>
                                 </div>
