@@ -1,6 +1,4 @@
-@extends('Kepsek.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -13,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Detail SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Detail SPP</h4>
+                        <h4 class="page-title">Data Pembayaran SPP</h4>
                     </div>
                 </div>
             </div>
@@ -25,28 +23,29 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/kepsek/spp/bulan-tahun/'.$id) }}">
+                            <a href="<?php echo e(url('/kepsek/spp/bulan-tahun/'.$id)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
-                        <table class="table table-hover table-bordered data-spp-detail-kepsek force-fullwidth" id-spp-bulan-tahun="{{$id_bulan_tahun}}">
+                        <h5>NISN : <?php echo e($siswa->nisn); ?></h5>
+                        <h5>Nama Siswa : <?php echo e($siswa->nama_siswa); ?></h5>
+                        <h5>Kelas : <?php echo e($siswa->kelas); ?></h5>
+                        <h5>Tahun Ajaran : <?php echo e($siswa->tahun_ajaran); ?></h5>
+                        <table class="table table-hover table-bordered data-spp-bayar-kepsek force-fullwidth" id-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Pembayaran SPP</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Total Biaya</th>
                                 <th>Nominal Bayar</th>
-                                <th>Bayar</th>
-                                <th>Sisa Bayar</th>
-                                <th>Status Bayar</th>
+                                <th>Kembalian</th>
+                                <th>Keterangan</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -59,4 +58,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Kepsek.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Kepsek/spp-bayar/main.blade.php ENDPATH**/ ?>

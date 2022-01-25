@@ -39,7 +39,6 @@
         <link rel="stylesheet" href="<?php echo e(asset('assets/selectize/dist/css/selectize.bootstrap4.css')); ?>">
         <link href="<?php echo e(asset('assets/css/style.css')); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('assets/css/custom.css')); ?>" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="<?php echo e(asset('assets/Bootstrap-Datepicker/dist/css/bootstrap-datepicker.min.css')); ?>">
 
         <script src="<?php echo e(asset('assets/js/modernizr.min.js')); ?>"></script>
 
@@ -80,33 +79,7 @@
                                 </a>
                                 <!-- End mobile menu toggle-->
                             </li>
-                            <li class="list-inline-item dropdown notification-list">
-                                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="false" aria-expanded="false">
-                                    <i class="dripicons-document noti-icon"></i>
-                                    <span class="badge badge-pink noti-icon-badge"><?php echo e(count_history_unread_navbar()); ?></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
-                                    <!-- item-->
-                                    <div class="dropdown-item noti-title">
-                                        <h5>History SPP</h5>
-                                    </div>
-
-                                    <?php $__currentLoopData = get_history_navbar(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(url('/admin/spp/history-spp/'.$element->id_history_proses_spp)); ?>" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-info"><i class="icon-docs"></i></div>
-                                        <p class="notify-details"><?php echo e(Str::limit($element->text,20)); ?><small class="text-muted"><?php echo e(time_elapsed_string($element->created_at)); ?></small></p>
-                                    </a>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    <!-- item-->
-
-                                    <!-- All-->
-                                    <a href="<?php echo e(url('/admin/spp/history-spp')); ?>" class="dropdown-item notify-item notify-all">
-                                        View All
-                                    </a>
-
-                                </div>
-                            </li>
+                            
 
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
@@ -154,27 +127,27 @@
                         <ul class="navigation-menu">
 
                             <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="md md-dashboard"></i>Dashboard</a>
+                                <a href="<?php echo e(url('/kepsek/dashboard')); ?>"><i class="md md-dashboard"></i>Dashboard</a>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="md md-account-circle"></i>Data Siswa</a>
                                 <ul class="submenu">
-                                    <li><a href="<?php echo e(url('/admin/siswa')); ?>">Data Siswa</a></li>
-                                    <li><a href="<?php echo e(url('/admin/kelas')); ?>">Data Kelas</a></li>
-                                    <li><a href="<?php echo e(url('/admin/tahun-ajaran')); ?>">Data Tahun Ajaran</a></li>
+                                    <li><a href="<?php echo e(url('/kepsek/siswa')); ?>">Data Siswa</a></li>
+                                    <li><a href="<?php echo e(url('/kepsek/kelas')); ?>">Data Kelas</a></li>
+                                    <li><a href="<?php echo e(url('/kepsek/tahun-ajaran')); ?>">Data Tahun Ajaran</a></li>
                                 </ul>
                             </li>
 
                             <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/kantin')); ?>"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
+                                <a href="<?php echo e(url('/kepsek/kantin')); ?>"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-money"></i>Data SPP</a>
                                 <ul class="submenu">
-                                    <li><a href="<?php echo e(url('/admin/spp')); ?>">Data SPP</a></li>
-                                    <li><a href="<?php echo e(url('/admin/kolom-spp')); ?>">Data Kolom SPP</a></li>
+                                    <li><a href="<?php echo e(url('/kepsek/spp')); ?>">Data SPP</a></li>
+                                    <li><a href="<?php echo e(url('/kepsek/kolom-spp')); ?>">Data Kolom SPP</a></li>
                                     
                                 </ul>
                             </li>
@@ -182,27 +155,31 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
                                 <ul class="submenu">
-                                    <li>
-                                        <a href="<?php echo e(url('/admin/laporan-data-siswa')); ?>">Laporan Data Siswa</a>
+                                    <li class="has-submenu">
+                                        <a href="#">Laporan Data Siswa</a>
+                                        <ul class="submenu">
+                                            <li><a href="#">Kelas X</a></li>
+                                            <li><a href="#">Kelas XI</a></li>
+                                            <li><a href="#">Kelas XII</a></li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="<?php echo e(url('/admin/laporan-kantin')); ?>">Laporan Kantin</a>
+                                        <a href="#">Laporan Kantin</a>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="#">Laporan Tunggakan</a>
+                                        <ul class="submenu">
+                                            <li><a href="#">Kelas X</a></li>
+                                            <li><a href="#">Kelas XI</a></li>
+                                            <li><a href="#">Kelas XII</a></li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="<?php echo e(url('/admin/laporan-tunggakan')); ?>">Laporan Tunggakan</a>
-                                        
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo e(url('/admin/laporan-rab')); ?>">Laporan RAB</a>
+                                        <a href="#">Laporan RAB</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/data-petugas')); ?>"><i class="fa fa-users"></i>Data Petugas</a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/data-kepsek')); ?>"><i class="fa fa-users"></i>Data Kepsek</a>
-                            </li>
+                            
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
@@ -215,4 +192,4 @@
 
 
 
-<?php /**PATH /var/www/web_keuangan/resources/views/Admin/layout-app/header.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/web_keuangan/resources/views/Kepsek/layout-app/header.blade.php ENDPATH**/ ?>

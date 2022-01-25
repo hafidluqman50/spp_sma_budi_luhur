@@ -182,27 +182,22 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
                                 <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Data Siswa</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="{{ url('/admin/laporan-data-siswa') }}">Laporan Data Siswa</a>
                                     </li>
                                     <li>
                                         <a href="{{ url('/admin/laporan-kantin') }}">Laporan Kantin</a>
                                     </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Tunggakan</a>
-                                        <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('/admin/laporan-tunggakan') }}">Laporan Tunggakan</a>
+                                        {{-- <ul class="submenu">
                                             <li><a href="#">Kelas X</a></li>
                                             <li><a href="#">Kelas XI</a></li>
                                             <li><a href="#">Kelas XII</a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li>
-                                        <a href="#">Laporan RAB</a>
+                                        <a href="{{ url('/admin/laporan-rab') }}">Laporan RAB</a>
                                     </li>
                                 </ul>
                             </li>

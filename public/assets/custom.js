@@ -13,6 +13,8 @@ $(() => {
         sortField:'text'
     });
     $('.select2').select2();
+
+    $('.datatable').DataTable();
     
 	var base_url = 'http://localhost:8000'
     // var base_url = 'http://project_work.web'
@@ -717,7 +719,8 @@ $(() => {
             {data:'kelas',name:'kelas'},
             {data:'tahun_ajaran',name:'tahun_ajaran'},
             {data:'wilayah',name:'wilayah'},
-            {data:'total_harus_bayar',name:'total_harus_bayar'}
+            {data:'total_harus_bayar',name:'total_harus_bayar'},
+            {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
         columnDefs: [ {
@@ -747,7 +750,8 @@ $(() => {
             {data:'bulan_tahun',name:'bulan_tahun'},
             {data:'nama_kantin',name:'nama_kantin'},
             {data:'status_pelunasan',name:'status_pelunasan'},
-            {data:'total_kalkulasi',name:'total_kalkulasi'}
+            {data:'total_kalkulasi',name:'total_kalkulasi'},
+            {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
         columnDefs: [ {
@@ -778,7 +782,8 @@ $(() => {
             {data:'total_biaya',name:'total_biaya'},
             {data:'nominal_bayar',name:'nominal_bayar'},
             {data:'kembalian',name:'kembalian'},
-            {data:'keterangan_bayar',name:'keterangan_bayar'}
+            {data:'keterangan_bayar',name:'keterangan_bayar'},
+            {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
         columnDefs: [ {

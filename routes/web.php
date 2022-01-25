@@ -130,6 +130,9 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-kepsek',[DatatablesController::class, 'dataKepsek']);
     Route::get('/data-history-spp',[DatatablesController::class, 'dataHistorySpp']);
     Route::get('/laporan-kantin',[DatatablesController::class, 'laporanKantin']);
+    Route::get('/laporan-data-siswa',[DatatablesController::class, 'laporanDataSiswa']);
+    Route::get('/laporan-tunggakan',[DatatablesController::class, 'laporanTunggakan']);
+    Route::get('/laporan-rab',[DatatablesController::class, 'laporanRab']);
 });
 
 Route::get('/oke',function(){
@@ -257,6 +260,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE LAPORAN //
     Route::get('/laporan-kantin',[AdminLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan-data-siswa',[AdminLaporanController::class, 'laporanDataSiswaView']);
+    Route::get('/laporan-tunggakan',[AdminLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-rab',[AdminLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
     // END ROUTE LAPORAN //
 });
@@ -314,7 +320,7 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
 });
 
 Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
-    Route::get('/dashboard',[KepsekDashboardController::class,'dashboard']);
+    Route::get('/dashboard',[KepsekDashboardController::class,'index']);
 
      // ROUTE SISWA //
     Route::get('/siswa',[KepsekSiswaController::class, 'index']);

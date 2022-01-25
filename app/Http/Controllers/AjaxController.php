@@ -66,10 +66,12 @@ class AjaxController extends Controller
                 $no = $key+1;
 
                 $get_spp_bulan_tahun = SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)->firstOrFail();
+                $kalkulasi = SppDetail::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)->sum('sisa_bayar');
 
                 $table[] = '<tr>
                                 <td>'.$no.'</td>
                                 <td>'.$get_spp_bulan_tahun->bulan_tahun.'</td>
+                                <td>'.format_rupiah($kalkulasi).'</td>
                                 <td><button type="button" class="btn btn-primary tombol-bayar" id="tombol-bayar" id-spp-bulan-tahun="'.$value->id_spp_bulan_tahun.'">Bayar</button></td>
                             </tr>';
             }

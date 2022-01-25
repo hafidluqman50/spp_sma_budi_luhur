@@ -29,7 +29,7 @@ class DatatablesController extends Controller
     function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->level = Auth::user()->level_user == 3 ? 'admin' : (Auth::user()->level_user == 2 ? 'petugas' : (Auth::user()->level_user == 0 ? 'ortu' : ''));
+            $this->level = Auth::user()->level_user == 3 ? 'admin' : (Auth::user()->level_user == 2 ? 'petugas' : (Auth::user()->level_user == 1 ? 'kepsek' : (Auth::user()->level_user == 0 ? 'ortu' : '')));
             return $next($request);
         });
     }
@@ -188,6 +188,16 @@ class DatatablesController extends Controller
                     ->get();
 
         $datatables = Datatables::of($spp)->addColumn('action',function($action){
+            if ($this->level == 'kepsek') {
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp").'">
+                              <button class="btn btn-info"> Detail </button>
+                           </a>
+                       </div>
+                    ';
+            }
+            else {
             $column = '
                         <div class="d-flex">
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp").'">
@@ -200,6 +210,7 @@ class DatatablesController extends Controller
                            </form>
                        </div>
                     ';
+            }
             return $column;
         })->editColumn('wilayah',function($edit){
             return unslug_str($edit->wilayah);
@@ -216,6 +227,20 @@ class DatatablesController extends Controller
                                         ->get();
 
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
+            if ($this->level == 'kepsek') {
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                              <button class="btn btn-success"> Lihat Pembayaran </button>
+                           </a>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat SPP </button>
+                           </a>
+                       </div>
+                    ';
+            }
+            else {
+
             $column = '
                         <div class="d-flex">
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
@@ -234,6 +259,7 @@ class DatatablesController extends Controller
                            </form>
                        </div>
                     ';
+            }
             return $column;
         })->editColumn('nama_kantin',function($edit){
             if ($edit->nama_kantin == NULL || $edit->nama_kantin == '') {
@@ -267,6 +293,14 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
             // $column = '';
             // if ($this->level == 'admin') {
+            if ($this->level == 'kepsek') {
+                $column = '<div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Detail Pembayaran </button>
+                           </a>
+                       </div>';
+            }
+            else {
                 $column = '<div class="d-flex">
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Detail Pembayaran </button>
@@ -277,6 +311,7 @@ class DatatablesController extends Controller
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
                            </form>
                        </div>';
+            }
             // }
             return $column;
         })->editColumn('total_biaya',function($edit){
@@ -500,15 +535,20 @@ class DatatablesController extends Controller
                 0 => ['class'=>'btn-success','text'=>'Aktifkan'],
                 1 => ['class'=>'btn-danger','text'=>'Nonaktifkan']
             ];
-            $column = '<a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
-                          <button class="btn btn-warning"> Edit </button>
-                       </a>
-                       <a href="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'">
-                           <button class="btn btn-danger" onclick="return confirm(\'Yakin Hapus ?\');"> Hapus </button>
-                       </a>
-                       <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
-                            <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
-                       </a>
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/admin/data-kepsek/edit/$action->id_kepsek").'">
+                              <button class="btn btn-warning"> Edit </button>
+                           </a>
+                           <form action="'.url("/admin/data-kepsek/delete/$action->id_kepsek").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                           <a href="'.url("/admin/data-kepsek/status-kepsek/$action->id_kepsek").'">
+                                <button class="btn '.$array[$action->status_akun]['class'].'">'.$array[$action->status_akun]['text'].'</button>
+                           </a>
+                       </div>
                     ';
             return $column;
         })->editColumn('status_akun',function($status){

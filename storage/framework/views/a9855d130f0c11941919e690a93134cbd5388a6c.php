@@ -140,12 +140,12 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Bulan, Tahun</th>
-                                            
+                                            <th>Sisa Bayar</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody id="tunggakan-table">
-                                        
+                                            
                                         </tbody>
                                     </table>
                                 </div>

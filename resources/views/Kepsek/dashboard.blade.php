@@ -1,4 +1,4 @@
-@extends('Admin.layout-app.layout')
+@extends('Kepsek.layout-app.layout')
 
 @section('css')
     <link href= "{{asset('assets/plugins/custombox/css/custombox.css')}}" rel="stylesheet">
@@ -81,178 +81,6 @@
             </div>
             <!-- end row -->
 
-            <!-- Vertical Steps Example -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>PEMBAYARAN</b></h4>
-                        <p class="text-muted m-b-30 font-13">
-                            Silahkan Lengkapi Data Berikut !
-                        </p>
-
-                        <form id="wizard-vertical">
-                            <h3>Data Siswa</h3>
-                            <section>
-                                <div class="form-group clearfix">
-                                    <label class="control-label " for="userName1">Kelas *</label>
-                                    <div class="">
-                                        <select class="form-control select2" name="kelas">
-                                            <option selected selected>--- Pilih Kelas ---</option>
-                                            @foreach ($kelas as $element)
-                                            <option value="{{ $element->id_kelas }}">{{ $element->kelas }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group clearfix">
-                                    <label class="control-label " for="userName1">Tahun Ajaran *</label>
-                                    <div class="">
-                                        <select class="form-control select2" name="tahun_ajaran">
-                                            <option selected selected>--- Pilih Tahun Ajaran ---</option>
-                                            @foreach ($tahun_ajaran as $element)
-                                            <option value="{{ $element->id_tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group clearfix">
-                                    <label class="control-label " for="userName1">Siswa *</label>
-                                    <div class="">
-                                        <select class="form-control select2" name="siswa" disabled="">
-                                            <option selected selected>--- Pilih Siswa ---</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group clearfix">
-                                    <label class="col-lg-12 control-label ">(*) Wajib Diisi</label>
-                                </div>
-                            </section>
-                            <h3>Data Tunggakan</h3>
-                            <section>
-                                <div class="card-box">
-                                    <h4 class="m-t-0 header-title" id="tunggakan_an">Tunggakan An. </h4>
-                                    <p class="text-muted font-14 m-b-20" id="info_siswa">
-                                        - <br>
-                                        -
-                                    </p>
-
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Bulan, Tahun</th>
-                                            <th>Sisa Bayar</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="tunggakan-table">
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                            <h3>Print Out</h3>
-                            <section>
-                                <div class="form-group clearfix">
-                                    {{-- <a href="{{url('/struk')}}" class="btn btn-success">Cetak</a> --}}
-                                    <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
-                                    <div class="col-lg-12">
-                                        <table id="kwitansi">
-                                            <tr>
-                                                <td>Nama</td>
-                                                <td>:</td>
-                                                <td id="nama_siswa">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Uang Sejumlah</td>
-                                                <td>:</td>
-                                                <td id="total">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Untuk Pembayaran</td>
-                                                <td>:</td>
-                                                <td id="range_pembayaran">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Terbilang Rp.</td>
-                                                <td>:</td>
-                                                <td id="terbilang">-</td>
-                                            </tr>
-                                        </table>
-                                        <p class="text-right" id="tanggal_spp">-</p>
-                                        <p class="text-right"><b>Bendahara</b></p><br><br>
-                                        <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
-                                    </div>
-                                </div>
-                            </section>
-                        </form>
-                        <!-- End #wizard-vertical -->
-                    </div>
-                </div>
-            </div><!-- End row -->
-
-            <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            DETAIL PEMBAYARAN
-                        </div>
-                        <form id="form-spp">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12" >
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Total Biaya</label>
-                                            <div class="col-7">
-                                                <input type="text" name="total_biaya" class="form-control" id="total-biaya" value="0" readonly="readonly">
-                                                <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Bayar Total</label>
-                                            <div class="col-7">
-                                                <input type="number" name="bayar_total" id="bayar-total" class="form-control">
-                                                <label for="" id="bayar-total-label">Rp. 0,00</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Kembalian</label>
-                                            <div class="col-7">
-                                                <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
-                                                <label for="" id="kembalian-label">Rp. 0,00</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Keterangan</label>
-                                            <div class="col-7">
-                                                <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="id_spp_bulan_tahun">
-                                        <div class="visible-lg" style="height: 79px;"></div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="card-box">
-                                            <div id="layout-bayar-spp">
-                                                <div id="bayar-spp">
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="visible-lg" style="height: 79px;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary waves-effect" id="close-bayar" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="act-simpan">Simpan</button>
-                            </div>
-                        </form>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
@@ -276,7 +104,7 @@
                                     <td>{{ $element->nama_siswa }}</td>
                                     <td>{{ unslug_str($element->wilayah) }}</td>
                                     <td>{{ format_rupiah($element->nominal_bayar) }}</td>
-                                    <td><a href="{{ url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
+                                    <td><a href="{{ url('/kepsek/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

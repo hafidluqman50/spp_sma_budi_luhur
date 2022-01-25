@@ -18,6 +18,7 @@ class Kepsek extends Model
     public static function showData()
     {
         $query = self::join('users','kepsek.id_users','=','users.id_users')
+                    ->where('users.status_delete',0)
                     ->get();
         return $query;
     }
