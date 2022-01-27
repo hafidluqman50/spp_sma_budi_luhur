@@ -50,7 +50,10 @@
                                 	<tr>
                                 		<td><?php echo e($no); ?></td>
                                 		<td><?php echo e($kelas[$i]); ?></td>
-                                		<td><button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa">Cetak</button></td>
+                                		<td>
+                                            <input type="hidden" name="kelas_siswa_input" value="<?php echo e($kelas[$i]); ?>">
+                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa">Cetak Laporan</button>
+                                        </td>
                                 	</tr>
                                 	<?php endfor; ?>
                                 </tbody>
