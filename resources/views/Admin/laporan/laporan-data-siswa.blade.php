@@ -52,7 +52,10 @@
                                 	<tr>
                                 		<td>{{ $no }}</td>
                                 		<td>{{ $kelas[$i] }}</td>
-                                		<td><button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa">Cetak</button></td>
+                                		<td>
+                                            <input type="hidden" name="kelas_siswa_input" value="{{ $kelas[$i] }}">
+                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa">Cetak Laporan</button>
+                                        </td>
                                 	</tr>
                                 	@endfor
                                 </tbody>
