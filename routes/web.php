@@ -102,6 +102,16 @@ $message = $twilio->messages
                   ); 
 });
 
+Route::get('/check-backwards-month',function(){
+
+    $oldFigure = 0;
+    $newFigure = 0;
+
+    $percentChange = (1 - $oldFigure / $newFigure) * 100;
+
+    echo $percentChange;
+});
+
 Route::group(['prefix' => 'ajax'],function() {
     // Route::get('/get-kelas-by-tahun-ajaran/{id}',[AjaxController::class, 'getKelasByTahunAjaran']);
     Route::get('/get-siswa/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswa']);

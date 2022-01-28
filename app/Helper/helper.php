@@ -162,3 +162,27 @@ function terbilang($nilai) {
 	}     		
 	return $hasil;
 }
+
+if (! function_exists('divnum')) {
+    function divnum($numerator, $denominator)
+    {
+        return $denominator == 0 ? 0 : ($numerator / $denominator);
+    }
+}
+
+function persentase_pendapatan($uang_sekarang,$uang_lalu) {
+	if ($uang_sekarang == 0 && $uang_lalu == 0) {
+		$percentChange = 0;
+	}
+	else {
+		$percentChange = (1 - divnum($uang_sekarang,$uang_lalu)) * 100;
+	}
+
+	return $percentChange;
+}
+
+function backwards_date($param,$date) {
+    $new_date = date('Y-m-d', strtotime($param, strtotime($date)));
+
+    return $new_date;
+}

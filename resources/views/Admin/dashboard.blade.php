@@ -81,7 +81,153 @@
             </div>
             <!-- end row -->
 
+
+            <div class="row">
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan SPP</h4>
+                        <h2 class="text-primary text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_spp) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_spp_old) }} 
+                            @if (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Uang Makan</h4>
+                        <h2 class="text-pink text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_uang_makan) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_uang_makan_old) }}
+                            @if (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
+                        <h2 class="text-success text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_tab_tes) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_tab_tes_old) }} 
+                            @if (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Asrama</h4>
+                        <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_asrama) }}</span></h2>
+                        <p class="text-muted">Dari: {{ money_receipt($pendapatan_asrama_old) }} 
+                            @if (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+            </div>
             <!-- Vertical Steps Example -->
+            
+            <div class="row">
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Tunggakan </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default1"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default1" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #3ac9d6;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #f9c851;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ebeff2;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-bar-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Pendapatan Pertahun </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #4793f5;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ff3f4e;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #bbbbbb;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-area-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">

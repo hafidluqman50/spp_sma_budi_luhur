@@ -11,6 +11,7 @@ use App\Models\SppBayar;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
 use App\Models\Petugas;
+use App\Models\SppBayarDetail;
 use Auth;
 
 class DashboardController extends Controller
@@ -49,7 +50,59 @@ class DashboardController extends Controller
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas'));
+        $get_backwards_date = backwards_date('-1 month',date('Y-m-d'));
+
+        $explode_date       = explode('-',$get_backwards_date);
+
+        $pendapatan_spp = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','spp')
+                                        ->whereMonth('tanggal_bayar',date('m'))
+                                        ->whereYear('tanggal_bayar',date('Y'))
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_spp_old = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','spp')
+                                        ->whereMonth('tanggal_bayar',$explode_date[1])
+                                        ->whereYear('tanggal_bayar',$explode_date[0])
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_uang_makan = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','uang-makan')
+                                        ->whereMonth('tanggal_bayar',date('m'))
+                                        ->whereYear('tanggal_bayar',date('Y'))
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_uang_makan_old = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','uang-makan')
+                                        ->whereMonth('tanggal_bayar',$explode_date[1])
+                                        ->whereYear('tanggal_bayar',$explode_date[0])
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_tab_tes = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','tab-tes')
+                                        ->whereMonth('tanggal_bayar',date('m'))
+                                        ->whereYear('tanggal_bayar',date('Y'))
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_tab_tes_old = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','tab-tes')
+                                        ->whereMonth('tanggal_bayar',$explode_date[1])
+                                        ->whereYear('tanggal_bayar',$explode_date[0])
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_asrama = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','asrama')
+                                        ->whereMonth('tanggal_bayar',date('m'))
+                                        ->whereYear('tanggal_bayar',date('Y'))
+                                        ->sum('nominal_bayar');
+
+        $pendapatan_asrama_old = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                        ->where('slug_kolom_spp','asrama')
+                                        ->whereMonth('tanggal_bayar',$explode_date[1])
+                                        ->whereYear('tanggal_bayar',$explode_date[0])
+                                        ->sum('nominal_bayar');
+
+        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old'));
     }
 
     public function bayarSppDashboard()
@@ -105,7 +158,7 @@ class DashboardController extends Controller
                 SppBayar::create($data_spp_bayar);   
             }
 
-            $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+            $petugas            = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
             return view('Admin.struk',compact('data_master','petugas'));
         }
