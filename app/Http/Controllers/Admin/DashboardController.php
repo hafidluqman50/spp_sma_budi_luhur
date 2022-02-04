@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use App\Models\Spp;
@@ -112,41 +113,44 @@ class DashboardController extends Controller
             $data_master       = $session_bayar_spp['data_master'];
 
             foreach ($session_bayar_spp['data_spp'] as $key => $value) {
-                $spp_detail = SppDetail::where('id_spp_detail',$value[$key]['id_spp_detail'])->firstOrFail();
+                foreach ($value as $no => $data) {
+                    $spp_detail = SppDetail::where('id_spp_detail',$data['id_spp_detail'])->firstOrFail();
 
-                if ($value[$key]['bayar_spp'] > $spp_detail->sisa_bayar) {
-                    $status_bayar = 1;
-                    $value[$key]['bayar_spp'] = $spp_detail->sisa_bayar;
+                    if ($data['bayar_spp'] > $spp_detail->sisa_bayar) {
+                        $status_bayar = 1;
+                        $data['bayar_spp'] = $spp_detail->sisa_bayar;
+                    }
+                    else if ($data['bayar_spp'] == $spp_detail->sisa_bayar) {
+                        $status_bayar = 1;
+                    }
+                    else {
+                        $status_bayar = 0;
+                    }
+
+                    $data_spp_detail = [
+                        'bayar_spp'    => $spp_detail->bayar_spp + $data['bayar_spp'],
+                        'sisa_bayar'   => $spp_detail->sisa_bayar - $data['bayar_spp'],
+                        'status_bayar' => $status_bayar
+                    ];
+
+                    $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                                ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                ->firstOrFail()->id_spp;
+
+                    $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+
+                    $total_harus_bayar = $get_total_harus_bayar - $data['bayar_spp'];
+
+                    SppDetail::where('id_spp_detail',$data['id_spp_detail'])
+                            ->update($data_spp_detail);
+
+                    Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
                 }
-                else if ($value[$key]['bayar_spp'] == $spp_detail->sisa_bayar) {
-                    $status_bayar = 1;
-                }
-                else {
-                    $status_bayar = 0;
-                }
-
-                $data_spp_detail = [
-                    'bayar_spp'    => $spp_detail->bayar_spp + $value[$key]['bayar_spp'],
-                    'sisa_bayar'   => $spp_detail->sisa_bayar - $value[$key]['bayar_spp'],
-                    'status_bayar' => $status_bayar
-                ];
-
-                $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                            ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                            ->firstOrFail()->id_spp;
-
-                $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
-
-                $total_harus_bayar = $get_total_harus_bayar - $value[$key]['bayar_spp'];
-
-                SppDetail::where('id_spp_detail',$value[$key]['id_spp_detail'])
-                        ->update($data_spp_detail);
-
-                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
             }
             
             foreach ($session_bayar_spp['data_spp_rincian'] as $key => $value) {
                 $data_spp_bayar = [
+                    'id_spp_bayar'       => (string)Str::uuid(),
                     'id_spp_bulan_tahun' => $session_bayar_spp['data_spp_rincian'][$key]['id_spp_bulan_tahun'],
                     'tanggal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['tanggal_spp'],
                     'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
@@ -155,10 +159,21 @@ class DashboardController extends Controller
                     'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan'],
                     'id_users'           => Auth::user()->id_users
                 ];
-                SppBayar::create($data_spp_bayar);   
+                SppBayar::create($data_spp_bayar);
+                foreach ($value['bayar_detail'] as $index => $val) {
+                    if ($val['nominal_bayar'] > 0) {
+                        $data_spp_bayar_detail = [
+                            'id_spp_bayar'  => $data_spp_bayar['id_spp_bayar'],
+                            'id_kolom_spp'  => $val['id_kolom_spp'],
+                            'tanggal_bayar' => $val['tanggal_bayar'],
+                            'nominal_bayar' => $val['nominal_bayar'],
+                        ];
+                        SppBayarDetail::create($data_spp_bayar_detail);
+                    }
+                }   
             }
 
-            $petugas            = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+            $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
             return view('Admin.struk',compact('data_master','petugas'));
         }

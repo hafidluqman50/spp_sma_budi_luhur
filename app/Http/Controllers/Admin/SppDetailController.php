@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
@@ -12,7 +13,6 @@ use App\Models\SppBayarDetail;
 use App\Models\Petugas;
 use App\Models\HistoryProsesSpp;
 use Auth;
-use Illuminate\Support\Str;
 
 class SppDetailController extends Controller
 {
