@@ -102,13 +102,13 @@ class AjaxController extends Controller
                         <div class="form-group row">
                             <label class="col-4 col-form-label">Nominal Spp</label>
                             <div class="col-7">
-                                <input type="text" class="form-control" value="'.$value->sisa_bayar.'" readonly="readonly">
+                                <input type="text" class="form-control" value="'.format_rupiah($value->sisa_bayar).'" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-4 col-form-label">Bayar</label>
                             <div class="col-7">
-                                <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" required="required" id-kolom-spp="'.$value->id_kolom_spp.'">
+                                <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" id-kolom-spp="'.$value->id_kolom_spp.'" value="0">
                                 <label for="" class="label-bayar-kolom-spp" id-kolom-spp="'.$value->id_kolom_spp.'"><b>Rp. 0,00</b></label>
                             </div>
                         </div>
@@ -130,6 +130,7 @@ class AjaxController extends Controller
         $bayar_spp          = $request->bayar_spp;
 
         if (!session()->has('bayar_spp')) {
+            // $session_bayar = ['data_master' => '', 'data_spp' => [], 'data_spp_rincian' => [], 'data_spp_bayar_detail' => []];
             $session_bayar = ['data_master' => '', 'data_spp' => [], 'data_spp_rincian' => []];
         }
         else {
@@ -162,7 +163,8 @@ class AjaxController extends Controller
             'bayar_total'        => $bayar_total,
             'kembalian'          => $kembalian,
             'tanggal_spp'        => $tanggal_spp,
-            'keterangan'         => $keterangan_spp
+            'keterangan'         => $keterangan_spp,
+            'bayar_detail'       => '',
         ];
 
         if (session()->has('bayar_spp')) {
@@ -186,14 +188,24 @@ class AjaxController extends Controller
         }
 
         foreach ($id_spp_detail as $key => $value) {
-            $data_spp[] = [
+            $id_kolom_spp = SppDetail::where('id_spp_detail',$id_spp_detail[$key])->firstOrFail()->id_kolom_spp;
+
+            $data_spp_bayar_detail[$key] = [
+                'id_kolom_spp'  => $id_kolom_spp,
+                'tanggal_bayar' => $tanggal_spp,
+                'nominal_bayar' => $bayar_spp[$key]
+            ];
+
+            $data_spp[$key] = [
                 'id_spp_detail'      => $id_spp_detail[$key],
-                'bayar_spp'          => $bayar_spp[$key],
+                'bayar_spp'          => $bayar_spp[$key]
             ];
         }
+        $data_spp_rincian['bayar_detail'] = $data_spp_bayar_detail;
         $session_bayar['data_master'] = $data_master;
         array_push($session_bayar['data_spp'], $data_spp);
         array_push($session_bayar['data_spp_rincian'], $data_spp_rincian);
+        // array_push($session_bayar['data_spp_bayar_detail'], $data_spp_bayar_detail);
 
         session()->put('bayar_spp',$session_bayar);
 
