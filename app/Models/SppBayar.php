@@ -56,4 +56,18 @@ class SppBayar extends Model
 
         return $get;
     }
+
+    public static function getTotalPendapatan($tahun,$wilayah)
+    {
+        $get = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->whereYear('tanggal_bayar',$tahun)
+                    ->where('wilayah',$wilayah)
+                    ->sum('nominal_bayar');
+
+
+        return $get;
+    }
 }

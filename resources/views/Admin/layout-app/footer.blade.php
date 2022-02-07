@@ -18,6 +18,8 @@
         <script src="{{asset('assets/js/waves.js')}}"></script>
         <script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
         <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/waypoints/lib/jquery.waypoints.js')}}"></script>
+        <script src="{{asset('assets/plugins/counterup/jquery.counterup.min.js')}}"></script>
         
 
         <!-- jQuery  -->
