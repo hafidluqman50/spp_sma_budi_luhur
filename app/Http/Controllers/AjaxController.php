@@ -87,6 +87,8 @@ class AjaxController extends Controller
 
     public function getTunggakanDetail($id_spp_bulan_tahun)
     {
+        $get_siswa = SppBulanTahun::getRowById($id_spp_bulan_tahun);
+
         $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                                 ->where('sisa_bayar','!=',0)
                                 ->where('id_spp_bulan_tahun',$id_spp_bulan_tahun)
@@ -115,7 +117,7 @@ class AjaxController extends Controller
                         <input type="hidden" name="id_detail[]" value="'.$value->id_spp_detail.'">';
         }
 
-        return response()->json(['id_spp_bulan_tahun' => $id_spp_bulan_tahun,'kolom_spp' => $html]);
+        return response()->json(['data_siswa' => $get_siswa,'id_spp_bulan_tahun' => $id_spp_bulan_tahun,'kolom_spp' => $html]);
     }
 
     public function getBayar(Request $request)

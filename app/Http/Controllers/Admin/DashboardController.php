@@ -14,6 +14,7 @@ use App\Models\SppBulanTahun;
 use App\Models\Petugas;
 use App\Models\SppBayarDetail;
 use Auth;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -103,7 +104,39 @@ class DashboardController extends Controller
                                         ->whereYear('tanggal_bayar',$explode_date[0])
                                         ->sum('nominal_bayar');
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old'));
+        $tahun_tunggakan = SppBulanTahun::select(DB::raw('DISTINCT RIGHT(bulan_tahun,4) as tahun_tunggakan'))->get();
+        $grafik_tunggakan[] = [];
+
+        foreach ($tahun_tunggakan as $key => $value) {
+            $tunggakan_komplek    = SppDetail::getTotalTunggakan($value->tahun_tunggakan,'komplek');
+            $tunggakan_dalam_kota = SppDetail::getTotalTunggakan($value->tahun_tunggakan,'dalam-kota');
+            $tunggakan_luar_kota  = SppDetail::getTotalTunggakan($value->tahun_tunggakan,'luar-kota');
+
+            $grafik_tunggakan[$key] = [
+                'y' => $value->tahun_tunggakan,
+                'a' => $tunggakan_komplek,
+                'b' => $tunggakan_dalam_kota,
+                'c' => $tunggakan_luar_kota
+            ];
+        }
+
+        $tahun_pendapatan = SppBayar::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->get();
+        $grafik_pendapatan[] = [];
+
+        foreach ($tahun_pendapatan as $key => $value) {
+            $pendapatan_komplek    = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'komplek');
+            $pendapatan_dalam_kota = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'dalam-kota');
+            $pendapatan_luar_kota  = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'luar-kota');
+
+            $grafik_pendapatan[$key] = [
+                'y' => (string)$value->tahun_pendapatan,
+                'a' => (string)$pendapatan_komplek,
+                'b' => (string)$pendapatan_dalam_kota,
+                'c' => (string)$pendapatan_luar_kota
+            ];
+        }
+
+        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
     }
 
     public function bayarSppDashboard()

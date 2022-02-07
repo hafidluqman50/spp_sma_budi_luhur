@@ -18,6 +18,8 @@
         <script src="<?php echo e(asset('assets/js/waves.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/jquery.slimscroll.js')); ?>"></script>
         <script src="<?php echo e(asset('assets/js/jquery.scrollTo.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/waypoints/lib/jquery.waypoints.js')); ?>"></script>
+        <script src="<?php echo e(asset('assets/plugins/counterup/jquery.counterup.min.js')); ?>"></script>
         
 
         <!-- jQuery  -->

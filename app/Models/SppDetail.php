@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\UuidInsert;
+use DB;
 
 class SppDetail extends Model
 {
@@ -39,6 +40,19 @@ class SppDetail extends Model
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
                     ->where('id_spp_detail',$id)
                     ->firstOrFail();
+
+        return $get;
+    }
+
+    public static function getTotalTunggakan($tahun,$wilayah) {
+        $get = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->where('bulan_tahun','like','%'.$tahun.'%')
+                    ->where('wilayah',$wilayah)
+                    ->sum('sisa_bayar');
 
         return $get;
     }
