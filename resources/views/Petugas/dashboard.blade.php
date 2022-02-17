@@ -29,59 +29,205 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box fadeInDown animated">
-                        <div class="bg-icon bg-icon-info pull-left">
-                            <i class="md md-attach-money text-info"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="pull-left"> --}}
+                            <i class="fa fa-money text-info" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_hari_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Hari Ini</p>
-                        </div>
-                        <div class="clearfix"></div>
+                        {{-- </div> --}}
+                        {{-- <div class="clearfix"></div> --}}
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-success pull-left">
-                            <i class="fa fa-money text-success"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class=""> --}}
+                            <i class="fa fa-money text-success" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_bulan_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Bulan ini</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-purple pull-left">
-                            <i class="fa fa-edit text-purple"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="bg-icon bg-icon-purple pull-left"> --}}
+                            <i class="fa fa-money text-purple" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($total_uang_kantin) }}</b></h3>
                             <p class="text-muted mb-0">Total Uang Kantin</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-danger pull-left">
-                            <i class="md md-warning text-danger"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="bg-icon bg-icon-danger pull-left"> --}}
+                            <i class="fa fa-money text-danger" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($total_tunggakan) }}</b></h3>
                             <p class="text-muted mb-0">Total Tunggakan</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
             <!-- end row -->
 
+
+            <div class="row">
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan SPP</h4>
+                        <h2 class="text-primary text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_spp) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_spp_old) }} 
+                            @if (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Uang Makan</h4>
+                        <h2 class="text-pink text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_uang_makan) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_uang_makan_old) }}
+                            @if (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
+                        <h2 class="text-success text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_tab_tes) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_tab_tes_old) }} 
+                            @if (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Asrama</h4>
+                        <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_asrama) }}</span></h2>
+                        <p class="text-muted">Dari: {{ money_receipt($pendapatan_asrama_old) }} 
+                            @if (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+            </div>
             <!-- Vertical Steps Example -->
+            
+            <div class="row">
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Tunggakan </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default1"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default1" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #3ac9d6;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #f9c851;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ebeff2;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-bar-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Pendapatan Pertahun </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #4793f5;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ff3f4e;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #bbbbbb;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-area-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
@@ -147,7 +293,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="tunggakan-table">
-
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -201,7 +347,25 @@
                         <form id="form-spp">
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12" >
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Nama Siswa</label>
+                                            <div class="col-7">
+                                                <input type="text" name="nama_siswa" class="form-control" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Kelas</label>
+                                            <div class="col-7">
+                                                <input type="text" name="kelas" class="form-control" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Bulan, Tahun</label>
+                                            <div class="col-7">
+                                                <input type="text" name="bulan_tahun" class="form-control" readonly="readonly">
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-4 col-form-label">Total Biaya</label>
                                             <div class="col-7">
@@ -289,17 +453,6 @@
     </div>
     <!-- end wrapper -->
 
-    <!-- Modal -->
-    <div id="custom-modal" class="modal-demo">
-        <button type="button" class="close" onclick="Custombox.close();">
-            <span>&times;</span><span class="sr-only">Close</span>
-        </button>
-        <h4 class="custom-modal-title">Modal title</h4>
-        <div class="custom-modal-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-    </div>
-
 @endsection
 
 @section('js')
@@ -314,7 +467,86 @@
     <!--wizard initialization-->
     <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
     <script>
+        !function($) {
+    "use strict";
+
+    var Dashboard4 = function() {};
+
+
+    //creates area chart
+    Dashboard4.prototype.createAreaChart = function(element, pointSize, lineWidth, data, xkey, ykeys, labels, lineColors) {
+        Morris.Area({
+            element: element,
+            pointSize: 0,
+            lineWidth: 0,
+            data: data,
+            xkey: xkey,
+            ykeys: ykeys,
+            labels: labels,
+            hideHover: 'auto',
+            resize: true,
+            gridLineColor: '#eef0f2',
+            lineColors: lineColors
+        });
+    },
+
+    //creates Bar chart
+    Dashboard4.prototype.createBarChart  = function(element, data, xkey, ykeys, labels, lineColors) {
+        Morris.Bar({
+            element: element,
+            data: data,
+            xkey: xkey,
+            ykeys: ykeys,
+            labels: labels,
+            hideHover: 'auto',
+            resize: true, //defaulted to true
+            gridLineColor: '#eeeeee',
+            barColors: lineColors
+        });
+    },
+
+    Dashboard4.prototype.init = function() {
+
+        //creating area chart
+        // var $areaData = [
+        //         { y: '2009', a: 0, b: 30, c:30 },
+        //         { y: '2010', a: 75, b: 65, c:30 },
+        //         { y: '2011', a: 50, b: 40, c:30 },
+        //         { y: '2012', a: 75, b: 65, c:30 },
+        //         { y: '2013', a: 50, b: 40, c:30 },
+        //         { y: '2014', a: 75, b: 65, c:30 },
+        //         { y: '2015', a: 90, b: 60, c:30 }
+        //     ];
+        var $areaData = {!!json_encode($grafik_pendapatan)!!}
+        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota','Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
+
+        //creating bar chart
+        // var $barData  = [
+        //     { y: '2009', a: 100, b: 90 , c: 40 },
+        //     { y: '2010', a: 75,  b: 65 , c: 20 },
+        //     { y: '2011', a: 50,  b: 40 , c: 50 },
+        //     { y: '2012', a: 75,  b: 65 , c: 95 },
+        //     { y: '2013', a: 50,  b: 40 , c: 22 },
+        //     { y: '2014', a: 75,  b: 65 , c: 56 },
+        //     { y: '2015', a: 100, b: 90 , c: 60 }
+        // ];
+        var $barData = {!!json_encode($grafik_tunggakan)!!}
+        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c'], ['Komplek', 'Dalam Kota', 'Luar Kota'], ['#3ac9d6', '#f9c851', '#ebeff2']);
+
+    },
+    //init
+    $.Dashboard4 = new Dashboard4, $.Dashboard4.Constructor = Dashboard4
+}(window.jQuery),
+
+//initializing
+function($) {
+    "use strict";
+    $.Dashboard4.init();
+}(window.jQuery);
+    </script>
+    <script>
         $(() => {
+
             $('table#datatable').DataTable();
             $('select[name="kelas"]').change(function() {
                 let kelas        = $(this).val()
@@ -429,6 +661,10 @@
                     $('#full-width-modal').modal('show')
                     $('#bayar-spp').html(done.kolom_spp)
                     $('input[name="id_spp_bulan_tahun"]').val(done.id_spp_bulan_tahun)
+                    $('input[name="nama_siswa"]').val(done.data_siswa.nama_siswa)
+                    $('input[name="kelas"]').val(done.data_siswa.kelas)
+                    $('input[name="bulan_tahun"]').val(done.data_siswa.bulan_tahun)
+
                 })
                 .fail(function() {
                     console.log("error");

@@ -328,8 +328,10 @@ class DatatablesController extends Controller
 
     public function dataSppBayarDetail($id)
     {
-        $spp_bayar_detail = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                            ->where('id_spp_bayar',$id)->get();
+        $spp_bayar_detail = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                            ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                            ->where('spp_bayar_detail.id_spp_bayar',$id)->get();
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
             // $column = '';

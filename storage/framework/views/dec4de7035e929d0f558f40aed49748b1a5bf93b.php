@@ -132,6 +132,25 @@
 <?php $__env->startSection('js'); ?>
 <script>
     $(() => {
+        $('body').on('keydown','input,select,textarea',function(e){
+            var self = $(this),
+                form = self.parents('form:eq(0)'),
+                focusable,
+                next
+                ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                console.log(focusable);
+                next = focusable.eq(focusable.index(this)+1);
+                if (next.length) {
+                    next.focus();
+                }
+                else {
+                    next.submit();
+                }
+                return false;
+            }
+        });
         $('#tambah-input').click(() => {
             $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
             // $('#kolom-spp').select2('destroy');
