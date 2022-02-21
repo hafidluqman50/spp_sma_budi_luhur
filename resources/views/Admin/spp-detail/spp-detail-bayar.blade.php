@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
+            <form id="form-spp-bayar" action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -102,7 +102,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp" class="form-control" placeholder="Isi Jumlah Bayar" required="required">
+                                            <input type="number" name="bayar_spp" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" required="required">
                                             <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
@@ -129,7 +129,17 @@
 @section('js')
 <script>
     $(() => {
-        $('body').on('keydown','input,select,textarea',function(e){
+        $('.bayar-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('#bayar-total').focus();
+            }
+        })
+        $('#bayar-total').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('input[name="keterangan_spp"]').focus()
+            }
+        })
+        $('#form-spp-bayar').on('keydown','input,select,textarea',function(e){
             var self = $(this),
                 form = self.parents('form:eq(0)'),
                 focusable,
@@ -137,7 +147,7 @@
                 ;
             if (e.keyCode == 13) {
                 focusable = form.find('input,a,select,button,textarea').filter(':visible');
-                console.log(focusable);
+                // console.log(focusable);
                 next = focusable.eq(focusable.index(this)+1);
                 if (next.length) {
                     next.focus();

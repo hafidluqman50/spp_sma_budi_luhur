@@ -253,12 +253,18 @@ class SppDetailController extends Controller
 
         foreach ($get_spp_bayar_detail as $key => $value) {
             $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$spp_row->id_spp_bulan_tahun)
-                    ->where('id_kolom_spp',$spp_row->id_kolom_spp)->firstOrFail();
+                    ->where('id_kolom_spp',$value->id_kolom_spp)->firstOrFail();
 
             SppDetail::where('id_spp_bulan_tahun',$spp_row->id_spp_bulan_tahun)
-                    ->where('id_kolom_spp',$spp_row->id_kolom_spp)
-                    ->update(['bayar_spp' => $get_spp_detail->bayar_spp - $spp_row->nominal_bayar,
-                              'sisa_bayar' => $get_spp_detail->sisa_bayar + $spp_row->nominal_bayar]);
+                    ->where('id_kolom_spp',$value->id_kolom_spp)
+                    ->update([
+                              'bayar_spp'    => $get_spp_detail->bayar_spp - $value->nominal_bayar,
+                              'sisa_bayar'   => $get_spp_detail->sisa_bayar + $value->nominal_bayar,
+                              'status_bayar' => 0
+                          ]);
+
+            $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
+            Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar_spp + $value->nominal_bayar]);
         }
 
 
@@ -287,8 +293,17 @@ class SppDetailController extends Controller
 
         SppDetail::where('id_spp_bulan_tahun',$spp_row->id_spp_bulan_tahun)
                 ->where('id_kolom_spp',$spp_row->id_kolom_spp)
-                ->update(['bayar_spp' => $get_spp_detail->bayar_spp - $spp_row->nominal_bayar,
-                          'sisa_bayar' => $get_spp_detail->sisa_bayar + $spp_row->nominal_bayar]);
+                ->update([
+                          'bayar_spp'    => $get_spp_detail->bayar_spp - $spp_row->nominal_bayar,
+                          'sisa_bayar'   => $get_spp_detail->sisa_bayar + $spp_row->nominal_bayar,
+                          'status_bayar' => 0
+                        ]);
+
+        // $nominal_spp_bayar     = SppBayar::where('id_spp_bayar',$spp_row->id_spp_bayar)->firstOrFail()->nominal_bayar;
+        $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
+
+        // SppBayar::where('id_spp_bayar',$spp_row->id_spp_bayar)->update(['nominal_bayar' => $nominal_spp_bayar - $spp_row->nominal_bayar]);
+        Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar + $spp_row->nominal_bayar]);
 
         SppBayarDetail::where('id_spp_bayar_detail',$id_detail)
                 ->delete();
