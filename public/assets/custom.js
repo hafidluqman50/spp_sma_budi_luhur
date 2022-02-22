@@ -887,4 +887,34 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var transaksi_terakhir = $('#transaksi-terakhir-datatable').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/transaksi-terakhir',
+        columns:[
+            {data:'id_spp_bayar',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'nama_siswa',name:'nama_siswa'},
+            {data:'wilayah',name:'wilayah'},
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    transaksi_terakhir.on( 'order.dt search.dt', function () {
+        transaksi_terakhir.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

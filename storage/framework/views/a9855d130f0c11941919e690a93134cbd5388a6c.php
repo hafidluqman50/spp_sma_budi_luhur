@@ -420,10 +420,10 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>TRANSAKSI TERAKHIR</b></h4>
-
-                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="transaksi-terakhir-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Wilayah</th>
@@ -431,17 +431,8 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-
                             <tbody>
-                                <?php $__currentLoopData = $transaksi_terakhir; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr>
-                                    <td><?php echo e(human_date($element->tanggal_bayar)); ?></td>
-                                    <td><?php echo e($element->nama_siswa); ?></td>
-                                    <td><?php echo e(unslug_str($element->wilayah)); ?></td>
-                                    <td><?php echo e(format_rupiah($element->nominal_bayar)); ?></td>
-                                    <td><a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun)); ?>"><button class="btn btn-primary waves-light">Lihat</button></a></td>
-                                </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -518,7 +509,7 @@
         //     ];
         var $areaData = <?php echo json_encode($grafik_pendapatan); ?>
 
-        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota','Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
+        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota', 'Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
 
         //creating bar chart
         // var $barData  = [

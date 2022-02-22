@@ -77,7 +77,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Keterangan</label>
                                     <div class="col-7">
-                                        <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
+                                        <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -102,13 +102,13 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" required="required">
+                                            <input type="number" name="bayar_spp" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" required="required" autofocus>
                                             <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-8 offset-4">
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light spp-submit">
                                                 Simpan
                                             </button>
                                         </div>
@@ -129,64 +129,41 @@
 @section('js')
 <script>
     $(() => {
-        $('.bayar-spp').keydown((e) => {
-            if (e.key === 'Enter') {
-                $('#bayar-total').focus();
-            }
-        })
-        $('#bayar-total').keydown((e) => {
-            if (e.key === 'Enter') {
-                $('input[name="keterangan_spp"]').focus()
-            }
-        })
         $('#form-spp-bayar').on('keydown','input,select,textarea',function(e){
-            var self = $(this),
-                form = self.parents('form:eq(0)'),
-                focusable,
-                next
-                ;
+            // var self = $(this),
+            //     form = self.parents('form:eq(0)'),
+            //     focusable,
+            //     next
+            //     ;
             if (e.keyCode == 13) {
-                focusable = form.find('input,a,select,button,textarea').filter(':visible');
-                // console.log(focusable);
-                next = focusable.eq(focusable.index(this)+1);
-                if (next.length) {
-                    next.focus();
-                }
-                else {
-                    next.submit();
-                }
-                return false;
+            //     focusable = form.find('input,a,select,textarea').filter(':visible');
+            //     // console.log(focusable);
+            //     next = focusable.eq(focusable.index(this)+1);
+            //     if (next.length) {
+            //         next.focus();
+            //     }
+            //     else {
+            //         next.submit();
+            //     }
+            //     return false;
+                e.preventDefault()
             }
+            // e.preventDefault();
         });
-        $('#tambah-input').click(() => {
-            $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
-            // $('#kolom-spp').select2('destroy');
-            // $('#kolom-spp').select2();
-        })
-
-        // $('select[name="kelas"]').change(function() {
-        //     let val          = $(this).val();
-        //     let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
-        //     $.ajax({
-        //         url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
-        //     })
-        //     .done(function(done) {
-        //         $('select[name="siswa"]').removeAttr('disabled')
-        //         $('select[name="siswa"]').html(done)
-        //     })
-        //     .fail(function() {
-        //         console.log("error");
-        //     });
-        // })
 
         $('input[name="bayar_spp"]').keyup(function(){
             var val  = $(this).val()
-            console.log(val)
             if (val == '') {
                 $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(0)}</b>`)
             }
             else {
                 $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
+        $('.bayar-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('#bayar-total').focus();
             }
         })
 
@@ -202,6 +179,12 @@
             $('#total-biaya').val(kalkulasi)
         })
 
+        $('#bayar-total').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('.keterangan-spp').focus()
+            }
+        })
+
         $('#bayar-total').keyup(function(){
             let val         = $(this).val()
             let total_biaya = $('#total-biaya').val()
@@ -214,6 +197,12 @@
             if (parseInt(val) == parseInt(total_biaya)) {
                 $('#kembalian').val(0)
                 $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
+            }
+        })
+
+        $('.keterangan-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('.spp-submit').focus()
             }
         })
     })

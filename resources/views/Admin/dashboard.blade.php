@@ -421,10 +421,10 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>TRANSAKSI TERAKHIR</b></h4>
-
-                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="transaksi-terakhir-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Wilayah</th>
@@ -432,17 +432,8 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-
                             <tbody>
-                                @foreach ($transaksi_terakhir as $element)
-                                <tr>
-                                    <td>{{ human_date($element->tanggal_bayar) }}</td>
-                                    <td>{{ $element->nama_siswa }}</td>
-                                    <td>{{ unslug_str($element->wilayah) }}</td>
-                                    <td>{{ format_rupiah($element->nominal_bayar) }}</td>
-                                    <td><a href="{{ url('/admin/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
-                                </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -518,7 +509,7 @@
         //         { y: '2015', a: 90, b: 60, c:30 }
         //     ];
         var $areaData = {!!json_encode($grafik_pendapatan)!!}
-        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota','Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
+        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota', 'Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
 
         //creating bar chart
         // var $barData  = [
