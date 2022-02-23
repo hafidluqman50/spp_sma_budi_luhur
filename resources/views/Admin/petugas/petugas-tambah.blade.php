@@ -54,7 +54,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Re-Type Password</label>
                                 <div class="col-7">
-                                    <input type="text" name="re_type_password" class="form-control" placeholder="Ketik Ulang Password" required="required">
+                                    <input type="password" name="re_type_password" class="form-control" placeholder="Ketik Ulang Password" required="required">
                                 </div>
                             </div>
                             <div class="form-group row">
