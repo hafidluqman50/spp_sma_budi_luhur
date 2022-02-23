@@ -104,7 +104,7 @@ class DashboardController extends Controller
                                         ->whereYear('tanggal_bayar',$explode_date[0])
                                         ->sum('nominal_bayar');
 
-        $tahun_tunggakan = SppBulanTahun::select(DB::raw('DISTINCT RIGHT(bulan_tahun,4) as tahun_tunggakan'))->get();
+        $tahun_tunggakan = SppBulanTahun::select(DB::raw('DISTINCT RIGHT(bulan_tahun,4) as tahun_tunggakan'))->orderBy('tahun_tunggakan','ASC')->get();
         $grafik_tunggakan[] = [];
 
         foreach ($tahun_tunggakan as $key => $value) {
@@ -120,7 +120,7 @@ class DashboardController extends Controller
             ];
         }
 
-        $tahun_pendapatan = SppBayar::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->get();
+        $tahun_pendapatan = SppBayar::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->orderBy('tahun_pendapatan','ASC')->get();
         $grafik_pendapatan[] = [];
 
         foreach ($tahun_pendapatan as $key => $value) {
@@ -130,9 +130,9 @@ class DashboardController extends Controller
 
             $grafik_pendapatan[$key] = [
                 'y' => (string)$value->tahun_pendapatan,
-                'a' => (string)$pendapatan_komplek,
-                'b' => (string)$pendapatan_dalam_kota,
-                'c' => (string)$pendapatan_luar_kota
+                'a' => $pendapatan_komplek,
+                'b' => $pendapatan_dalam_kota,
+                'c' => $pendapatan_luar_kota
             ];
         }
 

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
+            <form id="form-spp-bayar" action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -77,7 +77,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Keterangan</label>
                                     <div class="col-7">
-                                        <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
+                                        <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -87,7 +87,7 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
-                                    @foreach ($spp_bayar as $value)
+                                    @foreach ($spp_bayar as $key => $value)
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
@@ -103,7 +103,7 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}">
+                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}" bayar-spp-attr="{{ $key+1 }}">
                                             <input type="hidden" class="old-nominal" value="0" id-kolom-spp="{{ $value->id_kolom_spp }}">
                                             <label for="" class="label-bayar-kolom-spp" id-kolom-spp="{{ $value->id_kolom_spp }}"><b>Rp. 0,00</b></label>
                                         </div>
@@ -113,7 +113,7 @@
                                     @endforeach
                                     <div class="form-group row">
                                         <div class="col-8 offset-4">
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
                                                 Simpan
                                             </button>
                                         </div>
@@ -134,26 +134,51 @@
 @section('js')
 <script>
     $(() => {
-        $('#tambah-input').click(() => {
-            $('#bayar-spp').clone().appendTo($('#layout-bayar-spp'));
-            // $('#kolom-spp').select2('destroy');
-            // $('#kolom-spp').select2();
+        $('#form-spp-bayar').on('keydown','input,select,textarea',function(e){
+            // var self = $(this),
+            //     form = self.parents('form:eq(0)'),
+            //     focusable,
+            //     next
+            //     ;
+            if (e.keyCode == 13) {
+                // focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                // console.log(focusable);
+                // next = focusable.eq(focusable.index(this)+1);
+                // if (next.length) {
+                //     next.focus();
+                // }
+                // else {
+                //     next.submit();
+                // }
+                // return false;
+                e.preventDefault()
+            }
+        });
+
+        var bayar_spp_attr = 1;
+        $('.bayar-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                bayar_spp_attr = bayar_spp_attr+1;
+                if ($(`.bayar-spp[bayar-spp-attr="${bayar_spp_attr}"]`).length) {
+                    $(`.bayar-spp[bayar-spp-attr="${bayar_spp_attr}"]`).focus()
+                }
+                else {
+                    $('#bayar-total').focus()
+                }
+            }
         })
 
-        // $('select[name="kelas"]').change(function() {
-        //     let val          = $(this).val();
-        //     let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
-        //     $.ajax({
-        //         url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
-        //     })
-        //     .done(function(done) {
-        //         $('select[name="siswa"]').removeAttr('disabled')
-        //         $('select[name="siswa"]').html(done)
-        //     })
-        //     .fail(function() {
-        //         console.log("error");
-        //     });
-        // })
+        $('#bayar-total').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('.keterangan-spp').focus()
+            }
+        })
+
+        $('.keterangan-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('#spp-submit').focus()
+            }
+        })
 
         $(document).on('keyup','input[name="bayar_spp[]"]',function(){
             var val  = $(this).val()

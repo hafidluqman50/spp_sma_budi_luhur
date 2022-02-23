@@ -328,8 +328,10 @@ class DatatablesController extends Controller
 
     public function dataSppBayarDetail($id)
     {
-        $spp_bayar_detail = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                            ->where('id_spp_bayar',$id)->get();
+        $spp_bayar_detail = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                            ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                            ->where('spp_bayar_detail.id_spp_bayar',$id)->get();
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
             // $column = '';
@@ -589,6 +591,37 @@ class DatatablesController extends Controller
                        </div>';
             return $column;
         })->make(true);
+        return $datatables;
+    }
+
+    public function transaksiTerakhir()
+    {
+        $transaksi_terakhir = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                    // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                    // ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                    ->orderBy('tanggal_bayar','DESC')
+                                    ->get();
+
+        $datatables = Datatables::of($transaksi_terakhir)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'">
+                              <button class="btn btn-primary waves-light"> Lihat </button>
+                           </a>
+                       </div>
+                    ';
+            return $column;
+        })->editColumn('wilayah',function($edit){
+            return unslug_str($edit->wilayah);
+        })->editColumn('tanggal_bayar',function($edit){
+            return human_date($edit->tanggal_bayar);
+        })->editColumn('nominal_bayar',function($edit){
+            return format_rupiah($edit->nominal_bayar);
+        })->make(true);
+
         return $datatables;
     }
 }

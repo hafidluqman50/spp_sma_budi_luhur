@@ -143,6 +143,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/laporan-data-siswa',[DatatablesController::class, 'laporanDataSiswa']);
     Route::get('/laporan-tunggakan',[DatatablesController::class, 'laporanTunggakan']);
     Route::get('/laporan-rab',[DatatablesController::class, 'laporanRab']);
+    Route::get('/transaksi-terakhir',[DatatablesController::class, 'transaksiTerakhir']);
 });
 
 Route::get('/oke',function(){
@@ -232,6 +233,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[AdminSppDetailController::class, 'lihatPembayaran']);
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[AdminSppDetailController::class, 'lihatPembayaranDetail']);
     Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'lihatPembayaranDelete']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[AdminSppDetailController::class, 'lihatPembayaranDetailDelete']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
     // ROUTE SPP LIHAT SPP //
@@ -310,8 +312,9 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
 
     // ROUTE SPP LIHAT PEMBAYARAN //
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[PetugasSppDetailController::class, 'lihatPembayaran']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[AdminSppDetailController::class, 'lihatPembayaranDetail']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDelete']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[PetugasSppDetailController::class, 'lihatPembayaranDetail']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDelete']);
+    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDetailDelete']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
     // ROUTE SPP LIHAT SPP //
@@ -327,6 +330,14 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
     Route::get('/spp/history-spp',[PetugasHistorySppController::class, 'index']);
     Route::get('/spp/history-spp/{id}',[PetugasHistorySppController::class, 'detail']);
     // END ROUTE SPP HISTORY //
+
+    // ROUTE LAPORAN //
+    Route::get('/laporan-kantin',[PetugasLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan-data-siswa',[PetugasLaporanController::class, 'laporanDataSiswaView']);
+    Route::get('/laporan-tunggakan',[PetugasLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-rab',[PetugasLaporanController::class, 'laporanRabView']);
+    Route::get('/laporan/cetak',[PetugasLaporanController::class, 'laporanCetak']);
+    // END ROUTE LAPORAN //
 });
 
 Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){

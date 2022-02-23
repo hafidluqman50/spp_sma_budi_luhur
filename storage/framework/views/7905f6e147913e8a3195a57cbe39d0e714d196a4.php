@@ -11,10 +11,11 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Bulan Tahun SPP</a></li>
+                                <li class="breadcrumb-item"><a href="#">Data SPP Pembayaran</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data SPP Pembayaran Detail</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Bulan Tahun SPP</h4>
+                        <h4 class="page-title">Data SPP Pembayaran Detail</h4>
                     </div>
                 </div>
             </div>
@@ -23,27 +24,31 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA SPP PEMBAYARAN DETAIl</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/kepsek/spp/')); ?>">
+                            <a href="<?php echo e(url('/petugas/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
+                        <?php if(session()->has('message')): ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
+                        </div>
+                        <?php endif; ?>
                         <h5>NISN : <?php echo e($siswa->nisn); ?></h5>
                         <h5>Nama Siswa : <?php echo e($siswa->nama_siswa); ?></h5>
                         <h5>Kelas : <?php echo e($siswa->kelas); ?></h5>
                         <h5>Tahun Ajaran : <?php echo e($siswa->tahun_ajaran); ?></h5>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun-kepsek force-fullwidth" id-spp="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered data-spp-bayar-detail force-fullwidth" id-spp-bayar="<?php echo e($id_spp_bayar); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Kantin</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>Pembayaran SPP</th>
+                                <th>Nominal Bayar</th>
+                                <th>Tanggal Bayar</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -59,4 +64,4 @@
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('Kepsek.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Kepsek/spp-bulan-tahun/main.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Petugas.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Petugas/spp-bayar/detail.blade.php ENDPATH**/ ?>
