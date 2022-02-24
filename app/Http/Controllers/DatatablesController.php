@@ -331,7 +331,7 @@ class DatatablesController extends Controller
         $spp_bayar_detail = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
                             ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                             ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                            ->where('spp_bayar_detail.id_spp_bayar',$id)->get();
+                            ->where('spp_bayar_detail.id_spp_bayar',$id)->get(['id_spp','spp_bayar.id_spp_bulan_tahun','spp_bayar_detail.nominal_bayar','id_spp_bayar_detail','spp_bayar_detail.id_spp_bayar','spp_bayar_detail.tanggal_bayar','nama_kolom_spp']);
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
             // $column = '';
