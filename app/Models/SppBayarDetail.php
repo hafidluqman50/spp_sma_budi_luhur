@@ -25,6 +25,7 @@ class SppBayarDetail extends Model
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
                     ->join('users','spp_bayar.id_users','=','users.id_users')
                     ->where('spp_bayar_detail.id_spp_bayar_detail',$id)
+                    ->select(['*','spp_bayar_detail.nominal_bayar AS nominal_bayar_detail'])
                     ->firstOrFail();
 
         return $get;
