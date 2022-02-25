@@ -395,7 +395,8 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'bulan_tahun',name:'bulan_tahun'},
-            {data:'status_pelunasan',name:'status_pelunasan'},,
+            {data:'nama_kantin',name:'nama_kantin'},
+            {data:'status_pelunasan',name:'status_pelunasan'},
             {data:'total_kalkulasi',name:'total_kalkulasi'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],

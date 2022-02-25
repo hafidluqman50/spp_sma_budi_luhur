@@ -389,9 +389,9 @@ Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
 });
 
 Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
-    Route::get('dashboard',[OrtuDashboardController::class, 'index']);
-    Route::get('spp/{id}',[OrtuDashboardController::class, 'spp']);
-    Route::get('spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
+    Route::get('/dashboard',[OrtuDashboardController::class, 'index']);
+    Route::get('/spp/{id}',[OrtuDashboardController::class, 'spp']);
+    Route::get('/spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
 });
 
 Route::get('/dashboard1', function () {

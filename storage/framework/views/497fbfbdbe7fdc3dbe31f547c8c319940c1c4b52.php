@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
             <!-- Page-Title -->
@@ -18,14 +16,14 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/spp/bulan-tahun/'.$id.'/update/'.$id_bulan_tahun) }}" method="POST">
-                @csrf
-                @method('PUT')
+            <form action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/update/'.$id_bulan_tahun)); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="card-box">
                             <div class="button-list" style="margin-bottom:1%;">
-                                <a href="{{ url()->previous() }}">
+                                <a href="<?php echo e(url()->previous()); ?>">
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
@@ -33,31 +31,31 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Ajaran<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{$row->tahun_ajaran}}" disabled="disabled">
+                                        <input type="text" class="form-control" value="<?php echo e($row->tahun_ajaran); ?>" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kelas<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{$row->kelas}}" disabled="disabled">
+                                        <input type="text" class="form-control" value="<?php echo e($row->kelas); ?>" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Siswa<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" class="form-control" value="{{ $row->nisn.' | '.$row->nama_siswa }}" disabled="disabled">
+                                        <input type="text" class="form-control" value="<?php echo e($row->nisn.' | '.$row->nama_siswa); ?>" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan Tahun<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="{{ $row->bulan_tahun }}" disabled="disabled">
+                                        <input type="text" name="bulan_tahun" class="form-control" readonly="readonly" value="<?php echo e($row->bulan_tahun); ?>" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="{{ $row->nama_kantin }}" disabled="disabled">
+                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="<?php echo e($row->nama_kantin); ?>" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -74,41 +72,41 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <span class="text-danger">Hanya Bisa Edit Pada Kolom SPP Yang Belum Dibayar</span>
-                                @foreach ($row_kolom_spp as $key => $element)
-                                @php
+                                <?php $__currentLoopData = $row_kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
                                     $no = $key+1
-                                @endphp
-                                <div id="bayar-spp" class="bayar-spp" id-spp="{{$no}}">
+                                ?>
+                                <div id="bayar-spp" class="bayar-spp" id-spp="<?php echo e($no); ?>">
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group row">
                                                 <label class="col-4 col-form-label">Kolom Spp<span class="text-danger">*</span></label>
                                                 <div class="col-7">
-                                                    <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="{{ $no }}">
+                                                    <select name="kolom_spp[]" id="kolom-spp" class="form-control selectize kolom-spp" required="required" kolom-id="<?php echo e($no); ?>">
                                                         <option value="" selected="" disabled="">=== Pilih Kolom Spp ===</option>
-                                                        @foreach ($kolom_spp as $value)
-                                                        <option value="{{ $value->id_kolom_spp }}" {!!$value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : '' !!}>{{ $value->nama_kolom_spp }}</option>
-                                                        @endforeach
+                                                        <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($value->id_kolom_spp); ?>" <?php echo $value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"' : ''; ?>><?php echo e($value->nama_kolom_spp); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-4 col-form-label">Nominal SPP<span class="text-danger">*</span></label>
                                                 <div class="col-7">
-                                                    <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="{{ $element->nominal_spp }}" nominal-id="{{ $no }}">
-                                                    <label for="" class="label-nominal-spp" nominal-id="{{ $no }}"><b>{{ format_rupiah($element->nominal_spp) }}</b></label>
+                                                    <input type="number" name="nominal_spp[]" class="form-control nominal-spp" id="nominal-spp" required="required" placeholder="Isi Nominal SPP" value="<?php echo e($element->nominal_spp); ?>" nominal-id="<?php echo e($no); ?>">
+                                                    <label for="" class="label-nominal-spp" nominal-id="<?php echo e($no); ?>"><b><?php echo e(format_rupiah($element->nominal_spp)); ?></b></label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            @if ($no > 1)
-                                                <button class="btn btn-danger hapus-input" type="button" id="hapus-input" btn-id="{{ $no }}"><span class="dripicons-trash"></span></button>
-                                            @endif
+                                            <?php if($no > 1): ?>
+                                                <button class="btn btn-danger hapus-input" type="button" id="hapus-input" btn-id="<?php echo e($no); ?>"><span class="dripicons-trash"></span></button>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <hr>
                                 </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
@@ -124,9 +122,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         $('body').on('keydown','input,select,textarea',function(e){
@@ -179,7 +177,7 @@
             let val          = $(this).val();
             let tahun_ajaran = $('select[name="tahun_ajaran"]').val();
             $.ajax({
-                url: "{{ url('/ajax/get-siswa/') }}"+`/${val}/${tahun_ajaran}`
+                url: "<?php echo e(url('/ajax/get-siswa/')); ?>"+`/${val}/${tahun_ajaran}`
             })
             .done(function(done) {
                 $('select[name="siswa"]').removeAttr('disabled')
@@ -218,4 +216,6 @@
         // })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/spp-bulan-tahun/spp-bulan-tahun-edit.blade.php ENDPATH**/ ?>

@@ -1,6 +1,4 @@
-@extends('Ortu.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -27,11 +25,11 @@
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>DATA SPP</b></h4>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/ortu/dashboard') }}">
+                            <a href="<?php echo e(url('/ortu/dashboard')); ?>">
                                 <button class="btn btn-default" type="button">Kembali</button>
                             </a>
                         </div>
-                        <table class="table table-hover table-bordered spp-ortu force-fullwidth" id-siswa="{{$id}}">
+                        <table class="table table-hover table-bordered spp-ortu force-fullwidth" id-siswa="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -52,4 +50,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Ortu.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Ortu/spp.blade.php ENDPATH**/ ?>

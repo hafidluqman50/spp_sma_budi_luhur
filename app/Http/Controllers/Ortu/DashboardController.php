@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Ortu;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
+use Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $title = 'Dashboard | Ortu';
-        $siswa = Siswa::where('nisn','000888888')->firstOrFail();
+        $siswa = Siswa::where('nisn',Auth::user()->username)->firstOrFail();
 
         return view('Ortu.dashboard',compact('title','siswa'));
     }

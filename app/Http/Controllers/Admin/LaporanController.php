@@ -145,7 +145,7 @@ class LaporanController extends Controller
         $title    = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
         $fileName = $title.'.xlsx';
 
-        $get_kelas = Kelas::where('slug_kelas','like','%'.$kelas_siswa_input.'%')->get();
+        $get_kelas = Kelas::where('slug_kelas','like','%'.$kelas_siswa_input.'-%')->get();
         $spreadsheet = new Spreadsheet();
         foreach ($get_kelas as $key => $value) {
             $spreadsheet->setActiveSheetIndex($key)->setTitle($value->kelas);
