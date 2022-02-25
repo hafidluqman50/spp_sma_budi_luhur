@@ -1,6 +1,4 @@
-@extends('Ortu.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -12,7 +10,6 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data SPP</a></li>
                             </ol>
                         </div>
@@ -26,19 +23,20 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>DATA SPP</b></h4>
-                        <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/ortu/dashboard') }}">
-                                <button class="btn btn-default" type="button">Kembali</button>
-                            </a>
-                        </div>
-                        <table class="table table-hover table-bordered spp-ortu force-fullwidth" id-siswa="{{$id}}">
+                        <p class="text-muted font-13">
+                            Data sesuai yang diinputkan oleh bendahara.
+                        </p>
+
+                        <table class="table table-hover table-bordered data-spp-kepsek force-fullwidth">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Nama Kantin</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>NISN</th>
+                                <th>Nama Siswa</th>
+                                <th>Kelas</th>
+                                <th>Tahun Ajaran</th>
+                                <th>Wilayah</th>
+                                <th>Total Harus Bayar</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -52,4 +50,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Kepsek.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Kepsek/spp/main.blade.php ENDPATH**/ ?>

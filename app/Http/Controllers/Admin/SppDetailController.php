@@ -172,14 +172,15 @@ class SppDetailController extends Controller
 
             SppDetail::where('id_spp_detail',$id_detail[$key])
                     ->update($data_spp_detail);
-
-            $data_spp_bayar_detail[] = [
-                'id_spp_bayar_detail' => (string)Str::uuid(),
-                'id_spp_bayar'        => $id_spp_bayar,
-                'id_kolom_spp'        => $spp_detail->id_kolom_spp,
-                'nominal_bayar'       => $bayar_spp[$key],
-                'tanggal_bayar'       => $tanggal_bayar
-            ];
+            if ($bayar_spp[$key] != null) {
+                $data_spp_bayar_detail[] = [
+                    'id_spp_bayar_detail' => (string)Str::uuid(),
+                    'id_spp_bayar'        => $id_spp_bayar,
+                    'id_kolom_spp'        => $spp_detail->id_kolom_spp,
+                    'nominal_bayar'       => $bayar_spp[$key],
+                    'tanggal_bayar'       => $tanggal_bayar
+                ];
+            }
 
             Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
 

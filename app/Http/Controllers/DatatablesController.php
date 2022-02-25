@@ -448,7 +448,8 @@ class DatatablesController extends Controller
 
     public function dataSppOrtu($id)
     {
-        $spp_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')->where('id_kelas_siswa',$id)
+        $spp_bulan_tahun = SppBulanTahun::join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')->where('id_kelas_siswa',$id)
                                         ->get();
 
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
@@ -586,8 +587,7 @@ class DatatablesController extends Controller
         $kantin = Kantin::get();
         $datatables = Datatables::of($kantin)->addColumn('action',function($action){
             $column = '<div class="d-flex">
-                            <input type="hidden" name="kantin_nama" value="'.$action->nama_kantin.'">
-                            <button class="btn btn-success" name="btn_cetak" value="laporan-kantin"> Cetak Laporan </button>
+                            <button class="btn btn-success" name="btn_cetak" value="laporan-kantin" id-kantin="'.$action->nama_kantin.'"> Cetak Laporan </button>
                        </div>';
             return $column;
         })->make(true);
