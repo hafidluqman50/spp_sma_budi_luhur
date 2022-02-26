@@ -107,8 +107,8 @@
                                         </div>
                                     </div>
                                     <hr>
-                                @endforeach
                                 </div>
+                                @endforeach
                             </div>
                             <div class="form-group row">
                                 <div class="col-8 offset-4">
@@ -129,6 +129,26 @@
 @section('js')
 <script>
     $(() => {
+        $('body').on('keydown','input,select,textarea',function(e){
+            var self = $(this),
+                form = self.parents('form:eq(0)'),
+                focusable,
+                next
+                ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                console.log(focusable);
+                next = focusable.eq(focusable.index(this)+1);
+                if (next.length) {
+                    next.focus();
+                }
+                else {
+                    next.submit();
+                }
+                return false;
+            }
+        });
+        
         var kolom_attr   = 2;
         var nominal_attr = 2;
         $('#tambah-input').click(() => {
@@ -151,9 +171,9 @@
             })
         })
 
-        $('#hapus-input').click(function() {
-            $('.bayar-spp').last().remove()
-        })
+        // $('#hapus-input').click(function() {
+        //     $('.bayar-spp').last().remove()
+        // })
 
         $('select[name="kelas"]').change(function() {
             let val          = $(this).val();
@@ -183,6 +203,7 @@
 
         $(document).on('click','.hapus-input',function() {
             let attr = $(this).attr('btn-id')
+            console.log(attr)
             $(`.bayar-spp[id-spp="${attr}"]`).remove()
         })
 

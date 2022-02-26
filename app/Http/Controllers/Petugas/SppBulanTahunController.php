@@ -4,17 +4,19 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\HistoryProsesSpp;
+use Auth;
 
 class SppBulanTahunController extends Controller
 {
     public function index($id)
     {
         $title = 'SPP Bulan Tahun';
-        $siswa = SppBulanTahun::getSiswa($id);
+        $siswa = Spp::getRowById($id);
 
         return view('Petugas.spp-bulan-tahun.main',compact('title','id','siswa'));
     }
@@ -51,6 +53,14 @@ class SppBulanTahunController extends Controller
         $kolom_spp   = $request->kolom_spp;
         $nominal_spp = $request->nominal_spp;
 
+        $get_sum_total_old   = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
+                                          ->where('bayar_spp','=',0)
+                                          ->sum('nominal_spp');
+
+        $total_harus_bayar_old = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+
+        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
+
         SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
 
         foreach ($kolom_spp as $key => $value) {
@@ -66,16 +76,29 @@ class SppBulanTahunController extends Controller
             SppDetail::create($data_kolom_spp);
         }
 
+        $total_harus_bayar_new = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+        $get_sum_total_new     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
+                                        ->where('bayar_spp','=',0)
+                                        ->sum('nominal_spp');
+
+        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_new + $get_sum_total_new]);
+
         return redirect('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
     }
 
     public function delete($id,$id_bulan_tahun)
     {
+
         $spp_row = SppBulanTahun::getRowById($id_bulan_tahun);
         $text_history = Auth::user()->name.' telah menghapus data SPP <b>'.$spp_row->nama_siswa.' '.$spp_row->kelas.' '.$spp_row->tahun_ajaran.'</b> Bulan Tahun : <b>'.$spp_row->bulan_tahun.'</b>';
 
         $history = ['text' => $text_history,'status_terbaca' => 0];
         HistoryProsesSpp::create($history);
+
+        $get_sum_total     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->sum('nominal_spp');
+        $total_harus_bayar = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+
+        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar - $get_sum_total]);
 
         SppBulanTahun::where('id_spp',$id)
                     ->where('id_spp_bulan_tahun',$id_bulan_tahun)

@@ -802,6 +802,35 @@ $(() => {
         });
     }).draw();
 
+    var id_spp_bayar_kepsek = $('.data-spp-bayar-detail-kepsek').attr('id-spp-bayar')
+    var spp_bayar_detail_kepsek = $('.data-spp-bayar-detail-kepsek').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/bayar-detail/'+id_spp_bayar_kepsek,
+        columns:[
+            {data:'id_spp_bayar_detail',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_kolom_spp',name:'nama_kolom_spp'},
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'tanggal_bayar',name:'tanggal_bayar'}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_bayar_detail_kepsek.on( 'order.dt search.dt', function () {
+        spp_bayar_detail_kepsek.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
     var id_spp_bulan_tahun_kepsek = $('.data-spp-detail-kepsek').attr('id-spp-bulan-tahun')
     var spp_detail_kepsek = $('.data-spp-detail-kepsek').DataTable({
         processing:true,
