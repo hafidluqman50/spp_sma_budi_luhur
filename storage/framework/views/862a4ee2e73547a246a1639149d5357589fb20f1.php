@@ -39,6 +39,7 @@
         <link rel="stylesheet" href="<?php echo e(asset('assets/selectize/dist/css/selectize.bootstrap4.css')); ?>">
         <link href="<?php echo e(asset('assets/css/style.css')); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('assets/css/custom.css')); ?>" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="<?php echo e(asset('assets/Bootstrap-Datepicker/dist/css/bootstrap-datepicker.min.css')); ?>">
 
         <script src="<?php echo e(asset('assets/js/modernizr.min.js')); ?>"></script>
 
@@ -155,27 +156,17 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
                                 <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Data Siswa</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="<?php echo e(url('/kepsek/laporan-data-siswa')); ?>">Laporan Data Siswa</a>
                                     </li>
                                     <li>
-                                        <a href="#">Laporan Kantin</a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Tunggakan</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
+                                        <a href="<?php echo e(url('/kepsek/laporan-kantin')); ?>">Laporan Kantin</a>
                                     </li>
                                     <li>
-                                        <a href="#">Laporan RAB</a>
+                                        <a href="<?php echo e(url('/kepsek/laporan-tunggakan')); ?>">Laporan Tunggakan</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo e(url('/kepsek/laporan-rab')); ?>">Laporan RAB</a>
                                     </li>
                                 </ul>
                             </li>

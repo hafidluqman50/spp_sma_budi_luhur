@@ -538,8 +538,6 @@ function($) {
     </script>
     <script>
         $(() => {
-
-            $('table#datatable').DataTable();
             $('select[name="kelas"]').change(function() {
                 let kelas        = $(this).val()
                 let tahun_ajaran = $('select[name="tahun_ajaran"]').val()

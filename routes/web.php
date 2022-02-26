@@ -43,6 +43,7 @@ use App\Http\Controllers\Kepsek\KolomSppController as KepsekKolomSppController;
 use App\Http\Controllers\Kepsek\SppController as KepsekSppController;
 use App\Http\Controllers\Kepsek\SppBulanTahunController as KepsekSppBulanTahunController;
 use App\Http\Controllers\Kepsek\SppDetailController as KepsekSppDetailController;
+use App\Http\Controllers\Kepsek\LaporanController as KepsekLaporanController;
 use App\Http\Controllers\Kepsek\PetugasController as KepsekPetugasController;
 
 // END CONTROLLER KEPSEK //
@@ -381,11 +382,20 @@ Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
 
     // ROUTE SPP LIHAT PEMBAYARAN //
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[KepsekSppDetailController::class, 'lihatPembayaran']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[KepsekSppDetailController::class, 'lihatPembayaranDetail']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
     // ROUTE SPP LIHAT SPP //
     Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[KepsekSppDetailController::class, 'index']);
     // END ROUTE SPP LIHAT SPP //
+
+    // ROUTE LAPORAN //
+    Route::get('/laporan-kantin',[KepsekLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan-data-siswa',[KepsekLaporanController::class, 'laporanDataSiswaView']);
+    Route::get('/laporan-tunggakan',[KepsekLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-rab',[KepsekLaporanController::class, 'laporanRabView']);
+    Route::get('/laporan/cetak',[KepsekLaporanController::class, 'laporanCetak']);
+    // END ROUTE LAPORAN //
 
     // ROUTE DATA PETUGAS //
     Route::get('/data-petugas',[KepsekPetugasController::class, 'index']);

@@ -29,66 +29,214 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box fadeInDown animated">
-                        <div class="bg-icon bg-icon-info pull-left">
-                            <i class="md md-attach-money text-info"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="pull-left"> --}}
+                            <i class="fa fa-money text-info" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_hari_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Hari Ini</p>
-                        </div>
-                        <div class="clearfix"></div>
+                        {{-- </div> --}}
+                        {{-- <div class="clearfix"></div> --}}
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-success pull-left">
-                            <i class="fa fa-money text-success"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class=""> --}}
+                            <i class="fa fa-money text-success" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($transaksi_bulan_ini) }}</b></h3>
                             <p class="text-muted mb-0">Transaksi Bulan ini</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-purple pull-left">
-                            <i class="fa fa-edit text-purple"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="bg-icon bg-icon-purple pull-left"> --}}
+                            <i class="fa fa-money text-purple" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($total_uang_kantin) }}</b></h3>
                             <p class="text-muted mb-0">Total Uang Kantin</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="widget-bg-color-icon card-box">
-                        <div class="bg-icon bg-icon-danger pull-left">
-                            <i class="md md-warning text-danger"></i>
-                        </div>
-                        <div class="text-right">
+                        {{-- <div class="bg-icon bg-icon-danger pull-left"> --}}
+                            <i class="fa fa-money text-danger" style="font-size:25px;"></i>
+                        {{-- </div> --}}
+                        {{-- <div class="text-right"> --}}
                             <h3 class="text-dark"><b class="counter">{{ money_receipt($total_tunggakan) }}</b></h3>
                             <p class="text-muted mb-0">Total Tunggakan</p>
-                        </div>
+                        {{-- </div> --}}
                         <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
             <!-- end row -->
 
+
+            <div class="row">
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan SPP</h4>
+                        <h2 class="text-primary text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_spp) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_spp_old) }} 
+                            @if (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Uang Makan</h4>
+                        <h2 class="text-pink text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_uang_makan) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_uang_makan_old) }}
+                            @if (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
+                        <h2 class="text-success text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_tab_tes) }}</span></h2>
+                        <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_tab_tes_old) }} 
+                            @if (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-xl-3">
+                    <div class="card-box widget-box-1 bg-white">
+                        <i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Bulanan"></i>
+                        <h4 class="text-dark font-18">Pendapatan Asrama</h4>
+                        <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_asrama) }}</span></h2>
+                        <p class="text-muted">Dari: {{ money_receipt($pendapatan_asrama_old) }} 
+                            @if (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Vertical Steps Example -->
+            
+            <div class="row">
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Tunggakan </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default1"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default1" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #3ac9d6;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #f9c851;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ebeff2;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-bar-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+                <div class="col-lg-12 col-xl-6">
+                    <div class="portlet">
+                        <!-- /primary heading -->
+                        <div class="portlet-heading">
+                            <h3 class="portlet-title text-dark"> Grafik Pendapatan Pertahun </h3>
+                            <div class="portlet-widgets">
+                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                <span class="divider"></span>
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#bg-default"><i class="ion-minus-round"></i></a>
+                                <span class="divider"></span>
+                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="bg-default" class="panel-collapse collapse show">
+                            <div class="portlet-body">
+                                <div class="text-center">
+                                    <ul class="list-inline chart-detail-list">
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #4793f5;"></i>Komplek</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #ff3f4e;"></i>Dalam Kota</h5>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h5><i class="fa fa-circle m-r-5" style="color: #bbbbbb;"></i>Luar Kota</h5>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="morris-area-example" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Portlet -->
+                </div>
+                <!-- col -->
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>TRANSAKSI TERAKHIR</b></h4>
-
-                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="transaksi-terakhir-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Wilayah</th>
@@ -96,17 +244,8 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-
                             <tbody>
-                                @foreach ($transaksi_terakhir as $element)
-                                <tr>
-                                    <td>{{ human_date($element->tanggal_bayar) }}</td>
-                                    <td>{{ $element->nama_siswa }}</td>
-                                    <td>{{ unslug_str($element->wilayah) }}</td>
-                                    <td>{{ format_rupiah($element->nominal_bayar) }}</td>
-                                    <td><a href="{{ url('/kepsek/spp/bulan-tahun/'.$element->id_spp.'/lihat-pembayaran/'.$element->id_spp_bulan_tahun) }}"><button class="btn btn-primary waves-light">Lihat</button></a></td>
-                                </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -116,17 +255,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-
-    <!-- Modal -->
-    <div id="custom-modal" class="modal-demo">
-        <button type="button" class="close" onclick="Custombox.close();">
-            <span>&times;</span><span class="sr-only">Close</span>
-        </button>
-        <h4 class="custom-modal-title">Modal title</h4>
-        <div class="custom-modal-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-    </div>
 
 @endsection
 
@@ -142,226 +270,81 @@
     <!--wizard initialization-->
     <script src="{{asset('assets/pages/jquery.wizard-init.js')}}" type="text/javascript"></script>
     <script>
-        $(() => {
+        !function($) {
+    "use strict";
 
-            $('table#datatable').DataTable();
-            $('select[name="kelas"]').change(function() {
-                let kelas        = $(this).val()
-                let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+    var Dashboard4 = function() {};
 
-                if (tahun_ajaran != '' && kelas != '') {
-                    $.ajax({
-                        url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
-                    })
-                    .done(function(done) {
-                        $('select[name="siswa"]').removeAttr('disabled')
-                        $('select[name="siswa"]').html(done)
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("complete");
-                    });
-                }
-                
-            })
 
-            $('select[name="tahun_ajaran"]').change(function() {
-                let tahun_ajaran = $(this).val()
-                let kelas        = $('select[name="kelas"]').val()
+    //creates area chart
+    Dashboard4.prototype.createAreaChart = function(element, pointSize, lineWidth, data, xkey, ykeys, labels, lineColors) {
+        Morris.Area({
+            element: element,
+            pointSize: 0,
+            lineWidth: 0,
+            data: data,
+            xkey: xkey,
+            ykeys: ykeys,
+            labels: labels,
+            hideHover: 'auto',
+            resize: true,
+            gridLineColor: '#eef0f2',
+            lineColors: lineColors
+        });
+    },
 
-                if (tahun_ajaran != '' && kelas != '') {
-                    $.ajax({
-                        url: "{{ url('/ajax/get-siswa-dashboard/') }}/"+kelas+'/'+tahun_ajaran
-                    })
-                    .done(function(done) {
-                        $('select[name="siswa"]').removeAttr('disabled')
-                        $('select[name="siswa"]').html(done)
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("complete");
-                    });
-                }
+    //creates Bar chart
+    Dashboard4.prototype.createBarChart  = function(element, data, xkey, ykeys, labels, lineColors) {
+        Morris.Bar({
+            element: element,
+            data: data,
+            xkey: xkey,
+            ykeys: ykeys,
+            labels: labels,
+            hideHover: 'auto',
+            resize: true, //defaulted to true
+            gridLineColor: '#eeeeee',
+            barColors: lineColors
+        });
+    },
 
-            })
+    Dashboard4.prototype.init = function() {
 
-            $('a[href="#next"]').click(function() {
-                if ($(this).attr('keterangan') == null || $(this).attr('keterangan') == '') {
-                    $('a[href="#previous"]').attr('keterangan','previous-spp')
-                    $(this).attr('keterangan','bayar-spp')
-                    let kelas        = $('select[name="kelas"]').val()
-                    let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
-                    let siswa        = $('select[name="siswa"]').val()
+        //creating area chart
+        // var $areaData = [
+        //         { y: '2009', a: 0, b: 30, c:30 },
+        //         { y: '2010', a: 75, b: 65, c:30 },
+        //         { y: '2011', a: 50, b: 40, c:30 },
+        //         { y: '2012', a: 75, b: 65, c:30 },
+        //         { y: '2013', a: 50, b: 40, c:30 },
+        //         { y: '2014', a: 75, b: 65, c:30 },
+        //         { y: '2015', a: 90, b: 60, c:30 }
+        //     ];
+        var $areaData = {!!json_encode($grafik_pendapatan)!!}
+        this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b','c'], ['Komplek', 'Dalam Kota', 'Luar Kota'], ['#4793f5', '#ff3f4e', '#bbbbbb']);
 
-                    $('#tunggakan-table').html('<tr><td colspan="3">Loading...</td></tr>')
-                    $.ajax({
-                        url: "{{ url('/ajax/get-tunggakan/') }}/"+siswa+'/'+kelas+'/'+tahun_ajaran
-                    })
-                    .done(function(done) {
-                        $('#tunggakan-table').html(done.table)
-                        $('#tunggakan_an').html(`Tunggakan an. ${done.siswa['nama_siswa']}`)
-                        $('#info_siswa').html(done.siswa['wilayah'])
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("complete");
-                    });
-                }
-                else if ($(this).attr('keterangan') == 'bayar-spp') {
-                    // $(this).removeAttr('keterangan')
-                    // $.ajax({
-                    //     url: "{{ url('/ajax/get-bayar/') }}"
-                    // })
-                    // .done(function(done) {
+        //creating bar chart
+        // var $barData  = [
+        //     { y: '2009', a: 100, b: 90 , c: 40 },
+        //     { y: '2010', a: 75,  b: 65 , c: 20 },
+        //     { y: '2011', a: 50,  b: 40 , c: 50 },
+        //     { y: '2012', a: 75,  b: 65 , c: 95 },
+        //     { y: '2013', a: 50,  b: 40 , c: 22 },
+        //     { y: '2014', a: 75,  b: 65 , c: 56 },
+        //     { y: '2015', a: 100, b: 90 , c: 60 }
+        // ];
+        var $barData = {!!json_encode($grafik_tunggakan)!!}
+        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c'], ['Komplek', 'Dalam Kota', 'Luar Kota'], ['#3ac9d6', '#f9c851', '#ebeff2']);
 
-                    // })
-                    // .fail(function() {
-                    //     console.log("error");
-                    // })
-                    // .always(function() {
-                    //     console.log("complete");
-                    // });
-                    $('a[href="#previous"]').attr('keterangan','previous-finish')
-                }
-                
-            })
+    },
+    //init
+    $.Dashboard4 = new Dashboard4, $.Dashboard4.Constructor = Dashboard4
+}(window.jQuery),
 
-            $('a[href="#previous"]').click(function(){
-                console.log($(this).attr('keterangan'))
-                if ($(this).attr('keterangan') == 'previous-finish') {
-                    $(this).attr('keterangan','previous-spp')
-                }
-                else if ($(this).attr('keterangan') == 'previous-spp') {
-                    $('a[href="#next"]').attr('keterangan','')
-                    $(this).attr('keterangan','')
-                }
-            })
-
-            $('a[href="#finish"]').click(function(){
-                window.location.href="{{ url('/admin/dashboard/bayar-spp') }}"
-            })
-
-            $(document).on('click','.tombol-bayar',function(){
-                let attr = $(this).attr('id-spp-bulan-tahun')
-                $(this).html('Loading...')
-                $.ajax({
-                    url: "{{ url('/ajax/get-tunggakan-detail/') }}/"+attr
-                })
-                .done(function(done) {
-                    $(`.tombol-bayar[id-spp-bulan-tahun="${attr}"]`).html('Bayar')
-                    $('#full-width-modal').modal('show')
-                    $('#bayar-spp').html(done.kolom_spp)
-                    $('input[name="id_spp_bulan_tahun"]').val(done.id_spp_bulan_tahun)
-                })
-                .fail(function() {
-                    console.log("error");
-                })
-                .always(function() {
-                    console.log("complete");
-                });
-            })
-
-            $('#close-bayar').click(function(){
-                $('#form-spp').find('input').val('')
-                // $('#form-spp').find('label').html(rupiah_format(0))
-                $('#total-biaya-juga').html(rupiah_format(0))
-                $('#bayar-total-label').html(rupiah_format(0))
-                $('#kembalian-label').html(rupiah_format(0))
-
-                $('#total-biaya').val(0)
-                $('#bayar-spp').html('')
-                $('#full-width-modal').modal('hide')
-            })
-
-            $('#form-spp').submit(function(e){
-                e.preventDefault()
-                let val = $(this).serialize()
-                $('#act-simpan').html('Loading...')
-                
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: "{{ url('/ajax/get-bayar/') }}",
-                    type: 'POST',
-                    data: val,
-                })
-                .done(function(done) {
-                    $('#act-simpan').html('Simpan')
-
-                    $('#form-spp').find('input').val('')
-                    $('#total-biaya-juga').html(rupiah_format(0))
-                    $('#bayar-total-label').html(rupiah_format(0))
-                    $('#kembalian-label').html(rupiah_format(0))
-
-                    $('#total-biaya').val(0)
-                    $('#bayar-spp').html('')
-                    $('#full-width-modal').modal('hide')
-
-                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).html('Sudah Bayar')
-                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).attr('disabled','disabled')
-
-                    $('#nama_siswa').html(done.nama_siswa)
-                    $('#total').html(done.total_bayar_rupiah)
-                    $('#range_pembayaran').html(done.untuk_pembayaran)
-                    $('#terbilang').html(done.terbilang)
-                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
-                })
-                .fail(function() {
-                    console.log("error");
-                })
-                .always(function() {
-                    console.log("complete");
-                });
-                
-            })
-
-            $(document).on('keyup','input[name="bayar_spp[]"]',function(){
-                var val  = $(this).val()
-                var attr = $(this).attr('id-kolom-spp')
-                if (val == '') {
-                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
-                }
-                else {
-                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
-                }
-            })
-
-            $(document).on('change','input[name="bayar_spp[]"]',function(){
-                var val         = parseInt($(this).val())
-                var total_biaya = parseInt($('#total-biaya').val())
-                if (val == '') {
-                    val = 0
-                }
-
-                let kalkulasi  = total_biaya + val
-                $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
-                $('#total-biaya').val(kalkulasi)
-            })
-
-            $('#bayar-total').keyup(function(){
-                let val         = $(this).val()
-                let total_biaya = $('#total-biaya').val()
-                
-                $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
-                if (parseInt(val) > parseInt(total_biaya)) {
-                    $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
-                    $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
-                }
-                if (parseInt(val) == parseInt(total_biaya)) {
-                    $('#kembalian').val(0)
-                    $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
-                } 
-            })
-        })
+//initializing
+function($) {
+    "use strict";
+    $.Dashboard4.init();
+}(window.jQuery);
     </script>
 @endsection
