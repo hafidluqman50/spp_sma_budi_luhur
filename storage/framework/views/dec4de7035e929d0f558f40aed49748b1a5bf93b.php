@@ -85,7 +85,13 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
-                                    <?php $__currentLoopData = $spp_bayar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php
+                                        $no = 0;
+                                    ?>
+                                    <?php $__empty_1 = true; $__currentLoopData = $spp_bayar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                    <?php
+                                        $no = $key+1;
+                                    ?>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
@@ -108,7 +114,12 @@
                                     </div>
                                     <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
                                     <hr>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                    <div class="form-group row">
+                                        <label class="col-form-label">Data Kolom SPP Tidak ada</label>
+                                    </div>
+                                    <?php endif; ?>
+                                    <?php if($no != 0): ?>
                                     <div class="form-group row">
                                         <div class="col-8 offset-4">
                                             <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
@@ -116,6 +127,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>

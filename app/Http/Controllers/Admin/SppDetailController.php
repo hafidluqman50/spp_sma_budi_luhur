@@ -19,7 +19,7 @@ class SppDetailController extends Controller
     public function index($id,$id_bulan_tahun)
     {
         $title = 'SPP Detail | Admin';
-        $siswa = SppDetail::getSiswa($id_bulan_tahun);
+        $siswa = SppBulanTahun::getRowById($id_bulan_tahun);
 
         return view('Admin.spp-detail.main',compact('title','id','id_bulan_tahun','siswa'));
     }

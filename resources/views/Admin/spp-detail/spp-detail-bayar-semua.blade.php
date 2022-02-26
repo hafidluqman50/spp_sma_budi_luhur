@@ -87,7 +87,13 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
-                                    @foreach ($spp_bayar as $key => $value)
+                                    @php
+                                        $no = 0;
+                                    @endphp
+                                    @forelse ($spp_bayar as $key => $value)
+                                    @php
+                                        $no = $key+1;
+                                    @endphp
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
@@ -110,7 +116,12 @@
                                     </div>
                                     <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">
                                     <hr>
-                                    @endforeach
+                                    @empty
+                                    <div class="form-group row">
+                                        <label class="col-form-label">Data Kolom SPP Tidak ada</label>
+                                    </div>
+                                    @endforelse
+                                    @if ($no != 0)
                                     <div class="form-group row">
                                         <div class="col-8 offset-4">
                                             <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
@@ -118,6 +129,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>
