@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -25,14 +23,14 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>LAPORAN DATA SISWA</b></h4>
-                        <form action="{{ url('/admin/laporan/cetak') }}">
+                        <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
                             	<div class="col-md-6 offset-md-3">
                             		<select name="tahun_ajaran" class="form-control select2">
                             			<option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
-                            			@foreach ($tahun_ajaran as $element)
-                            			<option value="{{ $element->tahun_ajaran }}">{{ $element->tahun_ajaran }}</option>
-                            			@endforeach
+                            			<?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            			<option value="<?php echo e($element->tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
+                            			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             		</select>
                             	</div>
                             </div>
@@ -45,18 +43,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < 3; $i++)
-                                    @php
+                                    <?php for($i = 0; $i < 3; $i++): ?>
+                                    <?php
                                         $no = $i+1;
-                                    @endphp
+                                    ?>
                                     <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td>{{ $kelas[$i] }}</td>
+                                        <td><?php echo e($i+1); ?></td>
+                                        <td><?php echo e($kelas[$i]); ?></td>
                                         <td>
-                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa" id-kelas="{{ $kelas[$i] }}">Cetak Laporan</button>
+                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa" id-kelas="<?php echo e($kelas[$i]); ?>">Cetak Laporan</button>
                                         </td>
                                     </tr>
-                                    @endfor
+                                    <?php endfor; ?>
                                 </tbody>
                             </table>
                         <input type="hidden" name="kelas_siswa_input">
@@ -67,9 +65,9 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     // $(() => {
     //     $("#datepicker").datepicker({
@@ -86,4 +84,6 @@
         $(`input[name="kelas_siswa_input"]`).val(attr)
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/laporan/laporan-tunggakan.blade.php ENDPATH**/ ?>

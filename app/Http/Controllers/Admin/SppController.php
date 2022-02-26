@@ -12,6 +12,7 @@ use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
 use App\Models\HistoryProsesSpp;
@@ -622,7 +623,7 @@ class SppController extends Controller
                                     $session_id_spp_bulan_tahun_ = session()->get('pembayaran')['id_spp_bulan_tahun'];
                                 }
                                 
-                                if (!session()->has('pembayaran')) {
+                                if ($cells[11]->getValue() != '') {
                                     $get_id_spp_bayar_ = (string)Str::uuid();
                                     $data_spp_bayar = [
                                         'id_spp_bayar'      => $get_id_spp_bayar_,
@@ -722,7 +723,7 @@ class SppController extends Controller
                                 $session_id_spp_bulan_tahun_ = session()->get('pembayaran')['id_spp_bulan_tahun'];
                             }
                             
-                            if (!session()->has('pembayaran')) {
+                            if ($cells[11]->getValue() != '') {
                                 $get_id_spp_bayar_ = (string)Str::uuid();
                                 $data_spp_bayar = [
                                     'id_spp_bayar'      => $get_id_spp_bayar_,

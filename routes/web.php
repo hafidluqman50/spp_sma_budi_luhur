@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
 use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
 use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
+use App\Http\Controllers\Admin\DashboardRABController as AdminDashboardRABController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -277,6 +278,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/laporan-rab',[AdminLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
     // END ROUTE LAPORAN //
+
+    // ROUTE RAB //
+    Route::get('/data-rab',[AdminDashboardRABController::class, 'index']);
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
