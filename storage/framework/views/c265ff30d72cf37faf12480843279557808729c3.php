@@ -51,7 +51,7 @@
                                         <td><?php echo e($i+1); ?></td>
                                         <td><?php echo e($kelas[$i]); ?></td>
                                         <td>
-                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa" id-kelas="<?php echo e($kelas[$i]); ?>">Cetak Laporan</button>
+                                            <button class="btn btn-success" name="btn_cetak" value="laporan-tunggakan" id-kelas="<?php echo e($kelas[$i]); ?>">Cetak Laporan</button>
                                         </td>
                                     </tr>
                                     <?php endfor; ?>

@@ -114,6 +114,18 @@ Route::get('/check-backwards-month',function(){
     echo $percentChange;
 });
 
+Route::get('/helper-baru',function(){
+    echo bulan_tahun_excel('Januari, 2021');
+});
+
+Route::get('/test-increment',function(){
+    $var = 'C';
+    for ($i=0; $i < 100; $i++) { 
+        echo $var.'<br>';
+        $var++;
+    }
+});
+
 Route::group(['prefix' => 'ajax'],function() {
     // Route::get('/get-kelas-by-tahun-ajaran/{id}',[AjaxController::class, 'getKelasByTahunAjaran']);
     Route::get('/get-siswa/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getSiswa']);

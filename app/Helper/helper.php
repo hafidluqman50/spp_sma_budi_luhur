@@ -10,6 +10,12 @@ function count_history_unread_navbar() {
 	return $get;
 }
 
+function bulan_tahun_excel($str) {
+	$pieces = explode(", ", $str);
+
+	return strtolower(substr($pieces[0],0,3).'-'.$pieces[1]);
+}
+
 function get_history_navbar() {
 	$get = App\Models\HistoryProsesSpp::orderBy('created_at','DESC')->limit(6)->get();
 

@@ -53,7 +53,7 @@
                                         <td>{{ $i+1 }}</td>
                                         <td>{{ $kelas[$i] }}</td>
                                         <td>
-                                            <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa" id-kelas="{{ $kelas[$i] }}">Cetak Laporan</button>
+                                            <button class="btn btn-success" name="btn_cetak" value="laporan-tunggakan" id-kelas="{{ $kelas[$i] }}">Cetak Laporan</button>
                                         </td>
                                     </tr>
                                     @endfor
