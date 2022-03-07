@@ -228,6 +228,7 @@ class LaporanController extends Controller
         $spreadsheet = new Spreadsheet();
 
         $explode_tahun_ajaran = explode('/',$tahun_ajaran);
+        // dd($explode_tahun_ajaran);
 
         foreach ($explode_tahun_ajaran as $key => $value) {
             $sheet_bulan_tahun = Spp::join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
@@ -242,8 +243,18 @@ class LaporanController extends Controller
                 $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input);
                 $cell_row = 3;
 
+                $spreadsheet->getDefaultStyle()->getFont()->setSize('12');
+
                 foreach ($kelas as $no => $data) {
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,$data->kelas);
+                    $spreadsheet->getActiveSheet()->mergeCells('A'.$cell_row.':B'.$cell_row);
+
+                    $styleArray = ['font'  => [
+                                    'bold'  => true,
+                                    ]
+                                ];
+
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$cell_row.':B'.$cell_row)->applyFromArray($styleArray);
                     $cell_row++;
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,'No.');
                     $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,'Nama');
@@ -268,31 +279,52 @@ class LaporanController extends Controller
 
                     for ($i=1; $i <= count($kolom_spp_exists); $i++) { 
                         $indexes = $i-1;
-                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,$kolom_spp_exists[$indexes]->nama_kolom_spp);
+                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper($kolom_spp_exists[$indexes]->nama_kolom_spp));
                         array_push($array_column_cell['kolom_spp'],$column_cell);
                         $column_cell++;
                         array_push($array_column_cell['bayar_spp'],$column_cell);
-                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,'Bulan');
+                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper('Bulan'));
                         $column_cell++;
                     }
                     $array_column_cell['jumlah'] = $column_cell;
-                    $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,'Jumlah');
+                    $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper('Jumlah'));
+
+                    $styleArray = ['font'  => [
+                                'bold'  => true,
+                            ],
+                            'alignment' => [
+                                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                            ]
+                        ];
+
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$cell_row.':'.$column_cell.$cell_row)->applyFromArray($styleArray);
+
+                    $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                    $kelas_cell = $cell_row-1;
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$kelas_cell.':'.$column_cell.$cell_row)->applyFromArray($styleTable);
 
                     $cell_row = $cell_row+1;
                     foreach ($data_siswa_spp as $id_siswa => $data_siswa_spp_) {
                         $no = $id_siswa+1;
                         $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,$no);
                         $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,$data_siswa_spp_->nama_siswa);
+
                         for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
                             $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_row,SppDetail::getTunggakanKolomSpp($kolom_spp_exists[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
+
                             $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
 
                             $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['bayar_spp'][$j].$cell_row,SppDetail::getTunggakanBulanTahun($kolom_spp_exists[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
+
                             $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['bayar_spp'][$j])->setAutoSize(true);
                         }
                         $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['jumlah'].$cell_row,'=SUM(C'.$cell_row.':'.$column_cell.$cell_row.')');
 
                         $spreadsheet->getActiveSheet()->getColumnDimension($column_cell)->setAutoSize(true);
+                        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_row.':'.$column_cell.$cell_row)->getFont()->setBold(true);
+
+                        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_row.':'.$column_cell.$cell_row)->applyFromArray($styleTable);
                         $cell_row++;
                     }
 
@@ -301,6 +333,7 @@ class LaporanController extends Controller
                     $spreadsheet->getActiveSheet()->getStyle('C5:'.$column_cell.$cell_row)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
                     $cell_row = $cell_row+2;
                 }
+
                 $spreadsheet->createSheet();
             }
         }
