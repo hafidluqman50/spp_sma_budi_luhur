@@ -239,8 +239,8 @@ class LaporanController extends Controller
 
             foreach ($sheet_bulan_tahun as $index => $val) {
                 $spreadsheet->setActiveSheetIndex($index)->setTitle($val->bulan_tahun);
-                $spreadsheet->getActiveSheet()->setCellValue('A1','Tunggakan SPP');
-                $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input);
+                $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP'));
+                $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input,$tahun_ajaran);
                 $cell_row = 3;
 
                 $spreadsheet->getDefaultStyle()->getFont()->setSize('12');
@@ -256,36 +256,33 @@ class LaporanController extends Controller
 
                     $spreadsheet->getActiveSheet()->getStyle('A'.$cell_row.':B'.$cell_row)->applyFromArray($styleArray);
                     $cell_row++;
-                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,'No.');
-                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,'Nama');
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,strtoupper('No.'));
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,strtoupper('Nama'));
 
-                    $kolom_spp_exists = KolomSpp::whereExists(function($query)use($data,$tahun_ajaran) {
-                        $query->from('spp_detail')
-                            ->join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                            ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                            // ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                            ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                            ->where('kelas',$data->kelas)
-                            ->where('tahun_ajaran',$tahun_ajaran)
-                            ->whereColumn('spp_detail.id_kolom_spp','kolom_spp.id_kolom_spp');
-                    })->get();
+                    $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                                ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                                ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                                ->where('kelas',$data->kelas)
+                                                ->where('tahun_ajaran',$tahun_ajaran)
+                                                ->where('bulan_tahun',$val->bulan_tahun)
+                                                ->distinct()
+                                                ->get('id_kolom_spp');
                     
                     $column_cell       = 'C';
                     $data_siswa_spp    = SppBulanTahun::getSiswaByTunggakan($val->bulan_tahun,$data->kelas,$tahun_ajaran);
                     $array_column_cell = ['kolom_spp' => [], 'bayar_spp' => [], 'jumlah' => ''];
 
-                    for ($i=1; $i <= count($kolom_spp_exists); $i++) { 
-                        $indexes = $i-1;
-                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper($kolom_spp_exists[$indexes]->nama_kolom_spp));
+                    foreach ($distinct_kolom_spp as $i => $j) {
+                        $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper(KolomSpp::getNamaKolomSpp($j->id_kolom_spp)));
                         array_push($array_column_cell['kolom_spp'],$column_cell);
                         $column_cell++;
                         array_push($array_column_cell['bayar_spp'],$column_cell);
                         $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper('Bulan'));
                         $column_cell++;
                     }
+
                     $array_column_cell['jumlah'] = $column_cell;
                     $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_row,strtoupper('Jumlah'));
 
@@ -310,11 +307,11 @@ class LaporanController extends Controller
                         $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,$data_siswa_spp_->nama_siswa);
 
                         for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
-                            $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_row,SppDetail::getTunggakanKolomSpp($kolom_spp_exists[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
+                            $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_row,SppDetail::getTunggakanKolomSpp($distinct_kolom_spp[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
 
                             $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
 
-                            $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['bayar_spp'][$j].$cell_row,SppDetail::getTunggakanBulanTahun($kolom_spp_exists[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
+                            $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['bayar_spp'][$j].$cell_row,SppDetail::getTunggakanBulanTahun($distinct_kolom_spp[$j]->id_kolom_spp,$data_siswa_spp_->id_spp_bulan_tahun));
 
                             $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['bayar_spp'][$j])->setAutoSize(true);
                         }
@@ -333,6 +330,17 @@ class LaporanController extends Controller
                     $spreadsheet->getActiveSheet()->getStyle('C5:'.$column_cell.$cell_row)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
                     $cell_row = $cell_row+2;
                 }
+                $spreadsheet->getActiveSheet()->mergeCells('A1:C1');
+
+                $styleArray = ['font'  => [
+                            'bold'  => true,
+                        ],
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                        ]
+                    ];
+
+                $spreadsheet->getActiveSheet()->getStyle('A1:C1')->applyFromArray($styleArray);
 
                 $spreadsheet->createSheet();
             }
