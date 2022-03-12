@@ -43,6 +43,7 @@
                         <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
                         <h5>Kelas : {{ $siswa->kelas }}</h5>
                         <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
+                        <h5>Bulan : {{ $siswa->bulan_tahun }}</h5>
                         <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="{{$id_bulan_tahun}}">
                             <thead>
                             <tr>

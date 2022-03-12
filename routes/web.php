@@ -246,6 +246,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // ROUTE SPP LIHAT PEMBAYARAN //
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[AdminSppDetailController::class, 'lihatPembayaran']);
     Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[AdminSppDetailController::class, 'lihatPembayaranDetail']);
+    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/cetak-struk/{id_spp_bayar}',[AdminSppDetailController::class, 'cetakStruk']);
     Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[AdminSppDetailController::class, 'lihatPembayaranDelete']);
     Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[AdminSppDetailController::class, 'lihatPembayaranDetailDelete']);
     // END ROUTE SPP LIHAT PEMBAYARAN //

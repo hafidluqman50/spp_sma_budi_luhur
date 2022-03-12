@@ -70,4 +70,21 @@ class SppBayar extends Model
 
         return $get;
     }
+
+    public static function getStruk($id,$id_bulan_tahun,$id_spp_bayar)
+    {
+        $get = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->join('users','spp_bayar.id_users','=','users.id_users')
+                    ->where('spp.id_spp',$id)
+                    ->where('spp_bulan_tahun.id_spp_bulan_tahun',$id_bulan_tahun)
+                    ->where('id_spp_bayar',$id_spp_bayar)
+                    ->firstOrFail();   
+
+        return $get;
+    }
 }

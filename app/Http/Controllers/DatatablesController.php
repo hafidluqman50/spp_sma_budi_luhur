@@ -305,6 +305,9 @@ class DatatablesController extends Controller
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Detail Pembayaran </button>
                            </a>
+                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/cetak-struk/$action->id_spp_bayar").'" style="margin-right:1%;">
+                              <button class="btn btn-success"> Cetak Struk </button>
+                           </a>
                            <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
