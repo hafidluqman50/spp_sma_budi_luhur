@@ -313,4 +313,13 @@ class SppDetailController extends Controller
 
         return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun.'/detail/'.$id_bayar)->with('message','Berhasil Delete SPP Bayar Detail');
     }
+
+    public function cetakStruk($id,$id_bulan_tahun,$id_spp_bayar)
+    {
+
+        $spp_detail_row = SppBayar::getStruk($id,$id_bulan_tahun,$id_spp_bayar);
+
+        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        return view('Admin.spp-bayar.struk',compact('spp_detail_row','id','id_bulan_tahun','petugas'));
+    }
 }
