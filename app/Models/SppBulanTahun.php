@@ -105,4 +105,25 @@ class SppBulanTahun extends Model
         // dd($get);
         return $get;
     }
+
+    public static function cekBulanTahunSpp($kelas,$bulan_tahun)
+    {
+        $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('slug_kelas','like','%'.strtolower($kelas).'-%')
+                    ->where('bulan_tahun','Desember, 2021')
+                    ->get();
+                    
+        if ($get > 0) {
+            $val = 'true';
+        }
+        else {
+            $val = 'false';
+        }
+
+        return $val;
+    }
 }

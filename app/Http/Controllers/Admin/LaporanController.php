@@ -230,15 +230,21 @@ class LaporanController extends Controller
         $explode_tahun_ajaran = explode('/',$tahun_ajaran);
         // dd($explode_tahun_ajaran);
 
+        $index_sheet = 0;
         foreach ($explode_tahun_ajaran as $key => $value) {
-            $sheet_bulan_tahun = Spp::join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
-                                    ->where('bulan_tahun','like','%'.$value.'%')
+            $sheet_bulan_tahun = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                    ->join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
+                                    ->where('bulan_tahun','like','%'.$explode_tahun_ajaran[$key].'%')
+                                    ->where('slug_kelas','like','%'.strtolower($kelas_siswa_input).'-%')
+                                    ->where('tahun_ajaran',$tahun_ajaran)
                                     ->distinct()
-                                    ->orderByRaw("FIELD(bulan_tahun,'Januari, $value','Februari, $value','Maret, $value','April, $value','Mei, $value','Juni, $value','Juli, $value','Agustus, $value','September, $value','Oktober, $value','November, $value','Desember, $value')")
+                                    ->orderByRaw("FIELD(bulan_tahun,'Januari, $explode_tahun_ajaran[$key]','Februari, $explode_tahun_ajaran[$key]','Maret, $explode_tahun_ajaran[$key]','April, $explode_tahun_ajaran[$key]','Mei, $explode_tahun_ajaran[$key]','Juni, $explode_tahun_ajaran[$key]','Juli, $explode_tahun_ajaran[$key]','Agustus, $explode_tahun_ajaran[$key]','September, $explode_tahun_ajaran[$key]','Oktober, $explode_tahun_ajaran[$key]','November, $explode_tahun_ajaran[$key]','Desember, $explode_tahun_ajaran[$key]')")
                                     ->get('bulan_tahun');
 
             foreach ($sheet_bulan_tahun as $index => $val) {
-                $spreadsheet->setActiveSheetIndex($index)->setTitle($val->bulan_tahun);
+                $spreadsheet->setActiveSheetIndex($index_sheet)->setTitle($val->bulan_tahun);
                 $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP'));
                 $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input,$tahun_ajaran);
                 $cell_row = 3;
@@ -269,7 +275,7 @@ class LaporanController extends Controller
                                                 ->where('bulan_tahun',$val->bulan_tahun)
                                                 ->distinct()
                                                 ->get('id_kolom_spp');
-                    
+
                     $column_cell       = 'C';
                     $data_siswa_spp    = SppBulanTahun::getSiswaByTunggakan($val->bulan_tahun,$data->kelas,$tahun_ajaran);
                     $array_column_cell = ['kolom_spp' => [], 'bayar_spp' => [], 'jumlah' => ''];
@@ -342,9 +348,12 @@ class LaporanController extends Controller
 
                 $spreadsheet->getActiveSheet()->getStyle('A1:C1')->applyFromArray($styleArray);
 
+                $index_sheet++;
                 $spreadsheet->createSheet();
             }
         }
+        $spreadsheet->removeSheetByIndex($index_sheet);
+        $spreadsheet->setActiveSheetIndex(0);
         
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
