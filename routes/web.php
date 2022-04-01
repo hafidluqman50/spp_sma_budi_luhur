@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
 use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 use App\Http\Controllers\Admin\DashboardRABController as AdminDashboardRABController;
+use App\Http\Controllers\Admin\KategoriRABController as AdminKategoriRABController;
+use App\Http\Controllers\Admin\BarangRABController as AdminBarangRABController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -295,6 +297,20 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE RAB //
     Route::get('/data-rab',[AdminDashboardRABController::class, 'index']);
+
+    Route::get('/kategori-rab',[AdminKategoriRABController::class,'index']);
+    Route::get('/kategori-rab/tambah',[AdminKategoriRABController::class,'tambah']);
+    Route::post('/kategori-rab/save',[AdminKategoriRABController::class, 'save']);
+    Route::get('/kategori-rab/edit/{id}',[AdminKategoriRABController::class, 'edit']);
+    Route::put('/kategori-rab/update/{id}',[AdminKategoriRABController::class, 'update']);
+    Route::delete('/kategori-rab/delete/{id}',[AdminKategoriRABController::class, 'delete']);
+
+    Route::get('/barang-rab',[AdminBarangRABController::class,'index']);
+    Route::get('/barang-rab/tambah',[AdminBarangRABController::class,'tambah']);
+    Route::post('/barang-rab/save',[AdminBarangRABController::class, 'save']);
+    Route::get('/barang-rab/edit/{id}',[AdminBarangRABController::class, 'edit']);
+    Route::put('/barang-rab/update/{id}',[AdminBarangRABController::class, 'update']);
+    Route::delete('/barang-rab/delete/{id}',[AdminBarangRABController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){

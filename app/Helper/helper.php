@@ -181,7 +181,7 @@ function persentase_pendapatan($uang_sekarang,$uang_lalu) {
 		$percentChange = 0;
 	}
 	else {
-		$percentChange = (1 - divnum($uang_sekarang,$uang_lalu)) * 100;
+		$percentChange = round((1 - divnum($uang_sekarang,$uang_lalu)) * 100);
 	}
 
 	return $percentChange;

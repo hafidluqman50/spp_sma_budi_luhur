@@ -7,5 +7,10 @@ use Illuminate\Http\Request;
 
 class KategoriRABController extends Controller
 {
-    //
+    public function index()
+    {
+        $title = 'Kategori RAB | Admin';
+
+        return view('Admin.kategori-rab.main',compact('title'));
+    }
 }
