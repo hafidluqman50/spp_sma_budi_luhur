@@ -204,7 +204,7 @@
                                 <a href="<?php echo e(url('/admin/data-kepsek')); ?>"><i class="fa fa-users"></i>Data Kepsek</a>
                             </li>
                             <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/data-rab')); ?>"><i class="fa fa-book"></i>Data RAB</a>
+                                <a href="<?php echo e(url('/admin/data-perincian-rab')); ?>"><i class="fa fa-book"></i>Data RAB</a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->

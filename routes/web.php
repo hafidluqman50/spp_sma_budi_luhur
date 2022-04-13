@@ -21,8 +21,10 @@ use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
 use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 use App\Http\Controllers\Admin\DashboardRABController as AdminDashboardRABController;
-use App\Http\Controllers\Admin\KategoriRABController as AdminKategoriRABController;
-use App\Http\Controllers\Admin\BarangRABController as AdminBarangRABController;
+// use App\Http\Controllers\Admin\KategoriRABController as AdminKategoriRABController;
+// use App\Http\Controllers\Admin\BarangRABController as AdminBarangRABController;
+use App\Http\Controllers\Admin\RincianPengeluaranController as AdminRincianPengeluaranController;
+use App\Http\Controllers\Admin\RincianPengeluaranDetailController as AdminRincianPengeluaranDetailController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -160,6 +162,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/laporan-tunggakan',[DatatablesController::class, 'laporanTunggakan']);
     Route::get('/laporan-rab',[DatatablesController::class, 'laporanRab']);
     Route::get('/transaksi-terakhir',[DatatablesController::class, 'transaksiTerakhir']);
+    Route::get('/data-rincian-pengeluaran',[DatatablesController::class, 'dataRincianPengeluaran']);
 });
 
 Route::get('/oke',function(){
@@ -311,6 +314,15 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/barang-rab/edit/{id}',[AdminBarangRABController::class, 'edit']);
     Route::put('/barang-rab/update/{id}',[AdminBarangRABController::class, 'update']);
     Route::delete('/barang-rab/delete/{id}',[AdminBarangRABController::class, 'delete']);
+
+    Route::get('/data-perincian-rab',[AdminRincianPengeluaranController::class,'index']);
+    Route::get('/data-perincian-rab/tambah',[AdminRincianPengeluaranController::class,'tambah']);
+    Route::post('/data-perincian-rab/save',[AdminRincianPengeluaranController::class,'save']);
+    Route::get('/data-perincian-rab/edit/{id}',[AdminRincianPengeluaranController::class,'edit']);
+    Route::put('/data-perincian-rab/update/{id}',[AdminRincianPengeluaranController::class,'update']);
+    Route::delete('/data-perincian-rab/delete/{id}',[AdminRincianPengeluaranController::class,'delete']);
+
+    Route::get('/data-perincian-rab/detail/{id}',[AdminRincianPengeluaranDetailController::class,'index']);
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){

@@ -20,6 +20,8 @@ use App\Models\SppBayarDetail;
 use App\Models\Petugas;
 use App\Models\Kepsek;
 use App\Models\HistoryProsesSpp;
+use App\Models\RincianPengeluaran;
+use App\Models\RincianPengeluaranDetail;
 use Auth;
 
 class DatatablesController extends Controller
@@ -623,6 +625,32 @@ class DatatablesController extends Controller
             return human_date($edit->tanggal_bayar);
         })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
+        })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataRincianPengeluaran()
+    {
+        $rincian_pengeluaran = RincianPengeluaran::all();
+
+        $datatables = Datatables::of($rincian_pengeluaran)->addColumn('action',function($action){
+            $column = '
+                        <div class="d-flex">
+                            <a href="'.url("/$this->level/data-perincian-rab/detail/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-primary waves-light"> Detail </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/edit/$action->id_perincian_pengeluaran").'">
+                              <button class="btn btn-warning"> Edit </button>
+                           </a>
+                           <form action="'.url("/$this->level/data-perincian-rab/delete/$action->id_perincian_pengeluaran").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
+                       </div>
+                    ';
+            return $column;
         })->make(true);
 
         return $datatables;

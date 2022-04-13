@@ -947,4 +947,31 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var rincian_pengeluaran = $('.data-rincian-pengeluaran').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-rincian-pengeluaran',
+        columns:[
+            {data:'id_rincian_pengeluaran',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'bulan_perincian',name:'bulan_perincian'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_pengeluaran.on( 'order.dt search.dt', function () {
+        rincian_pengeluaran.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

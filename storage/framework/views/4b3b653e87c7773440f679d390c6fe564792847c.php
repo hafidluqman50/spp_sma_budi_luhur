@@ -157,12 +157,10 @@
                                 <a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="md md-arrow-back"></i>Dashboard</a>
                             </li>
 
-                            <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/kategori-rab')); ?>"><i class="fa fa-pencil-square-o"></i>Kategori RAB</a>
-                            </li>
+                            
 
                             <li class="has-submenu">
-                                <a href="<?php echo e(url('/admin/barang-rab')); ?>"><i class="fa fa-users"></i>Barang RAB</a>
+                                <a href="<?php echo e(url('/admin/data-perincian-rab')); ?>"><i class="fa fa-database"></i>Data Perincian</a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->

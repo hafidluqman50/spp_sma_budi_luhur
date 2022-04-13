@@ -157,12 +157,16 @@
                                 <a href="{{ url('/admin/dashboard') }}"><i class="md md-arrow-back"></i>Dashboard</a>
                             </li>
 
-                            <li class="has-submenu">
+                            {{-- <li class="has-submenu">
                                 <a href="{{ url('/admin/kategori-rab') }}"><i class="fa fa-pencil-square-o"></i>Kategori RAB</a>
                             </li>
 
                             <li class="has-submenu">
                                 <a href="{{ url('/admin/barang-rab') }}"><i class="fa fa-users"></i>Barang RAB</a>
+                            </li> --}}
+
+                            <li class="has-submenu">
+                                <a href="{{ url('/admin/data-perincian-rab') }}"><i class="fa fa-database"></i>Data Perincian</a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->
