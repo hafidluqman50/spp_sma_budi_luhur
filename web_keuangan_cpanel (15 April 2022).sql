@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Feb 21, 2022 at 04:36 PM
--- Server version: 8.0.13
--- PHP Version: 7.2.8
+-- Generation Time: Apr 15, 2022 at 02:05 PM
+-- Server version: 8.0.19
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,7 +33,7 @@ CREATE TABLE `history_proses_spp` (
   `text` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status_terbaca` int(11) NOT NULL
+  `status_terbaca` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,15 +41,63 @@ CREATE TABLE `history_proses_spp` (
 --
 
 INSERT INTO `history_proses_spp` (`id_history_proses_spp`, `text`, `created_at`, `updated_at`, `status_terbaca`) VALUES
+('05369cda-6f2e-495b-89b9-b4290502957d', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 310.000,00</b>', '2022-02-25 00:54:41', '2022-02-25 00:54:41', 0),
+('0650cf04-6397-4ffd-8f18-14df21d4e894', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:52:11', '2022-02-25 14:52:11', 0),
+('0ae12667-5459-4fbb-98fd-7e0dc4ba89df', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Juli, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 410.000,00</b>', '2022-02-25 01:07:46', '2022-02-25 01:07:46', 0),
+('14895b18-da38-4f43-8940-6f28dbe62c9d', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>spp</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:49:34', '2022-02-25 14:49:34', 0),
+('18cd7367-af27-4675-b428-d4f27b190a2b', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 410.000,00</b>, Nominal Bayar : <b>Rp. 410.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:08:06', '2022-02-25 01:08:06', 0),
+('1c1fd27c-5547-423f-9a6d-b007848ed2d3', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:52:38', '2022-02-25 00:52:38', 0),
+('1e6dd3b7-ddc8-46cd-96bc-9815684068d9', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:53:52', '2022-02-25 00:53:52', 0),
+('223db7b1-bc03-4f18-8aae-a2f82d05c291', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:51:27', '2022-02-25 14:51:27', 0),
+('2269d7bb-db66-4d31-b291-aabc39f1e075', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 50.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-02-25 00:50:23', '2022-02-25 00:50:23', 0),
+('2771eded-297b-47e5-80a5-92581646eb94', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 25.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:52:38', '2022-02-25 00:52:38', 0),
+('28fbc5d0-d7a1-438a-a861-7b8e499620dc', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Juli, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 410.000,00</b>', '2022-02-25 01:07:46', '2022-02-25 01:07:46', 0),
+('2a1c5b51-db57-47be-9648-c40e5aea8847', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:49:34', '2022-02-25 14:49:34', 0),
+('2c750b25-bc97-49e2-9d1e-e473cea7585a', 'Administrator telah menghapus Pembayaran : <b> Dara Rahma Callista Kelas X MIPA 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 13:37:41', '2022-02-25 13:37:41', 0),
+('3087f0f4-11ce-4b88-b9f2-6601e683ffc5', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 310.000,00</b>, Nominal Bayar : <b>Rp. 310.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:06:41', '2022-02-25 01:06:41', 0),
+('34087b50-f4ca-460f-8724-b19df02ca653', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 500.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-04-15 20:08:55', '2022-04-15 20:08:55', 0),
+('367bfc8c-b9c2-40fd-bfd2-714588d9a328', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:49:34', '2022-02-25 14:49:34', 0),
+('3e317272-9555-4e9e-8701-6edec76e293d', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-02-25 00:50:23', '2022-02-25 00:50:23', 0),
+('464947bc-bdd4-4081-97c9-a381f51dae43', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>spp</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 310.000,00</b>', '2022-02-25 00:54:42', '2022-02-25 00:54:42', 0),
+('4db14f89-5266-4a68-97fb-02b19da5a0cf', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:52:11', '2022-02-25 14:52:11', 0),
 ('5223cd27-9607-44f1-a50a-c791f822f669', 'Administrator telah membayar SPP : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>November, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 50.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 50.000,00</b>', '2022-02-18 14:22:30', '2022-02-18 14:22:30', 0),
+('5313954b-ce8d-4d5d-aa0f-4a8a66cc8089', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:51:27', '2022-02-25 14:51:27', 0),
+('54d8f947-e536-4ac8-9d51-743c69e1d255', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 410.000,00</b>, Nominal Bayar : <b>Rp. 410.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:08:49', '2022-02-25 01:08:49', 0),
+('5b1adf70-8a98-4458-a119-ff85595b3408', 'Administrator telah membayar SPP : <b> Sultan Adhi Nova Kelas X IPS Tahun Ajaran 2020/2021</b>. Bulan, Tahun : <b>Juli, 2020</b>, <b>uang makan</b> Sebesar <b>Rp. 50.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 50.000,00</b>', '2022-03-16 12:31:45', '2022-03-16 12:31:45', 0),
+('6860ff61-01bc-491b-a30e-116e3d5ad3a6', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:52:38', '2022-02-25 00:52:38', 0),
+('6b9f51f4-a5de-41bf-88db-f746602b8f33', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 310.000,00</b>', '2022-02-25 00:54:41', '2022-02-25 00:54:41', 0),
 ('8403ee34-dd57-4cc7-8d7c-5400cfada0ab', 'Administrator telah menghapus Pembayaran : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 200.000,00</b>, Nominal Bayar : <b>Rp. 200.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-18 14:24:12', '2022-02-18 14:24:12', 0),
 ('8712bb99-0fe1-4156-af7e-300b1cddf416', 'Administrator telah menghapus Pembayaran : <b> Rindiani Dwi Saputri Kelas XII MIPA 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 20.000,00</b>, Nominal Bayar : <b>Rp. 20.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-16 20:52:34', '2022-02-16 20:52:34', 0),
+('8a70e1d7-d375-4b42-a017-021ad7708d0c', 'Administrator telah menghapus Pembayaran : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 14:52:49', '2022-02-25 14:52:49', 0),
+('8bd660cc-bf18-41b9-a07d-dd35479df293', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>spp</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:52:11', '2022-02-25 14:52:11', 0),
 ('8ca9b112-a885-490c-b1ca-7e25ad3af49e', 'Administrator telah menghapus Pembayaran : <b> Fahim Nur Amalia Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 60.000,00</b>, Nominal Bayar : <b>Rp. 60.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-17 13:19:23', '2022-02-17 13:19:23', 0),
+('8ce87b84-b391-406c-bf1c-2fc8a8348c49', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-02-25 00:50:23', '2022-02-25 00:50:23', 0),
 ('8cfbc4d8-9fa8-4603-893b-df1f69a4866a', 'Administrator telah membayar SPP : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-02-18 14:07:25', '2022-02-18 14:07:25', 0),
+('8fc81d35-31d2-499b-951f-de96769282ec', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-02-22 23:32:24', '2022-02-22 23:32:24', 0),
+('928a3545-f8d4-4764-9449-a8e9fff80fcc', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>spp</b> Sebesar <b>Rp. 250.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-02-25 00:50:23', '2022-02-25 00:50:23', 0),
+('9548fe05-1e89-4adb-9715-611171825049', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 310.000,00</b>, Nominal Bayar : <b>Rp. 310.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:07:03', '2022-02-25 01:07:03', 0),
+('960657c7-36e1-422b-b00d-2230bf2568b7', 'Administrator telah membayar SPP : <b> Dara Rahma Callista Kelas X MIPA 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 13:36:46', '2022-02-25 13:36:46', 0),
 ('a7172e2d-60e7-4ac7-861d-7777a13acf20', 'Administrator telah menghapus Pembayaran : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 250.000,00</b>, Nominal Bayar : <b>Rp. 250.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-18 14:12:07', '2022-02-18 14:12:07', 0),
 ('ae4b0489-9ab4-4ac5-972e-211b4267f194', 'Administrator telah menghapus Pembayaran : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 50.000,00</b>, Nominal Bayar : <b>Rp. 50.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-18 14:23:01', '2022-02-18 14:23:01', 0),
+('b116810e-ec0b-4ca3-8ead-478630a2a3e2', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:53:52', '2022-02-25 00:53:52', 0),
+('b1f528b7-a261-4ba5-992f-fceb6f340af5', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>spp</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:51:27', '2022-02-25 14:51:27', 0),
+('b5886abc-4ebb-4116-bf54-ff0570fef1b1', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 310.000,00</b>', '2022-02-25 00:54:42', '2022-02-25 00:54:42', 0),
+('bd6ad2a8-93c7-4f47-88d0-5a071178f1f6', 'Administrator telah menghapus Pembayaran : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 14:53:19', '2022-02-25 14:53:19', 0),
+('c0eb32df-42e2-42da-b689-1bf40d091964', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>spp</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:52:38', '2022-02-25 00:52:38', 0),
 ('c531ba23-3aee-4b4a-ace6-8194576b96d6', 'Administrator telah membayar SPP : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b>spp</b> Sebesar <b>Rp. 250.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 250.000,00</b>', '2022-02-18 14:11:44', '2022-02-18 14:11:44', 0),
+('c9fef1d6-73ef-493f-8866-a6ba46500e3e', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 310.000,00</b>, Nominal Bayar : <b>Rp. 310.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:00:42', '2022-02-25 01:00:42', 0),
+('ca5f1905-810a-4e93-9cdb-ee0c1234f90c', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Juli, 2021</b>, <b>spp</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 410.000,00</b>', '2022-02-25 01:07:46', '2022-02-25 01:07:46', 0),
+('cb238f41-49cd-4dbd-8158-d396db3dd4fe', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>spp</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:53:52', '2022-02-25 00:53:52', 0),
+('cb6ae98d-819e-4342-9570-55a9e3fd9eb4', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:51:27', '2022-02-25 14:51:27', 0),
+('cc2dff78-e8e5-4e1d-84e6-e1db82ebc2f7', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 310.000,00</b>, Nominal Bayar : <b>Rp. 310.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:01:32', '2022-02-25 01:01:32', 0),
+('d0229097-981a-4cf5-a009-6d00ac06cfd8', 'Administrator telah menghapus Pembayaran : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 14:52:33', '2022-02-25 14:52:33', 0),
 ('d4a05376-bab2-4cb1-ac07-6949d4c18534', 'Administrator telah membayar SPP : <b> Rheina Deavina Olivia Kelas XII IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>November, 2021</b>, <b>uang makan</b> Sebesar <b>Rp. 600.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 600.000,00</b>', '2022-02-18 14:26:38', '2022-02-18 14:26:38', 0),
+('d4e424e5-6a14-4c92-8f76-3d10cd86e427', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Juli, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 200.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 410.000,00</b>', '2022-02-25 01:07:46', '2022-02-25 01:07:46', 0),
+('dfacf443-9a0f-4aab-bc23-2fd58cd1c50a', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:49:34', '2022-02-25 14:49:34', 0),
+('e4aedc2e-59f7-44df-9faf-86c303ddf424', 'Administrator telah membayar SPP : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-02-25 14:52:11', '2022-02-25 14:52:11', 0),
+('ecef538e-9304-4617-bc46-888c96a29c3e', 'Administrator telah menghapus Pembayaran : <b> Muhammad Rofiq Hariri Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 14:53:29', '2022-02-25 14:53:29', 0),
+('ed995b58-423c-48a3-9614-cc3bfe1c34f5', 'Administrator telah menghapus Pembayaran : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 310.000,00</b>, Nominal Bayar : <b>Rp. 310.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-25 01:01:06', '2022-02-25 01:01:06', 0),
+('f0c9f4e2-8a88-41e4-a5cf-3a6c24466d79', 'Administrator telah membayar SPP : <b> Faris Al-Amin Kelas XI IPS Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Desember, 2021</b>, <b>tab. tes</b> Sebesar <b>Rp. 25.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 325.000,00</b>', '2022-02-25 00:53:52', '2022-02-25 00:53:52', 0),
 ('f7300483-5bef-4ce3-acfc-4ad7bfad58f1', 'Administrator telah membayar SPP : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>November, 2021</b>, <b>asrama</b> Sebesar <b>Rp. 200.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 200.000,00</b>', '2022-02-18 14:24:02', '2022-02-18 14:24:02', 0),
 ('ff752ef9-271b-45bb-bca1-3eb237796e78', 'Administrator telah menghapus Pembayaran : <b> Pramudya Izza Arysta Kelas XI MIPA 2 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 100.000,00</b>, Nominal Bayar : <b>Rp. 100.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b>, Kolom SPP : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-02-18 14:07:58', '2022-02-18 14:07:58', 0);
 
@@ -64,8 +112,8 @@ CREATE TABLE `kantin` (
   `nama_kantin` varchar(100) NOT NULL,
   `slug_nama_kantin` varchar(100) NOT NULL,
   `lokasi_kantin` text NOT NULL,
-  `biaya_perbulan` int(11) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `biaya_perbulan` int NOT NULL,
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -85,7 +133,7 @@ CREATE TABLE `kelas` (
   `id_kelas` varchar(36) NOT NULL,
   `kelas` varchar(15) NOT NULL,
   `slug_kelas` varchar(100) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -115,7 +163,7 @@ CREATE TABLE `kelas_siswa` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `id_siswa` varchar(36) NOT NULL,
   `id_kelas` varchar(36) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -773,7 +821,7 @@ CREATE TABLE `kepsek` (
   `nip_kepsek` varchar(100) NOT NULL,
   `nama_kepsek` varchar(100) NOT NULL,
   `id_users` varchar(36) NOT NULL,
-  `status_delete` int(1) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -781,7 +829,8 @@ CREATE TABLE `kepsek` (
 --
 
 INSERT INTO `kepsek` (`id_kepsek`, `nip_kepsek`, `nama_kepsek`, `id_users`, `status_delete`) VALUES
-('94f8ef88-a6c6-4571-977e-19a563a78935', '000123123123', 'Kepsek Sekolah', '2d276160-67e4-4da3-8451-3cfffbc403dc', 0);
+('5b224f78-9d39-41d9-afc9-e26cac9448e8', '0123456789', 'Bapak Kepsek', 'f273d521-6208-4990-aa80-327f706cc497', 0),
+('94f8ef88-a6c6-4571-977e-19a563a78935', '000123123123', 'Kepsek Sekolah', '2d276160-67e4-4da3-8451-3cfffbc403dc', 1);
 
 -- --------------------------------------------------------
 
@@ -794,7 +843,7 @@ CREATE TABLE `kolom_spp` (
   `nama_kolom_spp` varchar(100) NOT NULL,
   `slug_kolom_spp` varchar(100) NOT NULL,
   `keterangan_kolom` text,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -827,7 +876,7 @@ CREATE TABLE `petugas` (
   `id_users` varchar(36) NOT NULL,
   `nama_petugas` varchar(100) NOT NULL,
   `jabatan_petugas` varchar(50) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -836,6 +885,41 @@ CREATE TABLE `petugas` (
 
 INSERT INTO `petugas` (`id_petugas`, `id_users`, `nama_petugas`, `jabatan_petugas`, `status_delete`) VALUES
 ('e69121d7-1178-4b76-8427-0d87e74d97a0', '1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Nuri Dina Sari, A.Md', 'bendahara-internal', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rincian_pengeluaran`
+--
+
+CREATE TABLE `rincian_pengeluaran` (
+  `id_rincian_pengeluaran` varchar(36) NOT NULL,
+  `bulan_perincian` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rincian_pengeluaran_detail`
+--
+
+CREATE TABLE `rincian_pengeluaran_detail` (
+  `id_rincian_pengeluaran_detail` varchar(36) NOT NULL,
+  `id_rincian_pengeluaran` varchar(36) NOT NULL,
+  `tanggal_rincian` date NOT NULL,
+  `uraian_rincian` varchar(100) NOT NULL,
+  `volume_rincian` int NOT NULL,
+  `nominal_pendapatan` int NOT NULL,
+  `id_kolom_spp` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nominal_pendapatan_spp` int DEFAULT NULL,
+  `uraian_rab` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `volume_rab` int DEFAULT NULL,
+  `nominal_rab` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -856,7 +940,7 @@ CREATE TABLE `siswa` (
   `asal_kelompok` varchar(100) NOT NULL,
   `asal_wilayah` varchar(100) NOT NULL,
   `wilayah` varchar(50) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1189,7 +1273,7 @@ INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kela
 CREATE TABLE `spp` (
   `id_spp` varchar(36) NOT NULL,
   `id_kelas_siswa` varchar(36) NOT NULL,
-  `total_harus_bayar` int(11) NOT NULL,
+  `total_harus_bayar` int NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1457,7 +1541,7 @@ INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`, `id_users`, 
 ('ab50b400-f72a-4585-aab7-4ff70f6a71d7', '6817baf8-47b3-4bdf-aa02-8c38b2216cef', 5500000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('abf4ce52-9b2f-4b74-b448-90cf25b61a38', '7220530f-4c36-4366-bf3f-34c78102b0b8', 2500000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('ae782f2d-e471-4068-8eda-45f978aa0e9f', '2005ace2-6f91-45b6-96a7-927bb7f751c9', 3000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
-('aea8d1bc-119b-497d-9b3f-3998c0414cb6', '03c38bff-a70a-4fc9-8e24-6d15e3a8b494', 5500000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
+('aea8d1bc-119b-497d-9b3f-3998c0414cb6', '03c38bff-a70a-4fc9-8e24-6d15e3a8b494', 5300000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-03-18 14:46:56'),
 ('b0b2c38d-4285-4aed-bdbe-e538c2753421', '8c62d38c-2d52-492e-85d8-45f8fb187ba2', 6000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('b0cd7bcf-6bd0-46f4-862d-1036c6c595dc', '503e6649-e0cb-46f4-a662-89adf411067d', 5000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('b0f6dab3-faa4-47bb-bae0-6cf9c5fd5c94', '5cf7302c-c572-4a54-a1c9-e915a6b81d4e', 15600000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
@@ -1560,7 +1644,7 @@ INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`, `id_users`, 
 ('ee8b0db6-b711-4652-945b-e97bbdc9c695', '41f5ca6c-4615-4561-8944-332159668b3e', 11000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('ee9631ae-c9c7-4fec-a6a2-76c8d333dcfd', '29408396-b2dc-450f-9c38-aefc82cf5726', 5500000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('eec1c2c2-d3b8-400d-90a6-abe12a3be4d1', '6dafdfc6-a710-4b94-b597-c81e4ce9740a', 13750000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
-('eeca9448-7564-4cdd-b4a1-2c154533994a', '03ce130a-7e0f-4e3d-bcb3-4feb8c3f5891', 9400000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
+('eeca9448-7564-4cdd-b4a1-2c154533994a', '03ce130a-7e0f-4e3d-bcb3-4feb8c3f5891', 9350000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-03-16 12:31:45'),
 ('eeff176d-96af-44c4-9767-c1cb6abd73af', 'debd701b-db68-40a6-b1e5-a2588a83a74b', 11000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('f0309c38-ef63-4c8d-b041-b53b3a8c9448', 'f3966560-f90b-4348-a35b-a73d611de620', 13750000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('f10cdad1-76c6-4abd-8e31-ba7f1fb30770', 'e23a6dec-7d3d-45fe-a317-60bbd9a27ddc', 12250000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
@@ -1577,11 +1661,11 @@ INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`, `id_users`, 
 ('f9f6ec22-45db-4e3c-a7ce-ddb26a7a4fb9', 'c273f1df-c2d0-4247-b765-f2c970c3d06c', 5500000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('fa5c576e-77c7-4cbf-8d52-d090d32b3875', 'a1fa2c8c-64e6-4b26-b1f1-6aa27c3526c8', 4900000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-02-18 14:26:38'),
 ('fa8d639e-1b1c-434a-9569-13004565849c', 'd2f25285-384c-4ba3-89b6-4e1f1dbf30d8', 4715000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
-('fac8c4d4-9eb7-400a-94df-5210d4466ed7', 'a0c1c973-7999-4bdf-9382-3180f879c06d', 3300000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
+('fac8c4d4-9eb7-400a-94df-5210d4466ed7', 'a0c1c973-7999-4bdf-9382-3180f879c06d', 3300000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-02-25 13:37:41'),
 ('fb7b7a90-1ed0-4883-a716-415ea76a1511', '5a8b342c-241b-4e8f-b7d8-faf3169a844c', 5000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
 ('fbc85ca0-b466-4440-a40d-1c09d07a4e7d', '0ae60adb-972f-4ba4-9549-58b3e8402b28', 11000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
-('fd7e8384-22ba-4a16-aa28-a0f021ac78d8', '2f83825e-7437-4e99-b25a-17db6a7a3775', 5000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
-('fe579a45-a256-4e6e-8bf8-bd4d257cf5f9', '09e2b4c2-bb22-485d-ad60-2e8c9eb96ce7', 6600000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL),
+('fd7e8384-22ba-4a16-aa28-a0f021ac78d8', '2f83825e-7437-4e99-b25a-17db6a7a3775', 4990000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-02-25 14:52:49'),
+('fe579a45-a256-4e6e-8bf8-bd4d257cf5f9', '09e2b4c2-bb22-485d-ad60-2e8c9eb96ce7', 5270000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, '2022-04-15 20:08:55'),
 ('fea788a6-16a6-4e7f-b82c-801f847f6ec9', '8713d977-841b-41a2-8234-26cbacfaddf4', 11000000, '37fdbd81-51a1-4b95-b418-563f2ab01b16', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -1594,9 +1678,9 @@ CREATE TABLE `spp_bayar` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
-  `total_biaya` int(11) NOT NULL,
-  `nominal_bayar` int(11) NOT NULL,
-  `kembalian` int(11) NOT NULL,
+  `total_biaya` int NOT NULL,
+  `nominal_bayar` int NOT NULL,
+  `kembalian` int NOT NULL,
   `keterangan_bayar` text NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1608,18 +1692,28 @@ CREATE TABLE `spp_bayar` (
 --
 
 INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `total_biaya`, `nominal_bayar`, `kembalian`, `keterangan_bayar`, `id_users`, `created_at`, `updated_at`) VALUES
+('0117c8f8-e5fa-4434-b0e1-4a5c506284f8', '0b2d2895-d2bb-492b-b1a2-0f776d853803', '2022-03-18', 100000, 100000, 0, 'Bayar spp september asrama 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-03-18 14:46:56', '2022-03-18 14:46:56'),
+('276b3e9b-a69f-4918-9429-d78cb8065e84', '72a345a4-8ecc-406e-84d8-274484479bd1', '2022-04-15', 500000, 500000, 0, '-', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-04-15 20:08:55', '2022-04-15 20:08:55'),
 ('2d4ac1a7-d472-44d1-8039-0dd044510621', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 70000, 70000, 0, 'Test Bayar', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 15:51:40', '2022-02-04 15:51:40'),
+('316b06ff-8377-4eda-aed9-5f8f062d6c58', '19b2d2a3-15b1-4438-b165-b11e4d64c7e7', '2022-03-16', 50000, 50000, 0, 'Bayar uang makan juli 2020', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-03-16 12:31:45', '2022-03-16 12:31:45'),
 ('35c6444e-f734-493f-83d2-f6892eb0e57a', '1a26bcb4-78cc-4b9d-a862-0b9a08b4bb6c', '2022-02-02', 60000, 60000, 0, 'Bayar Sebagian November', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-02 22:57:47', '2022-02-02 22:57:47'),
 ('3640f37c-4884-4df9-9966-c727582ac7b7', '8744e96e-c98a-4e93-ab15-2925194a9068', '2022-02-18', 100000, 100000, 0, 'bayar uang makan oktober 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-18 14:07:25', '2022-02-18 14:07:25'),
 ('37e32bb4-e6da-4299-8b92-46ef2a62f8db', '9adfc5e5-b114-4225-8091-2d72ab79ed07', '2021-02-18', 600000, 600000, 0, 'November 2021 Rheina Deavina Uang Makan', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-18 14:26:38', '2022-02-18 14:26:38'),
+('37f2e2e6-275e-4a78-bb8f-060155f0410d', '7d39b568-dfb2-4e2b-87c1-f9e908015538', '2022-02-25', 310000, 310000, 0, 'Bayar sebagian oktober 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-25 00:54:42', '2022-02-25 00:54:42'),
 ('401c529a-236e-44f9-a5f1-48f953aef52c', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Bayar Test Oktober', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 16:08:26', '2022-02-04 16:08:26'),
 ('4873b1d7-4467-4dcf-a1bf-f9db0d9a0264', '1a26bcb4-78cc-4b9d-a862-0b9a08b4bb6c', '2022-02-02', 60000, 60000, 0, 'Bayar Sebagian Januari', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-02 22:53:24', '2022-02-02 22:53:24'),
 ('5a5448db-8aec-46cf-b57e-4adab18549a9', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Bayar Test Oktober Lagi', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 16:09:01', '2022-02-04 16:09:01'),
+('69412b09-2ab7-4092-98a9-92203bf6bbca', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '2022-02-25', 325000, 325000, 0, 'Bayar sebagian desember 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-25 00:52:38', '2022-02-25 00:52:38'),
+('782e9cfd-3f64-4f2f-aa67-5b08fab5b013', '3c61888c-42b2-4690-b0c5-a9e0e209170c', '2022-03-18', 100000, 100000, 0, 'Bayar oktober 2021 spp', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-03-18 14:46:56', '2022-03-18 14:46:56'),
+('7875de66-e316-4405-bfb3-4d73b705a4f0', '3e32b4c0-6523-4c3c-a0f0-632cd3297d87', '2022-02-25', 10000, 10000, 0, 'Bayar tabungan tes desember 2021 dara rahma callista', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-25 13:36:46', '2022-02-25 13:36:46'),
+('7f781617-63f3-415e-8944-a90f9bf18bb4', '72a345a4-8ecc-406e-84d8-274484479bd1', '2022-02-25', 500000, 500000, 0, 'Bayar sebagian september 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-25 00:50:23', '2022-02-25 00:50:23'),
 ('84a1570d-09b4-4f59-940d-dbe2e744f387', '1a26bcb4-78cc-4b9d-a862-0b9a08b4bb6c', '2022-02-02', 310000, 300000, 40000, 'bayar sebagian januari', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-02 22:49:40', '2022-02-02 22:49:40'),
 ('86973638-f14d-4feb-a5f3-48918a6c1f06', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Bayar Test Oktober Lagi', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 16:09:22', '2022-02-04 16:09:22'),
 ('9592887e-cfe0-463d-acee-cc644838686a', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Bayar Test Oktober', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 16:07:54', '2022-02-04 16:07:54'),
+('b4a3669a-af35-4fb1-bb0e-6131df4e49c7', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '2022-02-25', 325000, 325000, 0, 'Bayar sebagian desember 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-25 00:53:52', '2022-02-25 00:53:52'),
 ('bdc59d5d-6db4-46dd-8001-1a666333ffb2', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Bayar Test Oktober Lagi', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 16:09:31', '2022-02-04 16:09:31'),
 ('c8f3130b-ca56-45d1-9bf0-ee065e278cb7', '8744e96e-c98a-4e93-ab15-2925194a9068', '2022-02-18', 250000, 0, 0, 'Oktober 2021 spp', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-18 14:11:44', '2022-02-18 14:12:08'),
+('d8d191eb-e337-4ddb-b127-b0f7e69efef6', '72a345a4-8ecc-406e-84d8-274484479bd1', '2022-02-22', 100000, 100000, 0, 'Bayar Sebagian SPP Faris September 2021', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-22 23:32:24', '2022-02-22 23:32:24'),
 ('ee7a030d-0f19-4ebc-8459-aba7a5f0f3d2', '1a26bcb4-78cc-4b9d-a862-0b9a08b4bb6c', '2022-02-02', 60000, 60000, 0, 'Bayar Sebagian Januari', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-02 22:56:31', '2022-02-02 22:56:31'),
 ('f4c8c3eb-deec-491e-a630-a0e02b1280ed', '02c1e584-e568-4d69-963b-50e50a443178', '2022-02-04', 20000, 20000, 0, 'Test Lagi', '37fdbd81-51a1-4b95-b418-563f2ab01b16', '2022-02-04 15:52:43', '2022-02-04 15:52:43');
 
@@ -1634,7 +1728,7 @@ CREATE TABLE `spp_bayar_detail` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_kolom_spp` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
-  `nominal_bayar` int(11) NOT NULL,
+  `nominal_bayar` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1645,11 +1739,20 @@ CREATE TABLE `spp_bayar_detail` (
 
 INSERT INTO `spp_bayar_detail` (`id_spp_bayar_detail`, `id_spp_bayar`, `id_kolom_spp`, `tanggal_bayar`, `nominal_bayar`, `created_at`, `updated_at`) VALUES
 ('312d0850-942b-4dfe-9115-ec1f5d41731b', 'ee7a030d-0f19-4ebc-8459-aba7a5f0f3d2', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', '2022-02-02', 10000, '2022-02-02 22:56:31', '2022-02-02 22:56:31'),
+('6e78df5b-2a3b-4918-99b9-4e3b6a32915a', '0117c8f8-e5fa-4434-b0e1-4a5c506284f8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', '2022-03-18', 100000, '2022-03-18 14:46:56', '2022-03-18 14:46:56'),
+('879d0b9e-4909-42d6-b9d2-66125d539519', 'b4a3669a-af35-4fb1-bb0e-6131df4e49c7', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', '2022-02-25', 100000, NULL, NULL),
+('9567d1d8-7dba-4477-9a9a-8301dc93c1ff', '276b3e9b-a69f-4918-9429-d78cb8065e84', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', '2022-04-15', 500000, '2022-04-15 20:08:55', '2022-04-15 20:08:55'),
+('a5ea51d4-f24b-4e5f-ab94-33c2cb4ccbb6', 'b4a3669a-af35-4fb1-bb0e-6131df4e49c7', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', '2022-02-25', 100000, NULL, NULL),
 ('a9899d75-09c1-4f3b-a58b-76e8142817ed', '2d4ac1a7-d472-44d1-8039-0dd044510621', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', '2022-02-04', 50000, '2022-02-04 15:51:40', '2022-02-04 15:51:40'),
 ('b3130b88-348a-4f52-9e7b-491659419788', 'bdc59d5d-6db4-46dd-8001-1a666333ffb2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', '2022-02-04', 0, '2022-02-04 16:09:31', '2022-02-04 16:09:31'),
+('bc4942fa-b2d2-457a-b7be-f00ba11df1ee', 'b4a3669a-af35-4fb1-bb0e-6131df4e49c7', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', '2022-02-25', 25000, NULL, NULL),
 ('bea45388-4bf3-4151-908b-76d8739e170c', 'bdc59d5d-6db4-46dd-8001-1a666333ffb2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', '2022-02-04', 10000, '2022-02-04 16:09:31', '2022-02-04 16:09:31'),
+('c1b6f4f2-7a7e-4c19-a059-4ef64cc88214', '782e9cfd-3f64-4f2f-aa67-5b08fab5b013', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', '2022-03-18', 100000, '2022-03-18 14:46:56', '2022-03-18 14:46:56'),
 ('da536d58-c597-4062-a265-e42142914ae1', '37e32bb4-e6da-4299-8b92-46ef2a62f8db', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', '2021-02-18', 600000, '2022-02-18 14:26:38', '2022-02-18 14:26:38'),
 ('db7880fd-e5f8-4812-9c62-c0fceb882fbb', 'bdc59d5d-6db4-46dd-8001-1a666333ffb2', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', '2022-02-04', 10000, '2022-02-04 16:09:31', '2022-02-04 16:09:31'),
+('de369c9f-320d-4e5f-a7c8-863f2aad7234', 'd8d191eb-e337-4ddb-b127-b0f7e69efef6', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', '2022-02-22', 100000, '2022-02-22 23:32:24', '2022-02-22 23:32:24'),
+('e422bd68-8070-40a7-80e0-cedf0a229177', 'b4a3669a-af35-4fb1-bb0e-6131df4e49c7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', '2022-02-25', 100000, NULL, NULL),
+('eb33e29f-de55-4045-8748-98d6a656ec13', '316b06ff-8377-4eda-aed9-5f8f062d6c58', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', '2022-03-16', 50000, '2022-03-16 12:31:45', '2022-03-16 12:31:45'),
 ('f0d6ae19-2020-4c64-93ec-e55feed93643', 'f4c8c3eb-deec-491e-a630-a0e02b1280ed', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', '2022-02-04', 10000, '2022-02-04 15:52:43', '2022-02-04 15:52:43');
 
 -- --------------------------------------------------------
@@ -3823,10 +3926,10 @@ CREATE TABLE `spp_detail` (
   `id_spp_detail` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `id_kolom_spp` varchar(36) NOT NULL,
-  `nominal_spp` int(11) NOT NULL,
-  `bayar_spp` int(11) NOT NULL,
-  `sisa_bayar` int(11) NOT NULL,
-  `status_bayar` int(11) NOT NULL,
+  `nominal_spp` int NOT NULL,
+  `bayar_spp` int NOT NULL,
+  `sisa_bayar` int NOT NULL,
+  `status_bayar` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3938,7 +4041,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('0294c1e8-0f0a-44bd-8a64-5b50ff4e360e', '28eb0438-1fd4-4d52-a81a-f31e0dab53d0', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL),
 ('0296de31-504c-47bc-a32e-81f876b2ead1', 'add4f26d-f2c2-4d12-87ae-10d26a3c7e73', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('029d0a2f-5a13-47c4-baf8-a2826c3d4a23', '45e752ae-f0fd-45de-b8fc-8b1fd0353659', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
-('02a3af73-99ac-4b05-9a09-b6c30016eeb3', '3e32b4c0-6523-4c3c-a0f0-632cd3297d87', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('02a3af73-99ac-4b05-9a09-b6c30016eeb3', '3e32b4c0-6523-4c3c-a0f0-632cd3297d87', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-02-25 13:37:41'),
 ('02b2ef79-2987-48d8-8801-883f59f889b6', '26034fa7-8263-48e4-aa32-23561d3c5074', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('02b57f16-5fd1-4688-bde9-3da0d88db9c3', '1d70a0af-6caa-44d4-a156-48486fa0be8b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('02c8c21a-82f2-44d1-bd0e-f7a2cf6cf2f5', '22618054-2840-489d-b1f7-5ecdaac1dad7', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 0, 0, 0, 0, NULL, NULL),
@@ -4658,7 +4761,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('13d9c9cb-f2f0-4ab5-bf19-f8f4bbd8a702', '2e1bc76c-8f62-4d31-92a0-0bd9902e5f0d', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('13e4bf5c-04b5-40ec-b0b6-b832d7882a2e', '46199216-bec4-41dc-8301-b46a51afbc98', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL),
 ('13e6d284-63dc-4bcb-ae77-b93f2c414760', '78d7a270-272c-4d2c-8b06-bb2d9bfaa898', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('13f58d5d-90dd-41d6-99a4-0c3befb2a7b1', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('13f58d5d-90dd-41d6-99a4-0c3befb2a7b1', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 200000, 50000, 0, NULL, '2022-02-25 00:53:52'),
 ('13f629f4-3d80-4f43-b6de-bd814e98480d', 'bb3e273b-eaa4-4bab-a4a6-1646b0a8911e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('13faed85-87a9-4fff-bdbd-25616829ca84', '0193192c-d1fd-4882-9f96-80b5799d3a12', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('140c2d6e-9b64-4d02-b0c2-4f0bcad8956d', 'c552b2ac-2a4f-43ba-b3e5-d4b56eed40cb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
@@ -4812,9 +4915,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('179e4b81-5131-4d92-95f6-45e14dfba304', 'ce85849f-17e6-4b3b-bd81-7c71e7189a37', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('17a0a1f4-ad83-450b-b79f-ae0657dd0a6e', '91aca8da-88fc-47f4-aa72-bee5992d7fe2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('17a1f5c5-b93d-4575-99bc-2e3b7cc6be65', '4d9349ba-eda4-434b-be7a-7fc418d4ff15', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('17a3877b-1a39-4584-ad30-a63866431f9c', '0abe83f7-0745-4149-a9e9-782426015a30', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('17a66ea9-d488-4519-9e44-0e572b4bc526', 'c286f379-69e0-4db0-af6f-ba080c1732a9', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 300000, 0, 300000, 0, NULL, NULL);
+('17a3877b-1a39-4584-ad30-a63866431f9c', '0abe83f7-0745-4149-a9e9-782426015a30', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('17a66ea9-d488-4519-9e44-0e572b4bc526', 'c286f379-69e0-4db0-af6f-ba080c1732a9', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 300000, 0, 300000, 0, NULL, NULL),
 ('17a6a1ba-155f-41a2-ae5e-ee3510176ff9', 'e4cbc1a4-d479-495c-bda7-5bce386eca37', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('17a9484e-9a51-4a34-b873-c1984b6f927d', 'b62cdf2e-608f-4c7b-88d5-6b995a056612', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('17af9de6-e9de-469b-babb-0c198a5e49b6', '03359b27-3925-4eb5-a1f4-de6bcd31cf91', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
@@ -5031,7 +5134,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('1c8c8726-1754-4415-925a-e645d50f4c1c', 'ed74d890-c54d-491b-9c76-32e3926cd57b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('1c8cacfb-7e9f-4387-a49c-2495ac9101a4', 'b632bfcc-23c8-4a1a-bea3-2c084eac1133', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('1c93e805-873f-4f60-8cdc-ee51876fc3ff', '4c9d2e51-97f5-443c-99fa-9452023e1b32', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
-('1c95fb34-be9f-494c-a12c-fbb9dc1eefbd', '7d39b568-dfb2-4e2b-87c1-f9e908015538', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('1c95fb34-be9f-494c-a12c-fbb9dc1eefbd', '7d39b568-dfb2-4e2b-87c1-f9e908015538', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, '2022-02-25 01:07:03'),
 ('1c9a7ad3-83a3-462e-9ece-6049f29b3428', 'b30a56ff-a90e-48a4-956a-8503c2316578', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 0, 0, 0, 0, NULL, NULL),
 ('1ca6d0dc-de9f-435a-8adc-dc785f7252ff', '807d9b9e-f9dc-46d0-8ee7-f4276d0224f2', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('1cabba44-6583-4bbf-9c16-1c3e28bf9fda', '0d8a013a-fbd6-41bf-8b3b-b64b544dc4b6', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -5138,10 +5241,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('1f2cc254-4fd7-4c43-b477-59009f700453', '0eb8ca2b-2ae5-4de4-be66-18c2d634d3e5', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('1f2d9d67-c256-4107-8726-8f8c043709ed', '73c6f92a-22db-474e-a6ae-b4ca9bc279f0', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL),
 ('1f32db9a-5441-47c4-987d-fb4cbf1a3f7d', 'f6f0f9c2-5cec-4e39-8d55-c8a784049e0f', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL),
-('1f369496-610a-4a84-a954-30ef3724e961', '084e7f70-7525-424c-99d2-ca527efadc14', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('1f3c003f-ef15-45d8-869a-454e40b9b4ca', '72fd5e81-4a55-4a34-8c24-62159d07e27b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('1f4064a3-5970-4906-a03e-5f3964eb3149', '00905ed6-c3e2-4410-965d-58185a2282bb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
+('1f369496-610a-4a84-a954-30ef3724e961', '084e7f70-7525-424c-99d2-ca527efadc14', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('1f3c003f-ef15-45d8-869a-454e40b9b4ca', '72fd5e81-4a55-4a34-8c24-62159d07e27b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('1f4064a3-5970-4906-a03e-5f3964eb3149', '00905ed6-c3e2-4410-965d-58185a2282bb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('1f466b6c-0d7a-44a1-8423-e49d69584859', 'b62cdf2e-608f-4c7b-88d5-6b995a056612', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('1f507d09-2164-4a3d-b50b-8c36286be69d', '0402a202-c7fa-477a-a96e-6f68288b8a12', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 400000, 0, 400000, 0, NULL, NULL),
 ('1f653c3d-40f6-4149-97ed-b8cc9ae42311', '4569acf4-64b4-4001-be02-5e6679f088e9', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -5182,11 +5285,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('20235fbf-6133-4b9a-b540-9549497dda05', '88a6c022-d460-474d-82f1-44e8715777f5', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('20246733-02c0-458f-b0fa-0c6336370855', 'e5c8f98f-04c8-410c-82ca-846224beb1cb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('2029fcb4-00e4-4e50-83de-3855759853f3', '3abbde7a-6e96-4c59-8ba7-d56397757322', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
-('20361887-9b9c-4c80-ae58-31c18d8ba210', '954e1713-f3b3-4dcd-874c-aea00a737358', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('20361887-9b9c-4c80-ae58-31c18d8ba210', '954e1713-f3b3-4dcd-874c-aea00a737358', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, '2022-02-25 01:08:49'),
 ('2041dd5e-f49c-45bc-940e-1825e07cbc3f', '0fb07be5-648e-4354-8c35-0e2735e1f4ad', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('20421edd-7c54-433d-b49d-914db78fd89f', '91370cf3-08b9-489e-abe5-005c571aeb32', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('2047380c-2629-47e5-a593-b62832c6718a', '9b673959-854c-4b42-a003-99e039a964eb', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('205b1f68-6cc3-44d6-9784-ba17bd1929cf', '3c61888c-42b2-4690-b0c5-a9e0e209170c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('205b1f68-6cc3-44d6-9784-ba17bd1929cf', '3c61888c-42b2-4690-b0c5-a9e0e209170c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 100000, 150000, 0, NULL, '2022-03-18 14:46:56'),
 ('20606979-eeae-4d45-9cba-b45f552da5bd', 'd0cdc736-42fc-4097-8887-5e9af2483750', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('2069aafb-978e-4566-a729-8b8d6ef00835', 'e7d1ae8b-db79-49da-8208-dcd7dfb1363f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('206a0de1-41c9-4bc7-81e1-4823fd6a92bf', '0a42ec70-f7d4-461b-b9fb-fb56955774c0', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -5333,7 +5436,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('2395a035-4e2e-4868-9141-f4129ad26359', '2afd5aae-34ca-45be-a0de-5ef2d980695f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('23a574b7-b7a4-46bf-a094-06e5208fab53', 'a9e07dcc-5e21-4c34-99c2-b28afacd22cf', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('23a5904e-fb13-4a1b-b019-a65610feb154', '719722a4-242f-462e-974a-7f50250644cc', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('23a614f1-fc80-4603-a15d-c5c7337d9b57', '3c61888c-42b2-4690-b0c5-a9e0e209170c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('23a614f1-fc80-4603-a15d-c5c7337d9b57', '3c61888c-42b2-4690-b0c5-a9e0e209170c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-03-18 14:46:56'),
 ('23abdf99-b767-4306-9b3c-141b18dbfea5', 'eddfc60a-59c8-408c-b0ea-b9a82b37d2e7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('23bcd751-7b4f-4cd9-bf53-3cbf911225e0', '6fdd2a96-37c8-4732-a66f-3f21e8761003', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('23e2f24b-76f4-4a34-bc78-657561b2edeb', 'ef13bd8a-0c47-40d7-a951-42c8a76bbf4d', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
@@ -5464,10 +5567,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('27173096-0c1e-475f-8bf7-9e85aa75834a', '2429e4cc-6599-4725-af31-176e8a8dac91', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('2718f2c6-d9ea-4223-9ff3-58418dc130d6', 'fab286ea-e1fb-4a47-bfd2-fda1f5c13188', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('27241783-300c-42c4-88da-cf08c4b86570', 'cfdc04df-c7b6-4043-b9cb-0f00e88653e4', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('27249e5e-0cf2-41e3-8419-42a3befb5a85', '82fb236e-3f14-485c-9059-9726e777e84b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('2724c1d5-07a5-4dd6-87d4-b5e440a4fd69', '16a8a359-ff04-424f-a135-ad83eab0467e', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('27348428-b1fe-4324-9a9f-5e40017e3f9a', '47c1055d-9b33-4729-84de-371cd4a2d8c2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('27249e5e-0cf2-41e3-8419-42a3befb5a85', '82fb236e-3f14-485c-9059-9726e777e84b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('2724c1d5-07a5-4dd6-87d4-b5e440a4fd69', '16a8a359-ff04-424f-a135-ad83eab0467e', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('27348428-b1fe-4324-9a9f-5e40017e3f9a', '47c1055d-9b33-4729-84de-371cd4a2d8c2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('273744fe-483b-4b3a-83fd-c8d844b596b5', '6488fea4-45ca-4a8d-a093-c2ab906aa781', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('273b7ef0-490c-4ef3-99d3-5ed63c56f059', 'e896b47b-65df-4a34-9b33-e93fe72c049a', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('273db8c0-49dc-4525-b763-adac62d8a1a1', 'e9263193-424b-4f50-b0b6-eb762c2d1cfe', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
@@ -5790,10 +5893,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('2ecff558-115b-40d8-bc75-f761d46b126c', '8b9dab1c-947f-464d-8fc2-a3895d2b8efd', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('2ed1eccf-ec77-4ea8-ab23-09f736d55351', '542884be-c1d1-45e3-9df1-87b581ed16a9', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('2ed33b3f-2b63-445b-b023-d16801c40e1a', '9a484c59-886e-4f93-a452-4646e626eb49', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('2ee03dab-2c2c-4ec6-aafb-a981ec85b941', 'ef9c3c3b-c1af-4d67-b200-b218eca54bfc', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('2ee43138-89d4-440c-ba10-d8e16091fa4d', '5ea42451-0fcf-4379-b6c1-e15dc807831a', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('2ee856e6-a566-4a4c-b21c-1095400d7a99', '81df1106-ea68-44b5-9617-7c3dace40449', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('2ee03dab-2c2c-4ec6-aafb-a981ec85b941', 'ef9c3c3b-c1af-4d67-b200-b218eca54bfc', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('2ee43138-89d4-440c-ba10-d8e16091fa4d', '5ea42451-0fcf-4379-b6c1-e15dc807831a', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
+('2ee856e6-a566-4a4c-b21c-1095400d7a99', '81df1106-ea68-44b5-9617-7c3dace40449', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('2ef59834-b4d0-40ad-a161-92a23a163af2', 'cc5a2477-691f-421d-8d2c-3731dbb198c8', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('2efb44bd-fd75-4938-8591-dc3e808fd621', 'a5750db5-c745-450f-aec8-1d01d2d1bb7c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('2f0181ca-d154-4430-b1c0-35bddeb5abf9', 'a781b7f3-7a5f-49c4-9018-c11da71107b2', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
@@ -5873,7 +5976,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('30e9b422-c777-430f-8bd2-9f8d9f02c8e4', 'fcde54e9-fb6d-4d25-8882-377a2e65f2ff', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('30ef3e0e-3adf-4e24-9346-95b0c9a8e102', 'af4d7524-7c1a-4635-9a4d-928275a92aa7', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('30f05ff0-b532-424a-9d28-aa2ea3daeed6', '7865dd64-8282-4d5f-82c3-71008b7da794', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('30f78205-accc-4456-a8d6-4811824f958e', '72a345a4-8ecc-406e-84d8-274484479bd1', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('30f78205-accc-4456-a8d6-4811824f958e', '72a345a4-8ecc-406e-84d8-274484479bd1', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 600000, 0, 1, NULL, '2022-04-15 20:08:55'),
 ('3100c479-b205-4e3e-b2d2-cc9e01e01c5d', 'c483d638-82ae-4d70-a878-f74b2cb5a05c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('3105e928-fb7c-4296-9d43-f9e9a570f23b', '952f11c3-a4a0-4139-8511-93ccb6220051', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('311498a6-8342-439c-aae3-d8ec83132abc', '5a027f92-b147-4422-87a8-b3f76da072e8', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -6116,10 +6219,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('3696f9d7-c1ea-49c6-b87e-a7e8c1d666d3', '374121dc-3492-4336-a73d-1fdd6753e210', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('36978b32-09b8-45d1-9ef8-1594188ff3ba', '27d99e5a-a4be-4ac1-98bc-e123b59c294d', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('36af1b82-ce25-4a4f-8915-885d6defd644', '4e47c953-458d-46e5-8dce-3c53dc5769fa', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('36b39f86-aa91-4829-8768-050442275614', 'd828d134-17e9-4b9a-bed0-d234c3ff5383', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('36c1cc94-8bcf-4458-9e6b-ca101500ce44', '43ef6d32-695a-40b0-be5d-24b95c0db395', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('36c2315a-7292-4677-a47d-3a1904f64f7f', '4d71f755-2231-42d9-bd4d-00e081ffc886', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL);
+('36b39f86-aa91-4829-8768-050442275614', 'd828d134-17e9-4b9a-bed0-d234c3ff5383', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('36c1cc94-8bcf-4458-9e6b-ca101500ce44', '43ef6d32-695a-40b0-be5d-24b95c0db395', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('36c2315a-7292-4677-a47d-3a1904f64f7f', '4d71f755-2231-42d9-bd4d-00e081ffc886', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
 ('36d44829-7b9f-4ca0-a2db-7db8edfecc28', 'c9c64024-5c0b-42e8-8478-d3c4b9ddc81a', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('36d86041-b587-496a-bf91-7bc0a8839300', '26f56ab7-c777-4baf-9097-3b58c7b93bab', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('36d9c439-e438-4827-9316-7f23f2ae83b9', '614544e4-9745-401b-9a4d-6bc421a6a445', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL),
@@ -6132,7 +6235,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('36fdae78-fce7-4585-b946-c6dbe41af5dd', '33e22c9d-781f-4902-ab06-ecd85e6d898d', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('370455c2-8b76-48d3-aa9b-6ae8ec6a1803', '399b641a-d2a4-4ebd-95b4-1cf1c14fdb80', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('371062f0-4444-44e6-8d44-d5d4ac7eff9c', 'c552b2ac-2a4f-43ba-b3e5-d4b56eed40cb', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
-('37134fb8-bef7-4cc8-8722-4592082a885c', '0b2d2895-d2bb-492b-b1a2-0f776d853803', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('37134fb8-bef7-4cc8-8722-4592082a885c', '0b2d2895-d2bb-492b-b1a2-0f776d853803', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 100000, 100000, 0, NULL, '2022-03-18 14:46:56'),
 ('371e0ef0-20db-4217-87bc-3b12bac3d2f8', '451f7215-aa1d-4ba3-9ea3-2db694327e94', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('3727c80a-5b5f-4151-843d-094cb290d48d', '7804b3c4-b407-4886-a423-4b5500e24ae1', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('372b37c7-9b23-4871-a912-fe3d8aca4ece', '7c42f68d-8b9b-4e79-bb8d-9aa9c95e0d22', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -6210,7 +6313,6 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('38cbdf9c-7027-4b39-9338-869c1e5c14cf', '9b9a27d6-1bfb-4295-9da9-8ddac571b199', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('38d0dbcd-dc95-4310-b48e-ddaa9263dd8b', '03f48cf9-ec0d-4d3d-80e9-27ce6b193b3b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('38d8c4e5-54ec-4fbd-839e-4ae3ad2a3363', '27c389ae-99b8-45ed-9717-d4bf6f1c69ba', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('38d8d883-5c83-49ed-a099-9c7d4bdfe0c9', '5bc47961-ca32-448f-bcf8-b31d0098788c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('38f2f8ce-c455-4106-921f-c19d588dddf1', 'ad5f4fd4-18e3-4fce-a08b-89a4d52d0e7c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 50000, 0, 50000, 0, NULL, NULL),
 ('39019d20-3e4d-4e06-b11f-f1aa68338b1c', '93533463-ca98-458b-91be-eb79dd9307d8', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('390b1111-8370-4187-a9da-0f3281ba89ef', '70b7b6d0-3956-4554-aca5-b1676573b309', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -6299,7 +6401,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('3b433a3f-5e83-4dfd-94a5-7c14958787b2', 'fa8e0e04-eb9d-490b-9d3b-3a78f2ba5c8e', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('3b4657d5-3391-42b0-86f2-5898b73d9f9e', '466d883b-d317-4d0c-b32c-4a0205629b50', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('3b4b7e78-e3a7-4059-821e-c2883c813186', '37fb3d92-268e-4ce1-a927-cc2c49c60828', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('3b4e3118-ad82-4351-982e-94c3706b3d98', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('3b4e3118-ad82-4351-982e-94c3706b3d98', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 200000, 400000, 0, NULL, '2022-02-25 00:53:52'),
 ('3b51e0e4-3228-46f6-bee3-c64c934c1d57', 'e15c2eae-6e91-4155-a8ba-65923003d08e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('3b582513-f5ea-49de-ad4d-86a6aeaac6fc', 'd663c843-c466-4152-a75b-e255f93c7d95', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('3b63fe8e-8cc0-4d65-a152-d275ca8b6303', '7da2e38e-5b76-4116-af7e-04aadf717cf0', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -6443,10 +6545,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('3ec63e15-c07f-45e4-891f-a3b1edd58505', 'b6e76067-b423-4598-b02f-d8e0a77b60bb', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('3ec7f2b8-bfd2-460c-839a-a6337baa8738', 'd3c2a4e3-04b8-4a44-a432-b9fcf933d797', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('3ed1c75a-bce9-45f4-bcf6-5b949d23d93f', '24a8c4a1-821f-43d7-937b-78d7e553715f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('3ed40cd9-6c02-496b-bcf9-47e904abf0cf', 'dea71234-7d71-475d-96b4-eb3c6ad0c58e', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL),
-('3ed92163-4b0a-4b6c-bf52-1afeac8a3b2f', '653eb0f2-8d3a-4134-99cf-f5cb28006a78', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('3ee0bdf2-a8a6-48f0-b407-780446f65340', '5f9ed9a9-0fe0-4a42-8cb3-3a3c0a8b8513', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
+('3ed40cd9-6c02-496b-bcf9-47e904abf0cf', 'dea71234-7d71-475d-96b4-eb3c6ad0c58e', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('3ed92163-4b0a-4b6c-bf52-1afeac8a3b2f', '653eb0f2-8d3a-4134-99cf-f5cb28006a78', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('3ee0bdf2-a8a6-48f0-b407-780446f65340', '5f9ed9a9-0fe0-4a42-8cb3-3a3c0a8b8513', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('3ee13d8d-13a4-4fcc-a7b2-5cf387a64779', '279e58c1-e6fd-4574-ac5f-5ecdb46d1c10', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
 ('3ee52534-a8ca-4dae-91fb-570c6c9fe37e', 'cdc39e88-44a2-493e-acee-0fdddaf56074', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('3ee64582-f2ab-4945-b423-c3a07c00e14e', '8e6dc6bd-9ad1-415e-9ed4-2127d278b20a', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
@@ -6770,9 +6872,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('46b40324-1704-45d7-9da2-383ade46ca87', '24cea392-1ac3-4ed6-971c-a6480196e505', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('46c2f848-1fa3-4bbf-8a41-06367a8890d7', 'af4642fd-ad92-41b5-be64-bc25a125e332', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('46c66a90-b263-4aa6-a113-fd0e4b763e37', '6918da81-1462-404a-82fc-20e3d84106f7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('46c8131d-90d0-422c-bfff-93b51d836625', '7354f6e3-d4c1-44b3-9fa7-dc6942cc9dd5', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL),
-('46d911df-069a-4cc9-9448-c12d9c2fe872', '12a890b2-4a59-4bc4-b004-e957c922a20d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('46c8131d-90d0-422c-bfff-93b51d836625', '7354f6e3-d4c1-44b3-9fa7-dc6942cc9dd5', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('46d911df-069a-4cc9-9448-c12d9c2fe872', '12a890b2-4a59-4bc4-b004-e957c922a20d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('46e51d2c-ff2e-4153-b987-c019383a73e7', '8813b610-968a-4ffb-a28d-ec89f5e39e8c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('46e5912d-a5c0-49fc-97cc-b1d3efebf1ae', 'eb85fdbb-1811-421e-ba24-343a6a053340', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('46ee7350-aa1a-49e6-9612-23362473493e', '12e97b67-1262-4f8e-986b-0a29fd4d0c13', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -7096,9 +7198,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('4ef1afd2-1432-40fd-83e1-43a51b2121d4', '87fd7425-84e9-4cec-95ca-5ad315d03cfa', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('4f085a3b-052e-43de-821c-1743fe3b9975', '565f56ad-5afe-45c0-b456-7045040bbc59', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 100000, 0, 100000, 0, NULL, NULL),
 ('4f09ce18-e025-4005-8945-137be871cf9d', 'ad33164f-debf-4e2e-969e-4d5f9f9afe4b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 50000, 0, 50000, 0, NULL, NULL),
-('4f0f601b-fbb3-4bbf-be20-33f50d4186c3', 'cf5708ad-11ab-4fa8-bcf6-fe85ab65e44e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('4f0fe184-ac49-4656-9f13-3b1bbd1c0459', '8bc37532-72fc-4d08-8555-0bc54c277d06', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL);
+('4f0f601b-fbb3-4bbf-be20-33f50d4186c3', 'cf5708ad-11ab-4fa8-bcf6-fe85ab65e44e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('4f0fe184-ac49-4656-9f13-3b1bbd1c0459', '8bc37532-72fc-4d08-8555-0bc54c277d06', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
 ('4f17cee3-6f61-49be-99ea-65db5ed9cfe7', '73262db1-e59b-4090-b147-f9df51878e8e', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('4f1a85c4-35c0-410b-a70c-e199f7aed972', 'dacc9eac-27a8-4614-89eb-38893a00b477', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('4f1ae38e-89a9-43c1-afd9-768c7755f335', 'e33767e4-3945-4249-b75d-20dd755ed8e0', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -7422,9 +7524,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('57686568-f8a6-4712-93a9-689c948bcc88', '3a6226d1-0c9e-4c47-a871-dc537d0f0ef1', '37989f36-e4fc-4bb6-88ae-698c675cbb6b', 250000, 0, 250000, 0, NULL, NULL),
 ('57690075-0e2e-4a88-a09a-436b497d27b9', '0add4544-3ac5-47ce-bd50-3c83bcbf53ae', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('576cbda6-5eb6-4400-a4ba-2d3f5e84a332', '9d8d3648-6643-4774-a2b3-51c66713235b', '24a04c39-9c44-4c10-9d6f-23fddee790d3', 100000, 0, 100000, 0, NULL, NULL),
-('576e1db7-2342-4be0-a4b3-842a2cecd3e4', 'c552b2ac-2a4f-43ba-b3e5-d4b56eed40cb', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
-('57933cce-3c48-4379-8532-96f38533e211', '088e3868-d2ee-4a30-8a9b-26c9ee1fea0c', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL);
+('576e1db7-2342-4be0-a4b3-842a2cecd3e4', 'c552b2ac-2a4f-43ba-b3e5-d4b56eed40cb', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('57933cce-3c48-4379-8532-96f38533e211', '088e3868-d2ee-4a30-8a9b-26c9ee1fea0c', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
 ('5795e0c7-3f5a-48ba-b0e3-22ca1d92dc97', '65a8d479-9972-4a01-b663-03a126684e67', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('57a40f40-5a2c-422c-b457-9e09a25f8312', '0abe83f7-0745-4149-a9e9-782426015a30', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('57a83095-8e25-4384-9826-7a10622b1aa6', 'afba950c-9744-4eaf-8d16-9f530e141787', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
@@ -7683,7 +7785,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('5d37e077-5723-4b80-8323-5236491707b4', 'e0eb19a2-0f95-4e2b-bdea-61de554b76c8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('5d3894a2-36bb-4032-982c-80846b0bb1f2', 'b5472e8c-7645-44fe-99c0-250e8bcdd6f4', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('5d47eba1-c2d6-4778-9d94-4e2f2f80625f', 'da09ce38-7ef4-4241-b4f7-1ee92efa2cb5', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('5d542df7-2966-4a67-bf2a-d68319aeb8e0', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
+('5d542df7-2966-4a67-bf2a-d68319aeb8e0', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 20000, 80000, 0, NULL, '2022-02-25 14:52:49'),
 ('5d547d40-973b-484f-a892-080c33ceed46', '680cf3a7-8a41-4081-b6bf-971c242da092', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('5d60301b-009f-4ad0-bad3-b86c814d8981', 'fd174e33-faad-4a7e-a4cd-d8ab048fe0e1', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('5d7730fa-d540-4dd0-b658-28c192beff45', 'c50206b3-f25d-4a72-a868-af99036884b8', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
@@ -7748,9 +7850,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('5eb7dedc-6193-4122-b1f7-bc1cb025d51a', '98ccea4c-8656-47e2-80b2-55e39060048b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('5ebc73e8-be6b-452f-877c-99f7add5fdbc', 'e79a00a9-3a6e-4d85-ad89-9b223da19dd7', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('5ec157b6-0d6d-4e81-951f-0b7155ecdcf4', '0f2c30be-b78b-4a05-903c-ce8aa1707775', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('5edc1986-6a3b-4ff5-a141-7d5b85e093ef', 'de1bc6b5-4a9c-4e4a-880e-d7646e5a073f', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL),
-('5ede9314-b00d-4f16-aa79-939ca4988f72', '6d565bfc-9f25-427e-b381-3410d8be0ac3', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL);
+('5edc1986-6a3b-4ff5-a141-7d5b85e093ef', 'de1bc6b5-4a9c-4e4a-880e-d7646e5a073f', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('5ede9314-b00d-4f16-aa79-939ca4988f72', '6d565bfc-9f25-427e-b381-3410d8be0ac3', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL),
 ('5ee0e189-f136-4f97-9a3c-a9c3876d7ae1', 'b0aae2b8-ee06-4c99-b531-9139ee72c0f6', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('5ee6d337-b13c-4c5b-afaf-c420859fb80c', '615259f0-af62-450b-970f-731dfb4b81ac', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
 ('5ee86ae2-a4a0-41a7-9739-3cd85e1785b5', '2d5eef0e-1040-443f-9c94-b26154425a6b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
@@ -7941,7 +8043,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('639b6e40-56f8-46a7-9807-ae29eb0dc6bf', 'ae95d836-7993-44fb-80b5-8e5e3949a63f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('63ae9d1d-2285-4217-8f98-5d58ef4546ec', 'ab98e09a-adeb-4146-b26d-fb5e383b722f', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
 ('63b14e5e-4564-49e9-b96c-233c7769874f', '385ffe78-37f7-4fab-9221-e9313face0e2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('63b8f0d3-4dfe-4ada-bfc3-d1e05bf001b8', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('63b8f0d3-4dfe-4ada-bfc3-d1e05bf001b8', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, '2022-02-25 14:52:11'),
 ('63bb2ee4-6f3a-45ac-844b-b8226b39565b', '263c2964-7d0f-4f54-a007-ebeaca9498a5', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('63beb787-bc91-4e63-bb16-c828df9cb3f2', 'b7c15545-daae-4686-83b1-b098f800acbf', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('63c33366-7c61-4ea8-afe0-52510f1563d8', '53a81f4f-6b36-470d-971b-f59b05f571b9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -8074,9 +8176,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('670f2c4d-ee83-43ec-8d1e-335ddf82b77e', '3bbebe34-8d4e-4bd3-a1f5-4d50eeedeb34', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('67288b9e-b69f-451e-8287-9359e2bcfc5c', '12566434-4148-4b71-8756-504019723d72', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('67293fdb-0eb5-4551-8ebe-41abd2e7fdac', '36c8843b-9a10-4ce2-908c-8a608d28e12f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('6736e79e-bd71-4239-9a98-70958e3f4e8c', 'c2a52191-954e-49d2-88f1-00a0dd5308d8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 0, 0, 0, 0, NULL, NULL),
-('6738feeb-567a-4348-b55a-1100216f6852', '9e6cc0fb-dec7-4b6d-8218-0ac20d12e44a', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
+('6736e79e-bd71-4239-9a98-70958e3f4e8c', 'c2a52191-954e-49d2-88f1-00a0dd5308d8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 0, 0, 0, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('6738feeb-567a-4348-b55a-1100216f6852', '9e6cc0fb-dec7-4b6d-8218-0ac20d12e44a', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('673a1eb4-949b-4097-978d-cf7539e2868b', '064c5026-0727-47d5-8ad6-423015aa98b0', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('6744576f-ee54-4558-8462-2441a78bc1f2', 'd58af307-0358-419b-b33b-97e6a636b01b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 50000, 0, 50000, 0, NULL, NULL),
 ('6756c1cc-8e54-44a3-9d2f-d845eac90214', 'e8992244-8c6a-4841-9a76-d15f9c2f07f2', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
@@ -8400,9 +8502,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('6f4502a8-20d7-4fc0-a891-1353a9bfa9c6', '1894d5e3-a686-42f8-aa11-4cb1505dbd2c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('6f4f1965-055f-425b-bc51-6a21b5b4d87c', 'a2541961-0076-43f4-a883-258727a838ed', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('6f51d550-fa95-4b3c-8bba-e29653f40b35', '55dcf455-b468-4346-8eac-e69b9821d716', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('6f5cbd3d-fcc7-4c02-8244-51dbe527818b', '78ad1f62-2377-44a8-bc18-0475b4154885', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
-('6f5e9489-13d4-4ac4-aad5-8d8f348dea04', 'ed061882-db8a-4e55-9658-fcb1385e4cbf', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
+('6f5cbd3d-fcc7-4c02-8244-51dbe527818b', '78ad1f62-2377-44a8-bc18-0475b4154885', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('6f5e9489-13d4-4ac4-aad5-8d8f348dea04', 'ed061882-db8a-4e55-9658-fcb1385e4cbf', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('6f6049b4-4b98-4441-9741-671ecabd5816', '71956234-c7b5-48e3-a8b6-588c633f8e76', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 50000, 0, 50000, 0, NULL, NULL),
 ('6f6243e5-6f35-4436-b911-8367499fe2b7', '475fdcdb-8253-4100-8377-4dd9e259f814', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('6f6b4cc2-49af-4372-8998-4ac4617964e4', 'd0296600-7fa4-4570-93f3-a2ead9a370f7', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 0, 0, 0, 0, NULL, NULL),
@@ -8564,7 +8666,6 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('73484d78-5983-42b1-a553-aa85a47844b0', '67a0826b-b605-4588-b124-b04bc5c787d9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('734cf6ac-1f5d-4f19-a9fc-b0db2df48a1d', '8813b610-968a-4ffb-a28d-ec89f5e39e8c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('7351a879-55fb-4769-a346-a71242e40146', '79a963ce-951d-4502-81f1-8a3c9e6ab0be', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
-('7352acfc-25e1-4046-86d8-e8115c521da6', '5bc47961-ca32-448f-bcf8-b31d0098788c', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('7357070f-be4a-48a3-94b2-82a84492f90b', '5b0533fe-f685-4328-bace-ca0fe017248d', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('73588116-951c-4e55-ae3b-fe6f4c70be1e', '730d9b79-f12f-4f6a-9e30-477bb24fdb4d', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('735acaf2-474b-4e88-9dea-6cfd30f870d9', '839f50fa-b2ed-4300-9b3f-fe4dd55cbc44', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -8847,7 +8948,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('79fff0cf-0f82-4e7a-a947-f715d44ee07d', '886d5541-4f86-4262-9999-6870c7a70c96', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('7a0409a8-4143-4fdc-b432-ba66226300d5', 'ef567cef-ab52-462e-840b-f44d46cbe5f6', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('7a06b43f-41c2-40da-bc34-671fd55c54ef', '90252cff-68b8-4e09-8cd6-f328a1f21f5a', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('7a112bc7-f500-495e-87b7-6a93df73b68e', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('7a112bc7-f500-495e-87b7-6a93df73b68e', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-02-25 14:52:11'),
 ('7a19ce9c-8fdc-48dc-9352-dccb3a0c9b88', 'c81bfe66-2c17-4cca-ac84-eea1edb80268', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('7a1b69a9-fc0b-4d00-aae7-031b08515335', '494a5391-ff3e-4dd6-8fb8-477b7a50fad1', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('7a1ed9b2-915d-42f1-a248-64b02b1b7543', '251344ac-884c-4f60-ba9b-982b905f3e62', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 50000, 0, 50000, 0, NULL, NULL),
@@ -9054,9 +9155,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('7fe455a5-7f43-49e9-9505-38d9db8f2e44', '283dc5ee-af47-4e8e-8bef-e2e6f3ec9ee3', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('7fe49288-3481-40b1-813e-40fe576fd125', '96358c69-57d4-45a0-92dd-2c75d2124716', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('7fe6d16b-b36e-4393-8664-6bdbe34d0319', '0f56a8df-990c-4013-bffb-a6f3388e54e6', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('7fe8ec9d-d2d5-4219-9d0c-0f4f7188e8d2', 'c2e72e37-6a24-40cd-bc84-dc7fe1bbfd70', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('7ff57408-e5fc-45bf-850e-df8d737bcd59', '8a528984-7a7a-4c80-949b-47de71e112b9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('7fe8ec9d-d2d5-4219-9d0c-0f4f7188e8d2', 'c2e72e37-6a24-40cd-bc84-dc7fe1bbfd70', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('7ff57408-e5fc-45bf-850e-df8d737bcd59', '8a528984-7a7a-4c80-949b-47de71e112b9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('7fff400a-329c-4d4b-8510-d43f5f5c6ca9', '608dce19-d29e-4d8e-ac49-fbe4a51dc732', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('8000950e-4f3d-4fa8-9b8b-904e2641a3f0', '3b350bc4-f792-4ff8-822c-786d11b98b5b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('8003b602-86ed-46df-a0dd-c0297bc8e15c', 'a4dc6ce8-df11-4117-9ddb-b242157d4d4d', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
@@ -9381,9 +9482,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('87bdcbfc-91a5-44de-8f17-be45ac7ada9e', 'de1bc6b5-4a9c-4e4a-880e-d7646e5a073f', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
 ('87c130fb-3b7b-42d3-8d7a-6a84b6f2bfa4', 'dfcd8a33-1fc2-4a6b-b3d3-61faf35aef24', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('87c40aa9-fa53-467e-8fb4-ef2e037958b0', 'a4c8cdd1-b6ff-4c22-9b7c-5f1e01dc549b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('87c7381d-448f-4926-a03a-d5f02da17040', 'a3c856a6-0aec-48a1-9854-a48100867ecf', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('87cd1d4e-b653-413b-8b5a-4a20ea5fc7e6', '85648710-746e-46df-b89a-fc60ae7e9dda', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
+('87c7381d-448f-4926-a03a-d5f02da17040', 'a3c856a6-0aec-48a1-9854-a48100867ecf', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('87cd1d4e-b653-413b-8b5a-4a20ea5fc7e6', '85648710-746e-46df-b89a-fc60ae7e9dda', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('87d757f3-2730-4ed9-9dfe-c31df9a9a49f', '6addf42a-d185-4c2f-b198-fc5cc24160d7', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('87dc3fba-8584-439f-8da2-ea7ac4835b6f', '6452d8be-1ffb-4c4f-97c4-5f496063c300', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('87e50205-9a33-4eef-8875-d0d2a6d07c6f', '9dc2602d-5c76-4232-8860-08178cef1d4e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -9520,7 +9621,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('8ae30efd-48d6-490a-a8b5-044a4da44faa', '30370da9-797f-45f8-a259-59623d9d9f31', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('8aec8e59-7b94-4010-af1b-f095f1eb1d3a', 'd3f24ae7-bd2a-4b06-855d-232a262c5ad6', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 0, 0, 0, 0, NULL, NULL),
 ('8af4a45d-b42f-4967-83f4-fc1d269a0341', '63e15df2-41ad-45db-9d45-98f593d06c9e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('8af7b733-4ded-4f51-8d0a-09a2b5b8e107', '954e1713-f3b3-4dcd-874c-aea00a737358', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('8af7b733-4ded-4f51-8d0a-09a2b5b8e107', '954e1713-f3b3-4dcd-874c-aea00a737358', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, '2022-02-25 01:08:06'),
 ('8afd69c7-f074-4941-b244-a94c84ef91bc', 'abaefecc-c6f0-4a28-b7aa-77a3c64da149', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('8b06e4e2-e9a0-41b1-b6ee-f330eb6268a9', '52c8f13e-ca07-4eb0-b7b0-e64928cf1b1d', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('8b0c3756-d082-46a4-bcda-bdd4c449b012', '382fade1-08e0-4ea0-afe9-0241e9f19916', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -9708,10 +9809,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('8fbb9b6c-49bc-4c8a-87e2-84f4afe4815c', 'aa3185ca-a83f-4edc-bec5-aa3473a1e76e', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('8fbf64b0-4e0d-40cd-a459-2bdbb9e0a5ac', 'aaec64a4-7d45-44e9-b4b8-614ec5f97473', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('8fc08dd3-4f60-4632-8a07-eaa727a0427a', 'add4f26d-f2c2-4d12-87ae-10d26a3c7e73', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
-('8fc4bdbb-77aa-422f-ad69-6e0fd58df233', '59e7e66f-122e-403d-8c30-114b1cce62a3', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
-('8fcb944d-56e5-4908-adfb-b3d5ca3e4505', '21a3d6f5-c1f7-4dc5-bbe0-a7e5d72c254e', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL);
+('8fc4bdbb-77aa-422f-ad69-6e0fd58df233', '59e7e66f-122e-403d-8c30-114b1cce62a3', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
-('8fd2a112-34f1-48d7-9f5b-e58ab4bf1716', '3c61888c-42b2-4690-b0c5-a9e0e209170c', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('8fcb944d-56e5-4908-adfb-b3d5ca3e4505', '21a3d6f5-c1f7-4dc5-bbe0-a7e5d72c254e', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
+('8fd2a112-34f1-48d7-9f5b-e58ab4bf1716', '3c61888c-42b2-4690-b0c5-a9e0e209170c', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, '2022-03-18 14:46:56'),
 ('8fd4a864-91eb-4644-a490-2a8871808b6e', '44ceed03-4117-4f1f-925b-c70e03fcfd76', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('8fe48fca-e21f-407c-a6a6-8233832507b0', '47a10fba-d4ee-4969-b085-f8a3fa69a040', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('8ff61061-47af-4401-95cc-d85495f40cce', '9ef11e0e-ecfd-4cad-a856-2a228ca78d8b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
@@ -9895,7 +9996,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('944eaa56-37c1-4922-882b-80f308ddb16c', 'a491b352-6107-48db-9e88-7859b618cefa', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('94543738-61c5-469b-ae68-51bb943c2760', 'c286f379-69e0-4db0-af6f-ba080c1732a9', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
 ('945a0e62-49a1-4685-a2f4-0a191b124560', '7450835e-5842-4d55-9b3c-df3074374b23', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('94638f02-cd6c-4ec4-9ff2-9f1e8c3b8c47', '7d39b568-dfb2-4e2b-87c1-f9e908015538', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('94638f02-cd6c-4ec4-9ff2-9f1e8c3b8c47', '7d39b568-dfb2-4e2b-87c1-f9e908015538', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, -210000, 810000, 0, NULL, '2022-02-25 01:01:32'),
 ('946b0941-4f48-4184-ac58-cd3b204fbf1b', '804917cf-97bf-41f0-95a7-1de833246e1a', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('946d4a93-e862-4aaa-8e20-0932945ab673', '5ee82ade-3374-4d41-be29-f5434b57d833', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('946ec44b-62bf-436b-bab7-5d5b68d8327a', '75ded6db-ec25-412d-baf1-1d978175a759', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 0, 0, 0, 0, NULL, NULL),
@@ -10035,9 +10136,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('979be72b-a44a-4033-a03e-d6acc07c4d1e', '75d701cc-5884-4227-9ba6-f37dc484521c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('979cad88-e3e5-4a73-aa16-299434b76fb1', '99e21536-c99d-48fd-8eb7-d44944bbfef3', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('979e1cf3-aa4f-45a0-ae0d-b89967b7d962', '339960f1-3c6c-4b00-8fe8-f4ce1f6c76b2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('979f2087-4281-4c94-b690-aee03836b207', '57d3bf6a-735e-4c95-a0aa-5ee77adaf51f', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('97a7ebf3-34b8-4963-94b2-f2cdd318b9ad', '0bad95c1-0803-4834-9f7e-4c828eeed999', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('979f2087-4281-4c94-b690-aee03836b207', '57d3bf6a-735e-4c95-a0aa-5ee77adaf51f', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('97a7ebf3-34b8-4963-94b2-f2cdd318b9ad', '0bad95c1-0803-4834-9f7e-4c828eeed999', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('97a9199f-4bfa-4568-9917-aedb23b97941', '0068c5f8-7cf5-41b8-bf7f-ac29023add46', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('97b376a5-f218-4fc5-b7fe-321673fcb154', 'afa3e6cd-73c8-4137-b69c-95fb64f9d846', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('97b474b8-9779-4ec5-8a80-dfc2736777a8', '088e3868-d2ee-4a30-8a9b-26c9ee1fea0c', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
@@ -10237,7 +10338,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('9c58ba89-6b95-4310-945c-7e6dae88d8bc', '8ee34e80-10c1-454c-b31e-3c9744c70f0b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('9c5dd80e-4959-4e40-a93c-7e83e5205d0e', '9f87e98c-5469-4e18-9b4e-3c33ae11c932', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('9c5ffa99-9e5e-42b9-b262-06b9a8b9e16f', 'f1b24909-11ab-49d6-9703-89c112b308d7', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
-('9c606f58-519b-4d46-9294-f9c0177d4d96', '7d39b568-dfb2-4e2b-87c1-f9e908015538', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('9c606f58-519b-4d46-9294-f9c0177d4d96', '7d39b568-dfb2-4e2b-87c1-f9e908015538', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-02-25 01:06:41'),
 ('9c6d3c5d-22ca-4aae-bfff-7c3fd7589556', '6f6308b6-91a8-48ad-92d3-131ac37dce0d', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('9c763206-6341-47f4-84f8-ca4360413be9', '4c850311-d91b-4f1b-8e61-dadffbf03fd2', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
 ('9c7e7505-c2a3-4647-9ad6-9342a37ee3c1', '62d6937a-dfbd-4e7e-8992-69baa9c7d7d9', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
@@ -10362,9 +10463,9 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('9f5d3255-b010-4734-aa12-b780e6d83d03', '99c1f0a2-3a62-4202-b5ad-f4a27988eb5a', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('9f5fa4a7-31e2-48a0-bc47-07edce93d639', '19ec3679-1f15-4961-85e0-5820a89a1330', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
 ('9f6570ac-0e15-42f8-a10d-63a0e06543ac', 'acf4c8b0-fd1a-4608-b705-ed1dd3ed3f41', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('9f693dba-6fa1-4472-9aff-66bef96f435d', 'a8905b2c-8a73-463d-940f-9637dc06e9c2', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('9f6d9a21-69fc-48cd-a550-4dfe302482f0', '82366093-f8d3-4064-aac0-e1f675b10b47', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+('9f693dba-6fa1-4472-9aff-66bef96f435d', 'a8905b2c-8a73-463d-940f-9637dc06e9c2', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('9f6d9a21-69fc-48cd-a550-4dfe302482f0', '82366093-f8d3-4064-aac0-e1f675b10b47', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('9f7deaea-fca1-432d-ac2e-892cf0289c3d', 'ad45e762-8647-4444-92d3-2c0b9c018a62', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('9f8b3c5d-5a8a-44c8-bf64-45abe80eb2e7', 'e755ba4e-4932-4481-860a-9776810d393c', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('9f96a876-e80b-42ab-aba3-a776391247df', '4c850311-d91b-4f1b-8e61-dadffbf03fd2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -10413,7 +10514,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('a0cbc32e-46d2-4cec-8b3e-bfaa86404948', '3d0fb092-d7d2-4c27-bbeb-38c9bcf67b2d', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('a0d0d52c-5408-47ea-85d0-b42f3913528a', '3dd5e2e9-9eef-44b1-b419-4c61930e80e9', '5dc87858-1aa8-446f-acdf-7ce77cdf958e', 100000, 0, 100000, 0, NULL, NULL),
 ('a0e28082-a861-406d-8b0c-c3000a00bb78', 'afee88a1-1d4f-4f2d-a420-af9a7689d87e', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('a0e289aa-52a3-49a4-b231-3c893b70dd1d', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('a0e289aa-52a3-49a4-b231-3c893b70dd1d', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 50000, 0, 1, NULL, '2022-02-25 00:53:52'),
 ('a10211fe-85ee-4f29-ac8c-b540de859a27', 'b7a378e5-cfbc-4f23-9b86-1b7614bb1597', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('a105de20-64fd-48bb-99f9-694ed8f29cf6', '8edff17a-e846-44dd-be42-77a4bce2ccca', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('a11528e2-c0ad-494b-991d-2bdd1bbe9fe7', 'dfd77152-29c1-4d83-a6fa-8b40c5f88e16', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -10441,7 +10542,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('a196cfa7-0aae-4bde-b232-8fbf5fd41fbb', '31c1b0db-376a-4da7-88ff-65f83a6b57df', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('a1987631-f9de-4ea8-8a1c-81271e29dac4', 'a484fae4-63b9-40b8-b32d-cc3a354508fb', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('a19a175c-1bd3-4a9f-a523-b0e90885c83a', '55dcf455-b468-4346-8eac-e69b9821d716', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('a19ed5b7-fb15-405c-8e39-64e84d6d67db', '7d39b568-dfb2-4e2b-87c1-f9e908015538', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('a19ed5b7-fb15-405c-8e39-64e84d6d67db', '7d39b568-dfb2-4e2b-87c1-f9e908015538', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, -520000, 770000, 0, NULL, '2022-02-25 01:01:06'),
 ('a19f6cd9-38fd-4731-8d12-81d6a9e4ad6f', 'b30a56ff-a90e-48a4-956a-8503c2316578', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('a1a30a75-399a-4104-940e-cba68b9dac59', '69283755-7893-474d-aa6b-2d699bda2848', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
 ('a1a4a72e-404e-4854-b810-34fae0da2b9f', 'deedd0d8-003f-460f-b8a9-8886663c4d31', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
@@ -10469,7 +10570,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('a1eca2ab-a391-456a-af8f-2677cd0ec827', '21a3e13d-4e8e-4db8-9ce0-e81e9e3be871', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('a1f3486b-e3ca-4e25-9b75-dd118a5c427b', '348815a3-5d86-444d-8306-d8223cd75e53', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('a1f36f73-6a85-490c-a83f-8c4760e5f51b', '5778039e-e3a7-4bb2-9929-2d11690b2af7', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('a1f42c2a-acab-4381-8e37-1bde86caee01', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('a1f42c2a-acab-4381-8e37-1bde86caee01', '7a62d714-35b5-41b3-8a83-6b9ddb75cd0f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 200000, 0, 1, NULL, '2022-02-25 00:53:52'),
 ('a1fb9771-e05e-461d-b4f3-6852dc5dad8f', '6c0f15bb-7b37-4ba7-9bdd-337b87174f68', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('a2047437-89ca-48d3-95a0-97f40c68c0ff', 'cd3d3e6d-cead-4eba-9ef5-9a16873010cf', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 0, 0, 0, 0, NULL, NULL),
 ('a20a1a5f-cb8a-43a4-a78e-434226a1dea9', '6cc333e5-34e0-4338-90cb-c7ba7477bebc', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -10530,6 +10631,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('a38f069b-f1e8-4363-8ccc-810b6a1c6df8', 'f1b24909-11ab-49d6-9703-89c112b308d7', '37989f36-e4fc-4bb6-88ae-698c675cbb6b', 250000, 0, 250000, 0, NULL, NULL),
 ('a39fb41c-778e-43ad-bb36-3625b9301318', 'cd05b976-a53d-421e-98b6-58fd6a2c0960', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('a3a516df-5a3c-497c-9e08-f661acdc9a12', '9e6cc0fb-dec7-4b6d-8218-0ac20d12e44a', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('a3ac3001-8991-46c5-831d-603e68fad729', '5bc47961-ca32-448f-bcf8-b31d0098788c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, '2022-02-25 14:56:06', '2022-02-25 14:56:06'),
 ('a3ac98c2-0948-4c35-bc99-68f20df02c2d', '7e827a66-d441-42ed-91f9-ea85cb0f09a6', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('a3b390d0-6e61-4f55-bf97-531451d5b14a', 'e623f1d4-d606-4931-81df-c024b68bced4', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('a3c08f7c-fac6-44bf-a1ac-99dfd9d4f704', 'fc999a72-be2c-4bdb-8499-1c60609c42f8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
@@ -10687,11 +10789,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('a8299df5-b8b1-461e-bde3-339b410e52fa', '4d7867d9-ac2c-4944-9217-b888d1d43d7b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('a82a8f69-4b18-4f33-abcf-a49e6e1e780c', '8ee04577-7aee-4ef2-8128-ec60458b31ca', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('a82b6100-f320-4219-a2e6-b502c308da19', '052aa329-8612-4e88-a162-a8cd97909fc6', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('a835b3c2-bc8c-47f0-8eab-65c39a0ac680', '86d6acf0-dc76-4503-b188-717fbb84a2f3', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
+('a835b3c2-bc8c-47f0-8eab-65c39a0ac680', '86d6acf0-dc76-4503-b188-717fbb84a2f3', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('a837bcb6-6033-468a-8970-2bc2b7179277', 'a9225057-9a30-41f3-b523-ceda8b8b45d6', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('a8381c4f-e713-4e03-b324-0c11701ba587', 'dc9524ef-7bff-411e-8a18-e2303f54d10b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('a8383017-aaea-4207-a5f0-d289178b19e0', '2e22c98e-721c-40ef-ac60-7bb1c534ef47', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 200000, 0, 200000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('a8383017-aaea-4207-a5f0-d289178b19e0', '2e22c98e-721c-40ef-ac60-7bb1c534ef47', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 200000, 0, 200000, 0, NULL, NULL),
 ('a83933b3-5e0a-47e9-85e2-6393dee39ab7', '17852882-bc78-4f79-bf3f-b014bd7908fe', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('a83c3476-addc-4a3b-9af6-08b8df1d9bb8', '5eaa5f64-d550-4823-92d3-6b0f612024d7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('a8529580-ee6b-40ed-8647-93bf7f207a51', '636bf26b-8271-433b-bb15-056124295c42', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
@@ -10771,7 +10873,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('aa7e9147-2e42-4373-8436-e3660eae5cbb', '4b1ae643-3da8-4fa1-b40b-316dc908ae37', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('aa845754-7022-4c95-967c-d08e1c36b813', '9d58ced4-e693-41b1-87f7-5614689091fa', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('aa879ef4-d4d2-4636-872a-ea6e1c6dd0b6', '95176e7b-55d4-4e3e-9c05-50c6c078ddc9', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('aa89157a-6341-4580-bd30-54b26eabbb37', '72a345a4-8ecc-406e-84d8-274484479bd1', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('aa89157a-6341-4580-bd30-54b26eabbb37', '72a345a4-8ecc-406e-84d8-274484479bd1', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 250000, 0, 1, NULL, '2022-02-25 00:50:23'),
 ('aa925622-2165-46e3-93e6-499d857a6672', '3b34df8f-02c4-444b-9df2-0e1e05b1ba68', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('aa943151-9f20-448a-9127-1e2576ae72e3', '1a41c5a2-b98c-44d6-afdb-b64aa5232eeb', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('aa9b10c4-7cca-4758-a7ae-df366586b192', 'cb375288-538d-4fbf-a268-5e87af63645e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -10866,7 +10968,6 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('ad67b44e-63c3-4e44-8706-bd9c62e77b61', '8036667f-ad38-4e74-a829-d9c05785071c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ad6fe965-3bb8-42f7-bcb9-48ee0bcdb9d0', '6ae86f85-fb84-49e7-bc4b-047a6e9ca1ae', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
 ('ad757403-b0ab-42c8-b6ef-a18141c9845f', 'c7e9600f-81d4-416b-896b-f9906839901b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('ad769410-01b7-4ae8-b30e-db3bd08e4fe6', '5bc47961-ca32-448f-bcf8-b31d0098788c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ad7ccd77-b392-4736-9fec-1c8508cb5593', 'c1ca97cc-2fa8-4462-b517-145bb5777a1c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ad83b2da-502f-48f9-a93c-848c4a54ea3c', '7bac1ac8-ac18-43f7-be59-7abb23263e65', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('ad8b27fd-98e5-4cc8-9a36-0c7d31e31863', '58a91f8b-4bd3-451a-8575-36a812db1a0d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -11015,10 +11116,10 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('b0eef46c-095a-4113-b90f-0a9a20773f72', '9f87e98c-5469-4e18-9b4e-3c33ae11c932', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('b0f009ea-4b3c-4df2-a093-6219347ea62e', '6dcec8a9-351f-40db-bff8-cb8a089fd933', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b0f42f6a-a587-4992-a9fc-45213d8a3c52', '1cbb5351-238d-48d7-a3da-84545fc6ccd2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
-('b0fef1c5-3b21-45c8-bdf9-78e30100f274', '4d111cb3-2be5-47e3-ab85-481e4ef6f90e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('b1011ae9-299d-47ac-b4a4-b1d23ad47342', '38b415a2-98e1-48a3-9548-00859e9311f8', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('b107bd7b-c485-4910-861c-f80f90dc0757', '40f66a00-d8e4-4762-bb07-e5e4d08b1574', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL);
+('b0fef1c5-3b21-45c8-bdf9-78e30100f274', '4d111cb3-2be5-47e3-ab85-481e4ef6f90e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('b1011ae9-299d-47ac-b4a4-b1d23ad47342', '38b415a2-98e1-48a3-9548-00859e9311f8', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('b107bd7b-c485-4910-861c-f80f90dc0757', '40f66a00-d8e4-4762-bb07-e5e4d08b1574', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('b10e7de0-5eba-471f-966c-e88c03ed771a', 'd6f4bff2-1e30-4e35-8055-947b1fff47ef', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('b115768c-51e1-4207-ac28-b0159cd12f26', '2a12ddfc-2c61-4d8d-b1b8-530ad4b16c61', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b1252824-d3d5-45c7-85c1-883813c070bf', '59a02644-7c0e-4ebc-824b-aebedc67bb17', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -11085,7 +11186,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('b2c642ac-6e1d-4dec-ad53-628fdbbc17a0', '32c0d972-aad2-4363-8c1c-f82583e7614f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('b2d85b16-6c13-48c0-911a-1a18b873d988', '4c1405d8-89ba-4b94-8c2b-60a462d040bd', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b2e4dbce-e7e3-4f68-b5bc-33dc047b6d49', '0193192c-d1fd-4882-9f96-80b5799d3a12', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('b2e51c8a-3c62-492f-9ed2-c3187c5444a8', '72a345a4-8ecc-406e-84d8-274484479bd1', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('b2e51c8a-3c62-492f-9ed2-c3187c5444a8', '72a345a4-8ecc-406e-84d8-274484479bd1', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 50000, 0, 1, NULL, '2022-02-25 00:50:23'),
 ('b2e6992a-e236-4224-ab96-76c6c6dd6600', 'a39ca96f-16be-4276-a53b-5b625fda4d1f', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('b2fe4477-361d-49d5-b6f9-14aff4169ea9', '2e1409eb-294b-4262-b33b-6b3759813e50', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b3036d5d-b723-4842-833d-45f7b11e8e15', 'eb999659-bf7c-4944-8569-69d49c1264f3', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
@@ -11341,11 +11442,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('b9538098-7b9d-4941-bba0-51cbc9a8a5a8', 'b022bd55-15b0-4cb6-971b-79fff0817233', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 0, 0, 0, 0, NULL, NULL),
 ('b953bd7b-3247-4c3b-8df6-3ce8f571f112', '952f11c3-a4a0-4139-8511-93ccb6220051', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b9544c0a-3a55-48f9-9bc7-d8d372812c47', 'a25092e8-fcc3-4bc3-b930-f087f6d7b2cd', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('b95cfab4-0216-40d3-a9d6-ec0e61beb30c', 'f61e8ba2-ef1a-40ce-9388-6f66dc0dada6', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
+('b95cfab4-0216-40d3-a9d6-ec0e61beb30c', 'f61e8ba2-ef1a-40ce-9388-6f66dc0dada6', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('b97256b9-1e7a-4a8b-a0b1-7f49955c2d7b', 'cb1a393f-5af3-4f48-94f4-b9b6ec1c784d', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('b982b082-734f-458a-953f-2437d3519bcf', 'e57920f9-854b-4aab-85dd-f397e2694765', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('b9874325-5db9-4a40-ae68-7d3e10bad05d', 'a17176b5-acf6-4359-9ad7-a4ec004713b9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('b9874325-5db9-4a40-ae68-7d3e10bad05d', 'a17176b5-acf6-4359-9ad7-a4ec004713b9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b997c1a1-d219-4f8f-9c98-01b8184734d0', '561e3796-077a-4c27-8dc6-7a09ba3964b8', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('b99e36c4-3bc0-4b70-aca0-b768a00f8470', '22b5aba7-99b0-4dc8-999c-96c39124764b', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
 ('b9a15044-36b3-40f6-b8c9-ec6f2100ff9e', '5d5c2c79-e33e-4178-b0da-bdffa05bdbf8', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -11500,7 +11601,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('bd909398-d0a2-4702-be98-09ce26bd5b61', '074ab392-2f10-46f8-aa4e-58641accdf16', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('bda198bc-bb13-4441-8f50-d3b377f1b701', '5d501dd7-4b20-4efa-8282-fd650a34df63', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('bdaf0280-4929-4662-a53d-c10ebb86a95d', 'e15c2eae-6e91-4155-a8ba-65923003d08e', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('bdb464b6-5413-404c-8bf6-2af6c3cacaf8', '954e1713-f3b3-4dcd-874c-aea00a737358', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('bdb464b6-5413-404c-8bf6-2af6c3cacaf8', '954e1713-f3b3-4dcd-874c-aea00a737358', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, '2022-02-25 01:08:49'),
 ('bdb4990e-7a72-46ef-8122-e15fe23b377e', '678583c4-62e4-4c85-9239-0725f134b1d3', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('bdb85d21-7f12-4f0c-bb0d-2dfb5ac38aec', '2ecf8258-7082-4943-8aed-7be8438d555d', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('bdc5d305-74a7-4d34-8eae-fe9b39ac9b9b', 'b30a56ff-a90e-48a4-956a-8503c2316578', '18011f03-7d4b-437f-b193-3dad96282610', 715000, 0, 715000, 0, NULL, NULL),
@@ -11553,7 +11654,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('bede9f4c-4d41-410f-bcec-973d4aae3992', '2c61813a-fe92-4c31-befd-94167f325cd3', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('bee37040-b688-4a2e-aa8f-6a6d394065cc', 'c3b97d80-ed4c-4ab0-bfee-509a4fdf41ee', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('bee9eb5c-9663-4ec1-9b06-f87ea6077904', 'e38437bf-5f56-4b1a-b549-0b8803e868f5', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('beea997d-dba3-4b58-89ab-e6fc96e9b8e6', '954e1713-f3b3-4dcd-874c-aea00a737358', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('beea997d-dba3-4b58-89ab-e6fc96e9b8e6', '954e1713-f3b3-4dcd-874c-aea00a737358', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-02-25 01:08:49'),
 ('beed7c03-54bb-4167-a020-d6ae8e45d3e0', '792531dc-fc84-4303-9265-8d50bfe5f4cd', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('bef88974-2262-4a97-8904-779664271b56', 'b6cd5a24-cafb-4f99-bd24-b858e46f9933', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('bef98164-7e18-4e09-ba9a-e5fc7537415e', 'd4328915-0969-41d2-b17e-c1238d52198d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -11667,11 +11768,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('c164da67-3ccf-49bd-81ef-703fd3d92b9c', '6bc92eeb-9846-46ad-9c75-d4d677d6e439', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('c16a9d5e-b51f-4c0b-928a-43d04b6d8180', 'fe6834cf-594a-4f83-b33e-29c42e9bbdb8', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('c17b5ae1-2c8c-4bcc-9eca-b3f5970970d1', 'be385019-d5ee-41ee-8f36-6052da7281a0', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
-('c180343a-26eb-4480-b6ce-30551b552630', '384d9eff-8397-440c-9551-2a039410f037', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
+('c180343a-26eb-4480-b6ce-30551b552630', '384d9eff-8397-440c-9551-2a039410f037', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('c1866705-a69c-400d-89c7-2de9d13ada09', '34173439-e7d4-4a4b-988a-962392f06b08', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('c1866b18-af69-444f-8d2f-e61398dd57cf', '22b5aba7-99b0-4dc8-999c-96c39124764b', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('c187e9fa-65b1-4b8a-bf98-b34e86cb4bda', '73e653a1-d7ce-4abf-b437-c2a7a1d0dfdb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('c187e9fa-65b1-4b8a-bf98-b34e86cb4bda', '73e653a1-d7ce-4abf-b437-c2a7a1d0dfdb', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('c18c3a26-9484-48f6-a28c-ffd6cfbd554e', 'f615a259-b80b-4a90-9219-910b344cf5b2', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('c1a3c454-5e97-4008-a7e8-d6cf9cddd556', '27ac2d75-ea64-45f0-b753-c78835285ea3', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('c1afe6a4-49c6-4a73-9dcb-2d7cf5a54731', '7d805e7c-0c08-49a4-ab7f-c8e30e01a5aa', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL),
@@ -11913,7 +12014,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('c73d570c-023e-413a-8cc1-044c880a9b88', 'e5c8f98f-04c8-410c-82ca-846224beb1cb', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('c73e0653-3982-4012-9dac-f9df33245a69', '01471a19-1fc6-494f-9247-dea7eaf87782', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL),
 ('c73e2a10-79bb-4be4-b6ef-e89fc9319ab5', 'c5ea6f28-cc2e-4c2e-ac4e-bf2471067cd2', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('c73e6276-6444-4fa7-b6c0-17ed40790035', '0b2d2895-d2bb-492b-b1a2-0f776d853803', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('c73e6276-6444-4fa7-b6c0-17ed40790035', '0b2d2895-d2bb-492b-b1a2-0f776d853803', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, '2022-03-18 14:46:56'),
 ('c74422ff-b0ac-4c2a-9607-a72b9304b6a5', 'aab9e841-140e-4bcd-b840-3066916f7b77', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('c7469dc2-cc51-4bb7-aae4-7d22af33f41a', '04cc0a3b-aea8-4490-bfdc-2d0980bd4eb7', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
 ('c74ed25e-e518-43e6-ab94-fc0fd1425bdf', '2e1409eb-294b-4262-b33b-6b3759813e50', '18263e0e-8dd9-4e00-b3a9-a3a79136937d', 300000, 0, 300000, 0, NULL, NULL),
@@ -11993,11 +12094,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('c8f641a9-f65c-49cf-829e-5ccdbb955705', 'bd3a5808-efb6-4c5d-a799-d62d2c3a64d9', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('c8f9a0b8-fcb5-466b-b184-6a71f7ec3d69', 'f2440e43-3963-4094-a9c5-13e60aeee2ae', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('c8fde30b-fde7-44b6-b0c9-e82fb784107d', 'd3c0f6ab-e782-4b63-84c4-90e003eaad04', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
-('c8ff3cd8-13b8-4e20-b72a-42d59cfa0226', '1f4cd12d-d870-4d79-8106-deb3c4af4300', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 3000000, 0, 3000000, 0, NULL, NULL),
+('c8ff3cd8-13b8-4e20-b72a-42d59cfa0226', '1f4cd12d-d870-4d79-8106-deb3c4af4300', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 3000000, 0, 3000000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('c9035d69-b0fb-4eb8-82d3-400bb4220b69', '563eb5bf-9f74-4a57-ad9b-ccfab540f2af', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('c90665ec-356c-444d-b597-e17e70ab4cf6', '43e718a1-ad4f-47b9-9dce-ac6fb52a634b', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('c909cd23-d87a-4eb1-8b7e-87a155520aad', 'e1a9702e-7ea4-4db4-bcf2-20a32feb9005', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('c909cd23-d87a-4eb1-8b7e-87a155520aad', 'e1a9702e-7ea4-4db4-bcf2-20a32feb9005', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('c911b021-89c9-4a64-b850-9f9082dc65ce', 'b027e52c-eb08-4680-8ad6-8d35955bb6f3', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('c92105d7-53e1-4852-8b8f-924a4ee043b8', 'c97b510c-6895-45dc-a1ef-eb7d8c9f2d4c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('c92756b0-2c59-45eb-93ad-51eee3c7d5f5', 'e9098790-915a-48a9-a214-15d7716e4273', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -12260,6 +12361,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('cfafe5e2-0b41-4b3a-9221-8bf7c8de39d5', 'a854ef9c-7f47-4941-b0ac-c15fbc1c4953', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('cfb2d0f0-17ad-4a7d-88db-22484e11a1ee', '39c992eb-a36c-4d9b-a325-48bdc6919c6f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('cfcd1da1-4c5f-4ecd-936a-944dc8cee7e5', '9179af34-106b-4768-aecb-35bba8ac4686', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('cfcec0ea-4167-4579-bf5a-6222a20a97f2', '5bc47961-ca32-448f-bcf8-b31d0098788c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, '2022-02-25 14:56:06', '2022-02-25 14:56:06'),
 ('cfd83f6d-0f7d-435b-af97-e447ee53d126', '13e15d0d-0e72-4407-ad0c-0f6a183226b8', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('cfdcc201-7055-4463-89cd-36df508e274d', 'eadc73e5-f053-4d0f-b36c-d208f08b379d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('cfdde6fc-65ff-4a78-af38-a217a42e007b', 'e0bfcc60-f53e-4625-967a-3623e4e0d8d6', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -12302,7 +12404,6 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('d0a73e77-7cd4-424f-8679-9acf70f9005a', '08b4d540-a18b-4ef7-9787-c1024fa58ac9', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('d0abf4e9-9dca-44f4-951b-6e6ac44c612d', '7fa2dd92-a16b-4006-87fd-878f7e22dd75', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('d0b3f6c3-2eb0-47f1-87f2-335d368c239e', '83116b8e-f476-4476-93e3-8f3c993a929f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('d0b591ee-ae2d-43eb-92fe-cd366926ad88', '5bc47961-ca32-448f-bcf8-b31d0098788c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d0ba7bb7-469b-460a-8f3d-26c144cce749', 'bf2b41ba-dc0f-4b58-b53c-2e0232f10c62', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d0c84b83-07a0-4e72-aa01-9de3309694a1', 'db9be7ec-0924-4a8f-a2c6-c6a8b04359e4', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('d0d5cc2c-6a7c-4207-95e8-d4d73659c3be', 'c4c6229b-8d22-4095-8496-69f05c438ef0', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -12319,11 +12420,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('d12db508-f951-49b3-b915-5924431c1482', 'c50206b3-f25d-4a72-a868-af99036884b8', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d135cb57-612c-49b5-a1e3-ab002efcdc14', 'ee653ceb-7690-40ce-80d6-31479ce2b293', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d137aab3-4917-49d3-a14d-bc4a1c5acd54', '17be38d3-b357-4306-9c96-fd7f4d667a29', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('d13fa4ee-a0e7-4273-8556-88199cd862da', '4c850311-d91b-4f1b-8e61-dadffbf03fd2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('d13fa4ee-a0e7-4273-8556-88199cd862da', '4c850311-d91b-4f1b-8e61-dadffbf03fd2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('d1481605-5be6-4c49-8a94-130bf951ff2a', '16a8a359-ff04-424f-a135-ad83eab0467e', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('d1579a86-c0b0-4ac8-9df5-3ac355cb0c82', 'd9809b19-d310-41c9-af4d-faf7249a8c78', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
-('d1583851-0657-44db-b393-1f0918257ee0', '5b7e76da-992d-4116-9823-2a2a7e0b91ee', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('d1583851-0657-44db-b393-1f0918257ee0', '5b7e76da-992d-4116-9823-2a2a7e0b91ee', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d15d131c-8d5c-4c80-9236-3b0107b7576d', 'a52d3e6e-489e-4dcf-b4f4-fd122f90fc5c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 0, 0, 0, 0, NULL, NULL),
 ('d16c0d9c-b460-4c36-bdc0-ec6cf36319b5', '792372a2-44c1-4fc3-a359-061a606f3bd5', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('d176a218-3015-46f9-b109-8400ee383b0c', '78ceb80a-bed7-424d-bbb3-ab71297899d6', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
@@ -12332,7 +12433,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('d1890193-215f-4479-b10c-0b48d7a52131', '115e27d6-ffaf-4d4d-a736-1a19a28e10cc', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('d1966ab3-5fcc-49b5-a5e8-0d6dc87b7a0f', '91b46456-5de9-428f-ba17-263e75cd8576', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d19ab19e-201c-466d-bded-a9d13c7c0b74', 'b0b8d7d6-85e2-4f24-8e60-025834fdf030', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('d19cecc3-fed0-4645-a49a-895e54f8c852', '0b2d2895-d2bb-492b-b1a2-0f776d853803', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('d19cecc3-fed0-4645-a49a-895e54f8c852', '0b2d2895-d2bb-492b-b1a2-0f776d853803', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, '2022-03-18 14:46:56'),
 ('d1a80d69-c908-42bf-83f6-a23ce136ef63', '845bcac3-52b8-4093-b401-6bde231669b6', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('d1aacf74-45ea-4f8c-8b10-4d9c9605b95f', 'dca88775-763e-4853-ae3c-6a9af3f12f34', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('d1b2e6e2-bbca-4a6f-89d9-09de1587299d', '46a011f4-56ab-41a6-878e-59287f47422d', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
@@ -12646,11 +12747,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('d9b310e8-1348-4e98-86ff-a93b9e6495a8', 'bb3d1581-70ab-4ca3-bd3a-64dbcededd23', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('d9bbb4dd-8834-4b7f-954c-2b5d7c701b72', '40ebe716-6613-46ac-bd29-704628916107', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
 ('d9bd6ca6-b435-4eca-af95-7ffc6ad04d55', '3ab34326-dc42-4677-a614-dae8432a45a7', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('d9c3a4a9-e327-44c8-bc6d-3319109660a1', '68f1d55d-f00e-4963-990a-ce32e08e7960', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 0, 0, 0, 0, NULL, NULL),
+('d9c3a4a9-e327-44c8-bc6d-3319109660a1', '68f1d55d-f00e-4963-990a-ce32e08e7960', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 0, 0, 0, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('d9c56426-457a-4bab-ab7c-5a74d6e25911', 'cbc761c6-4f40-482f-b255-974dfa5ed9c5', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('d9cc856d-2b42-45fb-96b9-ff9dec22d3d6', '81a9f932-08ac-4b2c-b3b5-b2138bdf75ff', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('d9dbc6da-537a-4650-9651-d66270444c8f', 'ae6fb3d0-9a71-4e52-9950-921aa756bb0f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('d9dbc6da-537a-4650-9651-d66270444c8f', 'ae6fb3d0-9a71-4e52-9950-921aa756bb0f', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('d9e15d72-e448-49f3-bbc4-b3254ef6d45d', '1a47f799-8394-4cf6-a467-59728bc6d7cc', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('d9e8f63b-3f24-4adf-9846-7e02f5854338', 'b3e6eb7b-fe9c-4ea0-90ab-4251d15a37b7', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1500000, 0, 1500000, 0, NULL, NULL),
 ('d9e93695-4097-4337-a816-f6d6584d42e3', '96c15b98-49a6-4178-872e-eb40fa1ad583', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -12817,7 +12918,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('dead23ce-d9e1-45c3-b7b8-88e28015e84b', '6502374d-acf1-4192-be49-9e7657f9001f', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('debac837-6cde-47d4-b3aa-e5e9665f7b70', 'cefe8def-37af-4747-873b-52fbb847ae3a', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('debd8114-6ad9-4dea-b008-850943f9522d', '8a2b9462-e34c-4ea2-b0f7-dccec9d34ce3', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 0, 0, 0, 0, NULL, NULL),
-('debe3cc2-7789-47ea-a7b5-fc0e4a2d90a6', '0b2d2895-d2bb-492b-b1a2-0f776d853803', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('debe3cc2-7789-47ea-a7b5-fc0e4a2d90a6', '0b2d2895-d2bb-492b-b1a2-0f776d853803', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, '2022-03-18 14:46:56'),
 ('dec4a5b1-7b51-4e0a-baf0-475dfaa9b1ed', '7f15d25f-209d-4b56-9e4e-b147ff80bc4c', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('ded12b3b-e4cd-4172-abda-8ebdc7e3bfb7', 'c43fe64a-fca2-4b7e-ad51-e10e34eb5810', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('ded391a5-6dc6-41b1-ac4b-e1a2243a029b', '840fef89-eeb8-4955-84bd-a1ea172c64d5', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -12973,11 +13074,11 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('e28b4d7e-2b44-4808-a324-ed6494fd3860', 'c0ca3883-ca32-4783-86d3-58024c925944', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('e28bec2a-c9bc-42c0-86cc-cbba90ec62f4', 'fe6834cf-594a-4f83-b33e-29c42e9bbdb8', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('e28edd19-2b2f-4a34-ad15-fb96bc5206a5', '5ee82ade-3374-4d41-be29-f5434b57d833', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('e28f3c95-b3d0-434a-991f-5953c55ce66b', '417b5357-a306-428c-af4d-018513fa4384', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('e28f3c95-b3d0-434a-991f-5953c55ce66b', '417b5357-a306-428c-af4d-018513fa4384', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('e298aad1-3f38-4476-ada0-8f352d458f2b', '4c9d2e51-97f5-443c-99fa-9452023e1b32', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('e2aaeafc-fc11-4795-8ea1-c9f6f9c4657f', 'c2228c95-0707-406a-8653-abb301429e82', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('e2b3986f-90ce-4292-8a3d-8b20cb2edb01', '40ebe716-6613-46ac-bd29-704628916107', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 300000, 0, 300000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('e2b3986f-90ce-4292-8a3d-8b20cb2edb01', '40ebe716-6613-46ac-bd29-704628916107', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 300000, 0, 300000, 0, NULL, NULL),
 ('e2bee7a2-b5e7-489b-92bb-58ac274e4dcc', '2e1409eb-294b-4262-b33b-6b3759813e50', 'f29df53b-ca12-4e57-8f29-5c6cb23e386e', 250000, 0, 250000, 0, NULL, NULL),
 ('e2dba060-c92c-47b5-8ebb-e9f44f025494', 'b5fdf4da-5321-44b7-8748-db2c7bb6df3e', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('e2eb242a-1e3b-4233-84e5-ef482d37e93f', '318f9560-2cc0-412b-985b-9c896b690284', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -13299,12 +13400,12 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('eafc6b0f-893b-4194-ac2c-f74f15417393', '37773f96-965a-456e-8a9e-6f59efd8bbb9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('eafdb45b-98be-489c-b7ac-75d1f6619e8c', 'ed48b578-585a-4843-a53a-5295831f3ad4', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('eb0917bc-8e5f-40d0-bf60-29ed9eca15b6', '06b82099-3677-44ac-85e0-b94d8277eea1', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('eb093d7d-0eb2-4985-a1ac-4e6208d4e5a2', 'd8cf9b79-9754-4ccd-a4c5-ec69c4884d17', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
+('eb093d7d-0eb2-4985-a1ac-4e6208d4e5a2', 'd8cf9b79-9754-4ccd-a4c5-ec69c4884d17', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('eb0eee59-4585-4984-a1ca-787ae7b295b5', '8d6d60dd-761e-4dac-805c-18380aae50a3', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('eb119b43-3913-4078-97a3-5410f43b8630', '5f0f61da-eda1-4e24-996e-bc9484ee195e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('eb11bc9a-5ee6-49a8-b357-3ad9a05ad22e', '6e16e51e-3357-4b10-967a-e6e7aae4c4f4', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
-('eb15910b-532d-42ae-9007-38200345df85', '757f32b9-0ee6-40a1-8612-dc6c11597976', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('eb15910b-532d-42ae-9007-38200345df85', '757f32b9-0ee6-40a1-8612-dc6c11597976', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL),
 ('eb1aaea1-16ad-4180-a412-2d0556e3a228', '973bc166-ca90-439f-9492-319cc8c8f563', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 0, 0, 0, 0, NULL, NULL),
 ('eb1badb1-c61a-4f65-a386-40179ed1ffba', 'cd05b976-a53d-421e-98b6-58fd6a2c0960', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
 ('eb1fa992-0c64-4e4e-a131-4523a55faccf', '53936ed9-728b-4731-b08c-9e67492a9ee7', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -13342,6 +13443,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('ebf5521a-f5fe-428b-a67e-c18253f8815b', '7bf4da38-26c3-49c7-b309-868470f3660b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ebfce24a-3c15-431f-978b-39d4ce6ac162', '8e9237a7-d377-4f27-b884-217e0767a088', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 0, 0, 0, 0, NULL, NULL),
 ('ec004474-8916-4a4e-9060-0a15b888624d', 'da2abfea-edc0-40f6-afb7-8a0e71a76709', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
+('ec09a398-a27d-4e12-b1c0-d6bdaa787abf', '5bc47961-ca32-448f-bcf8-b31d0098788c', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, '2022-02-25 14:56:06', '2022-02-25 14:56:06'),
 ('ec0e96c8-5b4c-4138-bb8a-42961d30ff74', '52b2d5ac-4b94-4a00-947d-a36118cd654b', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ec1bfeb6-dbb5-4e78-a970-7bac72d1bd4a', '4c1405d8-89ba-4b94-8c2b-60a462d040bd', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ec2b98b9-520c-4e62-aaa9-5c472efd724e', 'b3e6eb7b-fe9c-4ea0-90ab-4251d15a37b7', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
@@ -13430,7 +13532,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('ee521fb9-2b6d-4c5a-889b-95121f450c51', 'de7502e5-c54a-434e-9c05-220e62ddd304', 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 1000000, 0, 1000000, 0, NULL, NULL),
 ('ee577aed-5f8c-44e2-82b1-81a315aa1aba', 'd551eaaf-1b19-4c0b-93d3-4ed0eee6761d', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 300000, 0, 300000, 0, NULL, NULL),
 ('ee5ec4cb-0e8c-4a41-af06-57f6310b4495', 'da49c258-6c6b-49e1-94fa-2c8f1f8429f2', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
-('ee6f7f3b-481b-448c-95f4-e70ded7308cb', '19b2d2a3-15b1-4438-b165-b11e4d64c7e7', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
+('ee6f7f3b-481b-448c-95f4-e70ded7308cb', '19b2d2a3-15b1-4438-b165-b11e4d64c7e7', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 50000, 50000, 0, NULL, '2022-03-16 12:31:45'),
 ('ee70bfa0-ded7-40b2-bd5a-151138a9d378', 'b9bc37d0-f7a2-4b13-8268-7483e9c689b4', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('ee72d501-839b-4ef1-a281-430b0191ea6d', '251344ac-884c-4f60-ba9b-982b905f3e62', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('ee817121-faed-4f59-9d30-84addc8500ce', '7cc964fa-8ef5-4c08-abea-f5e50f7b15bc', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
@@ -13623,14 +13725,14 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('f369b26e-ff37-4a33-9a9e-8d3e3f845e81', '4e556c72-9e98-4a71-b31a-012f56e7af63', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('f36abf33-ab8d-4d06-a8cd-af6ddb36674e', 'ff1a34be-8d0e-430d-9716-e4aea8299100', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('f3799793-ddc0-4895-bfb9-83865cdcafde', 'aba9beaa-687d-4f5f-902e-3e068815c0cd', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('f3812ba6-f73c-4319-82be-c1ee2f802b62', '72a345a4-8ecc-406e-84d8-274484479bd1', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
-('f3902a00-b3bb-44cc-a0f8-76fe050080f4', 'd6354536-2f2d-4d2d-a352-4b90f0d0c247', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('f3812ba6-f73c-4319-82be-c1ee2f802b62', '72a345a4-8ecc-406e-84d8-274484479bd1', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 200000, 0, 1, NULL, '2022-02-25 00:50:23'),
+('f3902a00-b3bb-44cc-a0f8-76fe050080f4', 'd6354536-2f2d-4d2d-a352-4b90f0d0c247', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('f39128ba-a1ff-4ef5-ab84-c5735015cdae', '68478293-b8cf-4933-9b62-125c427ca5a0', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('f39a0607-bfb0-49c0-966a-be26ce150be2', '17e23eae-f576-41ed-9fcc-e571a25a62e9', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('f39ab53a-1ed0-4786-820c-ce5208675427', '9e6cc0fb-dec7-4b6d-8218-0ac20d12e44a', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('f39bac6a-682a-4544-bd5d-9fc1b0f9b0bf', 'c11ac038-5280-4b7e-b04e-ea7ea7e52ee4', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('f39c4544-5541-48ff-8eca-d99aecebf8d3', '19b2d2a3-15b1-4438-b165-b11e4d64c7e7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('f39c4544-5541-48ff-8eca-d99aecebf8d3', '19b2d2a3-15b1-4438-b165-b11e4d64c7e7', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 0, 0, 0, 0, NULL, NULL),
 ('f39e92ad-d3e9-4e6d-9275-7867e0e9424e', '65a965ae-409e-44f0-8326-73927f508de9', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 100000, 0, 100000, 0, NULL, NULL),
 ('f3af9a55-5ab0-445b-9c36-6b006a053d74', 'b436869c-7376-4e33-905d-d380991bf568', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('f3b377d5-6178-4484-9f92-52283579d24f', 'deedd0d8-003f-460f-b8a9-8886663c4d31', '6f9a4d62-7a95-4fa4-9f7e-c4d10d36b425', 100000, 0, 100000, 0, NULL, NULL),
@@ -13906,7 +14008,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('fac5856d-3799-4237-8851-76f31476d4fa', 'cebc2f0a-980f-4ef2-b767-7a95824ea96a', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('fac63f6f-06fc-4eff-8561-0c24c23ecba2', '4415b498-9c25-4820-81cd-85a860ffe8e8', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('face1e0e-5e82-44a6-beac-c339dc8e252b', 'dea71234-7d71-475d-96b4-eb3c6ad0c58e', '4be7c624-6e95-4ee3-a7ac-598db66ff4ec', 300000, 0, 300000, 0, NULL, NULL),
-('fad74a10-60cf-4d83-b122-649f1171b300', '3c61888c-42b2-4690-b0c5-a9e0e209170c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('fad74a10-60cf-4d83-b122-649f1171b300', '3c61888c-42b2-4690-b0c5-a9e0e209170c', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, '2022-03-18 14:46:56'),
 ('fadda0ba-24a4-4e99-85a4-5d8876d90879', 'a22dbaf8-821e-4114-8918-ad8e6999e3c9', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('fadea1d4-4b71-4242-9e00-e84fbb1999eb', 'a854ef9c-7f47-4941-b0ac-c15fbc1c4953', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('fae67594-93ee-4c24-993e-2015de577ebb', 'b6aace79-a601-424f-ab35-db23d44fa156', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -13950,14 +14052,14 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('fbe7c47e-34c6-4ede-83c4-a7dd0b9d1bea', 'c5144952-f477-4718-adbd-0a7139eefd27', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fbfa5056-2ac4-4171-87e8-e3041705b536', '9957ff8f-fce0-445c-9005-93134ca4977a', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('fbfc5a54-cc96-4b9d-ac50-f55eaf5b8379', '9a71cd30-2c5b-4512-aee9-e8dc6f4b2d3d', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('fbfc8530-8297-4824-b484-126ae09cc713', '3369d50c-b374-44e7-863e-4660262b8f76', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
+('fbfc8530-8297-4824-b484-126ae09cc713', '3369d50c-b374-44e7-863e-4660262b8f76', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL);
+INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
 ('fc07cab9-6144-4e62-90d5-88a8ae527c47', '90b7a710-96c4-445f-a60c-2e8dba318c87', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fc0af953-9559-4245-b72a-a99d8a1525da', '4017dc75-4d89-4ee7-9f9c-f098d13e7b55', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('fc0cfeea-fa37-4cde-94a7-9fc3e6b3dd84', 'bdb89a49-90a5-4e4d-bc90-53baba907e64', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fc1929da-c161-451a-9b68-207517feb17a', '55ea6d5e-6487-4d15-8b2c-25b7e7904ad4', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fc1d8df9-fdfb-4d10-b881-81e2fbe59477', 'e5cb8c8f-2587-423b-b1e1-b8393e25ee3e', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
-('fc2471a0-b058-4d25-8892-d2de138a6fe8', '727bfe50-4378-4bb8-9088-fda0662b9390', '37989f36-e4fc-4bb6-88ae-698c675cbb6b', 250000, 0, 250000, 0, NULL, NULL);
-INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
+('fc2471a0-b058-4d25-8892-d2de138a6fe8', '727bfe50-4378-4bb8-9088-fda0662b9390', '37989f36-e4fc-4bb6-88ae-698c675cbb6b', 250000, 0, 250000, 0, NULL, NULL),
 ('fc2952de-89b5-4cf9-a908-558f1576e612', 'dfbb3dab-8a1e-4938-9063-4d949731564c', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fc2b5be5-9d3e-4247-8760-0b1c0e5f6f27', '17136829-9c7f-44d3-89bb-c280cbb2e203', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
 ('fc37fbc9-790a-4b5a-9613-367b7546b940', '30e53eac-e05e-4813-a228-8b5ce415bb5a', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
@@ -14092,7 +14194,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 ('ff8cb481-c1aa-4d4e-8171-5a47134fa780', 'f3713803-b54e-47b2-aacc-3412e3edae93', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 200000, 0, 200000, 0, NULL, NULL),
 ('ff9be42c-2976-43cf-bb98-bacb4e4e4083', 'c8f3d1ee-e552-4d08-b4fa-c96ddc214d7f', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
 ('ff9eb526-15fe-4044-8844-bfc9c7e817a2', '93ca30e0-fcfb-4df4-a28b-121585db8ed2', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
-('ffa11fd5-4d82-4494-b6e8-868eefb54577', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, NULL),
+('ffa11fd5-4d82-4494-b6e8-868eefb54577', '4c94c4eb-60f1-49a9-92b1-8d13e0527b8b', '7ccc1b0e-44c5-4f20-9bcd-118deac0a01b', 600000, 0, 600000, 0, NULL, '2022-02-25 14:52:33'),
 ('ffa62cb5-0198-41a7-a1ed-b8683456b675', '395e8243-991b-4099-9fe9-261d88af3870', '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 250000, 0, 250000, 0, NULL, NULL),
 ('ffb6f462-7f3c-46b2-80e9-dacd07bf15dc', '8125ef60-cab4-448c-9757-08c0d9204a09', 'd9c2c3b4-484f-4f36-a05e-b9e83d58a3e8', 100000, 0, 100000, 0, NULL, NULL),
 ('ffbd521b-c049-4b3b-ba30-9a18bec44535', 'b9bc37d0-f7a2-4b13-8268-7483e9c689b4', 'bcda29d7-b29f-4d68-a49e-c882faa8ac05', 50000, 0, 50000, 0, NULL, NULL),
@@ -14119,7 +14221,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 CREATE TABLE `tahun_ajaran` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `tahun_ajaran` varchar(10) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -14143,9 +14245,9 @@ CREATE TABLE `users` (
   `username` varchar(75) NOT NULL,
   `password` varchar(75) NOT NULL,
   `remember_token` varchar(75) DEFAULT NULL,
-  `level_user` int(11) NOT NULL,
-  `status_akun` int(11) NOT NULL,
-  `status_delete` int(11) NOT NULL,
+  `level_user` int NOT NULL,
+  `status_akun` int NOT NULL,
+  `status_delete` int NOT NULL,
   `last_login` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -14238,7 +14340,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('1b7669eb-a708-429f-9ca4-5d58a423ca47', 'Ortu Egi Reka Prasojo', '0053299212', '$2y$10$jgGNjHebyY3/8YkE0CGW3OQwTrWtVl6ayW0H0nZym0dlT86v/tyx.', NULL, 0, 1, 0, NULL),
 ('1bc2c629-c12d-433b-b3de-25db74c14b2d', 'Ortu Miranti Safina Tunnajah', '0042159651', '$2y$10$B2/bcKd1CSgQy5qQq6a64u1k1GAnj..JomkfrGfLJFrBfLOkkc3q6', NULL, 0, 1, 0, NULL),
 ('1bcf2d10-fdf7-43e4-adb7-d3d05d7c8eef', 'Ortu Rafa Hasna Aurelia', '0052935444', '$2y$10$Ol6kS1959BBEhk1P.Cym..aOAIR89ZpzybAZRvGJGFlzmqCNIDg7S', NULL, 0, 1, 0, NULL),
-('1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Nuri Dina Sari, A.Md', 'Dinaa', '$2y$10$9UIwCyE8AfUqpodJVXTRKeZ4pqqiW/uB3Ub8qh6v/jfb6JViAT4mW', NULL, 2, 1, 0, NULL),
+('1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Nuri Dina Sari, A.Md', 'Dinaa', '$2y$10$PyFiDz9GxAgZP7viLCospOEtZ2Xsr30m6WKxNPRnbD4yAXXAxGz9S', 'gTogWLVKSEYEJmTMBZdYQPqit9aK7QP1ei8tEknFRUpCh0fQLvE0b7U7DbnD', 2, 1, 0, '2022-02-24 00:21:04'),
 ('1c24f5c3-02a4-4454-bc13-4b1b284b513f', 'Ortu Muhammad Michail Maulana Al-Hafidz', '0053764414', '$2y$10$XFWns0xlDR4G5engf8jzJuFIuPC0k8QnVtOBcLal/dSPa7D8BtSE2', NULL, 0, 1, 0, NULL),
 ('1c27eda3-edcc-4d7e-a42d-37b28d9e8503', 'Ortu Sofia Noor Dianti', '0048589026', '$2y$10$7DulpNmPWufPgjIYTCGBDen2FZcCI0FUmEnn8C8Br590seEZRitzC', NULL, 0, 1, 0, NULL),
 ('1c2a64a1-f33d-40a7-bba0-c6939bfd38b6', 'Ortu Syaiful Anwar Ibrahim', '0055703804', '$2y$10$WSF6Hs0jR1ywB6.C/7VD4uVMehM.13cgTZPamjzPSXAXRJq5BOGVa', NULL, 0, 1, 0, NULL),
@@ -14309,7 +14411,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('2c08c0ee-2ade-4cdd-8592-3d4117ad77c6', 'Ortu Fathul Aris Nurmanto', '0054956408', '$2y$10$.FMX/8pElZ52MhZ03jcbHOEz/f4m/.J7YTLbPiQjCx1i52Bzv8M9.', NULL, 0, 1, 0, NULL),
 ('2c266f12-f719-493b-a500-0e066cda20d9', 'Ortu Nisa Mahmuda', '0044972325', '$2y$10$0Hp9ov5BwgqbZn1Fu4QSGuDtqk8Z4kSD7M0S04yHJiJJYhmcY.DHS', NULL, 0, 1, 0, NULL),
 ('2c2e21f6-a465-4039-8515-33476cc34668', 'Ortu Saddam Sakti \'Ammaar Hakim', '0049458925', '$2y$10$tdl0.RKw5aa9zvbSB15nweZ/o5BtN40z1W9KB.0hl48UlL0t0wbXW', NULL, 0, 1, 0, NULL),
-('2d276160-67e4-4da3-8451-3cfffbc403dc', 'Kepsek Sekolah', 'kepsek_sekolah', '$2y$10$B00g22L5CdE99cgpjDb7B.XPlswllgmrirofTX.fiLcrrLKcIS3hy', 'eynal9WOoKRNpVRi88cO9e1fDHbkUEcR4ynzrNRpbUePHBCt7xxp3hk0JbsM', 1, 1, 0, '2022-01-18 19:59:33'),
+('2d276160-67e4-4da3-8451-3cfffbc403dc', 'Kepsek Sekolah', 'kepsek_sekolah', '$2y$10$B00g22L5CdE99cgpjDb7B.XPlswllgmrirofTX.fiLcrrLKcIS3hy', 'eynal9WOoKRNpVRi88cO9e1fDHbkUEcR4ynzrNRpbUePHBCt7xxp3hk0JbsM', 1, 1, 1, '2022-01-18 19:59:33'),
 ('2d8ad176-0ea0-4743-87a8-0e3444698cf4', 'Ortu Kezya Zirly Salsabilla', '0037034289', '$2y$10$gH.qBbYHEUsj2kW0oV3JAeu.HCHAcutRq2dLh8gwVaT/rN.wDMe2C', NULL, 0, 1, 0, NULL),
 ('2e1b9666-8890-4ee9-a6d8-952e98a205eb', 'Ortu Aymelfi Kusuma Wardani', '0037033726', '$2y$10$7B9whauXLO047Bj8cBrPFOIrLweMfji8.hECSwZ/VgthZGiOT87Be', NULL, 0, 1, 0, NULL),
 ('2e863947-2ae9-4f61-8bdd-26e25a640245', 'Ortu Moch. Noor Yuda Pratama', '0056562302', '$2y$10$uKV4fiPqFrpzEmXL0Em6uuyicoGA4MNLXGgZUm2bIlHNpJ6EMEYoe', NULL, 0, 1, 0, NULL),
@@ -14338,7 +14440,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('35e55ee3-9b7c-40ea-b87e-0797c3d249d0', 'Ortu Muhammad Tri Juliatmoko', '0041073874', '$2y$10$8OYlDzD5S2AF/2.wV5R/Fe2pL1OCEIgMNZijjqAquiB8pnX2J2xhS', NULL, 0, 1, 0, NULL),
 ('367967bf-9911-4564-b4c3-6f2a4cdb4e64', 'Ortu Vania Nariswari', '0047098773', '$2y$10$fEVcHOhLjgSqokEXYWa1gePhtcdGN9MyzKSnd.kBJpQtzfWVJw2lW', NULL, 0, 1, 0, NULL),
 ('37eb66cb-f339-4b88-9385-c171091edd16', 'Ortu Adinda Risky Ayu Salsabila', '0045036703', '$2y$10$hUOuVfN54vv.0.0ZdZgWXeO7D9Ltc.TJFXrWlf/.f0YcR0Ooa5LDu', NULL, 0, 1, 0, NULL),
-('37fdbd81-51a1-4b95-b418-563f2ab01b16', 'Administrator', 'admin', '$2y$10$pimNKjAcUsCf9NzWK.9Csutc4FM8RK0uQjsMLYRBZU8dT9w7gF3UK', 'zzv2nzttRM0mkF3lQjGNTPdBwYskveM7qnB7agmJOCWlxK2QO2KiBcEiqrk5', 3, 1, 0, '2022-02-17 12:37:43'),
+('37fdbd81-51a1-4b95-b418-563f2ab01b16', 'Administrator', 'admin', '$2y$10$pimNKjAcUsCf9NzWK.9Csutc4FM8RK0uQjsMLYRBZU8dT9w7gF3UK', '4Q8iLY2pSm1WbJMcyg2RwKJn8a0wM0DjMeaBn6dljDdvPqWdcCKx7OE2fCvq', 3, 1, 0, '2022-04-15 14:29:38'),
 ('38d8c631-5485-48db-8a8e-67e0c09cc98d', 'Ortu Ahmad Sandy Noor', '0057410572', '$2y$10$dC7vuxru/EGnI5wK6Zx/GOxFLJXoqwii48ebYs9gaWmGAtNPswqWu', NULL, 0, 1, 0, NULL),
 ('38f1987f-d9dc-48fa-a541-341b2feb3595', 'Ortu Ani Nurtika Sari', '0061957576', '$2y$10$z1X0VaV5h0ro5/YEIRS4g.CX0b73AO0jtiyoF1exSW.Gv1750X2Z6', NULL, 0, 1, 0, NULL),
 ('393e6143-dcac-43cb-b8fd-676be0d6a061', 'Ortu Egi Reka Prasojo', '0053299212', '$2y$10$j8p6r37wsQSq5q0n4aWkH.WNn6lIrLWiiGTSgkflwI/B1quBnqpUS', NULL, 0, 1, 0, NULL),
@@ -14378,7 +14480,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('41411eab-cf5a-431e-99b3-34f8d97802a0', 'Ortu Rizki Dion Nasrulloh', '0069711652', '$2y$10$8F2qOPUiEET.GZVGKEIYDOLkUY8JfBoB6Dss8kPLORGwcv/XZWuZ2', NULL, 0, 1, 0, NULL),
 ('4325bde1-484d-4e16-8913-5c4848500e45', 'Ortu Tiara Saputri', '0052370939', '$2y$10$cwMSHcdOpxiIM51cYH/HqOHlCIcvai3J/vKda1XxxvXg4b4GZfFUa', NULL, 0, 1, 0, NULL),
 ('4338ee8e-8a2f-4830-b187-ea9e2039e72b', 'Ortu Arjuna Jaka Prawira', '3048540921', '$2y$10$INYh3HNw8W2V9YpCeMmPM.sre4.rWQe7wTS/zI3EVWAtx2RdO/BiC', NULL, 0, 1, 0, NULL),
-('436f66af-7753-49db-b644-f85f454557da', 'Ortu Aulia Fadly Juang Sabilur Rosyad', '0059953251', '$2y$10$8Gntt3vhmbfP9k6DbkNkwOOacDh.fys109Oxq.RJyPWo.A6isORM2', NULL, 0, 1, 0, NULL),
+('436f66af-7753-49db-b644-f85f454557da', 'Ortu Aulia Fadly Juang Sabilur Rosyad', '0059953251', '$2y$10$8Gntt3vhmbfP9k6DbkNkwOOacDh.fys109Oxq.RJyPWo.A6isORM2', '9t8tYSfZY8QgZB128WwOAvU8YJUeSMEasBWeON0HvEYA0NyMqxTuisy4fi7n', 0, 1, 0, '2022-02-25 15:01:45'),
 ('4378bed2-e9f3-4189-8414-92fe5b19c74a', 'Ortu Muhammad Michail Maulana Al-Hafidz', '0053764414', '$2y$10$FfvFH2oUW0Tc4BCGg/A2YeZEmKEmXWk/JsyMsNj8G/It1Taz6Qyni', NULL, 0, 1, 0, NULL),
 ('4494ed03-04d4-479b-9f93-185cc3470610', 'Ortu Muhammad Erdi Saputra', '0052004270', '$2y$10$4DtoLLfjzQIjjw2otE/1P.acblkWJlnVB3n5uKlhCQvouyczIk5Ni', NULL, 0, 1, 0, NULL),
 ('44b50b66-9b09-44e2-af5c-e51dfbb83716', 'Ortu Zahrah Nazhifah Iftinany', '0043319423', '$2y$10$c4MWcZp8.qeIRJTbk0v0oe1tXO84zRGJpHzCBqEt/vtsjgsdx0MD.', NULL, 0, 1, 0, NULL),
@@ -14448,9 +14550,9 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('593bc727-96c9-46c4-8a24-ffec3cd5ea8c', 'Ortu Aishita Zulfa Setiani', '0063661413', '$2y$10$QUTFHB7HqmRhSuugn8.GP.mhH7d3xaZqKiC8eJwe0tIecJfK897gS', NULL, 0, 1, 0, NULL),
 ('597de47a-f20c-40e1-820b-4c6dbbeb0093', 'Ortu Kevin Firmansah', '0043496261', '$2y$10$V.T2h5S/KaX4oop8X/95auJBk0nLD5l/XWILfNtK8ESUNswyOcQRe', NULL, 0, 1, 0, NULL),
 ('59ae06e2-00e8-4ca1-a20b-0f6c22855dc6', 'Ortu Saiziah Azza Agustina', '0045930058', '$2y$10$lxmx/i4NVeOKM3anmJN2Ju7EnB2IbhosNqce4/A/j0oiofqVDaaQW', NULL, 0, 1, 0, NULL),
-('59ee3007-23ab-4c40-b882-0bf01582f22f', 'Ortu Najwa Ayudya Chairani ', '0062444427', '$2y$10$sOlEaXzyarF5RaD2EJ7Gq.nGP5ez5kChSClNOO7WhGJFMG6EhISlO', NULL, 0, 1, 0, NULL),
-('5a2ea366-f56e-4e95-b8f5-79ee1318a054', 'Ortu Revalina Dwi Nurhayati', '0042017917', '$2y$10$prlHf1L6kyNjt8zXRRQ7IeuVCT9Ltqwsk0.S4sT7l7X9H3zq.yYIG', NULL, 0, 1, 0, NULL);
+('59ee3007-23ab-4c40-b882-0bf01582f22f', 'Ortu Najwa Ayudya Chairani ', '0062444427', '$2y$10$sOlEaXzyarF5RaD2EJ7Gq.nGP5ez5kChSClNOO7WhGJFMG6EhISlO', NULL, 0, 1, 0, NULL);
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
+('5a2ea366-f56e-4e95-b8f5-79ee1318a054', 'Ortu Revalina Dwi Nurhayati', '0042017917', '$2y$10$prlHf1L6kyNjt8zXRRQ7IeuVCT9Ltqwsk0.S4sT7l7X9H3zq.yYIG', NULL, 0, 1, 0, NULL),
 ('5a39dbcb-be35-4bb6-9867-2113847f7e77', 'Ortu Arya Muhammad Rizki Putra Pertama', '0069883398', '$2y$10$Amg2q5x2.4SKqLiVCJStWuvefogQg75Ko7Hy1n382Lc1Jq4rHBEvC', NULL, 0, 1, 0, NULL),
 ('5b1cd2ac-3596-48f1-bd4c-282df00ec87c', 'Ortu Fadilia Fatika Lestari', '0038973484', '$2y$10$HzrD8oxInVRp4pZdMvcBvOfGISdL9YkodJp/esfMjLAHj5XNL99bu', NULL, 0, 1, 0, NULL),
 ('5b4a09ff-d95b-4072-952b-b44aea4e9c8d', 'Ortu Ajeng Devi Lindi Ayu', '0051811849', '$2y$10$ftXcTC/XGkid8NEp6mnL4u3MJQfA/3V8lkB1VKDZuMsZXYATZwcxC', NULL, 0, 1, 0, NULL),
@@ -14745,9 +14847,9 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('b09036ff-d447-4a98-b769-e13446f176f3', 'Ortu Juan Daffa Dzaki Aldhisa', '0057112969', '$2y$10$vKxNnIsdqKGFkfqT5/En9.pF7TgqN5jg7K7RxsfQ19s0pPeH4A8hG', NULL, 0, 1, 0, NULL),
 ('b098479b-8a19-47a0-8217-06e31c8d7071', 'Ortu Tirta Ahmad Fionaldo', '0065634694', '$2y$10$pmLirEcVF//glyyuZdCLz.K6pe.pvV/8A8yoDTKinCGKQayM7Bf3q', NULL, 0, 1, 0, NULL),
 ('b0f2c8b4-ceb4-4667-950f-9e2e041af5c2', 'Ortu Aji Prawira Yumar', '0045978952', '$2y$10$XBvJPL5YAvzP04tuAf7ARu1HUUlJSoymxVGEGavcB7e.cqFVSV2bW', NULL, 0, 1, 0, NULL),
-('b102a983-7114-4683-8b00-2fc309161625', 'Ortu Risky Nurfadilah', '0034463513', '$2y$10$x084DUBiriYYkNkWjUF4LunzkuArXs8MFYQBNfj5.Iom8a.ymEUCK', NULL, 0, 1, 0, NULL),
-('b1a58bea-c93c-4c6e-b2df-a5cbd89a1e79', 'Ortu Nabyl Ubaydah', '0062375585', '$2y$10$0prc8droIUlYqnCDJiLmneqNRj.ReZg.RUvjIk8OFFxn4NiKbmDg6', NULL, 0, 1, 0, NULL);
+('b102a983-7114-4683-8b00-2fc309161625', 'Ortu Risky Nurfadilah', '0034463513', '$2y$10$x084DUBiriYYkNkWjUF4LunzkuArXs8MFYQBNfj5.Iom8a.ymEUCK', NULL, 0, 1, 0, NULL);
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token`, `level_user`, `status_akun`, `status_delete`, `last_login`) VALUES
+('b1a58bea-c93c-4c6e-b2df-a5cbd89a1e79', 'Ortu Nabyl Ubaydah', '0062375585', '$2y$10$0prc8droIUlYqnCDJiLmneqNRj.ReZg.RUvjIk8OFFxn4NiKbmDg6', NULL, 0, 1, 0, NULL),
 ('b269b03f-0fb9-4244-b562-90b7062af8d8', 'Ortu Sofie Aulia Az-Zahrah', '0035303156', '$2y$10$mGmhhQjEO3PMWgf8tKbAreADAaicdgJN.w/0nGIrUD617pd4sZr9K', NULL, 0, 1, 0, NULL),
 ('b2a147cc-8669-4736-9584-a4ac0f83ce2c', 'Ortu Sela Yupika Devi', '0058558243', '$2y$10$45djqqupT.8Xqt59AdA6iewbUhjL/Vz9e4tMd/ZL8eI.N4l78Z6pK', NULL, 0, 1, 0, NULL),
 ('b3347280-0960-464d-9353-801f85c8c8ee', 'Ortu Anatasya Rhenata', '0041838750', '$2y$10$vt.IfblZmOjBhe8yBfvESuyGaxwzn0Tx6xdK6zGc5Hk.ByeXANVIu', NULL, 0, 1, 0, NULL),
@@ -14941,6 +15043,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('f163282b-284f-4f29-ad70-0ee4573594df', 'Ortu Afifa Sabila Rohmah', '0028292015', '$2y$10$yD9F4mO3Kr1cTngJLAeXR.iDnB8ZwwRWPgLMeBwnDgq69IBYYcZfe', NULL, 0, 1, 0, NULL),
 ('f1646051-88c9-4b79-8c73-d5c950f798d7', 'Ortu Davy Ariant Prayoga', '0056449352', '$2y$10$0b4rSeQlImxGj4IF9fNidOfq2sZa8ReiHvPlFsD4XzfJ6HmvFq0cO', NULL, 0, 1, 0, NULL),
 ('f26c1973-1cba-48cd-8e18-c907b0c10c73', 'Ortu Rafa Hasna Aurelia', '0052935444', '$2y$10$CTjhbTJGBGcZNKkit346ueO4/rkhqTZfM6Q4I0eigITsmOgSDWidq', NULL, 0, 1, 0, NULL),
+('f273d521-6208-4990-aa80-327f706cc497', 'Bapak Kepsek', 'kepsek_123', '$2y$10$WT6GboVUd5vyrtLVp3pXHunx4yfU.c7fbmOJtiN2p2GgXlvbPjd56', 'NOeqkTHYhbPlVhw4kAX8t62TBTWMA7oWBmcif5eMKhqfydDNzhC7FIzpn76F', 1, 1, 0, '2022-03-18 14:51:43'),
 ('f2963747-1d00-4b46-82b8-c22d91f28076', 'Ortu Aprillia Ayuwaningsih', '0056965413', '$2y$10$o1uXGlrp5/tw8m.rLkujXeq2oK0tAU1U81DxYo1UaA1zA.9OKW41u', NULL, 0, 1, 0, NULL),
 ('f31f8b7e-ee10-49a6-91b0-536d602425d6', 'Ortu Fahim Nur Amalia', '0053299208', '$2y$10$kB9lIw4PhTRQ9b3zHY2P/eVhgcju2A/B3jHu.hiFQzzAReq95RM8q', NULL, 0, 1, 0, NULL),
 ('f37d093d-000d-4923-977e-992c06b68e29', 'Ortu Julianti Aulia', '0050751727', '$2y$10$sDIenLFqL3t3lxvh0NeuFOVaxvwZ5jawpvhy73irSSMBORkJU8bRW', NULL, 0, 1, 0, NULL),
@@ -15055,6 +15158,19 @@ ALTER TABLE `petugas`
   ADD KEY `id_users` (`id_users`);
 
 --
+-- Indexes for table `rincian_pengeluaran`
+--
+ALTER TABLE `rincian_pengeluaran`
+  ADD PRIMARY KEY (`id_rincian_pengeluaran`);
+
+--
+-- Indexes for table `rincian_pengeluaran_detail`
+--
+ALTER TABLE `rincian_pengeluaran_detail`
+  ADD PRIMARY KEY (`id_rincian_pengeluaran_detail`),
+  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -15142,6 +15258,12 @@ ALTER TABLE `kepsek`
 --
 ALTER TABLE `petugas`
   ADD CONSTRAINT `petugas_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rincian_pengeluaran_detail`
+--
+ALTER TABLE `rincian_pengeluaran_detail`
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp`

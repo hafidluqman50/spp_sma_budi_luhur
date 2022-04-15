@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Feb 21, 2022 at 04:36 PM
--- Server version: 8.0.13
--- PHP Version: 7.2.8
+-- Generation Time: Apr 15, 2022 at 02:04 PM
+-- Server version: 8.0.19
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web_keuangan`
+-- Database: `web_spp`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `history_proses_spp` (
   `text` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status_terbaca` int(11) NOT NULL
+  `status_terbaca` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -42,14 +42,38 @@ CREATE TABLE `history_proses_spp` (
 
 INSERT INTO `history_proses_spp` (`id_history_proses_spp`, `text`, `created_at`, `updated_at`, `status_terbaca`) VALUES
 ('072cf91f-35f0-4081-b112-f0069a056869', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Agustus, 2021</b>, <b>Pembayaran Akademik</b> Sebesar <b>Rp. 500.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-01-08 01:20:25', '2022-01-08 01:20:25', 0),
+('0fa8fb64-82be-4c00-a573-bb9398ab382b', 'Administrator telah import data SPP', '2022-02-26 15:30:38', '2022-02-26 15:30:38', 0),
+('2071d3f5-ea5e-4281-89bb-59b6ec904cec', 'Administrator telah import data SPP', '2022-02-26 15:52:41', '2022-02-26 15:52:41', 0),
+('26edc2fc-b417-417b-925d-7f83974b7f02', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:26:38', '2022-02-26 15:26:38', 0),
+('271d5f7d-3277-4838-a4b0-dd754ebfabb9', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:25:51', '2022-02-26 15:25:51', 0),
+('27a4ea2c-18c7-4b0f-a3f8-679220d9ebde', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:26:37', '2022-02-26 15:26:37', 0),
+('27c3c600-45d3-43ce-b6ad-e7ebc7efe76c', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:53:33', '2022-02-26 15:53:33', 0),
 ('292f0dbd-17b5-478c-b92a-37e6c84c33c4', 'Administrator telah menghapus Pembayaran : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-05 01:51:46', '2022-01-05 01:51:49', 1),
+('2c488a9b-7f5b-4b47-bd34-67c659e324dd', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:51:57', '2022-02-26 15:51:57', 0),
+('4586e463-836f-44fe-a85c-24e968b8682b', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:30:24', '2022-02-26 15:30:24', 0),
 ('56104592-7644-43f3-ba87-680f5109bab8', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Agustus, 2021</b>, <b></b> Sebesar Rp. 500.000,00 dan dengan total nominal bayar sebesar Rp. 1.000.000,00', '2022-01-04 22:42:47', '2022-01-04 23:05:02', 1),
+('6424c37a-69b3-4f3f-8d98-ab93b7c9ca72', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:52:00', '2022-02-26 15:52:00', 0),
+('6800b2f6-1892-46eb-94fc-6a98beb4ce90', 'Administrator telah menghapus SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b></b>', '2022-02-26 15:59:17', '2022-02-26 15:59:17', 0),
 ('6dc01db4-2fb4-459b-8256-bde8197ee23e', 'Administrator telah menghapus Pembayaran : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 1.000.000,00</b>, Nominal Bayar : <b>Rp. 2.000.000,00</b>, dan Kembalian : <b>Rp. 1.000.000,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-04 23:04:58', '2022-01-04 23:06:18', 1),
+('6dcb9c2f-98ed-4e35-94c7-bd7bc1633022', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:53:32', '2022-02-26 15:53:32', 0),
+('75d679cb-7a41-463a-8488-224089c0fdf9', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:30:25', '2022-02-26 15:30:25', 0),
 ('7f8aa87d-438e-429a-8900-e6202b6da805', 'Administrator telah import data SPP', '2022-01-05 02:04:35', '2022-01-05 02:04:43', 1),
+('9a1cc8af-d5a8-4d5e-a39c-3ad0877c11b4', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-02-26 15:57:46', '2022-02-26 15:57:46', 0),
+('ae75016a-fa10-49dd-821b-d94a6aff088d', 'Administrator telah import data SPP', '2022-02-26 15:57:43', '2022-02-26 15:57:43', 0),
+('b6ad5c2f-9a54-433c-a59e-e6aab75de685', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-02-26 15:59:06', '2022-02-26 15:59:06', 0),
+('bf4def14-b2a1-4c84-85ab-bd3bb14964d1', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:25:52', '2022-02-26 15:25:52', 0),
 ('c2186f49-016d-443a-a87a-0555df8fa097', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-01-05 02:02:42', '2022-01-05 02:02:42', 0),
 ('c2e6e41d-904d-4392-977b-110066105a71', 'Administrator telah menghapus Pembayaran : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 1.000.000,00</b>, Nominal Bayar : <b>Rp. 2.000.000,00</b>, dan Kembalian : <b>Rp. 1.000.000,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-04 23:07:34', '2022-01-04 23:07:42', 1),
+('c51a9adf-a3b5-42d7-8568-6cb576e9fa59', 'Administrator telah import data SPP', '2022-02-26 15:26:42', '2022-02-26 15:26:42', 0),
+('c8886984-6224-4235-89b4-bff9f6f8ac24', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:57:33', '2022-02-26 15:57:33', 0),
+('d6f98e1b-2fd9-4f51-815a-9ecc6d821952', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:57:37', '2022-02-26 15:57:37', 0),
 ('da5b79da-a09a-49ce-ad59-452fdc733f93', 'Administrator telah membayar SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b></b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-01-04 23:08:12', '2022-01-04 23:08:23', 1),
-('e5e3e895-60f0-45a8-85e2-7c4ecf112253', 'Administrator telah membayar spp Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022 Bulan, Tahun Agustus, 2021,   Sebesar Rp. 0,00 dan dengan total nominal bayar sebesar Rp. 2.000.000,00', '2022-01-04 22:19:33', '2022-01-05 01:38:38', 1);
+('dc8eef49-3ed2-4faf-b48f-76388f33edd4', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-02-26 15:57:20', '2022-02-26 15:57:20', 0),
+('e11d35bb-7d4e-43e1-99f8-843cc8c73055', 'Administrator telah import data SPP', '2022-02-26 15:59:02', '2022-02-26 15:59:02', 0),
+('e18e320b-07e4-4186-bd7a-92f23b919342', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:58:56', '2022-02-26 15:58:56', 0),
+('e5e3e895-60f0-45a8-85e2-7c4ecf112253', 'Administrator telah membayar spp Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022 Bulan, Tahun Agustus, 2021,   Sebesar Rp. 0,00 dan dengan total nominal bayar sebesar Rp. 2.000.000,00', '2022-01-04 22:19:33', '2022-01-05 01:38:38', 1),
+('ec909e33-e7fd-4e67-a221-dfc28d2b9217', 'Administrator telah import data SPP', '2022-02-26 15:53:44', '2022-02-26 15:53:44', 0),
+('f8f2a3a3-8719-47c1-8398-bae7946a7ec8', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:58:57', '2022-02-26 15:58:57', 0);
 
 -- --------------------------------------------------------
 
@@ -62,8 +86,8 @@ CREATE TABLE `kantin` (
   `nama_kantin` varchar(100) NOT NULL,
   `slug_nama_kantin` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `lokasi_kantin` text NOT NULL,
-  `biaya_perbulan` int(11) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `biaya_perbulan` int NOT NULL,
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -84,7 +108,7 @@ CREATE TABLE `kelas` (
   `id_kelas` varchar(36) NOT NULL,
   `kelas` varchar(15) NOT NULL,
   `slug_kelas` varchar(100) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -105,7 +129,7 @@ CREATE TABLE `kelas_siswa` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `id_siswa` varchar(36) NOT NULL,
   `id_kelas` varchar(36) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -149,8 +173,15 @@ CREATE TABLE `kepsek` (
   `nip_kepsek` varchar(100) NOT NULL,
   `nama_kepsek` varchar(100) NOT NULL,
   `id_users` varchar(36) NOT NULL,
-  `status_delete` int(1) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `kepsek`
+--
+
+INSERT INTO `kepsek` (`id_kepsek`, `nip_kepsek`, `nama_kepsek`, `id_users`, `status_delete`) VALUES
+('638b6c1b-b7e9-462a-bcae-49e30a5b5a31', '088888', 'Kepsek Bapak', 'eafb556b-1a36-4183-9691-6eea9a2da269', 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +194,7 @@ CREATE TABLE `kolom_spp` (
   `nama_kolom_spp` varchar(100) NOT NULL,
   `slug_kolom_spp` varchar(100) NOT NULL,
   `keterangan_kolom` text,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -188,7 +219,7 @@ CREATE TABLE `petugas` (
   `id_users` varchar(36) NOT NULL,
   `nama_petugas` varchar(100) NOT NULL,
   `jabatan_petugas` varchar(50) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -197,6 +228,41 @@ CREATE TABLE `petugas` (
 
 INSERT INTO `petugas` (`id_petugas`, `id_users`, `nama_petugas`, `jabatan_petugas`, `status_delete`) VALUES
 ('e69121d7-1178-4b76-8427-0d87e74d97a0', '1c0e8c57-a967-442b-81fb-8bbb46c9008d', 'Hashirama Senju', 'bendahara-internal', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rincian_pengeluaran`
+--
+
+CREATE TABLE `rincian_pengeluaran` (
+  `id_rincian_pengeluaran` varchar(36) NOT NULL,
+  `bulan_perincian` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rincian_pengeluaran_detail`
+--
+
+CREATE TABLE `rincian_pengeluaran_detail` (
+  `id_rincian_pengeluaran_detail` varchar(36) NOT NULL,
+  `id_rincian_pengeluaran` varchar(36) NOT NULL,
+  `tanggal_rincian` date NOT NULL,
+  `uraian_rincian` varchar(100) NOT NULL,
+  `volume_rincian` int NOT NULL,
+  `nominal_pendapatan` int NOT NULL,
+  `pendapatan_spp` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nominal_pendapatan_spp` int DEFAULT NULL,
+  `uraian_rab` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `volume_rab` int DEFAULT NULL,
+  `nominal_rab` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -217,7 +283,7 @@ CREATE TABLE `siswa` (
   `asal_kelompok` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `asal_wilayah` varchar(100) NOT NULL,
   `wilayah` varchar(50) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -238,7 +304,7 @@ INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kela
 CREATE TABLE `spp` (
   `id_spp` varchar(36) NOT NULL,
   `id_kelas_siswa` varchar(36) NOT NULL,
-  `total_harus_bayar` int(11) NOT NULL,
+  `total_harus_bayar` int NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -249,8 +315,8 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`, `id_users`, `created_at`, `updated_at`) VALUES
-('004020ee-e074-41c9-8562-fb239cf34ec3', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 1100000, 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, '2022-01-08 01:20:25'),
-('0675c1c4-f5a1-463a-9fbb-5f2d2f802fe0', '8038690d-94bd-4eb1-8237-447aee3004c7', 10000, 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, NULL);
+('3248af19-661e-4970-8dfe-aac45ae70c9c', '8038690d-94bd-4eb1-8237-447aee3004c7', 10000, 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
+('d1226173-2c27-4602-9243-620a5b6653d4', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 0, 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:06');
 
 -- --------------------------------------------------------
 
@@ -262,9 +328,9 @@ CREATE TABLE `spp_bayar` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
-  `total_biaya` int(11) NOT NULL,
-  `nominal_bayar` int(11) NOT NULL,
-  `kembalian` int(11) NOT NULL,
+  `total_biaya` int NOT NULL,
+  `nominal_bayar` int NOT NULL,
+  `kembalian` int NOT NULL,
   `keterangan_bayar` text NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -276,11 +342,8 @@ CREATE TABLE `spp_bayar` (
 --
 
 INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bulan_tahun`, `tanggal_bayar`, `total_biaya`, `nominal_bayar`, `kembalian`, `keterangan_bayar`, `id_users`, `created_at`, `updated_at`) VALUES
-('7a4dddd0-a4f6-48e8-b3b8-e241b1478d91', '4d2b0491-2490-4706-aa92-467ba5c0370f', '2021-08-20', 20000, 20000, 0, 'Pembayaran Sisa Akademik Agustus 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, NULL),
-('9d817c19-f102-4c89-b6dd-cf2acf192425', 'a543bd21-15e1-4f6b-b3f6-61a2e02e664c', '2021-09-13', 50000, 70000, 20000, 'Pembayaran Akademik September 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, NULL),
-('ac3c021c-52a1-4d87-bbdb-80f0863ee990', 'a543bd21-15e1-4f6b-b3f6-61a2e02e664c', '2021-09-15', 20000, 30000, 10000, 'Pembayaran SPP September 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, NULL),
-('af18cbdd-1a56-47db-9c50-b46f896200c8', '4d2b0491-2490-4706-aa92-467ba5c0370f', '2021-08-14', 50000, 50000, 0, 'Pembayaran SPP Bulan Agustus', 'd4971513-6303-4248-bd27-dbb1a999b51e', NULL, NULL),
-('da7badb1-d465-4733-85a6-12108bae7c4e', '4d2b0491-2490-4706-aa92-467ba5c0370f', '2022-01-08', 500000, 500000, 0, 'bayar spp akademik', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-01-08 01:20:25', '2022-01-08 01:20:25');
+('0d577d49-01b6-4a22-af2e-11dcadc580e3', '4b47a2a9-b60a-4e3c-bc35-7fa20798dc71', '2021-09-13', 50000, 70000, 20000, 'Pembayaran Akademik September 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
+('a10d301f-9f52-4bb3-ad22-0ef6aabf8cc7', '4b47a2a9-b60a-4e3c-bc35-7fa20798dc71', '2021-09-15', 20000, 30000, 10000, 'Pembayaran SPP September 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:02');
 
 -- --------------------------------------------------------
 
@@ -293,7 +356,7 @@ CREATE TABLE `spp_bayar_detail` (
   `id_spp_bayar` varchar(36) NOT NULL,
   `id_kolom_spp` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
-  `nominal_bayar` int(11) NOT NULL,
+  `nominal_bayar` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -303,7 +366,8 @@ CREATE TABLE `spp_bayar_detail` (
 --
 
 INSERT INTO `spp_bayar_detail` (`id_spp_bayar_detail`, `id_spp_bayar`, `id_kolom_spp`, `tanggal_bayar`, `nominal_bayar`, `created_at`, `updated_at`) VALUES
-('9d711d83-729b-430f-b0f8-a820090e6b84', 'da7badb1-d465-4733-85a6-12108bae7c4e', '1971752f-5e6c-459f-8a13-c51327bb88e7', '2022-01-08', 500000, '2022-01-08 01:20:25', '2022-01-08 01:20:25');
+('54a5e420-5ac5-4659-80e3-3eb9286aa559', '0d577d49-01b6-4a22-af2e-11dcadc580e3', '1971752f-5e6c-459f-8a13-c51327bb88e7', '2021-09-13', 20000, '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
+('c8b5461c-07fc-463a-9286-f723dc8b6831', 'a10d301f-9f52-4bb3-ad22-0ef6aabf8cc7', '60f3492f-d8be-4f29-9014-478d314fe4ef', '2021-09-15', 10000, '2022-02-26 15:59:02', '2022-02-26 15:59:02');
 
 -- --------------------------------------------------------
 
@@ -325,9 +389,8 @@ CREATE TABLE `spp_bulan_tahun` (
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`, `id_kantin`, `created_at`, `updated_at`) VALUES
-('38b2b434-4fce-4903-9198-2299aac58924', '0675c1c4-f5a1-463a-9fbb-5f2d2f802fe0', 'Oktober, 2021', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', NULL, NULL),
-('4d2b0491-2490-4706-aa92-467ba5c0370f', '004020ee-e074-41c9-8562-fb239cf34ec3', 'Agustus, 2021', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', NULL, NULL),
-('a543bd21-15e1-4f6b-b3f6-61a2e02e664c', '0675c1c4-f5a1-463a-9fbb-5f2d2f802fe0', 'September, 2021', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', NULL, NULL);
+('4b47a2a9-b60a-4e3c-bc35-7fa20798dc71', '3248af19-661e-4970-8dfe-aac45ae70c9c', 'September, 2021', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
+('fc1cb513-77dc-41d9-86fd-0c8bd9b43a51', '3248af19-661e-4970-8dfe-aac45ae70c9c', 'Oktober, 2021', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', '2022-02-26 15:59:02', '2022-02-26 15:59:02');
 
 -- --------------------------------------------------------
 
@@ -339,10 +402,10 @@ CREATE TABLE `spp_detail` (
   `id_spp_detail` varchar(36) NOT NULL,
   `id_spp_bulan_tahun` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id_kolom_spp` varchar(36) NOT NULL,
-  `nominal_spp` int(11) NOT NULL,
-  `bayar_spp` int(11) NOT NULL,
-  `sisa_bayar` int(11) NOT NULL,
-  `status_bayar` int(11) NOT NULL,
+  `nominal_spp` int NOT NULL,
+  `bayar_spp` int NOT NULL,
+  `sisa_bayar` int NOT NULL,
+  `status_bayar` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -352,11 +415,8 @@ CREATE TABLE `spp_detail` (
 --
 
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
-('182d91eb-0c54-49c0-b63a-3d34043c91bd', '38b2b434-4fce-4903-9198-2299aac58924', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 10000, 10000, 0, 1, NULL, NULL),
-('269d7270-5f1a-4877-93fe-9c8b0cffc229', '4d2b0491-2490-4706-aa92-467ba5c0370f', '60f3492f-d8be-4f29-9014-478d314fe4ef', 600000, 0, 600000, 0, NULL, NULL),
-('cd4b77ed-72cd-4466-ad76-23c2968e743c', '4d2b0491-2490-4706-aa92-467ba5c0370f', '1971752f-5e6c-459f-8a13-c51327bb88e7', 1000000, 500000, 500000, 0, NULL, '2022-01-08 01:20:25'),
-('ddd0caa2-2f37-4efc-ba0a-b46a8fe373da', 'a543bd21-15e1-4f6b-b3f6-61a2e02e664c', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 0, 1, NULL, NULL),
-('fd5dcc30-66fb-4a45-986f-5394b68c4ef6', 'a543bd21-15e1-4f6b-b3f6-61a2e02e664c', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 10000, 0, NULL, NULL);
+('9e92d552-21ff-407d-84d8-dff593eb9eb7', '4b47a2a9-b60a-4e3c-bc35-7fa20798dc71', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 10000, 0, '2022-02-26 15:59:02', NULL),
+('b22d0927-fa4b-4f8c-a9ac-ac363122b598', '4b47a2a9-b60a-4e3c-bc35-7fa20798dc71', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 50000, 0, 1, '2022-02-26 15:59:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -367,7 +427,7 @@ INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`,
 CREATE TABLE `tahun_ajaran` (
   `id_tahun_ajaran` varchar(36) NOT NULL,
   `tahun_ajaran` varchar(10) NOT NULL,
-  `status_delete` int(11) NOT NULL
+  `status_delete` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -389,9 +449,9 @@ CREATE TABLE `users` (
   `username` varchar(75) NOT NULL,
   `password` varchar(75) NOT NULL,
   `remember_token` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `level_user` int(11) NOT NULL,
-  `status_akun` int(11) NOT NULL,
-  `status_delete` int(11) NOT NULL,
+  `level_user` int NOT NULL,
+  `status_akun` int NOT NULL,
+  `status_delete` int NOT NULL,
   `last_login` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -437,11 +497,12 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('cc15fb6f-5384-4a18-a337-4d5a86550a06', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$ZtkMw5FwJq.sBhhAMyosQOe6hT7DvWQm6v6ZDGenxnNr9uU9c735a', NULL, 0, 1, 0, NULL),
 ('cdc9076d-b515-4de5-8bb5-bb18cb7f7c1b', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$bQAWZUOo.201E1r3AmNXDeqzcuXGIQH2POYfkcBOTIjLMD4mZd8cu', NULL, 0, 1, 0, NULL),
 ('d0c70a75-07df-44fb-9afe-f6449838ef79', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$IQheafLh31iarHDIfHm6MuGZZGglxRc/oyQBNSNvTXCrN9tkAvBgO', NULL, 0, 1, 0, NULL),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'C6eR1xxUVVPRqrCUJHAjnRRK9YjdhgVvYtEgT8WspyDMy2SVxAOesah7kqKU', 3, 1, 0, '2022-01-10 11:45:45'),
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$rq2tjnEOyOHfHI/zW/.H6.HKObWTvbmcFWQKC2CCwjOAgb3.IKBey', 'YIQsBYWzWodSQ8WVYcFk6bemYXBZE5KmnZKyBe4jOGNJDTNBfg1OPVpzRDIZ', 3, 1, 0, '2022-03-02 15:08:13'),
 ('d9dd0013-0d43-4cf2-a994-79d21bd71aa2', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$qzGQSOrVfnoW/8XnuV.tFeF5Yvifma3d6XL5FjfbKRNfEDtCh62HS', NULL, 0, 1, 0, NULL),
 ('e36f22fd-c164-4b05-a610-b9b12efa9dff', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$2ZmRQnTyM3EVg/WCPHyjhuu0DVNOQL.cQ5.9Vyjk7F0ax18oQ3VDy', NULL, 0, 1, 0, NULL),
 ('e44db3a7-2a2d-4a0c-bc84-cdb804be8513', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$XXHO2SzkWv1WVOUddXZ9ouVPKAxxDZsS.QtIoixm/rc2Erfa79jlW', NULL, 0, 1, 0, NULL),
 ('e7670362-85b6-41b9-892f-22b016dba1d6', 'Ortu Test', '0821231223', '$2y$10$qSRmkUmCdZ1.a0SMgFy.sO9BQs/CL9Vp/UXXmUX79DN43U9ljzYXu', 'ziLWGwqbzYzpmlbj5Z8FwHctzQMvRPELn1aDMbIGM5TyASvZoQlgrWniuPCg', 0, 1, 0, NULL),
+('eafb556b-1a36-4183-9691-6eea9a2da269', 'Kepsek Bapak', 'kepsek', '$2y$10$8e3AnVchcaBMHe./go2aveGCIMqZAkOhI9VGYzQkzey.A8RBZ1DTO', '2aH8Yknx6FBex2HAQ7BQFW8Kf6FWt96DW4aoQ2QP1ZXbXBArMQnXSAV9Hsgy', 1, 1, 0, '2022-02-27 00:10:38'),
 ('f3dcb2db-c4d3-4635-acd3-2c1a0114cf8f', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$J.HNHOiQAKF9isCMvXPy4.6MMuFu.AApb6x/WJA2bgD4CEVGXTYWa', NULL, 0, 1, 0, NULL),
 ('f8ea2d8f-9e16-4562-93c8-f57991d5b973', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$.gTBQXcxDaWITLmn9AcC/ezoFVNkyeDmhVm59L.q3pf6w3eeKD3HG', NULL, 0, 1, 0, NULL),
 ('fd39056e-8f55-4a59-882d-068083ab3293', 'Ortu Uchiha Tiara', '00088899913', '$2y$10$qjDcCyGpAjQpzv9VMgz.mOVahOd87L2KBrwQH8En4V9Zy1e9p.6Ia', NULL, 0, 1, 0, NULL);
@@ -504,6 +565,19 @@ ALTER TABLE `kolom_spp`
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id_petugas`),
   ADD KEY `id_users` (`id_users`);
+
+--
+-- Indexes for table `rincian_pengeluaran`
+--
+ALTER TABLE `rincian_pengeluaran`
+  ADD PRIMARY KEY (`id_rincian_pengeluaran`);
+
+--
+-- Indexes for table `rincian_pengeluaran_detail`
+--
+ALTER TABLE `rincian_pengeluaran_detail`
+  ADD PRIMARY KEY (`id_rincian_pengeluaran_detail`),
+  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`);
 
 --
 -- Indexes for table `siswa`
@@ -593,6 +667,12 @@ ALTER TABLE `kepsek`
 --
 ALTER TABLE `petugas`
   ADD CONSTRAINT `petugas_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rincian_pengeluaran_detail`
+--
+ALTER TABLE `rincian_pengeluaran_detail`
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp`

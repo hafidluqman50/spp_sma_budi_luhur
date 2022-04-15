@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout-rab')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
 
@@ -25,14 +23,14 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
                         <h4 class="header-title m-t-0">Tambah Data Perincian</h4>
                         
-                        <form action="{{ url('/admin/data-perincian-rab/save') }}" method="POST">
-                            @csrf
+                        <form action="<?php echo e(url('/admin/data-perincian-rab/save')); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Tanggal Perincian</label>
                                 <div class="col-7">
@@ -62,9 +60,9 @@
                                 <div class="col-7">
                                     <select name="pendapatan" class="form-control selectize pendapatan">
                                         <option value="" selected disabled>=== Pilih Pendapatan ===</option>
-                                        @foreach ($kolom_spp as $element)
-                                        <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($element->id_kolom_spp); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -109,4 +107,5 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pengeluaran/rincian-pengeluaran-tambah.blade.php ENDPATH**/ ?>

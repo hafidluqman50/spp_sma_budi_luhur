@@ -11,7 +11,7 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard-rab') }}">Dashboard RAB</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ url('/admin/data-perincian-rab') }}">Rincian Pengeluaran</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/rincian-pengeluaran') }}">Rincian Pengeluaran</a></li>
                             </ol>
                         </div>
                         <h4 class="page-title">Rincian Pengeluaran</h4>
@@ -22,12 +22,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>DATA PERINCIAN RAB</b></h4>
+                        <h4 class="m-t-0 header-title"><b>RINCIAN PENGELUARAN</b></h4>
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/admin/data-perincian-rab/tambah') }}">
+                            <a href="{{ url('/admin/rincian-pengeluaran/tambah') }}">
                                 <button class="btn btn-primary" style="cursor:pointer;">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
@@ -42,7 +42,17 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama RAB</th>
+                                <th>Tanggal Uraian</th>
+                                <th>Nama Uraian</th>
+                                <th>Volume Uraian</th>
+                                <th>Nominal Uraian</th>
+                                <th>Total Nominal</th>
+                                <th>Pendapatan</th>
+                                <th>Nominal Pendapatan</th>
+                                <th>Nama Rincian RAB</th>
+                                <th>Volume Rincian RAB</th>
+                                <th>Nominal Rincian RAB</th>
+                                <th>Total Nominal RAB</th>
                                 <th>#</th>
                             </tr>
                             </thead>
