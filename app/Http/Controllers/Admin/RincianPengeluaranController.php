@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 use App\Models\KolomSpp;
@@ -23,5 +24,51 @@ class RincianPengeluaranController extends Controller
         $kolom_spp = KolomSpp::where('status_delete',0)->get();
 
         return view('Admin.rincian-pengeluaran.rincian-pengeluaran-tambah',compact('title','kolom_spp'));
+    }
+
+    public function save(Request $request)
+    {   
+        $id_rincian_pengeluaran = (string)Str::uuid();
+        $bulan_perincian        = $request->bulan_perincian;
+        $tanggal_perincian      = $request->tanggal_perincian;
+        $uraian_rincian         = $request->uraian_rincian;
+        $volume_rincian         = $request->volume_rincian;
+        $nominal_rincian        = $request->nominal_rincian;
+        $id_kolom_spp           = $request->id_kolom_spp;
+        $nominal_pendapatan     = $request->nominal_pendapatan;
+        $uraian_rab             = $request->uraian_rab;
+        $volume_rab             = $request->volume_rab;
+        $nominal_rab            = $request->nominal_rab;
+
+        $data_rincian_pengeluaran = [
+            'id_rincian_pengeluaran' => $id_rincian_pengeluaran,
+            'bulan_perincian'        => $bulan_perincian
+        ];
+
+        RincianPengeluaran::create($data_rincian_pengeluaran);
+
+        $data_rincian_pengeluaran_detail = [
+            'id_rincian_pengeluaran' => $id_rincian_pengeluaran,
+            'tanggal_rincian'        => $tanggal_perincian,
+            'uraian_rincian'         => $uraian_rincian,
+            'volume_rincian'         => $volume_rincian,
+            'nominal_pendapatan'     => $nominal_pendapatan,
+            'id_kolom_spp'           => $id_kolom_spp,
+            'nominal_pendapatan_spp' => $nominal_pendapatan,
+            'uraian_rab'             => $uraian_rab,
+            'volume_rab'             => $volume_rab,
+            'nominal_rab'            => $nominal_rab
+        ];
+
+        RincianPengeluaranDetail::create($data_rincian_pengeluaran_detail);
+
+        return redirect('/admin/data-perincian-rab')->with('message','Berhasil Input RAB');
+    }
+
+    public function delete($id)
+    {
+        RincianPengeluaran::where('id_rincian_pengeluaran',$id)->delete();
+
+        return redirect('/admin/data-perincian-rab')->with('message','Berhasil Hapus RAB');
     }
 }

@@ -34,6 +34,12 @@
                         <form action="{{ url('/admin/data-perincian-rab/save') }}" method="POST">
                             @csrf
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">Nama RAB</label>
+                                <div class="col-7">
+                                    <input type="text" name="bulan_perincian" class="form-control" placeholder="Isi Nama RAB; Ex: Mei 2022 Pengajuan Juni 2022" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-4 col-form-label">Tanggal Perincian</label>
                                 <div class="col-7">
                                     <input type="date" name="tanggal_perincian" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
@@ -60,7 +66,7 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Pendapatan</label>
                                 <div class="col-7">
-                                    <select name="pendapatan" class="form-control selectize pendapatan">
+                                    <select name="id_kolom_spp" class="form-control selectize pendapatan">
                                         <option value="" selected disabled>=== Pilih Pendapatan ===</option>
                                         @foreach ($kolom_spp as $element)
                                         <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
@@ -77,19 +83,19 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Uraian RAB</label>
                                 <div class="col-7">
-                                    <input type="text" name="uraian_rincian" class="form-control" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
+                                    <input type="text" name="uraian_rab" class="form-control" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Volume RAB</label>
                                 <div class="col-7">
-                                    <input type="number" name="volume_rincian" class="form-control" placeholder="Isi Volume RAB">
+                                    <input type="number" name="volume_rab" class="form-control" placeholder="Isi Volume RAB">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nominal RAB</label>
                                 <div class="col-7">
-                                    <input type="number" name="nominal_rincian" class="form-control" placeholder="Isi Nominal RAB">
+                                    <input type="number" name="nominal_rab" class="form-control" placeholder="Isi Nominal RAB">
                                 </div>
                             </div>
                             <div class="form-group row">

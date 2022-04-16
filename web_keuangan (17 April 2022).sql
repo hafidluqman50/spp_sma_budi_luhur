@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 15, 2022 at 02:04 PM
+-- Generation Time: Apr 16, 2022 at 04:05 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -255,7 +255,7 @@ CREATE TABLE `rincian_pengeluaran_detail` (
   `uraian_rincian` varchar(100) NOT NULL,
   `volume_rincian` int NOT NULL,
   `nominal_pendapatan` int NOT NULL,
-  `pendapatan_spp` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id_kolom_spp` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `nominal_pendapatan_spp` int DEFAULT NULL,
   `uraian_rab` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `volume_rab` int DEFAULT NULL,
@@ -577,7 +577,8 @@ ALTER TABLE `rincian_pengeluaran`
 --
 ALTER TABLE `rincian_pengeluaran_detail`
   ADD PRIMARY KEY (`id_rincian_pengeluaran_detail`),
-  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`);
+  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`),
+  ADD KEY `id_kolom_spp` (`id_kolom_spp`);
 
 --
 -- Indexes for table `siswa`
@@ -672,7 +673,8 @@ ALTER TABLE `petugas`
 -- Constraints for table `rincian_pengeluaran_detail`
 --
 ALTER TABLE `rincian_pengeluaran_detail`
-  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp`

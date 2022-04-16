@@ -163,6 +163,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/laporan-rab',[DatatablesController::class, 'laporanRab']);
     Route::get('/transaksi-terakhir',[DatatablesController::class, 'transaksiTerakhir']);
     Route::get('/data-rincian-pengeluaran',[DatatablesController::class, 'dataRincianPengeluaran']);
+    Route::get('/data-rincian-pengeluaran-detail/{id}',[DatatablesController::class, 'dataRincianPengeluaranDetail']);
 });
 
 Route::get('/oke',function(){

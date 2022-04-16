@@ -51,7 +51,6 @@
                                 <th>Tanggal Pembayaran</th>
                                 <th>Total Biaya</th>
                                 <th>Nominal Bayar</th>
-                                <th>Kembalian</th>
                                 <th>Keterangan</th>
                                 <th>Input By</th>
                                 <th>#</th>

@@ -426,7 +426,7 @@
                                 <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
-                                <th>Wilayah</th>
+                                <th>Bulan, Tahun</th>
                                 <th>Total Pembayaran</th>
                                 <th>Action</th>
                             </tr>

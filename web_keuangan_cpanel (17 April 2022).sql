@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 15, 2022 at 02:05 PM
+-- Generation Time: Apr 16, 2022 at 04:05 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -899,6 +899,13 @@ CREATE TABLE `rincian_pengeluaran` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `rincian_pengeluaran`
+--
+
+INSERT INTO `rincian_pengeluaran` (`id_rincian_pengeluaran`, `bulan_perincian`, `created_at`, `updated_at`) VALUES
+('4a07270f-5bbc-4f27-b991-ecb323920bae', 'Mei 2022 Pengajuan Juni 2022', '2022-04-17 00:02:54', '2022-04-17 00:02:54');
+
 -- --------------------------------------------------------
 
 --
@@ -920,6 +927,13 @@ CREATE TABLE `rincian_pengeluaran_detail` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `rincian_pengeluaran_detail`
+--
+
+INSERT INTO `rincian_pengeluaran_detail` (`id_rincian_pengeluaran_detail`, `id_rincian_pengeluaran`, `tanggal_rincian`, `uraian_rincian`, `volume_rincian`, `nominal_pendapatan`, `id_kolom_spp`, `nominal_pendapatan_spp`, `uraian_rab`, `volume_rab`, `nominal_rab`, `created_at`, `updated_at`) VALUES
+('09bcc961-f421-4c63-a4f9-737028da2d25', '4a07270f-5bbc-4f27-b991-ecb323920bae', '2022-04-17', 'Listrik Mei 2022', 1, 200000, '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 200000, 'Listrik Juni 2022', 1, 2000000, '2022-04-17 00:02:54', '2022-04-17 00:02:54');
 
 -- --------------------------------------------------------
 
@@ -15168,7 +15182,8 @@ ALTER TABLE `rincian_pengeluaran`
 --
 ALTER TABLE `rincian_pengeluaran_detail`
   ADD PRIMARY KEY (`id_rincian_pengeluaran_detail`),
-  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`);
+  ADD KEY `id_rincian_pengeluaran` (`id_rincian_pengeluaran`),
+  ADD KEY `id_kolom_spp` (`id_kolom_spp`);
 
 --
 -- Indexes for table `siswa`
@@ -15263,7 +15278,8 @@ ALTER TABLE `petugas`
 -- Constraints for table `rincian_pengeluaran_detail`
 --
 ALTER TABLE `rincian_pengeluaran_detail`
-  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_1` FOREIGN KEY (`id_rincian_pengeluaran`) REFERENCES `rincian_pengeluaran` (`id_rincian_pengeluaran`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rincian_pengeluaran_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp`
