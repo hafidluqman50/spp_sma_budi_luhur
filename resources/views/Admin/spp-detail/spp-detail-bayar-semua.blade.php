@@ -80,7 +80,7 @@
                                         <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
-                                @if ($no != 0)
+                                {{-- @if ($no != 0) --}}
                                 <div class="form-group row">
                                     <div class="col-8 offset-4">
                                         <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
@@ -88,7 +88,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                @endif
+                                {{-- @endif --}}
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
