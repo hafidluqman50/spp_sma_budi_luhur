@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -25,25 +23,25 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>LAPORAN RAB</b></h4>
-                        <form action="{{ url('/admin/laporan/cetak') }}">
+                        <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="col-form-label">Bulan Laporan</label>
                                         <select name="bulan_laporan" class="form-control select2" required>
                                             <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
-                                            @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}">{{ month(zero_front_number($i)) }}</option>
-                                            @endfor
+                                            <?php for($i = 1; $i <= 12; $i++): ?>
+                                            <option value="<?php echo e($i); ?>"><?php echo e(month(zero_front_number($i))); ?></option>
+                                            <?php endfor; ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-form-label">Bulan Pengajuan</label>
                                         <select name="bulan_pengajuan" class="form-control select2" required>
                                             <option value="" selected disabled>=== Pilih Bulan Pengajuan ===</option>
-                                            @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}">{{ month(zero_front_number($i)) }}</option>
-                                            @endfor
+                                            <?php for($i = 1; $i <= 12; $i++): ?>
+                                            <option value="<?php echo e($i); ?>"><?php echo e(month(zero_front_number($i))); ?></option>
+                                            <?php endfor; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -68,9 +66,9 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         $(".datepicker").datepicker({
@@ -82,4 +80,6 @@
         });
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/laporan/laporan-rab.blade.php ENDPATH**/ ?>

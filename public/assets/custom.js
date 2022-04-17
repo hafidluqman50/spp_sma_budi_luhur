@@ -956,7 +956,9 @@ $(() => {
             {data:'id_rincian_pengeluaran',searchable:false,render:function(data,type,row,meta){
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
-            {data:'bulan_perincian',name:'bulan_perincian'},
+            {data:'bulan_tahun_laporan',name:'bulan_tahun_laporan'},
+            {data:'bulan_tahun_pengajuan',name:'bulan_tahun_pengajuan'},
+            {data:'saldo_awal',name:'saldo_awal'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,

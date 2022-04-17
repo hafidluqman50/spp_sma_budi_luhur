@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 16, 2022 at 04:05 PM
+-- Generation Time: Apr 17, 2022 at 03:31 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -894,7 +894,11 @@ INSERT INTO `petugas` (`id_petugas`, `id_users`, `nama_petugas`, `jabatan_petuga
 
 CREATE TABLE `rincian_pengeluaran` (
   `id_rincian_pengeluaran` varchar(36) NOT NULL,
-  `bulan_perincian` varchar(100) NOT NULL,
+  `bulan_laporan` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `tahun_laporan` year NOT NULL,
+  `bulan_pengajuan` varchar(2) NOT NULL,
+  `tahun_pengajuan` year NOT NULL,
+  `saldo_awal` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -903,8 +907,11 @@ CREATE TABLE `rincian_pengeluaran` (
 -- Dumping data for table `rincian_pengeluaran`
 --
 
-INSERT INTO `rincian_pengeluaran` (`id_rincian_pengeluaran`, `bulan_perincian`, `created_at`, `updated_at`) VALUES
-('4a07270f-5bbc-4f27-b991-ecb323920bae', 'Mei 2022 Pengajuan Juni 2022', '2022-04-17 00:02:54', '2022-04-17 00:02:54');
+INSERT INTO `rincian_pengeluaran` (`id_rincian_pengeluaran`, `bulan_laporan`, `tahun_laporan`, `bulan_pengajuan`, `tahun_pengajuan`, `saldo_awal`, `created_at`, `updated_at`) VALUES
+('1c98c10e-9aa8-4e7a-b9e5-0374155d2d55', '5', 2023, '6', 2024, 20000000, '2022-04-17 20:34:35', '2022-04-17 20:34:35'),
+('4a07270f-5bbc-4f27-b991-ecb323920bae', '05', 2022, '06', 2022, 200000000, '2022-04-17 00:02:54', '2022-04-17 00:02:54'),
+('9582c8fd-b1c9-4bb9-b5da-ef8e75942afa', '05', 2022, '06', 2022, 20000000, '2022-04-17 19:03:17', '2022-04-17 19:03:17'),
+('9786998e-698d-4c6a-9aaf-dcc7f7112eb8', '05', 2022, '06', 2022, 20000000, '2022-04-17 19:01:44', '2022-04-17 19:01:44');
 
 -- --------------------------------------------------------
 
@@ -933,7 +940,10 @@ CREATE TABLE `rincian_pengeluaran_detail` (
 --
 
 INSERT INTO `rincian_pengeluaran_detail` (`id_rincian_pengeluaran_detail`, `id_rincian_pengeluaran`, `tanggal_rincian`, `uraian_rincian`, `volume_rincian`, `nominal_pendapatan`, `id_kolom_spp`, `nominal_pendapatan_spp`, `uraian_rab`, `volume_rab`, `nominal_rab`, `created_at`, `updated_at`) VALUES
-('09bcc961-f421-4c63-a4f9-737028da2d25', '4a07270f-5bbc-4f27-b991-ecb323920bae', '2022-04-17', 'Listrik Mei 2022', 1, 200000, '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 200000, 'Listrik Juni 2022', 1, 2000000, '2022-04-17 00:02:54', '2022-04-17 00:02:54');
+('09bcc961-f421-4c63-a4f9-737028da2d25', '4a07270f-5bbc-4f27-b991-ecb323920bae', '2022-04-17', 'Listrik Mei 2022', 1, 200000, '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 200000, 'Listrik Juni 2022', 1, 2000000, '2022-04-17 00:02:54', '2022-04-17 00:02:54'),
+('5e76bac6-a036-4a23-bcb8-de34b89c7f56', '1c98c10e-9aa8-4e7a-b9e5-0374155d2d55', '2022-04-17', 'PDAM Mei 2023', 3, 100000, '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 100000, 'PDAM Mei 2024', 5, 200000, '2022-04-17 20:34:35', '2022-04-17 20:34:35'),
+('a8bbb26d-d56b-4e48-bb4a-f5b714d935d1', '1c98c10e-9aa8-4e7a-b9e5-0374155d2d55', '2022-04-17', 'Listrik Mei 2023', 3, 100000, 'b334c466-c42c-4e62-9b1b-a46d8a2412c8', 100000, 'Listrik Mei 2024', 5, 200000, '2022-04-17 20:34:35', '2022-04-17 20:34:35'),
+('e9b8095b-618f-40e9-8f59-3abb3a02cf93', '9582c8fd-b1c9-4bb9-b5da-ef8e75942afa', '2022-04-17', 'PDAM Mei 2022', 1, 20000, '1e2794d7-e20d-4609-a044-6cf4ae6770d9', 20000, 'PDAM Juni 2022', 1, 20000, '2022-04-17 19:03:17', '2022-04-17 19:03:17');
 
 -- --------------------------------------------------------
 

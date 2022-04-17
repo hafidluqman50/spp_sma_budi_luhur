@@ -40,7 +40,9 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama RAB</th>
+                                <th>Bulan, Tahun Laporan</th>
+                                <th>Bulan, Tahun Pengajuan</th>
+                                <th>Saldo Awal</th>
                                 <th>#</th>
                             </tr>
                             </thead>

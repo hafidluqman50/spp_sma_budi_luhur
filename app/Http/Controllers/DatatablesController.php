@@ -651,6 +651,12 @@ class DatatablesController extends Controller
                        </div>
                     ';
             return $column;
+        })->addColumn('bulan_tahun_laporan',function($add){
+            return month($add->bulan_laporan).', '.$add->tahun_laporan;
+        })->addColumn('bulan_tahun_pengajuan',function($add){
+            return month($add->bulan_pengajuan).', '.$add->tahun_pengajuan;
+        })->editColumn('saldo_awal',function($edit){
+            return format_rupiah($edit->saldo_awal);
         })->make(true);
 
         return $datatables;

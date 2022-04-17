@@ -14,6 +14,8 @@ use App\Models\KolomSpp;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
+use App\Models\RincianPengeluaran;
+use App\Models\RincianPengeluaranDetail;
 use Illuminate\Support\Str;
 
 class LaporanController extends Controller
@@ -363,6 +365,94 @@ class LaporanController extends Controller
 
     public function laporanRab(Request $request)
     {
+        $bulan_laporan   = $request->bulan_laporan;
+        $tahun_laporan   = $request->tahun_laporan;
+        $bulan_pengajuan = $request->bulan_pengajuan;
+        $tahun_pengajuan = $request->tahun_pengajuan;
 
+        $title    = 'LAPORAN RAB '.$bulan_laporan.' '.$tahun_laporan.' PENGAJUAN '.$bulan_pengajuan.' '.$tahun_pengajuan;
+        $fileName = $title.'.xlsx';
+
+        $saldo_awal = RincianPengeluaran::where('bulan_laporan',$bulan_laporan)
+                                        ->where('tahun_laporan',$tahun_laporan)
+                                        ->where('bulan_pengajuan',$bulan_pengajuan)
+                                        ->where('tahun_pengajuan',$tahun_pengajuan)
+                                        ->firstOrFail()->saldo_awal;
+
+        $get_rincian_detail = RincianPengeluaranDetail::join('rincian_pengeluaran','rincian_pengeluaran_detail.id_rincian_pengeluaran','=','rincian_pengeluaran.id_rincian_pengeluaran')
+                                                    ->join('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                    ->where('bulan_laporan',$bulan_laporan)
+                                                    ->where('tahun_laporan',$tahun_laporan)
+                                                    ->where('bulan_pengajuan',$bulan_pengajuan)
+                                                    ->where('tahun_pengajuan',$tahun_pengajuan)
+                                                    ->get();
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setCellValue('A1','SALDO AWAL');
+        $spreadsheet->getActiveSheet()->setCellValue('E1',$saldo_awal);
+        $spreadsheet->getActiveSheet()->setCellValue('A2','PENGELUARAN');
+        $spreadsheet->getActiveSheet()->setCellValue('A3','Tgl');
+        $spreadsheet->getActiveSheet()->setCellValue('B3','Uraian');
+        $spreadsheet->getActiveSheet()->setCellValue('E3','Nominal');
+        $spreadsheet->getActiveSheet()->setCellValue('F3','PENDAPATAN');
+        $spreadsheet->getActiveSheet()->setCellValue('G3','Nominal');
+        $spreadsheet->getActiveSheet()->setCellValue('H3','RAB');
+        $spreadsheet->getActiveSheet()->setCellValue('K3','Nominal');
+
+        $cell_no = 4;
+        foreach ($get_rincian_detail as $key => $value) {
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_no,$value->tanggal_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_no,$value->uraian_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_no,$value->volume_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_no,$value->nominal_pendapatan);
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_no,$value->volume_rincian * $value->nominal_pendapatan);
+            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->nama_kolom_spp);
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan_spp);
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_no,$value->uraian_rab);
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_no,$value->volume_rab);
+            $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_no,$value->nominal_rab);
+            $spreadsheet->getActiveSheet()->setCellValue('K'.$cell_no,$value->volume_rab * $value->nominal_rab);
+            $cell_no++;
+        }
+
+        $cell_total       = $cell_no+1;
+        $cell_grand_total = $cell_total+1;
+
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_total,'Total');
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_total,'=SUM(E4:E'.$cell_total.')');
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_total,'Total');
+        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_total,'=SUM(G4:G'.$cell_total.')');
+
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_grand_total,'Sisa Uang');
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_grand_total,'=E1-E'.$cell_total);
+        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_grand_total,'=G'.$cell_total.'+E'.$cell_grand_total);
+
+        $spreadsheet->getActiveSheet()->getStyle('E1')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('D4:D'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('E4:E'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('G4:G'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('J4:J'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('K4:K'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        
+        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+        $spreadsheet->getActiveSheet()->getStyle('A3:K'.$cell_no)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_total.':G'.$cell_grand_total)->applyFromArray($styleTable);
+
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+        
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$fileName.'"');
+        $writer->save('php://output');
     }
 }

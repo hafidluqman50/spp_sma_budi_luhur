@@ -871,5 +871,18 @@ class SppController extends Controller
         return redirect('/admin/spp')->with('message','Berhasil Import SPP Kantin');
     }
 
-    // public function 
+    public function kalkulasiUlang()
+    {
+        $spp = Spp::all();
+
+        foreach ($spp as $key => $value) {
+            $sum_ulang = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->where('id_spp',$value->id_spp)
+                                ->sum('sisa_bayar');
+
+            Spp::where('id_spp',$value->id_spp)->update(['total_harus_bayar' => $sum_ulang]);
+        }
+
+        return redirect('/admin/spp')->with('message','Berhasil Update Total Harus Bayar');
+    }
 }

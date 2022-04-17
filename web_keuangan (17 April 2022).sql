@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 16, 2022 at 04:05 PM
+-- Generation Time: Apr 17, 2022 at 03:32 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -237,7 +237,11 @@ INSERT INTO `petugas` (`id_petugas`, `id_users`, `nama_petugas`, `jabatan_petuga
 
 CREATE TABLE `rincian_pengeluaran` (
   `id_rincian_pengeluaran` varchar(36) NOT NULL,
-  `bulan_perincian` varchar(100) NOT NULL,
+  `bulan_laporan` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `tahun_laporan` year NOT NULL,
+  `bulan_pengajuan` varchar(2) NOT NULL,
+  `tahun_pengajuan` year NOT NULL,
+  `saldo_awal` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

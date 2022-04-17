@@ -240,6 +240,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/contoh-import',[AdminSppController::class, 'contohImport']);
     Route::post('/spp/import/save',[AdminSppController::class, 'import']);
     Route::post('/spp/kantin/import/save',[AdminSppController::class, 'importSPPKantin']);
+    Route::get('/spp/kalkulasi-ulang',[AdminSppController::class, 'kalkulasiUlang']);
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //
