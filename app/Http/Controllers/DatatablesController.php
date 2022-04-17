@@ -224,8 +224,11 @@ class DatatablesController extends Controller
 
     public function dataSppBulanTahun($id)
     {
-        $spp_bulan_tahun = SppBulanTahun::leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+        $spp_bulan_tahun = SppBulanTahun::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")
+                                        ->leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                                         ->where('id_spp',$id)
+                                        ->orderByRaw("FIELD(bulan_numeric,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
+                                        ->orderBy('tahun_numeric','ASC')
                                         ->get();
 
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){

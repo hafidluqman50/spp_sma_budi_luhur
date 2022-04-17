@@ -885,4 +885,14 @@ class SppController extends Controller
 
         return redirect('/admin/spp')->with('message','Berhasil Update Total Harus Bayar');
     }
+
+    public function bulanTahunNumeric()
+    {
+        $spp_bulan_tahun = SppBulanTahun::all();
+
+        foreach ($spp_bulan_tahun as $key => $value) {
+            $explode = explode(', ',$value->bulan_tahun);
+            dd($explode);
+        }
+    }
 }

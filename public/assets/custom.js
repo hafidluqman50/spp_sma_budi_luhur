@@ -247,7 +247,7 @@ $(() => {
         "class": "index",
         }],
         scrollX:true,
-        order: [[ 2, 'asc' ]],
+        order: [],
         responsive:true,
         fixedColumns: true
     });
