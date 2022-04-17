@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 17, 2022 at 03:32 PM
+-- Generation Time: Apr 17, 2022 at 05:02 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -308,7 +308,6 @@ INSERT INTO `siswa` (`id_siswa`, `nisn`, `nama_siswa`, `slug_siswa`, `jenis_kela
 CREATE TABLE `spp` (
   `id_spp` varchar(36) NOT NULL,
   `id_kelas_siswa` varchar(36) NOT NULL,
-  `total_harus_bayar` int NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -318,9 +317,9 @@ CREATE TABLE `spp` (
 -- Dumping data for table `spp`
 --
 
-INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `total_harus_bayar`, `id_users`, `created_at`, `updated_at`) VALUES
-('3248af19-661e-4970-8dfe-aac45ae70c9c', '8038690d-94bd-4eb1-8237-447aee3004c7', 10000, 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
-('d1226173-2c27-4602-9243-620a5b6653d4', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 0, 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:06');
+INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `id_users`, `created_at`, `updated_at`) VALUES
+('3248af19-661e-4970-8dfe-aac45ae70c9c', '8038690d-94bd-4eb1-8237-447aee3004c7', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:02'),
+('d1226173-2c27-4602-9243-620a5b6653d4', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-02-26 15:59:02', '2022-02-26 15:59:06');
 
 -- --------------------------------------------------------
 
