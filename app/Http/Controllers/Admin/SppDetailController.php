@@ -66,9 +66,9 @@ class SppDetailController extends Controller
                                     ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                     ->firstOrFail()->id_spp;
 
-        $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+        // $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
 
-        $total_harus_bayar = $get_total_harus_bayar - $bayar_spp;
+        // $total_harus_bayar = $get_total_harus_bayar - $bayar_spp;
 
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
@@ -94,7 +94,7 @@ class SppDetailController extends Controller
 
         SppBayarDetail::create($data_spp_bayar_detail);
 
-        Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+        // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
@@ -166,9 +166,9 @@ class SppDetailController extends Controller
                                         ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                         ->firstOrFail()->id_spp;
 
-            $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+            // $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
 
-            $total_harus_bayar = $get_total_harus_bayar - $bayar_spp[$key];
+            // $total_harus_bayar = $get_total_harus_bayar - $bayar_spp[$key];
 
             SppDetail::where('id_spp_detail',$id_detail[$key])
                     ->update($data_spp_detail);
@@ -182,7 +182,7 @@ class SppDetailController extends Controller
                 ];
             }
 
-            Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+            // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
 
             $spp_row = SppDetail::getBayarById($id_detail[$key]);
 
@@ -266,8 +266,8 @@ class SppDetailController extends Controller
                               'status_bayar' => 0
                           ]);
 
-            $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
-            Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar_spp + $value->nominal_bayar]);
+            // $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
+            // Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar_spp + $value->nominal_bayar]);
         }
 
 
@@ -303,10 +303,10 @@ class SppDetailController extends Controller
                         ]);
 
         // $nominal_spp_bayar     = SppBayar::where('id_spp_bayar',$spp_row->id_spp_bayar)->firstOrFail()->nominal_bayar;
-        $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
+        // $total_harus_bayar_spp = Spp::where('id_spp',$spp_row->id_spp)->firstOrFail()->total_harus_bayar;
 
         // SppBayar::where('id_spp_bayar',$spp_row->id_spp_bayar)->update(['nominal_bayar' => $nominal_spp_bayar - $spp_row->nominal_bayar]);
-        Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar_spp + $spp_row->nominal_bayar_detail]);
+        // Spp::where('id_spp',$spp_row->id_spp)->update(['total_harus_bayar' => $total_harus_bayar_spp + $spp_row->nominal_bayar_detail]);
 
         SppBayarDetail::where('id_spp_bayar_detail',$id_detail)
                 ->delete();

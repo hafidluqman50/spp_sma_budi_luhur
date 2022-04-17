@@ -88,18 +88,18 @@ class SppController extends Controller
         // CHECK SISWA //
         if (Spp::where('id_kelas_siswa',$siswa)->count() > 0) {
             $id_spp = Spp::where('id_kelas_siswa',$siswa)->firstOrFail()->id_spp;
-            $total_harus_bayar_spp = Spp::where('id_spp',$id_spp)->firstOrFail()->total_harus_bayar;
-            $data_spp = [
-                'total_harus_bayar' => $total_pembayaran + $total_harus_bayar_spp
-            ];
-            Spp::where('id_spp',$id_spp)->update($data_spp);
+            // $total_harus_bayar_spp = Spp::where('id_spp',$id_spp)->firstOrFail()->total_harus_bayar;
+            // $data_spp = [
+            //     'total_harus_bayar' => $total_pembayaran + $total_harus_bayar_spp
+            // ];
+            // Spp::where('id_spp',$id_spp)->update($data_spp);
         }
         else {
             $id_spp = (string)Str::uuid();
             $data_spp = [
                 'id_spp'            => $id_spp,
                 'id_kelas_siswa'    => $siswa,
-                'total_harus_bayar' => $total_pembayaran,
+                // 'total_harus_bayar' => $total_pembayaran,
                 'id_users'          => Auth::user()->id_users
             ];
             Spp::create($data_spp);   
@@ -418,7 +418,7 @@ class SppController extends Controller
 
                                     $data_spp = [
                                         'id_kelas_siswa'    => $get_id_kelas_siswa,
-                                        'total_harus_bayar' => $cells[9]->getValue() - $cells[10]->getValue(),
+                                        // 'total_harus_bayar' => $cells[9]->getValue() - $cells[10]->getValue(),
                                         'id_users'          => Auth::user()->id_users
                                     ];
                                     Spp::firstOrCreate($data_spp);
@@ -429,62 +429,62 @@ class SppController extends Controller
                                     $get_spp    = Spp::where('id_kelas_siswa',$get_id_kelas_siswa)->get()[0];       
                                     $get_id_spp = $get_spp->id_spp;
 
-                                    if ($cells[5]->getValue() == '' && $cells[6]->getValue() == '') {
-                                        $cek_data_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('id_spp_bulan_tahun',session()->get('spp')['id_spp_bulan_tahun'])->count();
+                                    // if ($cells[5]->getValue() == '' && $cells[6]->getValue() == '') {
+                                        // $cek_data_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('id_spp_bulan_tahun',session()->get('spp')['id_spp_bulan_tahun'])->count();
 
-                                        if ($cek_data_spp_bulan_tahun == 0) {
-                                            $data_spp = [
-                                                'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
-                                            ];
-                                            Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
-                                        }
-                                        else {
-                                            $get_id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
-                                                                ->get()[0]->id_kolom_spp;
+                                        // if ($cek_data_spp_bulan_tahun == 0) {
+                                            // $data_spp = [
+                                            //     'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
+                                            // ];
+                                            // Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
+                                        // }
+                                        // else {
+                                            // $get_id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
+                                            //                     ->get()[0]->id_kolom_spp;
 
-                                            $row_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
-                                                                                    ->where('id_spp_bulan_tahun',session()->get('spp')['id_spp_bulan_tahun'])
-                                                                                   ->get()[0]->id_spp_bulan_tahun;
+                                            // $row_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)
+                                            //                                         ->where('id_spp_bulan_tahun',session()->get('spp')['id_spp_bulan_tahun'])
+                                            //                                        ->get()[0]->id_spp_bulan_tahun;
 
-                                            $cek_spp_kolom_detail = SppDetail::where('id_spp_bulan_tahun',$row_id_spp_bulan_tahun)
-                                                                              ->where('id_kolom_spp',$get_id_kolom_spp)
-                                                                              ->count();
+                                            // $cek_spp_kolom_detail = SppDetail::where('id_spp_bulan_tahun',$row_id_spp_bulan_tahun)
+                                            //                                   ->where('id_kolom_spp',$get_id_kolom_spp)
+                                            //                                   ->count();
 
-                                            if ($cek_spp_kolom_detail == 0) {
-                                                $data_spp = [
-                                                    'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
-                                                ];
-                                                Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        $cek_data_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())->count();
+                                            // if ($cek_spp_kolom_detail == 0) {
+                                                // $data_spp = [
+                                                //     'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
+                                                // ];
+                                                // Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
+                                            // }
+                                        // }
+                                    // }
+                                    // else {
+                                        // $cek_data_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())->count();
 
-                                        if ($cek_data_spp_bulan_tahun == 0) {
-                                            $data_spp = [
-                                                'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
-                                            ];
-                                            Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
-                                        }
-                                        else {
-                                            $get_id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
-                                                                ->get()[0]->id_kolom_spp;
+                                        // if ($cek_data_spp_bulan_tahun == 0) {
+                                        //     $data_spp = [
+                                        //         'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
+                                        //     ];
+                                        //     Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
+                                        // }
+                                        // else {
+                                            // $get_id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
+                                            //                     ->get()[0]->id_kolom_spp;
 
-                                            $row_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())->get()[0]->id_spp_bulan_tahun;
+                                            // $row_id_spp_bulan_tahun = SppBulanTahun::where('id_spp',$get_id_spp)->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())->get()[0]->id_spp_bulan_tahun;
 
-                                            $cek_spp_kolom_detail = SppDetail::where('id_spp_bulan_tahun',$row_id_spp_bulan_tahun)
-                                                                              ->where('id_kolom_spp',$get_id_kolom_spp)
-                                                                              ->count();
+                                            // $cek_spp_kolom_detail = SppDetail::where('id_spp_bulan_tahun',$row_id_spp_bulan_tahun)
+                                            //                                   ->where('id_kolom_spp',$get_id_kolom_spp)
+                                            //                                   ->count();
 
-                                            if ($cek_spp_kolom_detail == 0) {
-                                                $data_spp = [
-                                                    'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
-                                                ];
-                                                Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
-                                            }
-                                        }
-                                    }
+                                        //     if ($cek_spp_kolom_detail == 0) {
+                                        //         $data_spp = [
+                                        //             'total_harus_bayar' => $get_spp->total_harus_bayar + ($cells[9]->getValue() - $cells[10]->getValue())
+                                        //         ];
+                                        //         Spp::where('id_spp',$get_spp->id_spp)->update($data_spp);
+                                        //     }
+                                        // }
+                                    // }
                                 }
 
                                 $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[8]->getValue(),'-'))
@@ -563,12 +563,12 @@ class SppController extends Controller
                                     SppDetail::firstOrCreate($data_spp_detail);
                                 }
 
-                                $sum_sisa_bayar = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                                        ->where('spp.id_spp',$get_id_spp)
-                                                        ->sum('sisa_bayar');
+                                // $sum_sisa_bayar = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                //                         ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                //                         ->where('spp.id_spp',$get_id_spp)
+                                //                         ->sum('sisa_bayar');
 
-                                Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $sum_sisa_bayar]);
+                                // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $sum_sisa_bayar]);
 
                                 if (!session()->has('spp')) {
                                     $session_spp = [

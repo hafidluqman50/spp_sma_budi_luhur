@@ -17,7 +17,8 @@ $(() => {
     $('.datatable').DataTable();
     
 	// var base_url = 'http://localhost:8000'
-    var base_url = 'http://project_work.web'
+    // var base_url = 'http://project_work.web'
+    var base_url = window.location.origin
 
     var siswa = $('.data-siswa').DataTable({
         processing:true,

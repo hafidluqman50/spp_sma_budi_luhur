@@ -53,13 +53,13 @@ class SppBulanTahunController extends Controller
         $kolom_spp   = $request->kolom_spp;
         $nominal_spp = $request->nominal_spp;
 
-        $get_sum_total_old   = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
-                                          ->where('bayar_spp','=',0)
-                                          ->sum('nominal_spp');
+        // $get_sum_total_old   = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
+        //                                   ->where('bayar_spp','=',0)
+        //                                   ->sum('nominal_spp');
 
-        $total_harus_bayar_old = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+        // $total_harus_bayar_old = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
 
-        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
+        // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
 
         SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
 
@@ -76,12 +76,12 @@ class SppBulanTahunController extends Controller
             SppDetail::create($data_kolom_spp);
         }
 
-        $total_harus_bayar_new = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
-        $get_sum_total_new     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
-                                        ->where('bayar_spp','=',0)
-                                        ->sum('nominal_spp');
+        // $total_harus_bayar_new = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+        // $get_sum_total_new     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
+        //                                 ->where('bayar_spp','=',0)
+        //                                 ->sum('nominal_spp');
 
-        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_new + $get_sum_total_new]);
+        // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_new + $get_sum_total_new]);
 
         return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
     }

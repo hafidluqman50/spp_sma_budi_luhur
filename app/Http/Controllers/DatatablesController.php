@@ -217,7 +217,11 @@ class DatatablesController extends Controller
         })->editColumn('wilayah',function($edit){
             return unslug_str($edit->wilayah);
         })->editColumn('total_harus_bayar',function($edit){
-            return format_rupiah($edit->total_harus_bayar);
+            $sum = SppDetail::join('spp_bulan_tahun','spp_bulan_tahun.id_spp_bulan_tahun','=','spp_detail.id_spp_bulan_tahun')
+                            ->where('id_spp',$edit->id_spp)
+                            ->sum('sisa_bayar');
+
+            return format_rupiah($sum);
         })->make(true);
         return $datatables;
     }
