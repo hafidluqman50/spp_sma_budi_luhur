@@ -95,10 +95,10 @@ class SppBulanTahunController extends Controller
         $history = ['text' => $text_history,'status_terbaca' => 0];
         HistoryProsesSpp::create($history);
 
-        $get_sum_total     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->sum('nominal_spp');
-        $total_harus_bayar = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+        // $get_sum_total     = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->sum('nominal_spp');
+        // $total_harus_bayar = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
 
-        Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar - $get_sum_total]);
+        // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar - $get_sum_total]);
 
         SppBulanTahun::where('id_spp',$id)
                     ->where('id_spp_bulan_tahun',$id_bulan_tahun)
