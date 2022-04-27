@@ -50,30 +50,50 @@ class SppBulanTahunController extends Controller
 
     public function update(Request $request,$id,$id_bulan_tahun)
     {
-        $kolom_spp   = $request->kolom_spp;
-        $nominal_spp = $request->nominal_spp;
+        $kolom_spp        = $request->kolom_spp;
+        $nominal_spp      = $request->nominal_spp;
+        $kolom_spp_hide   = $request->kolom_spp_hide;
+        $nominal_spp_hide = $request->nominal_spp_hide;
 
-        // $get_sum_total_old   = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
-        //                                   ->where('bayar_spp','=',0)
-        //                                   ->sum('nominal_spp');
+        if (count($kolom_spp_hide) != 0) {
+            foreach ($kolom_spp_hide as $key => $value) {
+                $data_kolom_spp = [
+                    'id_spp_bulan_tahun' => $id_bulan_tahun,
+                    'id_kolom_spp'       => $kolom_spp_hide[$key],
+                    'nominal_spp'        => $nominal_spp_hide[$key],
+                    'bayar_spp'          => 0,
+                    'sisa_bayar'         => $nominal_spp_hide[$key],
+                    'status_bayar'       => 0
+                ];
 
-        // $total_harus_bayar_old = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
+                SppDetail::create($data_kolom_spp);
+            }
+        }
+        else {
 
-        // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
 
-        SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
+            // $get_sum_total_old   = SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
+            //                                   ->where('bayar_spp','=',0)
+            //                                   ->sum('nominal_spp');
 
-        foreach ($kolom_spp as $key => $value) {
-            $data_kolom_spp = [
-                'id_spp_bulan_tahun' => $id_bulan_tahun,
-                'id_kolom_spp'       => $kolom_spp[$key],
-                'nominal_spp'        => $nominal_spp[$key],
-                'bayar_spp'          => 0,
-                'sisa_bayar'         => $nominal_spp[$key],
-                'status_bayar'       => 0
-            ];
+            // $total_harus_bayar_old = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;
 
-            SppDetail::create($data_kolom_spp);
+            // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
+
+            SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
+
+            foreach ($kolom_spp as $key => $value) {
+                $data_kolom_spp = [
+                    'id_spp_bulan_tahun' => $id_bulan_tahun,
+                    'id_kolom_spp'       => $kolom_spp[$key],
+                    'nominal_spp'        => $nominal_spp[$key],
+                    'bayar_spp'          => 0,
+                    'sisa_bayar'         => $nominal_spp[$key],
+                    'status_bayar'       => 0
+                ];
+
+                SppDetail::create($data_kolom_spp);
+            }
         }
 
         // $total_harus_bayar_new = Spp::where('id_spp',$id)->firstOrFail()->total_harus_bayar;

@@ -78,6 +78,15 @@
                                         <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-8 offset-4">
+                                        <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </div>
+                                
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
@@ -117,15 +126,6 @@
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <div class="form-group row">
                                         <label class="col-form-label">Data Kolom SPP Tidak ada</label>
-                                    </div>
-                                    <?php endif; ?>
-                                    <?php if($no != 0): ?>
-                                    <div class="form-group row">
-                                        <div class="col-8 offset-4">
-                                            <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
-                                                Simpan
-                                            </button>
-                                        </div>
                                     </div>
                                     <?php endif; ?>
                                 </div>

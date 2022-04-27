@@ -939,7 +939,7 @@ $(() => {
         "class": "index",
         }],
         scrollX:true,
-        order: [[ 1, 'desc' ]],
+        order: [],
         responsive:true,
         fixedColumns: true
     });
