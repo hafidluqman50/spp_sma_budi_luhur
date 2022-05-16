@@ -34,6 +34,7 @@
                                     <label class="col-4 col-form-label">Saldo Awal</label>
                                     <div class="col-7">
                                         <input type="number" name="saldo_awal" class="form-control" placeholder="Isi Saldo Awal" required>
+                                        <label for="" class="saldo-awal-label">Rp 0,00</label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -90,7 +91,8 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Nominal Rincian</label>
                                                 <div>
-                                                    <input type="number" name="nominal_rincian[]" class="form-control" placeholder="Isi Nominal Rincian" required="required">
+                                                    <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-id="1">
+                                                    <label for="" class="nominal-rincian-label" nominal-rincian-id="1">Rp 0,00</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +129,8 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Nominal RAB</label>
                                                 <div>
-                                                    <input type="number" name="nominal_rab[]" class="form-control" placeholder="Isi Nominal RAB">
+                                                    <input type="number" name="nominal_rab[]" class="form-control nominal-rab" placeholder="Isi Nominal RAB" nominal-rab-id="1">
+                                                    <label for="" class="nominal-rab-label" nominal-rab-id="1">Rp 0,00</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,7 +146,8 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Nominal Pendapatan</label>
                                                 <div>
-                                                    <input type="number" name="nominal_pendapatan[]" class="form-control" placeholder="Isi Nominal Pendapatan" required="required">
+                                                    <input type="number" name="nominal_pendapatan[]" class="form-control nominal-pendapatan" placeholder="Isi Nominal Pendapatan" required="required" nominal-pendapatan-id="1">
+                                                    <label for="" class="nominal-pendapatan-label" nominal-pendapatan-id="1">Rp 0,00</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,6 +189,23 @@
 @section('js')
 <script>
     $(() => {
+        $('input[name="saldo_awal"]').keyup(function(){
+            let val = $(this).val()
+            if (val == 0) {
+                $('.saldo-awal-label').html(rupiah_format(0))
+            }
+            else {
+                $('.saldo-awal-label').html(rupiah_format(val))
+            }
+        })
+
+        var nominal_rincian_input    = 2;
+        var nominal_pendapatan_input = 2;
+        var nominal_rab_input        = 2;
+        var nominal_rincian_label    = 2;
+        var nominal_pendapatan_label = 2;
+        var nominal_rab_label        = 2;
+
         $('#input-act-perincian').click(() => {
             $('.pendapatan').each(function(){
                 if ($(this)[0].selectize) { // requires [0] to select the proper object
@@ -199,7 +220,45 @@
                 sortField:'text'
             })
 
+            $('.nominal-rincian:last').attr('nominal-rincian-id',nominal_rincian_input++)
+            $('.nominal-pendapatan:last').attr('nominal-pendapatan-id',nominal_pendapatan_input++)
+            $('.nominal-rab:last').attr('nominal-rab-id',nominal_rab_input++)
+
+            $('.nominal-rincian-label:last').attr('nominal-rincian-id',nominal_rincian_label++)
+            $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-id',nominal_pendapatan_label++)
+            $('.nominal-rab-label:last').attr('nominal-rab-id',nominal_rab_label++)
+
             $('#hapus-act-perincian').removeClass('form-hide')
+        })
+        $(document).on('keyup','.nominal-rincian',function() {
+            let val  = $(this).val()
+            let attr = $(this).attr('nominal-rincian-id')
+            if (val == 0) {
+                $(`.nominal-rincian-label[nominal-rincian-id="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.nominal-rincian-label[nominal-rincian-id="${attr}"]`).html(rupiah_format(val))
+            }
+        })
+        $(document).on('keyup','.nominal-pendapatan',function() {
+            let val  = $(this).val()
+            let attr = $(this).attr('nominal-pendapatan-id')
+            if (val == 0) {
+                $(`.nominal-pendapatan-label[nominal-pendapatan-id="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.nominal-pendapatan-label[nominal-pendapatan-id="${attr}"]`).html(rupiah_format(val))
+            }
+        })
+        $(document).on('keyup','.nominal-rab',function() {
+            let val  = $(this).val()
+            let attr = $(this).attr('nominal-rab-id')
+            if (val == 0) {
+                $(`.nominal-rab-label[nominal-rab-id="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.nominal-rab-label[nominal-rab-id="${attr}"]`).html(rupiah_format(val))
+            }
         })
         $('#hapus-act-perincian').click(() => {
             $('.input-perincian').last().remove()

@@ -11,6 +11,7 @@ class HistorySppController extends Controller
     public function index()
     {
         $title = 'History SPP | Admin';
+        HistoryProsesSpp::query()->update(['status_terbaca' => 1]);
 
         return view('Admin.history-spp.main',compact('title'));
     }

@@ -78,27 +78,7 @@
         <!-- App js -->
         <script src=" <?php echo e(asset('assets/js/jquery.core.js')); ?> "></script>
         <script src=" <?php echo e(asset('assets/js/jquery.app.js')); ?> "></script>
-        <script>
-            $('form').on('keydown','input,select,textarea',function(e){
-                var self = $(this),
-                    form = self.parents('form:eq(0)'),
-                    focusable,
-                    next
-                    ;
-                if (e.keyCode == 13) {
-                    focusable = form.find('input,a,select,button,textarea').filter(':visible');
-                    console.log(focusable);
-                    next = focusable.eq(focusable.index(this)+1);
-                    if (next.length) {
-                        next.focus();
-                    }
-                    else {
-                        next.submit();
-                    }
-                    return false;
-                }
-            });
-        </script>
+
 	
 	</body>
 </html><?php /**PATH /var/www/web_keuangan/resources/views/login.blade.php ENDPATH**/ ?>
