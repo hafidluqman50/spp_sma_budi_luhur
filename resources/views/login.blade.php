@@ -86,6 +86,13 @@
         <!-- App js -->
         <script src=" {{ asset('assets/js/jquery.core.js') }} "></script>
         <script src=" {{ asset('assets/js/jquery.app.js') }} "></script>
+        <script>
+            $('input[name="username"]').keyup(function(e){
+                if (e.key === 'Enter') {
+                    $('input[name="password"]').focus()
+                }
+            })
+        </script>
 {{--         <script>
             $('form').on('keydown','input,select,textarea',function(e){
                 var self = $(this),

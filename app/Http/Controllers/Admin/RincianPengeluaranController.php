@@ -39,7 +39,7 @@ class RincianPengeluaranController extends Controller
         $volume_rincian     = $request->volume_rincian;
         $nominal_rincian    = $request->nominal_rincian;
         $id_kolom_spp       = $request->id_kolom_spp;
-        $nominal_pendapatan = $request->nominal_pendapatan;
+        // $nominal_pendapatan = $request->nominal_pendapatan;
         $uraian_rab         = $request->uraian_rab;
         $volume_rab         = $request->volume_rab;
         $nominal_rab        = $request->nominal_rab;
@@ -56,6 +56,10 @@ class RincianPengeluaranController extends Controller
         RincianPengeluaran::create($data_rincian_pengeluaran);
 
         for ($i=0; $i < count($uraian_rincian); $i++) {
+            $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
+                                                ->where('id_kolom_spp',$id_kolom_spp[$i])
+                                                ->sum('nominal_bayar');
+
             $data_rincian_pengeluaran_detail = [
                 'id_rincian_pengeluaran' => $id_rincian_pengeluaran,
                 'tanggal_rincian'        => $tanggal_perincian[$i],
@@ -63,7 +67,7 @@ class RincianPengeluaranController extends Controller
                 'volume_rincian'         => $volume_rincian[$i],
                 'nominal_pendapatan'     => $nominal_pendapatan[$i],
                 'id_kolom_spp'           => $id_kolom_spp[$i],
-                'nominal_pendapatan_spp' => $nominal_pendapatan[$i],
+                'nominal_pendapatan_spp' => $nominal_pendapatan,
                 'uraian_rab'             => $uraian_rab[$i],
                 'volume_rab'             => $volume_rab[$i],
                 'nominal_rab'            => $nominal_rab[$i]

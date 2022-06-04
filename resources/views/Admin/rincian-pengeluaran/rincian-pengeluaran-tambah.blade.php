@@ -142,7 +142,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="col-form-label">Nominal Pendapatan</label>
                                                 <div>
@@ -150,7 +150,7 @@
                                                     <label for="" class="nominal-pendapatan-label" nominal-pendapatan-id="1">Rp 0,00</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="col-form-label">Volume RAB</label>
@@ -200,10 +200,10 @@
         })
 
         var nominal_rincian_input    = 2;
-        var nominal_pendapatan_input = 2;
+        // var nominal_pendapatan_input = 2;
         var nominal_rab_input        = 2;
         var nominal_rincian_label    = 2;
-        var nominal_pendapatan_label = 2;
+        // var nominal_pendapatan_label = 2;
         var nominal_rab_label        = 2;
 
         $('#input-act-perincian').click(() => {
@@ -221,12 +221,16 @@
             })
 
             $('.nominal-rincian:last').attr('nominal-rincian-id',nominal_rincian_input++)
-            $('.nominal-pendapatan:last').attr('nominal-pendapatan-id',nominal_pendapatan_input++)
+            // $('.nominal-pendapatan:last').attr('nominal-pendapatan-id',nominal_pendapatan_input++)
             $('.nominal-rab:last').attr('nominal-rab-id',nominal_rab_input++)
 
             $('.nominal-rincian-label:last').attr('nominal-rincian-id',nominal_rincian_label++)
-            $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-id',nominal_pendapatan_label++)
+            // $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-id',nominal_pendapatan_label++)
             $('.nominal-rab-label:last').attr('nominal-rab-id',nominal_rab_label++)
+
+            $('.input-perincian:last').find('input').val('')
+            $('.nominal-rincian-label:last').html(`${rupiah_format(0)}`)
+            $('.nominal-rab-label:last').html(`${rupiah_format(0)}`)
 
             $('#hapus-act-perincian').removeClass('form-hide')
         })
