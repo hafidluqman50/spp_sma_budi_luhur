@@ -28,22 +28,24 @@ class KelasSiswa extends Model
         return $get;
     }
 
-    public static function getByIdKelas($id)
+    public static function getByIdKelas($tahun_ajaran,$id)
     {
         $get = self::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('tahun_ajaran',$tahun_ajaran)
                     ->where('kelas_siswa.id_kelas',$id)
                     ->get();
-
+        // dd($get);
         return $get;
     }
 
-    public static function countByIdKelas($id)
+    public static function countByIdKelas($tahun_ajaran,$id)
     {
         $get = self::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                     ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                    ->where('tahun_ajaran',$tahun_ajaran)
                     ->where('kelas_siswa.id_kelas',$id)
                     ->count();
 

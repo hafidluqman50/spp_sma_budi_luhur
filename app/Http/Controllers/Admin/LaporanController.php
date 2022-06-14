@@ -150,8 +150,7 @@ class LaporanController extends Controller
         $title    = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
         $fileName = $title.'.xlsx';
 
-        $get_kelas   = Kelas::where('slug_kelas','like','%'.$kelas_siswa_input.'-%')->get();
-        dd($get_kelas);
+        $get_kelas   = Kelas::where('slug_kelas','like','%'.$kelas_siswa_input.'-%')->where('status_delete',0)->get();
         $spreadsheet = new Spreadsheet();
         foreach ($get_kelas as $key => $value) {
             $spreadsheet->setActiveSheetIndex($key)->setTitle($value->kelas);
@@ -166,7 +165,7 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('G5','Asal Wilayah');
             $spreadsheet->getActiveSheet()->setCellValue('H5','Wilayah');
 
-            $data_siswa = KelasSiswa::getByIdKelas($value->id_kelas);
+            $data_siswa = KelasSiswa::getByIdKelas($tahun_ajaran,$value->id_kelas);
             $cell = 6;
 
             foreach ($data_siswa as $index => $val) {
@@ -183,7 +182,7 @@ class LaporanController extends Controller
             }
             $total_cell = $cell+1;
             $spreadsheet->getActiveSheet()->setCellValue('A'.$total_cell,'Total Siswa : ');
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$total_cell,KelasSiswa::countByIdKelas($value->id_kelas));
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$total_cell,KelasSiswa::countByIdKelas($tahun_ajaran,$value->id_kelas));
             $spreadsheet->getActiveSheet()->mergeCells('A1:H1');
             $spreadsheet->getActiveSheet()->mergeCells('A3:H3');
             $spreadsheet->getActiveSheet()->getStyle('A1:H3')->applyFromArray([

@@ -22,6 +22,8 @@ use App\Models\Kepsek;
 use App\Models\HistoryProsesSpp;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPembelanjaan;
+use App\Models\RincianPenerimaan;
 use Auth;
 
 class DatatablesController extends Controller
@@ -643,9 +645,18 @@ class DatatablesController extends Controller
 
         $datatables = Datatables::of($rincian_pengeluaran)->addColumn('action',function($action){
             $column = '
-                        <div class="d-flex">
+                        <div class="d-flex" style="flex-direction:column;">
                             <a href="'.url("/$this->level/data-perincian-rab/detail/$action->id_rincian_pengeluaran").'">
-                              <button class="btn btn-primary waves-light"> Detail </button>
+                              <button class="btn btn-primary waves-light"> Detail Rincian </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pembelanjaan/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Rincian Pembelanjaan </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pembelanjaan-uang-makan/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Rincian Pembelanjaan Uang Makan </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/rincian-penerimaan/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Rincian Penerimaan </button>
                            </a>
                             <a href="'.url("/$this->level/data-perincian-rab/edit/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-warning"> Edit </button>
@@ -699,5 +710,36 @@ class DatatablesController extends Controller
         })->make(true);
 
         return $datatables;
+    }
+
+    public function dataRincianPembelanjaan($id,$ket)
+    {
+        $rincian_pembelanjaan = RincianPembelanjaan::join('rincian_pengeluaran_detail','rincian_pembelanjaan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
+            ->where('rincian_pembelanjaan.id_rincian_pengeluaran',$id)
+            ->where('jenis_rincian_pembelanjaan',$ket)
+            ->get();
+
+        $datatables = Datatables::of($rincian_pembelanjaan)->addColumn('action',function($action){
+                $column = ' <div class="d-flex">
+                               <form action="'.url("/$this->level/data-perincian-rab/detail/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_detail").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                return $column;
+            })->addColumn('total_nominal_uraian',function($add){
+                return format_rupiah($add->volume_rincian * $add->nominal_pendapatan);
+            })->editColumn('nominal_pendapatan',function($add){
+                return format_rupiah($add->nominal_pendapatan);
+            })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataRincianPenerimaan($id)
+    {
+        $rincian_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id)->get();
     }
 }

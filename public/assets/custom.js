@@ -1015,4 +1015,37 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var id_rincian = $('.data-rincian-pembelanjaan').attr('id-rincian-pengeluaran')
+    var ket_data   = $('.data-rincian-pembelanjaan').attr('ket-data')
+    var rincian_pembelanjaan = $('.data-rincian-pembelanjaan').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-pembelanjaan/${id_rincian}/${ket_data}`,
+        columns:[
+            {data:'id_rincian_pembelanjaan',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'kategori_rincian_pembelanjaan',name:'kategori_rincian_pembelanjaan'},
+            {data:'uraian_rincian',name:'uraian_rincian'},
+            {data:'volume_rincian',name:'volume_rincian'},
+            {data:'nominal_pendapatan',name:'nominal_pendapatan'},
+            {data:'total_nominal_uraian',name:'total_nominal_uraian'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_pembelanjaan.on( 'order.dt search.dt', function () {
+        rincian_pembelanjaan.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })
