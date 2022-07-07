@@ -43,7 +43,33 @@ class RincianPembelanjaanController extends Controller
 
     public function save(Request $request, $id)
     {
+        $kategori_rincian = $request->kategori_rincian;
+        $rincian          = $request->rincian;
+        $volume           = $request->volume;
+        $uang_masuk       = $request->uang_masuk;
+        $uang_keluar      = $request->uang_keluar;
+        $jenis_rincian    = $request->jenis_rincian;
 
+        foreach ($rincian as $key => $value) {
+            $data_rincian_pembelanjaan = [
+                'id_rincian_pengeluaran'        => $id,
+                'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : null,
+                'id_rincian_pengeluaran_detail' => $rincian[$key],
+                'uang_keluar'                   => $uang_keluar[$key],
+                'jenis_rincian_pembelanjaan'    => $jenis_rincian
+            ];
+
+            RincianPembelanjaan::create($data_rincian_pembelanjaan);
+        }
+
+        if ($jenis_rincian == 'operasional') {
+            $url = '/admin/data-perincian-rab/rincian-pembelanjaan/'.$id;
+        }
+        else if ($jenis_rincian == 'uang-makan') {
+            $url = '/admin/data-perincian-rab/rincian-pembelanjaan-uang-makan/'.$id;
+        }
+
+        return redirect($url)->with('message','Berhasil Input Data');
     }
 
     public function editRincianPembelanjaan($id,$id_detail)

@@ -138,6 +138,7 @@ Route::group(['prefix' => 'ajax'],function() {
     Route::get('/get-tunggakan/{id_siswa}/{id_kelas}/{id_tahun_ajaran}',[AjaxController::class, 'getTunggakan']);
     Route::get('/get-tunggakan-detail/{id_bulan_tahun}',[AjaxController::class, 'getTunggakanDetail']);
     Route::post('/get-bayar',[AjaxController::class, 'getBayar']);
+    Route::get('/get-rincian',[AjaxControlelr::class, 'getRincian']);
 });
 
 Route::group(['prefix' => 'datatables'],function(){
@@ -466,6 +467,20 @@ Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
     Route::get('/dashboard',[OrtuDashboardController::class, 'index']);
     Route::get('/spp/{id}',[OrtuDashboardController::class, 'spp']);
     Route::get('/spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
+});
+
+Route::get('/urai-bulan-tahun',function(){
+$spp_bulan_tahun = App\Models\SppBulanTahun::all();
+foreach ($spp_bulan_tahun as $key => $value) {
+    $explode_bulan_tahun = explode(',',$value->bulan_tahun);
+    $update = [
+        'bulan' => describe_month($explode_bulan_tahun[0]),
+        'tahun' => $explode_bulan_tahun[1]
+    ];
+    App\Models\SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
+                ->update($update);
+}
+echo 'oke';
 });
 
 Route::get('/dashboard1', function () {

@@ -17,6 +17,7 @@ use App\Models\SppDetail;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 use Illuminate\Support\Str;
+use DB;
 
 class LaporanController extends Controller
 {
@@ -222,33 +223,72 @@ class LaporanController extends Controller
     public function laporanTunggakan(Request $request)
     {
         $tahun_ajaran      = $request->tahun_ajaran;
+        $bulan_awal        = $request->bulan_awal;
+        $tahun_awal        = $request->tahun_awal;
+        $bulan_akhir       = $request->bulan_akhir;
+        $tahun_akhir       = $request->tahun_akhir;
         $kelas_siswa_input = $request->kelas_siswa_input;
 
-        $title    = 'LAPORAN TUNGGAKAN KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
+        if ($tahun_ajaran != '') {
+            $title    = 'LAPORAN TUNGGAKAN KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
+            $explode_tahun_ajaran = explode('/',$tahun_ajaran);
+        }
+        else {
+            $title    = 'LAPORAN TUNGGAKAN KELAS '.strtoupper($kelas_siswa_input).' Dari Bulan '.($bulan_awal).''.$tahun_awal.' Sampai Bulan '.$bulan_akhir.''.$tahun_akhir;
+            if ($tahun_awal == $tahun_akhir) {
+                $explode_tahun_ajaran = [$tahun_awal];
+                // $bulan_range          = [][];
+                $bulan_range[0]['bulan_awal']  = (int)$bulan_awal;
+                $bulan_range[0]['bulan_akhir'] = (int)$bulan_akhir;
+            }
+            else {
+                $explode_tahun_ajaran = [$tahun_awal,$tahun_akhir];
+                $bulan_range[0]['bulan_awal']  = (int)$bulan_awal;
+                $bulan_range[0]['bulan_akhir'] = 12;
+                $bulan_range[1]['bulan_awal']  = 1;
+                $bulan_range[1]['bulan_akhir'] = (int)$bulan_akhir;
+            }
+        }
+        
         $fileName = $title.'.xlsx';
 
         $spreadsheet = new Spreadsheet();
 
-        $explode_tahun_ajaran = explode('/',$tahun_ajaran);
-        // dd($explode_tahun_ajaran);
-
         $index_sheet = 0;
+        DB::enableQueryLog();
         foreach ($explode_tahun_ajaran as $key => $value) {
-            $sheet_bulan_tahun = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                                    ->join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
-                                    ->where('bulan_tahun','like','%'.$explode_tahun_ajaran[$key].'%')
-                                    ->where('slug_kelas','like','%'.strtolower($kelas_siswa_input).'-%')
-                                    ->where('tahun_ajaran',$tahun_ajaran)
-                                    ->distinct()
-                                    ->orderByRaw("FIELD(bulan_tahun,'Januari, $explode_tahun_ajaran[$key]','Februari, $explode_tahun_ajaran[$key]','Maret, $explode_tahun_ajaran[$key]','April, $explode_tahun_ajaran[$key]','Mei, $explode_tahun_ajaran[$key]','Juni, $explode_tahun_ajaran[$key]','Juli, $explode_tahun_ajaran[$key]','Agustus, $explode_tahun_ajaran[$key]','September, $explode_tahun_ajaran[$key]','Oktober, $explode_tahun_ajaran[$key]','November, $explode_tahun_ajaran[$key]','Desember, $explode_tahun_ajaran[$key]')")
-                                    ->get('bulan_tahun');
+            if ($bulan_awal != '') {
+                $sheet_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                        // ->join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
+                                        // ->whereBetween('spp_bulan_tahun.bulan',[$bulan_awal,$bulan_akhir])
+                                        ->where('spp_bulan_tahun.bulan','>=',$bulan_range[$key]['bulan_awal'])
+                                        ->where('spp_bulan_tahun.bulan','<=',$bulan_range[$key]['bulan_akhir'])
+                                        ->where('spp_bulan_tahun.tahun',$explode_tahun_ajaran[$key])
+                                        ->where('slug_kelas','like','%'.strtolower($kelas_siswa_input).'-%')
+                                        ->distinct()
+                                        ->orderByRaw("FIELD(bulan_tahun,'Januari, $explode_tahun_ajaran[$key]','Februari, $explode_tahun_ajaran[$key]','Maret, $explode_tahun_ajaran[$key]','April, $explode_tahun_ajaran[$key]','Mei, $explode_tahun_ajaran[$key]','Juni, $explode_tahun_ajaran[$key]','Juli, $explode_tahun_ajaran[$key]','Agustus, $explode_tahun_ajaran[$key]','September, $explode_tahun_ajaran[$key]','Oktober, $explode_tahun_ajaran[$key]','November, $explode_tahun_ajaran[$key]','Desember, $explode_tahun_ajaran[$key]')")
+                                        ->get('bulan_tahun');
+            }
+            else {
+                $sheet_bulan_tahun = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                        ->join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
+                                        ->where('bulan_tahun','like','%'.$explode_tahun_ajaran[$key].'%')
+                                        ->where('slug_kelas','like','%'.strtolower($kelas_siswa_input).'-%')
+                                        ->where('tahun_ajaran',$tahun_ajaran)
+                                        ->distinct()
+                                        ->orderByRaw("FIELD(bulan_tahun,'Januari, $explode_tahun_ajaran[$key]','Februari, $explode_tahun_ajaran[$key]','Maret, $explode_tahun_ajaran[$key]','April, $explode_tahun_ajaran[$key]','Mei, $explode_tahun_ajaran[$key]','Juni, $explode_tahun_ajaran[$key]','Juli, $explode_tahun_ajaran[$key]','Agustus, $explode_tahun_ajaran[$key]','September, $explode_tahun_ajaran[$key]','Oktober, $explode_tahun_ajaran[$key]','November, $explode_tahun_ajaran[$key]','Desember, $explode_tahun_ajaran[$key]')")
+                                        ->get('bulan_tahun');
+            }
 
             foreach ($sheet_bulan_tahun as $index => $val) {
                 $spreadsheet->setActiveSheetIndex($index_sheet)->setTitle($val->bulan_tahun);
                 $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP'));
-                $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input,$tahun_ajaran);
+                $kelas    = SppBulanTahun::getKelasDistinct($val->bulan_tahun,$kelas_siswa_input,$explode_tahun_ajaran[$key]);
                 $cell_row = 3;
 
                 $spreadsheet->getDefaultStyle()->getFont()->setSize('12');
@@ -267,19 +307,34 @@ class LaporanController extends Controller
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_row,strtoupper('No.'));
                     $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_row,strtoupper('Nama'));
 
-                    $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                                                ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                                                ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                                                ->where('kelas',$data->kelas)
-                                                ->where('tahun_ajaran',$tahun_ajaran)
-                                                ->where('bulan_tahun',$val->bulan_tahun)
-                                                ->distinct()
-                                                ->get('id_kolom_spp');
+                    if ($tahun_ajaran != '') {
+                        $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                                    ->where('kelas',$data->kelas)
+                                                    ->where('tahun_ajaran',$tahun_ajaran)
+                                                    ->where('bulan_tahun',$val->bulan_tahun)
+                                                    ->distinct()
+                                                    ->get('id_kolom_spp');
+                        $data_siswa_spp    = SppBulanTahun::getSiswaByTunggakan($val->bulan_tahun,$data->kelas,$tahun_ajaran);
+                    }
+                    else {
+                        $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                                    ->where('kelas',$data->kelas)
+                                                    ->where('spp_bulan_tahun.tahun',$explode_tahun_ajaran[$key])
+                                                    ->where('bulan_tahun',$val->bulan_tahun)
+                                                    ->distinct()
+                                                    ->get('id_kolom_spp');
+                        $data_siswa_spp    = SppBulanTahun::getSiswaByTunggakan($val->bulan_tahun,$data->kelas,$explode_tahun_ajaran[$key]);
+                    }
 
                     $column_cell       = 'C';
-                    $data_siswa_spp    = SppBulanTahun::getSiswaByTunggakan($val->bulan_tahun,$data->kelas,$tahun_ajaran);
                     $array_column_cell = ['kolom_spp' => [], 'bayar_spp' => [], 'jumlah' => ''];
 
                     foreach ($distinct_kolom_spp as $i => $j) {

@@ -75,15 +75,28 @@ class SppBulanTahun extends Model
 
     public static function getKelasDistinct($bulan_tahun,$kelas,$tahun_ajaran)
     {
-        $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                    ->where('bulan_tahun',$bulan_tahun)
-                    ->where('slug_kelas','like','%'.strtolower($kelas).'-%')
-                    ->where('tahun_ajaran',$tahun_ajaran)
-                    ->distinct()
-                    ->get('kelas');
+        if (str_contains($tahun_ajaran,'/')) {
+            $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                        ->where('bulan_tahun',$bulan_tahun)
+                        ->where('slug_kelas','like','%'.strtolower($kelas).'-%')
+                        ->where('tahun_ajaran',$tahun_ajaran)
+                        ->distinct()
+                        ->get('kelas');
+        }
+        else {
+            $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                        ->where('bulan_tahun',$bulan_tahun)
+                        ->where('slug_kelas','like','%'.strtolower($kelas).'-%')
+                        ->where('spp_bulan_tahun.tahun',$tahun_ajaran)
+                        ->distinct()
+                        ->get('kelas');
+        }
 
         return $get;
     }
@@ -92,15 +105,28 @@ class SppBulanTahun extends Model
     {
         // dd([$bulan_tahun,$kelas,$tahun_ajaran]);
         DB::enableQueryLog();
-        $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                    ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                    ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                    ->where('bulan_tahun',$bulan_tahun)
-                    ->where('slug_kelas',Str::slug($kelas,'-'))
-                    ->where('tahun_ajaran',$tahun_ajaran)
-                    ->get();
+        if (str_contains($tahun_ajaran,'/')) {
+            $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                        ->where('bulan_tahun',$bulan_tahun)
+                        ->where('slug_kelas',Str::slug($kelas,'-'))
+                        ->where('tahun_ajaran',$tahun_ajaran)
+                        ->get();
+        }
+        else {
+            $get = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                        ->where('bulan_tahun',$bulan_tahun)
+                        ->where('slug_kelas',Str::slug($kelas,'-'))
+                        ->where('spp_bulan_tahun.tahun',$tahun_ajaran)
+                        ->get();
+        }
         // dd(DB::getQueryLog());
         // dd($get);
         return $get;

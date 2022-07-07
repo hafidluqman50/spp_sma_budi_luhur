@@ -111,6 +111,8 @@ class SppController extends Controller
             'id_spp_bulan_tahun' => $id_spp_bulan_tahun,
             'id_spp'             => $id_spp,
             'bulan_tahun'        => $bulan_tahun,
+            'bulan'              => describe_month($bulan),
+            'tahun'              => $tahun,
             'id_kantin'          => $kantin
         ];
 
@@ -499,6 +501,8 @@ class SppController extends Controller
                                         $data_spp_bulan_tahun = [
                                             'id_spp'      => $get_id_spp,
                                             'bulan_tahun' => $cells[5]->getValue().', '.$cells[6]->getValue(),
+                                            'bulan'       => describe_month($cells[5]->getValue()),
+                                            'tahun'       => $cells[6]->getValue(),
                                             'id_kantin'   => $id_kantin
                                         ];
 

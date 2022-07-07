@@ -22,18 +22,57 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
+                        <div class="alert alert-warning">
+                            <li style="color:black;">Untuk Cetak Laporan Harus Pilih Tahun Ajaran atau Pilih Range Bulan Dan Tahun</li>
+                        </div>
                         <h4 class="m-t-0 header-title"><b>LAPORAN DATA SISWA</b></h4>
                         <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
-                            	<div class="col-md-6 offset-md-3">
+                            	<div class="col-md-4 row">
+                                    
                             		<select name="tahun_ajaran" class="form-control select2">
                             			<option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
                             			<?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             			<option value="<?php echo e($element->tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
                             			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             		</select>
+                                    
                             	</div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 row">
+                                    <div class="col-md-6">
+                                        <select name="bulan_awal" class="form-control select2">
+                                            <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
+                                            <?php for($i = 1; $i <= 12; $i++): ?>
+                                            <option value="<?php echo e($i); ?>"><?php echo e(month(zero_front_number($i))); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        
+                                            <input type="text" name="tahun_awal" class="form-control datepicker" placeholder="Pilih Tahun Laporan">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6 row">
+                                    <div class="col-md-6">
+                                        <select name="bulan_akhir" class="form-control select2">
+                                            <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
+                                            <?php for($i = 1; $i <= 12; $i++): ?>
+                                            <option value="<?php echo e($i); ?>"><?php echo e(month(zero_front_number($i))); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        
+                                            <input type="text" name="tahun_akhir" class="form-control datepicker" placeholder="Pilih Tahun Laporan">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                             <table class="table table-hover datatable table-bordered force-fullwidth">
                                 <thead>
                                     <tr>
@@ -69,15 +108,15 @@
 
 <?php $__env->startSection('js'); ?>
 <script>
-    // $(() => {
-    //     $("#datepicker").datepicker({
-    //         format: "yyyy",
-    //         viewMode: "years", 
-    //         minViewMode: "years",
-    //         autoclose:true, //to close picker once year is selected
-    //         orientation: 'bottom'
-    //     });
-    // })
+    $(() => {
+        $(".datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose:true, //to close picker once year is selected
+            orientation: 'bottom'
+        });
+    })
 
     $('button[name="btn_cetak"]').click(function() {
         let attr = $(this).attr('id-kelas')

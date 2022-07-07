@@ -127,6 +127,24 @@ function month($get_month) {
 	return $array[$month];
 }
 
+function describe_month($month) {
+	$array = [
+		'Januari'   => 1,
+		'Februari'  => 2,
+		'Maret'     => 3,
+		'April'     => 4,
+		'Mei'       => 5,
+		'Juni'      => 6,
+		'Juli'      => 7,
+		'Agustus'   => 8,
+		'September' => 9,
+		'Oktober'   => 10,
+		'November'  => 11,
+		'Desember'  => 12
+	];
+	return $array[$month];
+}
+
 function bulan_tahun($date) {
 	$explode = explode('-',$date);
 	return month($explode[1]).', '.$explode[0];

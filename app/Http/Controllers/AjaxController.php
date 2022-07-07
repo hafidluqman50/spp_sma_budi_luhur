@@ -213,4 +213,15 @@ class AjaxController extends Controller
 
         return response()->json($data_master);
     }
+
+    public function getRincian(Request $request)
+    {
+        $id_rincian = $request->id_rincian;
+
+        $get_rincian_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran_detail',$id_rincian)
+                                ->firstOrFail();
+
+        $data = ['volume' => $get_rincian_detail->volume, 'uang_masuk' => $get_rincian_detail->nominal_rincian];
+        return response()->json($data);
+    }
 }
