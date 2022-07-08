@@ -409,7 +409,9 @@ class LaporanController extends Controller
                 $spreadsheet->createSheet();
             }
         }
-        $spreadsheet->removeSheetByIndex($index_sheet);
+        // $spreadsheet->removeSheetByIndex($index_sheet);
+        $spreadsheet->getActiveSheet()->setTitle('Rekap SPP');
+        $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP'));
         $spreadsheet->setActiveSheetIndex(0);
         
         $writer = new Xlsx($spreadsheet);
