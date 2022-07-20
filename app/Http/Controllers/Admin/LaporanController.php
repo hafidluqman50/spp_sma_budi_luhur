@@ -411,7 +411,115 @@ class LaporanController extends Controller
         }
         // $spreadsheet->removeSheetByIndex($index_sheet);
         $spreadsheet->getActiveSheet()->setTitle('Rekap SPP');
-        $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP'));
+        $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('Tunggakan SPP Rekap'));
+        $kelas_rekap_tunggakan = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('slug_kelas','like','%'.$kelas_siswa_input.'-%')
+                                            ->where('status_bayar',0)
+                                            ->distinct()
+                                            ->get('kelas');
+
+        $spreadsheet->getActiveSheet()->setCellValue('A1','Tunggakan SPP');
+
+        $cell_rekap = 3;
+        foreach ($kelas_rekap_tunggakan as $key => $value) {
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap,$value->kelas);
+            $spreadsheet->getActiveSheet()->mergeCells('A'.$cell_rekap.':B'.$cell_rekap);
+
+            $styleArray = ['font'  => [
+                            'bold'  => true,
+                            ]
+                        ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_rekap.':B'.$cell_rekap)->applyFromArray($styleArray);
+            $cell_rekap++;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap,strtoupper('No.'));
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap,strtoupper('Nama'));
+
+            $distinct_kolom_rekap = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('kelas',$value->kelas)
+                                            ->where('status_bayar',0)
+                                            ->distinct()
+                                            ->get('id_kolom_spp');
+
+            $column_cell       = 'C';
+            $array_column_cell = ['kolom_spp' => [], 'bayar_spp' => [], 'jumlah' => ''];
+
+            foreach ($distinct_kolom_rekap as $i => $j) {
+                $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_rekap,strtoupper(KolomSpp::getNamaKolomSpp($j->id_kolom_spp)));
+                array_push($array_column_cell['kolom_spp'],$column_cell);
+                $column_cell++;
+                array_push($array_column_cell['bayar_spp'],$column_cell);
+                $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_rekap,strtoupper('Bulan'));
+                $column_cell++;
+            }
+
+            $array_column_cell['jumlah'] = $column_cell;
+            $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_rekap,strtoupper('Jumlah'));
+
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_rekap.':'.$column_cell.$cell_rekap)->applyFromArray($styleArray);
+
+            $data_siswa_rekap = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('kelas',$value->kelas)
+                                            ->where('status_bayar',0)
+                                            ->groupBy('kelas_siswa.id_siswa')
+                                            ->get();
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $kelas_cell = $cell_rekap-1;
+            $spreadsheet->getActiveSheet()->getStyle('A'.$kelas_cell.':'.$column_cell.$cell_rekap)->applyFromArray($styleTable);
+
+            $cell_rekap = $cell_rekap+1;
+
+            foreach ($data_siswa_rekap as $id_siswa => $data_siswa_rekap_) {
+                $no = $id_siswa+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap,$no);
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap,$data_siswa_rekap_->nama_siswa);
+
+                for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
+                    $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_rekap,SppDetail::getTunggakanNominalRekap($distinct_kolom_rekap[$j]->id_kolom_spp,$data_siswa_rekap_->id_siswa));
+
+                    $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
+
+                    $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['bayar_spp'][$j].$cell_rekap,SppDetail::getTunggakanBulanRekap($distinct_kolom_rekap[$j]->id_kolom_spp,$data_siswa_rekap_->id_siswa));
+
+                    $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['bayar_spp'][$j])->setAutoSize(true);
+                }
+                $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['jumlah'].$cell_rekap,'=SUM(C'.$cell_rekap.':'.$column_cell.$cell_rekap.')');
+
+                $spreadsheet->getActiveSheet()->getColumnDimension($column_cell)->setAutoSize(true);
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_rekap.':'.$column_cell.$cell_rekap)->getFont()->setBold(true);
+
+                $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_rekap.':'.$column_cell.$cell_rekap)->applyFromArray($styleTable);
+                $cell_rekap++;
+            }
+
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+
+            $spreadsheet->getActiveSheet()->getStyle('C5:'.$column_cell.$cell_rekap)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $cell_rekap = $cell_rekap+2;
+
+        }
+
+
         $spreadsheet->setActiveSheetIndex(0);
         
         $writer = new Xlsx($spreadsheet);

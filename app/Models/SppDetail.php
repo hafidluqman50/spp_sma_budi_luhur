@@ -73,6 +73,34 @@ class SppDetail extends Model
         return $get;
     }
 
+    public static function getTunggakanNominalRekap($id_kolom_spp,$id_siswa)
+    {
+        $count = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0);
+
+        if ($count->count() != 0) {
+            $get = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0)
+                        ->sum('sisa_bayar');
+        }
+        else {
+            $get = '-';
+        }
+        return $get;
+    }
+
     public static function getTunggakanBulanTahun($id_kolom_spp,$id_bulan_tahun)
     {
         if (self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
@@ -90,6 +118,101 @@ class SppDetail extends Model
         else {
             $result = '-';
         }
+        return $result;
+    }
+
+    public static function getTunggakanBulanRekap($id_kolom_spp,$id_siswa)
+    {
+        $distinct_tahun_spp = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0)
+                        ->distinct()
+                        ->get('spp_bulan_tahun.tahun');
+        if (count($distinct_tahun_spp) > 1) {
+            $get_tahun_awal = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.tahun','ASC')
+                        ->get()[0]->tahun;
+
+            $get_tahun_akhir = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.tahun','DESC')
+                        ->get()[0]->tahun;
+
+            $get_bulan_awal = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('spp_bulan_tahun.tahun',$get_tahun_awal)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.bulan','ASC')
+                        ->get()[0]->bulan;
+
+            $get_bulan_akhir = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('spp_bulan_tahun.tahun',$get_tahun_akhir)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.bulan','DESC')
+                        ->get()[0]->bulan;
+
+            $result = bulan_tahun_excel_numeric($get_bulan_awal,$get_tahun_awal).'-'.bulan_tahun_excel_numeric($get_bulan_akhir,$get_tahun_akhir);
+
+        }
+        else if (count($distinct_tahun_spp) == 1) {
+            $get_tahun_awal = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.tahun','ASC')
+                        ->get()[0]->tahun;
+
+            $get_bulan_awal = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                        ->where('id_kolom_spp',$id_kolom_spp)
+                        ->where('kelas_siswa.id_siswa',$id_siswa)
+                        ->where('spp_bulan_tahun.tahun',$get_tahun_awal)
+                        ->where('status_bayar',0)
+                        ->orderBy('spp_bulan_tahun.bulan','ASC')
+                        ->get()[0]->bulan;
+
+            $result = bulan_tahun_excel_numeric($get_bulan_awal,$get_tahun_awal);
+        }
+        else {
+            $result = '-';
+        }
+
         return $result;
     }
 

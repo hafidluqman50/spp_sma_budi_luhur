@@ -13,7 +13,14 @@ function count_history_unread_navbar() {
 function bulan_tahun_excel($str) {
 	$pieces = explode(", ", $str);
 
-	return strtolower(substr($pieces[0],0,3).'-'.$pieces[1]);
+	return strtolower(substr($pieces[0],0,3).' '.$pieces[1]);
+}
+
+function bulan_tahun_excel_numeric($bulan,$tahun) {
+	$str    = month($bulan).', '.$tahun;
+	$pieces = explode(", ", $str);
+
+	return strtolower(substr($pieces[0],0,3).' '.$pieces[1]);
 }
 
 function get_history_navbar() {
