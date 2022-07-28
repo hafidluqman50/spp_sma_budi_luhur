@@ -302,6 +302,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/laporan-tunggakan',[AdminLaporanController::class, 'laporanTunggakanView']);
     Route::get('/laporan-rab',[AdminLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
+    Route::get('/laporan-pembukuan',[AdminLaporanController::class, 'laporanPembukuanView']);
     // END ROUTE LAPORAN //
 
     // ROUTE RAB //

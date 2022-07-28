@@ -15,6 +15,33 @@ class SppBayar extends Model
     protected $primaryKey = 'id_spp_bayar';
     protected $guarded    = [];
 
+    public function getTanggalBayar($id_siswa,$bulan,$tahun)
+    {
+        $db = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->where('kelas_siswa.id_siswa',$id_siswa)
+                ->whereMonth('spp_bayar.created_at',$bulan)
+                ->whereYear('spp_bayar.created_at',$tahun)
+                ->groupBy('kelas_siswa.id_siswa')
+                ->get()[0]->tanggal_bayar;
+
+        return $db;
+    }
+
+    public function getTotalDebit($id_siswa,$bulan,$tahun)
+    {
+        $db = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->where('kelas_siswa.id_siswa',$id_siswa)
+                ->whereMonth('spp_bayar.created_at',$bulan)
+                ->whereYear('spp_bayar.created_at',$tahun)
+                // ->groupBy('kelas_siswa.id_siswa')
+                ->sum('spp_bayar.nominal_bayar');
+        return $db;
+    }
+
     // public static function getSiswa($id)
     // {
     //     $get = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')

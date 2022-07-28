@@ -217,3 +217,9 @@ function backwards_date($param,$date) {
 
     return $new_date;
 }
+
+function date_excel($date) {
+	$new_date = date('d/m/Y',strtotime($date));
+
+	return $new_date;
+}

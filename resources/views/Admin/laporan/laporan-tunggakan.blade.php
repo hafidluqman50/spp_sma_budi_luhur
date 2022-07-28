@@ -12,10 +12,10 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Laporan Data Siswa</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Laporan Tunggakan</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Laporan Data Siswa</h4>
+                        <h4 class="page-title">Laporan Tunggakan</h4>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <div class="alert alert-warning">
                             <li style="color:black;">Untuk Cetak Laporan Harus Pilih Tahun Ajaran atau Pilih Range Bulan Dan Tahun</li>
                         </div>
-                        <h4 class="m-t-0 header-title"><b>LAPORAN DATA SISWA</b></h4>
+                        <h4 class="m-t-0 header-title"><b>LAPORAN Tunggakan</b></h4>
                         <form action="{{ url('/admin/laporan/cetak') }}">
                             <div class="row">
                             	<div class="col-md-4 row">

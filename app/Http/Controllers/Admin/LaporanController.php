@@ -16,6 +16,8 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
+use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
 use Illuminate\Support\Str;
 use DB;
 
@@ -46,6 +48,13 @@ class LaporanController extends Controller
         return view('Admin.laporan.laporan-tunggakan',compact('title','kelas','tahun_ajaran'));
     }
 
+    public function laporanPembukuanView()
+    {
+        $title = 'Laporan Pembukuan';
+
+        return view('Admin.laporan.laporan-pembukuan',compact('title'));
+    }
+
     public function laporanRabView()
     {
         $title = 'Laporan RAB';
@@ -66,6 +75,9 @@ class LaporanController extends Controller
         }
         if ($request->btn_cetak == 'laporan-rab') {
             $this->laporanRab($request);
+        }
+        if ($request->btn_cetak == 'laporan-pembukuan') {
+            $this->laporanPembukuan($request);
         }
     }
 
@@ -521,6 +533,120 @@ class LaporanController extends Controller
 
 
         $spreadsheet->setActiveSheetIndex(0);
+        
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$fileName.'"');
+        $writer->save('php://output');
+    }
+
+    public function laporanPembukuan(Request $request)
+    {
+        $tanggal_awal  = $request->tanggal_awal;
+        $tanggal_akhir = $request->tanggal_akhir;
+
+        $title    = 'LAPORAN PEMBUKUAN '.human_date($tanggal_awal).' Sampai '.human_date($tanggal_akhir);
+        $fileName = $title.'.xlsx';
+
+        $bulan_tahun_sheets = SppBayar::whereBetween('created_at',[$tanggal_awal,$tanggal_akhir])
+                                        ->groupBy(DB::raw('MONTH(created_at)'))
+                                        ->orderBy('created_at','ASC')
+                                        ->get();
+
+        $spreadsheet = new Spreadsheet();
+
+        foreach ($bulan_tahun_sheets as $key => $value) {
+            $explode_created_at = explode(' ',$value->created_at);
+            $explode_tanggal    = explode('-',$explode_created_at[0]);
+            $title_sheets       = strtoupper(bulan_tahun_excel_numeric($explode_tanggal[1],$explode_tanggal[0]));
+            $kolom_bayar = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                        ->whereMonth('spp_bayar.created_at',$explode_tanggal[1])
+                                        ->whereYear('spp_bayar.created_at',$explode_tanggal[0])
+                                        ->groupBy('id_kolom_spp')
+                                        ->get();
+            $cell_num = 3;
+            $spreadsheet->setActiveSheetIndex($key)->setTitle($title_sheets);
+            $spreadsheet->getActiveSheet()->setCellValue('A1',strtoupper('PENERIMAAN BULAN '.month($explode_tanggal[1]).' '.$explode_tanggal[0]));
+
+            $spreadsheet->getActiveSheet()->setCellValue("A$cell_num",'NO.');
+            $spreadsheet->getActiveSheet()->setCellValue("B$cell_num",'TANGGAL');
+            $spreadsheet->getActiveSheet()->setCellValue("C$cell_num",'URAIAN');
+            $spreadsheet->getActiveSheet()->setCellValue("D$cell_num",'DEBIT');
+            $column_cell       = 'E';
+            $array_column_cell = ['kolom_spp' => [], 'jumlah' => ''];
+
+            foreach ($kolom_bayar as $i => $j) {
+                $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_num,strtoupper(KolomSpp::getNamaKolomSpp($j->id_kolom_spp)));
+                array_push($array_column_cell['kolom_spp'],$column_cell);
+                $column_cell++;
+            }
+
+            $spreadsheet->getActiveSheet()->mergeCells('A1:'.$column_cell.'1');
+
+            $styleHeader = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A1:'.$column_cell.'1')->applyFromArray($styleHeader);
+            
+            $array_column_cell['jumlah'] = $column_cell;
+
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+                    ],
+                    'borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_num,strtoupper('Jumlah'));
+
+            $siswa_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->whereMonth('spp_bayar.created_at',$explode_tanggal[1])
+                ->whereYear('spp_bayar.created_at',$explode_tanggal[0])
+                ->groupBy('kelas_siswa.id_siswa')
+                ->get();
+
+            $cell_num = $cell_num + 1;
+            foreach ($siswa_bayar as $no => $data) {
+                $number = $no+1;
+                $spreadsheet->getActiveSheet()->setCellValue("A$cell_num",$number);
+                $spreadsheet->getActiveSheet()->setCellValue("B$cell_num",date_excel(SppBayar::getTanggalBayar($data->id_siswa,$explode_tanggal[1],$explode_tanggal[0])));
+                $spreadsheet->getActiveSheet()->setCellValue("C$cell_num",$data->nama_siswa);
+                $spreadsheet->getActiveSheet()->setCellValue("D$cell_num",SppBayar::getTotalDebit($data->id_siswa,$explode_tanggal[1],$explode_tanggal[0]));
+
+                for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
+                    // dd($kolom_bayar[$j]->id_kolom_spp);
+                    $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_num,SppBayarDetail::getNominalBayar($kolom_bayar[$j]->id_kolom_spp,$data->id_siswa,$explode_tanggal[1],$explode_tanggal[0]));
+
+                    $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
+                }
+                $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['jumlah'].$cell_num,'=SUM(E'.$cell_num.':'.$column_cell.$cell_num.')');
+
+                $spreadsheet->getActiveSheet()->getColumnDimension($column_cell)->setAutoSize(true);
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->getFont()->setBold(true);
+
+                $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleTable);
+                $cell_num++;
+            }
+
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+
+            $spreadsheet->getActiveSheet()->getStyle('D4:'.$column_cell.$cell_num)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->createSheet();
+        }
         
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
