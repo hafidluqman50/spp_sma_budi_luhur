@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\KelasSiswa;
+use App\Models\KolomSpp;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
+use App\Models\RincianPengeluaran;
+use App\Models\RincianPengeluaranDetail;
 
 class AjaxController extends Controller
 {
@@ -218,10 +221,9 @@ class AjaxController extends Controller
     {
         $id_rincian = $request->id_rincian;
 
-        $get_rincian_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran_detail',$id_rincian)
-                                ->firstOrFail();
+        $get_rincian_detail = RincianPengeluaranDetail::leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran_detail',$id_rincian)->firstOrFail();
 
-        $data = ['volume' => $get_rincian_detail->volume, 'uang_masuk' => $get_rincian_detail->nominal_rincian];
+        $data = ['volume' => $get_rincian_detail->volume_rincian, 'uang_keluar' => $get_rincian_detail->nominal_pendapatan, 'uang_masuk' => $get_rincian_detail->nominal_pendapatan_spp, 'spp'=>$get_rincian_detail->nama_kolom_spp];
         return response()->json($data);
     }
 }

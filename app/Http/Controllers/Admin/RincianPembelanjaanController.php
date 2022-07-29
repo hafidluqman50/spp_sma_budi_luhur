@@ -55,7 +55,6 @@ class RincianPembelanjaanController extends Controller
                 'id_rincian_pengeluaran'        => $id,
                 'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : null,
                 'id_rincian_pengeluaran_detail' => $rincian[$key],
-                'uang_keluar'                   => $uang_keluar[$key],
                 'jenis_rincian_pembelanjaan'    => $jenis_rincian
             ];
 

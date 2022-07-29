@@ -729,10 +729,10 @@ class DatatablesController extends Controller
                            </div>
                         ';
                 return $column;
-            })->addColumn('total_nominal_uraian',function($add){
-                return format_rupiah($add->volume_rincian * $add->nominal_pendapatan);
-            })->editColumn('nominal_pendapatan',function($add){
-                return format_rupiah($add->nominal_pendapatan);
+            })->editColumn('nominal_pendapatan',function($edit){
+                return format_rupiah($edit->nominal_pendapatan);
+            })->editColumn('nominal_pendapatan_spp',function($edit){
+                return format_rupiah($edit->nominal_pendapatan_spp);
             })->make(true);
 
         return $datatables;

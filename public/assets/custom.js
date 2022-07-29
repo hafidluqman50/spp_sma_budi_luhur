@@ -1030,7 +1030,7 @@ $(() => {
             {data:'uraian_rincian',name:'uraian_rincian'},
             {data:'volume_rincian',name:'volume_rincian'},
             {data:'nominal_pendapatan',name:'nominal_pendapatan'},
-            {data:'total_nominal_uraian',name:'total_nominal_uraian'},
+            {data:'nominal_pendapatan_spp',name:'nominal_pendapatan_spp'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,

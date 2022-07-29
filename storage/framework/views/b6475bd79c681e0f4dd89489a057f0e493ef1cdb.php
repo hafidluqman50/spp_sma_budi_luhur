@@ -31,6 +31,7 @@
                         <h4 class="header-title m-t-0">Tambah Data <?php echo e($jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian)); ?></h4>
                     </div>
                     <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
                                 <div class="form-group">
@@ -49,7 +50,7 @@
                                     <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
                                         <input type="hidden" name="kategori_rincian[]" value="">
                                         <div class="col-md-10 row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
@@ -60,19 +61,25 @@
                                                     </select>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">SPP</label>
+                                                    <input type="text" class="spp form-control" id-spp="1" readonly>
+                                                </div>  
+                                            </div>
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Uang Masuk</label>
                                                     <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Uang Keluar</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
@@ -141,12 +148,12 @@
 
         var id_rincian     = 2;
         var id_volume      = 2;
+        var id_spp         = 2;
         var id_uang_masuk  = 2;
         var id_uang_keluar = 2;
 
         $(document).on('click','.tambah-input-rincian',function() {
             let attr = $(this).attr('id-act')
-            console.log(attr)
             $('.rincian').each(function(){
                 if ($(this)[0].selectize) {
                     var value = $(this).val();
@@ -161,6 +168,7 @@
             })
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').removeClass('form-hide')
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.rincian:last').attr('id-rincian',id_rincian++)
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.spp:last').attr('id-spp',id_spp++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.volume:last').attr('id-volume',id_volume++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-masuk:last').attr('id-uang-masuk',id_uang_masuk++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar:last').attr('id-uang-keluar',id_uang_keluar++)
@@ -176,11 +184,13 @@
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({
-                url: `${base_url}/ajax/get-rincian`,
+                url: "<?php echo e(url('/ajax/get-rincian')); ?>",
                 data: {id_rincian: val},
             })
             .done(function(done) {
                 $(`.volume[id-volume="${attr}"]`).val(done.volume)
+                $(`.uang-keluar[id-uang-keluar="${attr}"`).val(done.uang_keluar)
+                $(`.spp[id-spp="${attr}"]`).val(done.spp)
                 $(`.uang-masuk[id-uang-masuk="${attr}"`).val(done.uang_masuk)
             })
             .fail(function(fail) {
