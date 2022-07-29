@@ -36,7 +36,10 @@ class DashboardController extends Controller
                                         ->where('slug_kolom_spp','like','%uang-makan%')
                                         ->sum('sisa_bayar');
 
-        $total_tunggakan = SppDetail::where('status_bayar',0)->sum('sisa_bayar');
+        $total_tunggakan = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                    ->where('status_bayar',0)
+                                    ->whereNotIn('slug_kolom_spp',['uang-makan'])
+                                    ->sum('sisa_bayar');
 
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
