@@ -394,7 +394,7 @@ class SppController extends Controller
                                         $get_id_kelas_siswa = KelasSiswa::getSiswa($cells[1]->getValue(),$cells[3]->getValue(),$cells[4]->getValue())[0]->id_kelas_siswa;
                                     }
                                     else {
-                                        return redirect('/admin/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di kelas siswa! Mohon periksa kembali!');
+                                        return redirect('/admin/spp/import')->with('log','Siswa " '.$cells[2]->getValue().' " pada sheet SPP tidak ditemukan di data kelas! Mohon periksa kembali!');
                                     }
                                 }
                                 else {
