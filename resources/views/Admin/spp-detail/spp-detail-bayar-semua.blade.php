@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form id="form-spp-bayar" action="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
+            <form id="form-spp-bayar" action="{{ url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">

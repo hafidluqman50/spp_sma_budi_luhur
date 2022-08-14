@@ -191,7 +191,7 @@ function terbilang($nilai) {
 	} else {
 		$hasil = trim(penyebut($nilai));
 	}     		
-	return $hasil;
+	return $hasil.' Rupiah';
 }
 
 if (! function_exists('divnum')) {

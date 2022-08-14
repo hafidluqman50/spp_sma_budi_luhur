@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form id="form-spp-bayar" action="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
+            <form id="form-spp-bayar" action="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">

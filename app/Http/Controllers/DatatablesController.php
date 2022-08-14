@@ -15,6 +15,7 @@ use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
+use App\Models\SppBayarData;
 use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\Petugas;
@@ -195,17 +196,20 @@ class DatatablesController extends Controller
             if ($this->level == 'kepsek') {
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp").'">
-                              <button class="btn btn-info"> Detail </button>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp").'">
+                              <button class="btn btn-success"> Pembayaran </button>
                            </a>
                        </div>
                     ';
             }
             else {
             $column = '
-                        <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp").'">
-                              <button class="btn btn-info"> Detail </button>
+                        <div>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp").'">
+                              <button class="btn btn-success"> Pembayaran </button>
+                           </a>
+                            <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp").'">
+                              <button class="btn btn-warning"> Tunggakan </button>
                            </a>
                            <form action="'.url("/$this->level/spp/delete/$action->id_spp").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -241,9 +245,6 @@ class DatatablesController extends Controller
             if ($this->level == 'kepsek') {
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
-                              <button class="btn btn-success"> Lihat Pembayaran </button>
-                           </a>
                             <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Lihat SPP </button>
                            </a>
@@ -254,16 +255,13 @@ class DatatablesController extends Controller
 
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
-                              <button class="btn btn-success"> Lihat Pembayaran </button>
-                           </a>
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                            <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Lihat SPP </button>
                            </a>
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/edit/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                            <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/edit/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
                               <button class="btn btn-warning"> Edit </button>
                            </a>
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST" style="margin-right:1%;">
+                           <form action="'.url("/$this->level/spp/tunggakan/$action->id_spp/delete/$action->id_spp_bulan_tahun").'" method="POST" style="margin-right:1%;">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -295,38 +293,37 @@ class DatatablesController extends Controller
         return $datatables;
     }
 
-    public function dataSppBayar($id)
+    public function dataSppBayarData($id)
     {
-        $spp_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                            ->join('users','spp_bayar.id_users','=','users.id_users')
-                            ->where('spp_bayar.id_spp_bulan_tahun',$id)->get();
+        $spp_bayar = SppBayarData::join('users','spp_bayar_data.id_users','=','users.id_users')
+                            ->where('spp_bayar_data.id_spp',$id)->get();
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
-            // $column = '';
-            // if ($this->level == 'admin') {
             if ($this->level == 'kepsek') {
-                $column = '<div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
-                              <button class="btn btn-info"> Detail Pembayaran </button>
+                $column = '<div>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat Bulan Bayar </button>
                            </a>
                        </div>';
             }
             else {
-                $column = '<div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
-                              <button class="btn btn-info"> Detail Pembayaran </button>
+                $column = '<div style="display:flex; flex-direction:column;">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat Bulan Bayar </button>
                            </a>
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/cetak-struk/$action->id_spp_bayar").'" style="margin-right:1%;">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/cetak-struk/$action->id_spp_bayar_data").'" style="margin-right:1%;">
                               <button class="btn btn-success"> Cetak Struk </button>
                            </a>
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/delete/$action->id_spp_bayar").'" method="POST">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/retur-bayar/$action->id_spp_bayar_data").'" style="margin-right:1%;">
+                              <button class="btn btn-warning"> Retur Bayar </button>
+                           </a>
+                           <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/delete/$action->id_spp_bayar_data").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
                            </form>
                        </div>';
             }
-            // }
             return $column;
         })->editColumn('total_biaya',function($edit){
             return format_rupiah($edit->total_biaya);
@@ -340,24 +337,55 @@ class DatatablesController extends Controller
         return $datatables;
     }
 
+    public function dataSppBayar($id)
+    {
+        $spp_bayar = SppBayar::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->where('spp_bayar.id_spp_bayar_data',$id)
+                            ->orderByRaw("FIELD(bulan_numeric,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
+                            ->orderBy('tahun_numeric','ASC')->get();
+
+        $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
+            if ($this->level == 'kepsek') {
+                $column = '<div>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat Detail Bayar </button>
+                           </a>
+                       </div>';
+            }
+            else {
+                $column = '<div>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
+                              <button class="btn btn-info"> Lihat Detail Bayar </button>
+                           </a>
+                       </div>';
+            }
+            return $column;
+        })->addColumn('total_biaya',function($edit){
+            $sum = SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                 ->sum('nominal_bayar');
+
+            return format_rupiah($sum);
+        })->make(true);
+        return $datatables;
+    }
+
     public function dataSppBayarDetail($id)
     {
         $spp_bayar_detail = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
-                            ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                             ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                            ->where('spp_bayar_detail.id_spp_bayar',$id)->get(['id_spp','spp_bayar.id_spp_bulan_tahun','spp_bayar_detail.nominal_bayar','id_spp_bayar_detail','spp_bayar_detail.id_spp_bayar','spp_bayar_detail.tanggal_bayar','nama_kolom_spp']);
+                            ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                            ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
+                            ->where('spp_bayar_detail.id_spp_bayar',$id)
+                            ->get(['spp.id_spp','spp_bayar_detail.nominal_bayar','kolom_spp.nama_kolom_spp','spp_bayar_detail.tanggal_bayar','spp_bayar_data.id_spp_bayar_data','id_spp_bayar_detail']);
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
-            // $column = '';
-            // if ($this->level == 'admin') {
-                $column = '<div class="d-flex">
-                           <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun/detail/$action->id_spp_bayar/delete/$action->id_spp_bayar_detail").'" method="POST">
-                                <input type="hidden" name="_token" value="'.csrf_token().'">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
-                           </form>
-                       </div>';
-            // }
+            $column = '<div class="d-flex">
+                       <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar/delete/$action->id_spp_bayar_detail").'" method="POST">
+                            <input type="hidden" name="_token" value="'.csrf_token().'">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                       </form>
+                   </div>';
             return $column;
         })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
@@ -380,7 +408,7 @@ class DatatablesController extends Controller
                 if ($action->status_bayar == 1) {
                     $column = '
                             <div class="d-flex">
-                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                               <form action="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -391,10 +419,10 @@ class DatatablesController extends Controller
                 else {
                     $column = '
                             <div class="d-flex">
-                                <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
+                                <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/bayar/$action->id_spp_detail").'">
                                   <button class="btn btn-success"> Bayar </button>
                                </a>
-                               <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+                               <form action="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -410,7 +438,7 @@ class DatatablesController extends Controller
             //     else {
             //         $column = '
             //                 <div class="d-flex">
-            //                    <form action="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
+            //                    <form action="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun/delete/$action->id_spp_detail").'" method="POST">
             //                         <input type="hidden" name="_token" value="'.csrf_token().'">
             //                         <input type="hidden" name="_method" value="DELETE">
             //                         <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -611,7 +639,8 @@ class DatatablesController extends Controller
     public function transaksiTerakhir()
     {
         $transaksi_terakhir = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                    ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                    ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
                                     ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
                                     // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                                     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
@@ -622,7 +651,7 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($transaksi_terakhir)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                            <a href="'.url("/$this->level/spp/bulan-tahun/$action->id_spp/lihat-pembayaran/$action->id_spp_bulan_tahun").'">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar").'">
                               <button class="btn btn-primary waves-light"> Lihat </button>
                            </a>
                        </div>
@@ -632,8 +661,10 @@ class DatatablesController extends Controller
             return unslug_str($edit->wilayah);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
-        })->editColumn('nominal_bayar',function($edit){
-            return format_rupiah($edit->nominal_bayar);
+        })->addColumn('nominal_bayar_bulan_tahun',function($edit){
+            $sum = SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                ->sum('nominal_bayar');
+            return format_rupiah($sum);
         })->make(true);
 
         return $datatables;

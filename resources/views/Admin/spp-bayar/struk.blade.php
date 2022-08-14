@@ -26,25 +26,25 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>{{ $spp_detail_row->nama_siswa }}</td>
+                    <td>{{ $spp_bayar->nama_siswa }}</td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>{{ format_rupiah($spp_detail_row->total_biaya) }}</td>
+                    <td>{{ format_rupiah($spp_bayar->total_biaya) }}</td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan {{ $spp_detail_row->bulan_tahun }}</td>
+                    <td>SPP Bulan {{ $untuk_pembayaran }}</td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>{{ ucwords(terbilang($spp_detail_row->total_biaya)) }}</td>
+                    <td>{{ ucwords(terbilang($spp_bayar->total_biaya)) }}</td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, {{ human_date($spp_detail_row->tanggal_bayar) }}</p>
+            <p class="text-right">Samarinda, {{ human_date($spp_bayar->tanggal_bayar) }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
             <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
         </div>

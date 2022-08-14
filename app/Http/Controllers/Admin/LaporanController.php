@@ -16,6 +16,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
+use App\Models\SppBayarData;
 use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use Illuminate\Support\Str;
@@ -548,7 +549,7 @@ class LaporanController extends Controller
         $title    = 'LAPORAN PEMBUKUAN '.human_date($tanggal_awal).' Sampai '.human_date($tanggal_akhir);
         $fileName = $title.'.xlsx';
 
-        $bulan_tahun_sheets = SppBayar::whereBetween('created_at',[$tanggal_awal,$tanggal_akhir])
+        $bulan_tahun_sheets = SppBayar::whereBetween(DB::raw('DATE(created_at)'),[$tanggal_awal,$tanggal_akhir])
                                         ->groupBy(DB::raw('MONTH(created_at)'))
                                         ->orderBy('created_at','ASC')
                                         ->get();
@@ -616,27 +617,36 @@ class LaporanController extends Controller
                 ->get();
 
             $cell_num = $cell_num + 1;
-            foreach ($siswa_bayar as $no => $data) {
-                $number = $no+1;
-                $spreadsheet->getActiveSheet()->setCellValue("A$cell_num",$number);
-                $spreadsheet->getActiveSheet()->setCellValue("B$cell_num",date_excel(SppBayar::getTanggalBayar($data->id_siswa,$explode_tanggal[1],$explode_tanggal[0])));
-                $spreadsheet->getActiveSheet()->setCellValue("C$cell_num",$data->nama_siswa);
-                $spreadsheet->getActiveSheet()->setCellValue("D$cell_num",SppBayar::getTotalDebit($data->id_siswa,$explode_tanggal[1],$explode_tanggal[0]));
+            foreach ($siswa_bayar as $data) {
+                $data_pembayaran_spp = SppBayarData::join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->whereMonth('spp_bayar_data.created_at',$explode_tanggal[1])
+                ->whereYear('spp_bayar_data.created_at',$explode_tanggal[0])
+                ->where('kelas_siswa.id_siswa',$data->id_siswa)
+                ->get();
+                foreach ($data_pembayaran_spp as $no => $val) {
+                    $number = $no+1;
+                    $spreadsheet->getActiveSheet()->setCellValue("A$cell_num",$number);
+                    $spreadsheet->getActiveSheet()->setCellValue("B$cell_num",date_excel($val->tanggal_bayar));
+                    $spreadsheet->getActiveSheet()->setCellValue("C$cell_num",$val->nama_siswa.' '.$val->keterangan_bayar_spp);
+                    $spreadsheet->getActiveSheet()->setCellValue("D$cell_num",$val->nominal_bayar);
 
-                for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
-                    // dd($kolom_bayar[$j]->id_kolom_spp);
-                    $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_num,SppBayarDetail::getNominalBayar($kolom_bayar[$j]->id_kolom_spp,$data->id_siswa,$explode_tanggal[1],$explode_tanggal[0]));
+                    for ($j=0; $j < count($array_column_cell['kolom_spp']); $j++) {
+                        // dd($kolom_bayar[$j]->id_kolom_spp);
+                        $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['kolom_spp'][$j].$cell_num,SppBayarDetail::getNominalBayar($kolom_bayar[$j]->id_kolom_spp,$val->id_siswa,$val->id_spp_bayar_data));
 
-                    $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
+                        $spreadsheet->getActiveSheet()->getColumnDimension($array_column_cell['kolom_spp'][$j])->setAutoSize(true);
+                    }
+                    $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['jumlah'].$cell_num,'=SUM(E'.$cell_num.':'.$column_cell.$cell_num.')');
+
+                    $spreadsheet->getActiveSheet()->getColumnDimension($column_cell)->setAutoSize(true);
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->getFont()->setBold(true);
+
+                    $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                    $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleTable);
+                    $cell_num++;
                 }
-                $spreadsheet->getActiveSheet()->setCellValue($array_column_cell['jumlah'].$cell_num,'=SUM(E'.$cell_num.':'.$column_cell.$cell_num.')');
-
-                $spreadsheet->getActiveSheet()->getColumnDimension($column_cell)->setAutoSize(true);
-                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->getFont()->setBold(true);
-
-                $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleTable);
-                $cell_num++;
             }
 
             $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);

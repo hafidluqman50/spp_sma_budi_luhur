@@ -10,10 +10,10 @@
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Laporan Data Siswa</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Laporan Tunggakan</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Laporan Data Siswa</h4>
+                        <h4 class="page-title">Laporan Tunggakan</h4>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                         <div class="alert alert-warning">
                             <li style="color:black;">Untuk Cetak Laporan Harus Pilih Tahun Ajaran atau Pilih Range Bulan Dan Tahun</li>
                         </div>
-                        <h4 class="m-t-0 header-title"><b>LAPORAN DATA SISWA</b></h4>
+                        <h4 class="m-t-0 header-title"><b>LAPORAN Tunggakan</b></h4>
                         <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
                             	<div class="col-md-4 row">
@@ -90,6 +90,7 @@
                                         <td><?php echo e($i+1); ?></td>
                                         <td><?php echo e($kelas[$i]); ?></td>
                                         <td>
+                                            <a href="<?php echo e(url('/admin/laporan-tunggakan/lihat-data/'.strtolower($kelas[$i]))); ?>"></a>
                                             <button class="btn btn-success" name="btn_cetak" value="laporan-tunggakan" id-kelas="<?php echo e($kelas[$i]); ?>">Cetak Laporan</button>
                                         </td>
                                     </tr>

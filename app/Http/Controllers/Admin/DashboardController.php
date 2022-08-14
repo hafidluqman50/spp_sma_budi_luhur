@@ -13,6 +13,7 @@ use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
 use App\Models\Petugas;
 use App\Models\SppBayarDetail;
+use App\Models\SppBayarData;
 use Auth;
 use DB;
 
@@ -44,14 +45,12 @@ class DashboardController extends Controller
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
 
-        $transaksi_terakhir = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                                    // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                                    // ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                                    ->orderBy('tanggal_bayar','DESC')
-                                    ->get();
+        $transaksi_terakhir = SppBayarData::join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
+                                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                        ->orderBy('tanggal_bayar','DESC')
+                                        ->get();
 
         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
 
@@ -123,13 +122,13 @@ class DashboardController extends Controller
             ];
         }
 
-        $tahun_pendapatan = SppBayar::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->orderBy('tahun_pendapatan','ASC')->get();
+        $tahun_pendapatan = SppBayarData::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->orderBy('tahun_pendapatan','ASC')->get();
         $grafik_pendapatan[] = [];
 
         foreach ($tahun_pendapatan as $key => $value) {
-            $pendapatan_komplek    = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'komplek');
-            $pendapatan_dalam_kota = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'dalam-kota');
-            $pendapatan_luar_kota  = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'luar-kota');
+            $pendapatan_komplek    = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'komplek');
+            $pendapatan_dalam_kota = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'dalam-kota');
+            $pendapatan_luar_kota  = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'luar-kota');
 
             $grafik_pendapatan[$key] = [
                 'y' => (string)$value->tahun_pendapatan,
@@ -142,8 +141,88 @@ class DashboardController extends Controller
         return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
     }
 
-    public function bayarSppDashboard()
+    // public function bayarSppDashboard()
+    // {
+    //     if (session()->has('bayar_spp')) {
+    //         $session_bayar_spp = session()->get('bayar_spp');
+    //         $data_master       = $session_bayar_spp['data_master'];
+
+    //         foreach ($session_bayar_spp['data_spp'] as $key => $value) {
+    //             foreach ($value as $no => $data) {
+    //                 $spp_detail = SppDetail::where('id_spp_detail',$data['id_spp_detail'])->firstOrFail();
+
+    //                 if ($data['bayar_spp'] > $spp_detail->sisa_bayar) {
+    //                     $status_bayar = 1;
+    //                     $data['bayar_spp'] = $spp_detail->sisa_bayar;
+    //                 }
+    //                 else if ($data['bayar_spp'] == $spp_detail->sisa_bayar) {
+    //                     $status_bayar = 1;
+    //                 }
+    //                 else {
+    //                     $status_bayar = 0;
+    //                 }
+
+    //                 $data_spp_detail = [
+    //                     'bayar_spp'    => $spp_detail->bayar_spp + $data['bayar_spp'],
+    //                     'sisa_bayar'   => $spp_detail->sisa_bayar - $data['bayar_spp'],
+    //                     'status_bayar' => $status_bayar
+    //                 ];
+
+    //                 $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+    //                                             ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+    //                                             ->firstOrFail()->id_spp;
+
+    //                 $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+
+    //                 $total_harus_bayar = $get_total_harus_bayar - $data['bayar_spp'];
+
+    //                 SppDetail::where('id_spp_detail',$data['id_spp_detail'])
+    //                         ->update($data_spp_detail);
+
+    //                 Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+    //             }
+    //         }
+            
+    //         foreach ($session_bayar_spp['data_spp_rincian'] as $key => $value) {
+    //             $data_spp_bayar = [
+    //                 'id_spp_bayar'       => (string)Str::uuid(),
+    //                 'id_spp_bulan_tahun' => $session_bayar_spp['data_spp_rincian'][$key]['id_spp_bulan_tahun'],
+    //                 'tanggal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['tanggal_spp'],
+    //                 'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
+    //                 'nominal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['bayar_total'],
+    //                 'kembalian'          => $session_bayar_spp['data_spp_rincian'][$key]['kembalian'],
+    //                 'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan'],
+    //                 'id_users'           => Auth::user()->id_users
+    //             ];
+    //             SppBayar::create($data_spp_bayar);
+    //             foreach ($value['bayar_detail'] as $index => $val) {
+    //                 if ($val['nominal_bayar'] > 0) {
+    //                     $data_spp_bayar_detail = [
+    //                         'id_spp_bayar'  => $data_spp_bayar['id_spp_bayar'],
+    //                         'id_kolom_spp'  => $val['id_kolom_spp'],
+    //                         'tanggal_bayar' => $val['tanggal_bayar'],
+    //                         'nominal_bayar' => $val['nominal_bayar'],
+    //                     ];
+    //                     SppBayarDetail::create($data_spp_bayar_detail);
+    //                 }
+    //             }   
+    //         }
+
+    //         $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+
+    //         return view('Admin.struk',compact('data_master','petugas'));
+    //     }
+    // }
+
+    public function bayarTunggakan(Request $request)
     {
+        $total_biaya    = $request->total_biaya;
+        $bayar_total    = $request->bayar_total;
+        $kembalian      = $request->kembalian;
+        $keterangan_spp = $request->keterangan_spp;
+        $id_spp         = $request->id_spp;
+        // dd($id_spp);
+
         if (session()->has('bayar_spp')) {
             $session_bayar_spp = session()->get('bayar_spp');
             $data_master       = $session_bayar_spp['data_master'];
@@ -169,39 +248,52 @@ class DashboardController extends Controller
                         'status_bayar' => $status_bayar
                     ];
 
-                    $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                                ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                ->firstOrFail()->id_spp;
+                    // $get_id_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                    //                             ->where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                    //                             ->firstOrFail()->id_spp;
 
-                    $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
+                    // $get_total_harus_bayar = Spp::where('id_spp',$get_id_spp)->firstOrFail()->total_harus_bayar;
 
-                    $total_harus_bayar = $get_total_harus_bayar - $data['bayar_spp'];
+                    // $total_harus_bayar = $get_total_harus_bayar - $data['bayar_spp'];
 
                     SppDetail::where('id_spp_detail',$data['id_spp_detail'])
                             ->update($data_spp_detail);
 
-                    Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
+                    // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
                 }
             }
             
+            $data_spp_bayar_data = [
+                'id_spp'               => $id_spp,
+                'id_spp_bayar_data'    => (string)Str::uuid(),
+                'tanggal_bayar'        => $data_master['tanggal_spp'],
+                'total_biaya'          => $total_biaya,
+                'nominal_bayar'        => $bayar_total,
+                'kembalian'            => $kembalian,
+                'keterangan_bayar_spp' => $keterangan_spp,
+                'id_users'             => auth()->user()->id_users
+            ];
+            SppBayarData::create($data_spp_bayar_data);
+
             foreach ($session_bayar_spp['data_spp_rincian'] as $key => $value) {
                 $data_spp_bayar = [
+                    'id_spp_bayar_data'  => $data_spp_bayar_data['id_spp_bayar_data'],
                     'id_spp_bayar'       => (string)Str::uuid(),
                     'id_spp_bulan_tahun' => $session_bayar_spp['data_spp_rincian'][$key]['id_spp_bulan_tahun'],
-                    'tanggal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['tanggal_spp'],
-                    'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
-                    'nominal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['bayar_total'],
-                    'kembalian'          => $session_bayar_spp['data_spp_rincian'][$key]['kembalian'],
-                    'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan'],
-                    'id_users'           => Auth::user()->id_users
+                    // 'total_biaya'        => $session_bayar_spp['data_spp_rincian'][$key]['total_bayar'],
+                    // 'nominal_bayar'      => $session_bayar_spp['data_spp_rincian'][$key]['bayar_total'],
+                    // 'kembalian'          => $session_bayar_spp['data_spp_rincian'][$key]['kembalian'],
+                    // 'keterangan_bayar'   => $session_bayar_spp['data_spp_rincian'][$key]['keterangan'],
+                    // 'id_users'           => Auth::user()->id_users
                 ];
                 SppBayar::create($data_spp_bayar);
+
                 foreach ($value['bayar_detail'] as $index => $val) {
                     if ($val['nominal_bayar'] > 0) {
                         $data_spp_bayar_detail = [
                             'id_spp_bayar'  => $data_spp_bayar['id_spp_bayar'],
                             'id_kolom_spp'  => $val['id_kolom_spp'],
-                            'tanggal_bayar' => $val['tanggal_bayar'],
+                            'tanggal_bayar' => $data_master['tanggal_spp'],
                             'nominal_bayar' => $val['nominal_bayar'],
                         ];
                         SppBayarDetail::create($data_spp_bayar_detail);

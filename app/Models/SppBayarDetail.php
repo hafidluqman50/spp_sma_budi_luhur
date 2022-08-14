@@ -31,16 +31,16 @@ class SppBayarDetail extends Model
         return $get;
     }
 
-    public static function getNominalBayar($id_kolom_spp,$id_siswa,$bulan,$tahun)
+    public static function getNominalBayar($id_kolom_spp,$id_siswa,$id_spp_bayar_data)
     {
         $db = self::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
-                ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
                 ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
                 ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                 ->where('kelas_siswa.id_siswa',$id_siswa)
-                ->whereMonth('spp_bayar.created_at',$bulan)
-                ->whereYear('spp_bayar.created_at',$tahun)
                 ->where('id_kolom_spp',$id_kolom_spp)
+                ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
                 ->sum('spp_bayar_detail.nominal_bayar');
         // dd([$id_kolom_spp,$id_siswa,$bulan,$tahun]);
 

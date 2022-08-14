@@ -48,6 +48,7 @@ class AjaxController extends Controller
 
         $siswa = ['nama_siswa' => $get_siswa->nama_siswa, 'wilayah' => unslug_str($get_siswa->wilayah)];
 
+        $id_spp = '';
         if (Spp::where('id_kelas_siswa',$id_kelas_siswa)->count() != 0) {
             $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->get()[0]->id_spp;
 
@@ -85,7 +86,7 @@ class AjaxController extends Controller
                         </tr>';   
         }
 
-        return response()->json(['siswa' => $siswa,'table' => $table]);
+        return response()->json(['siswa' => $siswa,'table' => $table, 'id_spp' => $id_spp]);
     }
 
     public function getTunggakanDetail($id_spp_bulan_tahun)
@@ -127,9 +128,10 @@ class AjaxController extends Controller
     {
         $id_spp_bulan_tahun = $request->id_spp_bulan_tahun;
         $tanggal_spp        = date('Y-m-d');
-        $total_biaya        = $request->total_biaya;
-        $bayar_total        = $request->bayar_total;
-        $kembalian          = $request->kembalian;
+        $total_biaya        = $request->total_biaya_hidden;
+        // dd($total_biaya);
+        // $bayar_total        = $request->bayar_total;
+        // $kembalian          = $request->kembalian;
         $keterangan_spp     = $request->keterangan_spp;
         $id_spp_detail      = $request->id_detail;
         $bayar_spp          = $request->bayar_spp;
@@ -152,23 +154,22 @@ class AjaxController extends Controller
             'wilayah'                => unslug_str($get_spp_bulan_tahun->wilayah),
             'total_bayar'            => $total_biaya,
             'total_bayar_rupiah'     => format_rupiah($total_biaya),
-            'bayar_total'            => $bayar_total,
-            'kembalian'              => $kembalian,
+            // 'bayar_total'            => $bayar_total,
+            // 'kembalian'              => $kembalian,
             'terbilang'              => ucwords(terbilang($total_biaya)),
             'untuk_pembayaran'       => $get_spp_bulan_tahun->bulan_tahun,
             'tanggal_spp'            => $tanggal_spp,
             'tanggal_spp_convert'    => human_date($tanggal_spp),
-            'id_spp_bulan_tahun'     => $id_spp_bulan_tahun,
-            'keterangan'             => $keterangan_spp
+            'id_spp_bulan_tahun'     => $id_spp_bulan_tahun
         ];
 
         $data_spp_rincian = [
             'id_spp_bulan_tahun' => $id_spp_bulan_tahun,
-            'total_bayar'        => $total_biaya,
-            'bayar_total'        => $bayar_total,
-            'kembalian'          => $kembalian,
-            'tanggal_spp'        => $tanggal_spp,
-            'keterangan'         => $keterangan_spp,
+            // 'total_bayar'        => $total_biaya,
+            // 'bayar_total'        => $bayar_total,
+            // 'kembalian'          => $kembalian,
+            // 'tanggal_spp'        => $tanggal_spp,
+            // 'keterangan'         => $keterangan_spp,
             'bayar_detail'       => '',
         ];
 
@@ -180,14 +181,14 @@ class AjaxController extends Controller
                     'wilayah'             => unslug_str($get_spp_bulan_tahun->wilayah),
                     'total_bayar'         => $check_data_master['total_bayar'] + $total_biaya,
                     'total_bayar_rupiah'  => format_rupiah($check_data_master['total_bayar'] + $total_biaya),
-                    'bayar_total'         => $check_data_master['bayar_total'] + $bayar_total,
-                    'kembalian'           => $check_data_master['kembalian'] + $kembalian,
+                    // 'bayar_total'         => $check_data_master['bayar_total'] + $bayar_total,
+                    // 'kembalian'           => $check_data_master['kembalian'] + $kembalian,
                     'terbilang'           => ucwords(terbilang($check_data_master['total_bayar'] + $total_biaya)),
                     'untuk_pembayaran'    => find_replace_strip($check_data_master['untuk_pembayaran'],$get_spp_bulan_tahun->bulan_tahun),
                     'tanggal_spp'         => $tanggal_spp,
                     'tanggal_spp_convert' => human_date($tanggal_spp),
                     'id_spp_bulan_tahun'  => $id_spp_bulan_tahun,
-                    'keterangan'          => $check_data_master['keterangan'].', '.$keterangan_spp,
+                    // 'keterangan'          => $check_data_master['keterangan'].', '.$keterangan_spp,
                 ];
             }
         }
@@ -206,6 +207,8 @@ class AjaxController extends Controller
                 'bayar_spp'          => $bayar_spp[$key]
             ];
         }
+        // dd($data_master);
+
         $data_spp_rincian['bayar_detail'] = $data_spp_bayar_detail;
         $session_bayar['data_master'] = $data_master;
         array_push($session_bayar['data_spp'], $data_spp);
@@ -213,6 +216,7 @@ class AjaxController extends Controller
         // array_push($session_bayar['data_spp_bayar_detail'], $data_spp_bayar_detail);
 
         session()->put('bayar_spp',$session_bayar);
+        session()->put('total_bayar');
 
         return response()->json($data_master);
     }

@@ -331,7 +331,7 @@ class SiswaController extends Controller
                         ];
                         // dd(Siswa::where('nisn',$cells[1]->getValue())->where('status_delete',0)->count());
                         if (Siswa::where('nisn',$cells[1]->getValue())->where('status_delete',0)->count() == 0) {
-                            Siswa::updateOrCreate($data_siswa);
+                            Siswa::firstOrCreate($data_siswa);
 
                             $id_siswa = Siswa::where('nisn',$cells[1]->getValue())->get()[0]->id_siswa;
                         }

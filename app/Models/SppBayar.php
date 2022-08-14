@@ -114,4 +114,68 @@ class SppBayar extends Model
 
         return $get;
     }
+
+    public static function bulanPembayaran($id,$id_spp_bayar_data)
+    {
+        $get = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                    ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                    ->where('spp_bayar_data.id_spp',$id)
+                    ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                    ->groupBy('tahun')
+                    ->orderBy('tahun','ASC')
+                    ->get();
+
+        $keterangan = '';
+        if (count($get) > 1) {
+            $bulan_awal = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->where('spp_bayar_data.id_spp',$id)
+                                ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                                ->where('tahun',$get[0]->tahun)
+                                ->orderBy('bulan','ASC')
+                                ->firstOrFail()->bulan_tahun;
+
+            $bulan_akhir = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->where('spp_bayar_data.id_spp',$id)
+                                ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                                ->where('tahun',$get[1]->tahun)
+                                ->orderBy('bulan','DESC')
+                                ->firstOrFail()->bulan_tahun;
+
+            $keterangan = find_replace_strip(str_replace(', ',' ',$bulan_awal),str_replace(', ',' ',$bulan_akhir));
+        }
+        else {
+            $bulan_awal = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                ->where('spp_bayar_data.id_spp',$id)
+                                ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                                ->where('tahun',$get[0]->tahun)
+                                ->orderBy('bulan','ASC')
+                                ->firstOrFail()->bulan_tahun;
+
+            $bulan_akhir_check = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                    ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                    ->where('spp_bayar_data.id_spp',$id)
+                                    ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                                    ->where('tahun',$get[0]->tahun)
+                                    ->orderBy('bulan','ASC')
+                                    ->get();
+
+            if (count($bulan_akhir_check) == 1) {
+                $bulan_akhir = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                                    ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                    ->where('spp_bayar_data.id_spp',$id)
+                                    ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                                    ->where('tahun',$get[0]->tahun)
+                                    ->orderBy('bulan','DESC')
+                                    ->firstOrFail()->bulan_tahun;
+                $keterangan = str_replace(', '.$get[0]->tahun,'',$bulan_awal).' - '.str_replace(', '.$get[0]->tahun,'',$bulan_akhir).$get[0]->tahun;
+            }
+            else {
+                $keterangan = $bulan_awal;
+            }
+        }
+        return $keterangan;
+    }
 }

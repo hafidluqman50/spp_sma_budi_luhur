@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <a href="{{ url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
+    <a href="{{ url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
         Kembali
     </a>
     <div class="form-group clearfix">

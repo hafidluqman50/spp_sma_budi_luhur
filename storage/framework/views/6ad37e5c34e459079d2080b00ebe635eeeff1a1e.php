@@ -219,6 +219,8 @@
             $('.nominal-rab-label:last').attr('nominal-rab-id',nominal_rab_label++)
 
             $('.input-perincian:last').find('input').val('')
+            $('.nominal-rincian-label:last').html(`${rupiah_format(0)}`)
+            $('.nominal-rab-label:last').html(`${rupiah_format(0)}`)
 
             $('#hapus-act-perincian').removeClass('form-hide')
         })

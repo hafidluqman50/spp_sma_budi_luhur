@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
+use App\Models\SppBayarData;
 use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\Petugas;
@@ -34,13 +35,14 @@ class SppDetailController extends Controller
 
     public function bayar(Request $request,$id,$id_bulan_tahun,$id_detail)
     {
-        $tanggal_bayar = date('Y-m-d');
-        $bayar_spp     = $request->bayar_spp;
-        $total_biaya   = $request->total_biaya;
-        $bayar_total   = $request->bayar_total;
-        $kembalian     = $request->kembalian;
-        $keterangan    = $request->keterangan_spp;
-        $id_spp_bayar  = (string)Str::uuid();
+        $tanggal_bayar     = date('Y-m-d');
+        $bayar_spp         = $request->bayar_spp;
+        $total_biaya       = $request->total_biaya;
+        $bayar_total       = $request->bayar_total;
+        $kembalian         = $request->kembalian;
+        $keterangan        = $request->keterangan_spp;
+        $id_spp_bayar      = (string)Str::uuid();
+        $id_spp_bayar_data = (string)Str::uuid();
 
         $spp_detail = SppDetail::where('id_spp_detail',$id_detail)->firstOrFail();
 
@@ -73,14 +75,22 @@ class SppDetailController extends Controller
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
 
+        $data_spp_bayar_data = [
+            'id_spp_bayar_data'    => $id_spp_bayar_data,
+            'id_spp'               => $get_id_spp,
+            'tanggal_bayar'        => $tanggal_bayar,
+            'total_biaya'          => $total_biaya,
+            'nominal_bayar'        => $bayar_total,
+            'kembalian'            => $kembalian,
+            'keterangan_bayar_spp' => $keterangan,
+            'id_users'             => auth()->user()->id_users
+        ];
+        SppBayarData::create($data_spp_bayar_data);
+
         $data_spp_bayar = [
             'id_spp_bayar'       => $id_spp_bayar,
+            'id_spp_bayar_data'  => $id_spp_bayar_data,
             'id_spp_bulan_tahun' => $id_bulan_tahun,
-            'tanggal_bayar'      => $tanggal_bayar,
-            'total_biaya'        => $total_biaya,
-            'nominal_bayar'      => $bayar_total,
-            'kembalian'          => $kembalian,
-            'keterangan_bayar'   => $keterangan,
             'id_users'           => Auth::user()->id_users
         ];
         SppBayar::create($data_spp_bayar);
@@ -91,7 +101,6 @@ class SppDetailController extends Controller
             'nominal_bayar' => $bayar_spp,
             'tanggal_bayar' => $tanggal_bayar
         ];
-
         SppBayarDetail::create($data_spp_bayar_detail);
 
         // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
@@ -278,7 +287,7 @@ class SppDetailController extends Controller
                 ->where('id_spp_bayar',$id_detail)
                 ->delete();
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun)->with('message','Berhasil Delete Pembayaran SPP');
+        return redirect('/admin/spp/pembayaran/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun)->with('message','Berhasil Delete Pembayaran SPP');
     }
 
     public function lihatPembayaranDetailDelete($id,$id_bulan_tahun,$id_bayar,$id_detail)
@@ -311,7 +320,7 @@ class SppDetailController extends Controller
         SppBayarDetail::where('id_spp_bayar_detail',$id_detail)
                 ->delete();
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun.'/detail/'.$id_bayar)->with('message','Berhasil Delete SPP Bayar Detail');
+        return redirect('/admin/spp/pembayaran/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun.'/detail/'.$id_bayar)->with('message','Berhasil Delete SPP Bayar Detail');
     }
 
     public function cetakStruk($id,$id_bulan_tahun,$id_spp_bayar)

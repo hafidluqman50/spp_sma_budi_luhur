@@ -39,10 +39,28 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
+                        <table>
+                            <tr>
+                                <td><b>NISN</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nisn }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nama Siswa</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nama_siswa }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelas</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->kelas }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->tahun_ajaran }}</b></td>
+                            </tr>
+                        </table>
                         <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="{{$id}}">
                             <thead>
                             <tr>

@@ -26,12 +26,12 @@
                         <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id)); ?>">
+                            <a href="<?php echo e(url('/admin/spp/tunggakan/'.$id)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua')); ?>">
+                            <a href="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua')); ?>">
                                 <button class="btn btn-success">
                                     <i class="fa fa-plus m-r-5"></i>Bayar Semua
                                 </button>
@@ -42,11 +42,33 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <h5>NISN : <?php echo e($siswa->nisn); ?></h5>
-                        <h5>Nama Siswa : <?php echo e($siswa->nama_siswa); ?></h5>
-                        <h5>Kelas : <?php echo e($siswa->kelas); ?></h5>
-                        <h5>Tahun Ajaran : <?php echo e($siswa->tahun_ajaran); ?></h5>
-                        <h5>Bulan : <?php echo e($siswa->bulan_tahun); ?></h5>
+                        <table>
+                            <tr>
+                                <td><b>NISN</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->nisn); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nama Siswa</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->nama_siswa); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelas</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->kelas); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Bulan, Tahun</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->bulan_tahun); ?></b></td>
+                            </tr>
+                        </table>
                         <table class="table table-hover table-bordered data-spp-detail force-fullwidth" id-spp-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
                             <thead>
                             <tr>
