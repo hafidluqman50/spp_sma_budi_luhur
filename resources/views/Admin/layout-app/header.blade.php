@@ -84,7 +84,9 @@
                                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <i class="dripicons-document noti-icon"></i>
-                                    <span class="badge badge-pink noti-icon-badge">{{ count_history_unread_navbar() }}</span>
+                                    @if (count_history_unread_navbar() > 0) 
+                                    <span class="badge badge-pink noti-icon-badge"></span>
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
                                     <!-- item-->

@@ -14,4 +14,11 @@ class Siswa extends Model
     protected $primaryKey = 'id_siswa';
     public $timestamps    = false;
     protected $guarded    = [];
+
+    public static function getNamaKeluarga($id_siswa_keluarga)
+    {
+        $get = self::where('id_siswa',$id_siswa_keluarga)->firstOrFail()->nama_siswa;
+
+        return $get;
+    }
 }

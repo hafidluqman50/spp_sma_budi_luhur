@@ -142,8 +142,9 @@ class SppBayar extends Model
                                 ->where('tahun',$get[1]->tahun)
                                 ->orderBy('bulan','DESC')
                                 ->firstOrFail()->bulan_tahun;
+            // dd($bulan_awal);
 
-            $keterangan = find_replace_strip(str_replace(', ',' ',$bulan_awal),str_replace(', ',' ',$bulan_akhir));
+            $keterangan = keterangan_bulan_bayar(find_replace_strip(str_replace(', ',' ',$bulan_awal),str_replace(', ',' ',$bulan_akhir)));
         }
         else {
             $bulan_awal = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
@@ -159,10 +160,10 @@ class SppBayar extends Model
                                     ->where('spp_bayar_data.id_spp',$id)
                                     ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
                                     ->where('tahun',$get[0]->tahun)
-                                    ->orderBy('bulan','ASC')
+                                    ->orderBy('bulan','DESC')
                                     ->get();
 
-            if (count($bulan_akhir_check) == 1) {
+            if (count($bulan_akhir_check) > 1) {
                 $bulan_akhir = self::join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
                                     ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                     ->where('spp_bayar_data.id_spp',$id)
@@ -170,10 +171,10 @@ class SppBayar extends Model
                                     ->where('tahun',$get[0]->tahun)
                                     ->orderBy('bulan','DESC')
                                     ->firstOrFail()->bulan_tahun;
-                $keterangan = str_replace(', '.$get[0]->tahun,'',$bulan_awal).' - '.str_replace(', '.$get[0]->tahun,'',$bulan_akhir).$get[0]->tahun;
+                $keterangan = keterangan_bulan_bayar(str_replace(', '.$get[0]->tahun,'',$bulan_awal).' - '.str_replace(', '.$get[0]->tahun,'',$bulan_akhir).' '.$get[0]->tahun);
             }
             else {
-                $keterangan = $bulan_awal;
+                $keterangan = str_replace(', ',' ',$bulan_awal);
             }
         }
         return $keterangan;

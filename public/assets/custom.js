@@ -310,7 +310,7 @@ $(() => {
         "class": "index",
         }],
         scrollX:true,
-        order: [[ 0, 'desc' ]],
+        order: [],
         responsive:true,
         fixedColumns: true
     });

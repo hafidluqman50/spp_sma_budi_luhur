@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Spp;
 use App\Models\SppBayarData;
 use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
+use App\Models\SppDetail;
+use App\Models\SppBulanTahun;
 use App\Models\Petugas;
 
 class SppBayarDataController extends Controller
@@ -55,15 +58,16 @@ class SppBayarDataController extends Controller
         $get_spp_bayar = SppBayar::where('id_spp_bayar_data',$id_spp_bayar_data)->get();
 
         foreach ($get_spp_bayar as $key => $value) {
-            $get_spp_bayar_detail = SppBayarDetail::where('id_spp_bayar_detail',$value->id_spp_bayar)->get();
+            $get_spp_bayar_detail = SppBayarDetail::where('id_spp_bayar',$value->id_spp_bayar)->get();
             foreach ($get_spp_bayar_detail as $index => $val) {
                 $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
                                             ->where('id_kolom_spp',$val->id_kolom_spp)
                                             ->firstOrFail();
-                $nominal_spp = $get_spp_detail->nominal_bayar - $val->nominal_bayar;
+
+                $nominal_spp = $get_spp_detail->bayar_spp - $val->nominal_bayar;
                 $sisa_bayar  = $get_spp_detail->sisa_bayar + $val->nominal_bayar;
 
-                $data_spp_detail = ['nominal_bayar' => $nominal_spp, 'sisa_bayar' => $sisa_bayar];
+                $data_spp_detail = ['bayar_spp' => $nominal_spp, 'sisa_bayar' => $sisa_bayar, 'status_bayar' => 0];
 
                 SppDetail::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
                         ->where('id_kolom_spp',$val->id_kolom_spp)

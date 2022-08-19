@@ -142,6 +142,7 @@ Route::group(['prefix' => 'ajax'],function() {
     Route::get('/get-tunggakan-detail/{id_bulan_tahun}',[AjaxController::class, 'getTunggakanDetail']);
     Route::post('/get-bayar',[AjaxController::class, 'getBayar']);
     Route::get('/get-rincian',[AjaxController::class, 'getRincian']);
+    Route::get('/get-keluarga-siswa/{id_siswa}',[AjaxController::class, 'getKeluargaSiswa']);
 });
 
 Route::group(['prefix' => 'datatables'],function(){
@@ -263,7 +264,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/pembayaran/{id}',[AdminSppBayarDataController::class, 'index']);
     Route::get('/spp/pembayaran/{id}/cetak-struk/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'cetakStruk']);
     Route::get('/spp/pembayaran/{id}/delete/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'delete']);
-    Route::get('/spp/pembayaran/{id}/kembalikan-uang/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'kembalikanUang']);
+    Route::get('/spp/pembayaran/{id}/retur-bayar/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'returBayar']);
 
     Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[AdminSppBayarController::class, 'index']);
     Route::delete('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/delete/{id_detail}',[AdminSppBayarController::class, 'delete']);

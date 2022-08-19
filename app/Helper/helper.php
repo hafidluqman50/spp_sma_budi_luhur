@@ -10,6 +10,51 @@ function count_history_unread_navbar() {
 	return $get;
 }
 
+function keterangan_bulan_bayar($str) {
+	// dd($str);
+	$explode1      = explode(' - ',$str);
+	if (str_contains($explode1[0], ', ')) {
+		$explode_awal  = explode(', ',$explode1[0]);	
+	}
+	else if (str_contains($explode1[0], ' ')) {
+		$explode_awal = explode(' ',$explode1[0]);
+	}
+	else {
+		$explode1[0]  = $explode1[0].' '.substr($explode1[1],-4);
+		$explode_awal = explode(' ',$explode1[0]);
+	}
+
+	if (str_contains($explode1[1],', ')) {
+		$explode_akhir = explode(', ',$explode1[1]);
+	}
+	else if (str_contains($explode1[1], ' ')) {
+		$explode_akhir = explode(' ',$explode1[1]);
+	}
+	else {
+		$explode1[1]  = $explode1[1].' '.substr($explode1[0],-4);
+		$explode_akhir = explode(' ',$explode1[1]);
+	}
+
+	if ($explode_awal[1] == $explode_akhir[1]) {
+		if (describe_month($explode_awal[0]) < describe_month($explode_akhir[0])) {
+			$result = $explode_awal[0].' - '.$explode_akhir[0].' '.$explode_awal[1];
+		}
+		else {
+			$result = $explode_akhir[0].' - '.$explode_awal[0].' '.$explode_awal[1];
+		}
+	}
+	else {
+		if ($explode_akhir[1] < $explode_awal[1]) {
+			$result = $explode_akhir[0].' '.$explode_akhir[1].' - '.$explode_awal[0].' '.$explode_awal[1];
+		}
+		else {
+			$result = $explode_awal[0].' '.$explode_awal[1].' - '.$explode_akhir[0].' '.$explode_akhir[1];
+		}
+	}
+
+	return $result;
+}
+
 function bulan_tahun_excel($str) {
 	$pieces = explode(", ", $str);
 
@@ -75,15 +120,15 @@ function find_replace_strip($str1,$str2) {
 	if ($check !== false) {
 		$awal_str  = strstr($str1,' - ',true);
 		$akhir_str = strstr($str1,' - ');
+		// dd($a);
 
-		$replace = str_replace($akhir_str,' - '.$str2,$akhir_str);
-
+		$replace    = str_replace($akhir_str,' - '.$str2,$akhir_str);
 		$return_str = $awal_str.''.$replace;
 	}
 	else {
 		$return_str = $str1.' - '.$str2;
 	}
-
+	// dd($return_str);
 	return $return_str;
 }
 

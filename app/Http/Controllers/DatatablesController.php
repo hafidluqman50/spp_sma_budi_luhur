@@ -314,7 +314,7 @@ class DatatablesController extends Controller
                             <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/cetak-struk/$action->id_spp_bayar_data").'" style="margin-right:1%;">
                               <button class="btn btn-success"> Cetak Struk </button>
                            </a>
-                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/retur-bayar/$action->id_spp_bayar_data").'" style="margin-right:1%;">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/retur-bayar/$action->id_spp_bayar_data").'" style="margin-right:1%;" onclick="return confirm(\'Yakin Retur Bayar ?\');">
                               <button class="btn btn-warning"> Retur Bayar </button>
                            </a>
                            <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/delete/$action->id_spp_bayar_data").'" method="POST">

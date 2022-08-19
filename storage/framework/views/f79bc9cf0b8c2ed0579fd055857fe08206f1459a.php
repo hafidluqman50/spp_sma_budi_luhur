@@ -58,6 +58,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="" class="col-4 col-form-label">Keluarga Siswa</label>
+                                    <div class="col-7" id="keluarga-siswa">
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan<span class="text-danger">*</span></label>
                                     <div class="col-7">
                                         <select name="bulan_spp" class="form-control select2" required="required">
@@ -220,6 +226,19 @@
             .done(function(done) {
                 $('select[name="siswa"]').removeAttr('disabled')
                 $('select[name="siswa"]').html(done)
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        })
+
+        $('select[name="siswa"]').change(function(){
+            let val = $(this).val()
+            $.ajax({
+                url: "<?php echo e(url('/ajax/get-keluarga-siswa')); ?>"+`/${val}`
+            })
+            .done(function(done) {
+                $('#keluarga-siswa').html(done)
             })
             .fail(function() {
                 console.log("error");

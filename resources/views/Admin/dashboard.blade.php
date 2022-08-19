@@ -709,6 +709,7 @@ function($) {
                     data: val,
                 })
                 .done(function(done) {
+                    console.log(done)
                     $('#act-simpan').html('Simpan')
 
                     $('#form-spp').find('input').val('')
