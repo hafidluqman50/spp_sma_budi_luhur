@@ -35,6 +35,11 @@
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
+                            <a href="{{ url('/admin/kelas/naik-kelas') }}">
+                                <button class="btn btn-success">
+                                    <i class="fa fa-arrow-up m-r-5"></i>Naik Kelas
+                                </button>
+                            </a>
                         </div>
                         @if (session()->has('message'))
                         <div class="alert alert-success alert-dismissible">

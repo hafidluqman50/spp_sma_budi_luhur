@@ -202,6 +202,8 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::post('/kelas/save',[AdminKelasController::class, 'save']);
     Route::put('/kelas/update/{id}',[AdminKelasController::class, 'update']);
     Route::delete('/kelas/delete/{id}',[AdminKelasController::class, 'delete']);
+    Route::get('/kelas/naik-kelas',[AdminKelasController::class, 'naikKelasForm']);
+    Route::post('/kelas/naik-kelas/save',[AdminKelasController::class, 'naikKelasSave']);
     // ROUTE KELAS END //
 
     // ROUTE TAHUN AJARAN //
