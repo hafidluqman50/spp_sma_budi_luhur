@@ -608,22 +608,22 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleArray);
             $spreadsheet->getActiveSheet()->setCellValue($column_cell.$cell_num,strtoupper('Jumlah'));
 
-            $siswa_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                ->whereMonth('spp_bayar.created_at',$explode_tanggal[1])
-                ->whereYear('spp_bayar.created_at',$explode_tanggal[0])
-                ->groupBy('kelas_siswa.id_siswa')
-                ->get();
+            // $siswa_bayar = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+            //     ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+            //     ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+            //     ->whereMonth('spp_bayar.created_at',$explode_tanggal[1])
+            //     ->whereYear('spp_bayar.created_at',$explode_tanggal[0])
+            //     ->groupBy('kelas_siswa.id_siswa')
+            //     ->get();
 
             $cell_num = $cell_num + 1;
-            foreach ($siswa_bayar as $data) {
+            // foreach ($siswa_bayar as $data) {
                 $data_pembayaran_spp = SppBayarData::join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
                 ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
                 ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
                 ->whereMonth('spp_bayar_data.created_at',$explode_tanggal[1])
                 ->whereYear('spp_bayar_data.created_at',$explode_tanggal[0])
-                ->where('kelas_siswa.id_siswa',$data->id_siswa)
+                // ->where('kelas_siswa.id_siswa',$data->id_siswa)
                 ->get();
                 foreach ($data_pembayaran_spp as $no => $val) {
                     $number = $no+1;
@@ -647,7 +647,7 @@ class LaporanController extends Controller
                     $spreadsheet->getActiveSheet()->getStyle('A'.$cell_num.':'.$column_cell.$cell_num)->applyFromArray($styleTable);
                     $cell_num++;
                 }
-            }
+            // }
 
             $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
             $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
