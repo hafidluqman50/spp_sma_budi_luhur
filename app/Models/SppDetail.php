@@ -228,4 +228,22 @@ class SppDetail extends Model
 
         return $get;
     }
+
+    public static function getLaporanKantin($bulan,$tahun,$kantin_nama)
+    {
+        $data_spp = self::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                ->join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                ->where('bulan_tahun',$bulan.', '.$tahun)
+                ->where('slug_nama_kantin',Str::slug($kantin_nama,'-'))
+                ->where('slug_kolom_spp','like','%uang-makan%')
+                ->get();
+
+        return $data_spp;
+    }
 }

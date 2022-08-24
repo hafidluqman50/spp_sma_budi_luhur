@@ -103,7 +103,7 @@ class SppBulanTahunController extends Controller
 
         // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_new + $get_sum_total_new]);
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
+        return redirect('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Edit SPP');
     }
 
     public function delete($id,$id_bulan_tahun)
@@ -124,6 +124,6 @@ class SppBulanTahunController extends Controller
                     ->where('id_spp_bulan_tahun',$id_bulan_tahun)
                     ->delete();
 
-        return redirect('/admin/spp/bulan-tahun/'.$id)->with('message','Berhasil Hapus Data');
+        return redirect('/admin/spp/tunggakan/'.$id)->with('message','Berhasil Hapus Data');
     }
 }

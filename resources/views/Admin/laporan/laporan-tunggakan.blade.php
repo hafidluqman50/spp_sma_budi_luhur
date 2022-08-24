@@ -95,6 +95,7 @@
                                         <td>
                                             <a href="{{ url('/admin/laporan-tunggakan/lihat-data/'.strtolower($kelas[$i])) }}"></a>
                                             <button class="btn btn-success" name="btn_cetak" value="laporan-tunggakan" id-kelas="{{ $kelas[$i] }}">Cetak Laporan</button>
+                                            <button class="btn btn-info lihat-data" id-kelas="{{ $kelas[$i] }}" type="button">Lihat Data</button>
                                         </td>
                                     </tr>
                                     @endfor
@@ -102,6 +103,25 @@
                             </table>
                         <input type="hidden" name="kelas_siswa_input">
                         </form>
+                        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <th>No.</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Kelas</th>
+                                        <th>Tahun Ajaran</th>
+                                        <th>Total Harus Bayar</th>
+                                        <th>#</th>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div> <!-- end row -->
@@ -120,11 +140,54 @@
             autoclose:true, //to close picker once year is selected
             orientation: 'bottom'
         });
+
+        $('button[name="btn_cetak"]').click(function() {
+            let attr = $(this).attr('id-kelas')
+            $(`input[name="kelas_siswa_input"]`).val(attr)
+        })
+
+        $('.lihat-data').click(function() {
+            let attr         = $(this).attr('id-kelas')
+            let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+            let tahun_awal   = $('input[name="tahun_awal"]').val()
+            let bulan_awal   = $('select[name="bulan_awal"]').val()
+            let tahun_akhir  = $('input[name="tahun_akhir"]').val()
+            let bulan_akhir  = $('select[name="bulan_akhir"]').val()
+            console.log({tahun_awal,tahun_akhir,bulan_awal,bulan_akhir})
+
+            if (tahun_ajaran != null) {
+                $(this).html('Loading ...')
+                $('.bd-example-modal-sm').modal('show')
+                // $.ajax({
+                //     url: `${base_url}/get-lihat-tunggakan`,
+                //     type: 'GET',
+                //     data: {tahun_ajaran:tahun_ajaran},
+                // })
+                // .done(function(done) {
+                //     $('.lihat-data').html('Lihat Data')
+                //     $('')
+                // })
+                // .fail(function() {
+                //     console.log("error");
+                // });
+                
+            }
+            else if (tahun_awal != null && tahun_akhir != null && bulan_awal != null && bulan_akhir != null) {
+                $(this).html('Loading ...')
+                // $.ajax({
+                //     url: `${base_url}/get-lihat-tunggakan`,
+                //     type: 'GET',
+                //     data: {tahun_ajaran:tahun_ajaran},
+                // })
+                // .done(function(done) {
+                //     $('.lihat-data').html('Lihat Data')
+                // })
+                // .fail(function() {
+                //     console.log("error");
+                // });
+            }
+        })
     })
 
-    $('button[name="btn_cetak"]').click(function() {
-        let attr = $(this).attr('id-kelas')
-        $(`input[name="kelas_siswa_input"]`).val(attr)
-    })
 </script>
 @endsection

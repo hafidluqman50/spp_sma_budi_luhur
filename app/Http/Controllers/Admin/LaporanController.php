@@ -11,6 +11,7 @@ use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use App\Models\KelasSiswa;
 use App\Models\KolomSpp;
+use App\Models\Kantin;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
@@ -29,6 +30,18 @@ class LaporanController extends Controller
         $title = 'Laporan Kantin';
 
         return view('Admin.laporan.laporan-kantin',compact('title'));
+    }
+
+    public function laporanKantinLihatData($id_kantin,$bulan,$tahun)
+    {
+        $title       = 'Laporan Kantin Lihat Data';
+        $kantin_nama = Kantin::where('id_kantin',$id_kantin)->firstOrFail()->nama_kantin;
+
+        $title       = 'LAPORAN KANTIN '.strtoupper($kantin_nama).' '.$tahun;
+
+        $kantin      = new SppDetail;
+
+        return view('Admin.laporan.laporan-kantin-lihat-data',compact('title','id_kantin','kantin_nama','bulan','tahun','kantin'));
     }
 
     public function laporanDataSiswaView()

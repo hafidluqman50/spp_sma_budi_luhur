@@ -1,3 +1,7 @@
+// var base_url = 'http://localhost:8000'
+// var base_url = 'http://project_work.web'
+var base_url = window.location.origin
+
 function rupiah_format(string){
     if (Math.sign(string) !== -1) {
         reverse = string.toString().split('').reverse().join(''),
@@ -15,10 +19,6 @@ $(() => {
     $('.select2').select2();
 
     $('.datatable').DataTable();
-    
-	// var base_url = 'http://localhost:8000'
-    // var base_url = 'http://project_work.web'
-    var base_url = window.location.origin
 
     var siswa = $('.data-siswa').DataTable({
         processing:true,

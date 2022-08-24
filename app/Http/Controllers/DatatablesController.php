@@ -237,8 +237,8 @@ class DatatablesController extends Controller
         $spp_bulan_tahun = SppBulanTahun::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")
                                         ->leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                                         ->where('id_spp',$id)
-                                        ->orderByRaw("FIELD(bulan_numeric,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
-                                        ->orderBy('tahun_numeric','ASC')
+                                        ->orderByRaw("CAST('tahun' as signed) ASC, FIELD('',`bulan_numeric`,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
+                                        // ->orderBy('tahun_numeric','ASC')
                                         ->get();
 
         $datatables = Datatables::of($spp_bulan_tahun)->addColumn('action',function($action){
@@ -630,6 +630,7 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($kantin)->addColumn('action',function($action){
             $column = '<div class="d-flex">
                             <button class="btn btn-success" name="btn_cetak" value="laporan-kantin" id-kantin="'.$action->nama_kantin.'"> Cetak Laporan </button>
+                            <button class="btn btn-info info-kantin" type="button" id-kantin="'.$action->id_kantin.'"> Lihat Laporan </button>
                        </div>';
             return $column;
         })->make(true);

@@ -66,12 +66,12 @@ class AjaxController extends Controller
         if (Spp::where('id_kelas_siswa',$id_kelas_siswa)->count() != 0) {
             $id_spp = Spp::where('id_kelas_siswa',$id_kelas_siswa)->get()[0]->id_spp;
 
-            $get_bulan_tunggakan = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+            $get_bulan_tunggakan = SppDetail::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                             ->where('id_spp',$id_spp)
                                             ->where('sisa_bayar','!=',0)
-                                            ->select('spp_bulan_tahun.id_spp_bulan_tahun')
+                                            // ->select('spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->orderByRaw("CAST('tahun' as signed) ASC, FIELD(bulan_numeric,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
                                             ->groupBy('spp_bulan_tahun.id_spp_bulan_tahun')
-                                            // ->distinct('spp_bulan_tahun.id_spp_bulan_tahun')
                                             ->get();
 
             if (count($get_bulan_tunggakan) == 0) {
@@ -90,7 +90,9 @@ class AjaxController extends Controller
                                 <td>'.$no.'</td>
                                 <td>'.$get_spp_bulan_tahun->bulan_tahun.'</td>
                                 <td>'.format_rupiah($kalkulasi).'</td>
-                                <td><button type="button" class="btn btn-primary tombol-bayar" id="tombol-bayar" id-spp-bulan-tahun="'.$value->id_spp_bulan_tahun.'">Bayar</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary tombol-bayar" id="tombol-bayar" id-spp-bulan-tahun="'.$value->id_spp_bulan_tahun.'">Bayar</button>
+                                </td>
                             </tr>';
             }
         }

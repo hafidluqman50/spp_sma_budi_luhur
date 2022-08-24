@@ -653,8 +653,14 @@ function($) {
             })
 
             $(document).on('click','a[href="#finish"]',function(){
-                console.log($('#full-width-modal'))
-                $('#form-dashboard').submit();
+                let bayar_total = $('#bayar-total').val()
+                if (bayar_total != '') {
+                    $('#form-dashboard').submit();
+                }
+                else {
+                    alert('Isi Input Bayar Total !');
+                    $('#bayar-total').focus();
+                }
             })
 
             $(document).on('click','.tombol-bayar',function(){
