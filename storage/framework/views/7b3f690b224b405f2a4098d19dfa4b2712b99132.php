@@ -26,10 +26,10 @@
                         <form action="<?php echo e(url('/admin/laporan/cetak')); ?>">
                             <div class="row">
                             	<div class="col-md-6 offset-md-3">
-                            		<select name="tahun_ajaran" class="form-control select2" required>
+                            		<select name="tahun_ajaran_input" class="form-control select2" required>
                             			<option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
                             			<?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            			<option value="<?php echo e($element->tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
+                            			<option value="<?php echo e($element->id_tahun_ajaran); ?>"><?php echo e($element->tahun_ajaran); ?></option>
                             			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             		</select>
                             	</div>
@@ -52,6 +52,7 @@
                                 		<td><?php echo e($kelas[$i]); ?></td>
                                 		<td>
                                             <button class="btn btn-success" name="btn_cetak" value="laporan-data-siswa" id-kelas="<?php echo e($kelas[$i]); ?>">Cetak Laporan</button>
+                                            <button class="btn btn-info info-siswa" type="button" id-kelas="<?php echo e($kelas[$i]); ?>">Lihat Data</button>
                                         </td>
                                 	</tr>
                                 	<?php endfor; ?>
@@ -82,6 +83,12 @@
     $('button[name="btn_cetak"]').click(function() {
         let attr = $(this).attr('id-kelas')
         $(`input[name="kelas_siswa_input"]`).val(attr)
+    })
+    $(document).on('click','.info-siswa',function(){
+        let attr         = $(this).attr('id-kelas')
+        let tahun_ajaran = $('select[name="tahun_ajaran_input"]').val()
+
+        window.open(`${base_url}/admin/laporan-data-siswa/${attr}/${tahun_ajaran}`,'_blank')
     })
 </script>
 <?php $__env->stopSection(); ?>

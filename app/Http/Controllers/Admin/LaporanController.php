@@ -34,7 +34,7 @@ class LaporanController extends Controller
 
     public function laporanKantinLihatData($id_kantin,$bulan,$tahun)
     {
-        $title       = 'Laporan Kantin Lihat Data';
+        // $title       = 'Laporan Kantin Lihat Data';
         $kantin_nama = Kantin::where('id_kantin',$id_kantin)->firstOrFail()->nama_kantin;
 
         $title       = 'LAPORAN KANTIN '.strtoupper($kantin_nama).' '.$tahun;
@@ -51,6 +51,16 @@ class LaporanController extends Controller
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
 
         return view('Admin.laporan.laporan-data-siswa',compact('title','kelas','tahun_ajaran'));
+    }
+
+    public function laporanDataSiswaLihatData($kelas,$id_tahun_ajaran)
+    {
+        $tahun_ajaran = TahunAjaran::where('id_tahun_ajaran',$id_tahun_ajaran)->firstOrFail()->tahun_ajaran;
+        $title        = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas).' '.$tahun_ajaran;
+        $get_kelas    = Kelas::where('slug_kelas','like','%'.$kelas.'-%')->where('status_delete',0)->get();
+        $kelas_siswa  = new KelasSiswa;
+
+        return view('Admin.laporan.laporan-data-siswa-lihat-data',compact('title','get_kelas','kelas_siswa','tahun_ajaran'));
     }
 
     public function laporanTunggakanView()
@@ -171,8 +181,9 @@ class LaporanController extends Controller
 
     public function laporanDataSiswa(Request $request)
     {
-        $tahun_ajaran      = $request->tahun_ajaran;
-        $kelas_siswa_input = $request->kelas_siswa_input;
+        $tahun_ajaran_input = $request->tahun_ajaran_input;
+        $kelas_siswa_input  = $request->kelas_siswa_input;
+        $tahun_ajaran       = TahunAjaran::where('id_tahun_ajaran',$tahun_ajaran_input)->firstOrFail()->tahun_ajaran;
 
         $title    = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
         $fileName = $title.'.xlsx';
