@@ -5,13 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Laporan Kantin View</title>
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+	<style>
+		td {
+			font-size: 12px;
+		}
+	</style>
 </head>
 <body>
-	<h5 align="center"><b>{{ $kantin_nama }}</b></h5>
+	<h6 align="center"><b>LAPORAN KANTIN {{ strtoupper($kantin_nama) }}</b></h6>
 	@for ($i = 1; $i <= $bulan; $i++)
-	<hr>
 	@php
 		$laporan_kantin = $kantin->getLaporanKantin(month(zero_front_number($i)),$tahun,$kantin_nama);
+		$sum = 0;
 	@endphp
 	{{-- <h6><b></b></h6> --}}
 	<table class="table table-bordered table-hover" width="100%">
@@ -27,7 +32,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($laporan_kantin as $key => $value)
+			@forelse ($laporan_kantin as $key => $value)
+			@php
+				if ($value->nominal_spp != $value->sisa_bayar) {
+					$sum = $sum + $value->bayar_spp;
+				}
+			@endphp
 				<tr>
 					<td>{{ $key+1 }}</td>
 					<td>{{ $value->nama_siswa }}</td>
@@ -39,10 +49,20 @@
 					<td><b>SUDAH</b></td>
 					@endif
 				</tr>
-			@endforeach
+			@empty
+				<tr>
+					<td colspan="4" align="center">Tidak Ada Data</td>
+				</tr>
+			@endforelse
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2" align="center">Total</td>
+				<td>{{ format_rupiah($sum) }}</td>
+				<td></td>
+			</tr>
+		</tfoot>
 	</table>
-	<hr>
 	@endfor
 </body>
 </html>
