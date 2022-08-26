@@ -32,9 +32,13 @@ class LaporanController extends Controller
         return view('Admin.laporan.laporan-kantin',compact('title'));
     }
 
-    public function laporanKantinLihatData($id_kantin,$bulan,$tahun)
+    public function laporanKantinLihatData(Request $request)
     {
         // $title       = 'Laporan Kantin Lihat Data';
+        $id_kantin   = $request->id_kantin;
+        $bulan       = $request->bulan;
+        $tahun       = $request->tahun;
+
         $kantin_nama = Kantin::where('id_kantin',$id_kantin)->firstOrFail()->nama_kantin;
 
         $title       = 'LAPORAN KANTIN '.strtoupper($kantin_nama).' '.$tahun;
@@ -53,12 +57,15 @@ class LaporanController extends Controller
         return view('Admin.laporan.laporan-data-siswa',compact('title','kelas','tahun_ajaran'));
     }
 
-    public function laporanDataSiswaLihatData($kelas,$id_tahun_ajaran)
-    {
-        $tahun_ajaran = TahunAjaran::where('id_tahun_ajaran',$id_tahun_ajaran)->firstOrFail()->tahun_ajaran;
-        $title        = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas).' '.$tahun_ajaran;
-        $get_kelas    = Kelas::where('slug_kelas','like','%'.$kelas.'-%')->where('status_delete',0)->get();
-        $kelas_siswa  = new KelasSiswa;
+    public function laporanDataSiswaLihatData(Request $request)
+    {  
+        $kelas           = $request->kelas;
+        $id_tahun_ajaran = $request->id_tahun_ajaran;
+
+        $tahun_ajaran    = TahunAjaran::where('id_tahun_ajaran',$id_tahun_ajaran)->firstOrFail()->tahun_ajaran;
+        $title           = 'LAPORAN DATA SISWA KELAS '.strtoupper($kelas).' '.$tahun_ajaran;
+        $get_kelas       = Kelas::where('slug_kelas','like','%'.$kelas.'-%')->where('status_delete',0)->get();
+        $kelas_siswa     = new KelasSiswa;
 
         return view('Admin.laporan.laporan-data-siswa-lihat-data',compact('title','get_kelas','kelas_siswa','tahun_ajaran'));
     }
@@ -77,6 +84,25 @@ class LaporanController extends Controller
         $title = 'Laporan Pembukuan';
 
         return view('Admin.laporan.laporan-pembukuan',compact('title'));
+    }
+
+    public function laporanPembukuanLihatData(Request $request)
+    {
+        $tanggal_awal  = $request->tanggal_awal;
+        $tanggal_akhir = $request->tanggal_akhir;
+
+        $title = 'LAPORAN PEMBUKUAN '.human_date($tanggal_awal).' Sampai '.human_date($tanggal_akhir);
+
+        $bulan_tahun_sheets = SppBayar::whereBetween(DB::raw('DATE(created_at)'),[$tanggal_awal,$tanggal_akhir])
+                                        ->groupBy(DB::raw('MONTH(created_at)'))
+                                        ->orderBy('created_at','ASC')
+                                        ->get();
+
+        $spp_bayar_detail = new SppBayarDetail;
+        $spp_bayar_data   = new SppBayarData;
+        $kolom_spp        = new KolomSpp;
+
+        return view('Admin.laporan.laporan-pembukuan-lihat-data',compact('title','bulan_tahun_sheets','spp_bayar_detail','kolom_spp','spp_bayar_data'));
     }
 
     public function laporanRabView()

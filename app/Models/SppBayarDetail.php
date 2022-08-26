@@ -46,4 +46,29 @@ class SppBayarDetail extends Model
 
         return $db;
     }
+
+    public static function getKolomSppBayar($bulan,$tahun)
+    {
+        $kolom_bayar = self::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                            ->whereMonth('spp_bayar.created_at',$bulan)
+                            ->whereYear('spp_bayar.created_at',$tahun)
+                            ->groupBy('id_kolom_spp')
+                            ->get();
+
+        return $kolom_bayar;
+    }
+
+    public static function sumBayar($id_siswa,$id_spp_bayar_data)
+    {
+        $db = self::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
+                ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
+                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                ->where('kelas_siswa.id_siswa',$id_siswa)
+                ->where('spp_bayar_data.id_spp_bayar_data',$id_spp_bayar_data)
+                ->sum('spp_bayar_detail.nominal_bayar');
+
+        return $db;
+    }
 }

@@ -89,8 +89,9 @@
     $(document).on('click','.info-siswa',function(){
         let attr         = $(this).attr('id-kelas')
         let tahun_ajaran = $('select[name="tahun_ajaran_input"]').val()
+        let url          = `${base_url}/admin/laporan-data-siswa/lihat-data?kelas=${attr}&id_tahun_ajaran=${tahun_ajaran}`
 
-        window.open(`${base_url}/admin/laporan-data-siswa/${attr}/${tahun_ajaran}`,'_blank')
+        window.open(url,'_blank')
     })
 </script>
 @endsection

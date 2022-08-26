@@ -313,13 +313,14 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE LAPORAN //
     Route::get('/laporan-kantin',[AdminLaporanController::class, 'laporanKantinView']);
-    Route::get('/laporan-kantin/{id_kantin}/{bulan}/{tahun}',[AdminLaporanController::class, 'laporanKantinLihatData']);
+    Route::get('/laporan-kantin/lihat-data',[AdminLaporanController::class, 'laporanKantinLihatData']);
     Route::get('/laporan-data-siswa',[AdminLaporanController::class, 'laporanDataSiswaView']);
-    Route::get('/laporan-data-siswa/{kelas}/{tahun_ajaran}',[AdminLaporanController::class, 'laporanDataSiswaLihatData']);
+    Route::get('/laporan-data-siswa/lihat-data',[AdminLaporanController::class, 'laporanDataSiswaLihatData']);
     Route::get('/laporan-tunggakan',[AdminLaporanController::class, 'laporanTunggakanView']);
     Route::get('/laporan-rab',[AdminLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
     Route::get('/laporan-pembukuan',[AdminLaporanController::class, 'laporanPembukuanView']);
+    Route::get('/laporan-pembukuan/lihat-data',[AdminLaporanController::class, 'laporanPembukuanLihatData']);
     // END ROUTE LAPORAN //
 
     // ROUTE RAB //

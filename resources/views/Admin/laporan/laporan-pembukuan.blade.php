@@ -46,6 +46,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <button class="btn btn-primary" name="btn_cetak" value="laporan-pembukuan">Cetak</button>
+                                    <button class="btn btn-info info-pembukuan" type="button">Lihat Data</button>
                                 </div>
                             </div>
                             <hr>
@@ -74,6 +75,13 @@
     $('button[name="btn_cetak"]').click(function() {
         let attr = $(this).attr('id-kelas')
         $(`input[name="kelas_siswa_input"]`).val(attr)
+    })
+    $('.info-pembukuan').click(function(){
+        let tanggal_dari   = $('input[name="tanggal_awal"]').val()
+        let tanggal_sampai = $('input[name="tanggal_akhir"]').val()
+        let url            = `${base_url}/admin/laporan-pembukuan/lihat-data?tanggal_awal=${tanggal_dari}&tanggal_akhir=${tanggal_sampai}`
+        
+        window.open(url,'_blank')
     })
 </script>
 @endsection
