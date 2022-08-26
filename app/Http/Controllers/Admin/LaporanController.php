@@ -79,6 +79,46 @@ class LaporanController extends Controller
         return view('Admin.laporan.laporan-tunggakan',compact('title','kelas','tahun_ajaran'));
     }
 
+    public function laporanTunggakanLihatData(Request $request)
+    {
+        $tahun_ajaran      = $request->tahun_ajaran == "null" ? null : $request->tahun_ajaran;
+        $bulan_awal        = $request->bulan_awal == "null" ? null : $request->bulan_awal;
+        $tahun_awal        = $request->tahun_awal == "null" ? null : $request->tahun_awal;
+        $bulan_akhir       = $request->bulan_akhir == "null" ? null : $request->bulan_akhir;
+        $tahun_akhir       = $request->tahun_akhir == "null" ? null : $request->tahun_akhir;
+        $kelas_siswa_input = $request->kelas_siswa_input;
+        // dd($bulan_awal);
+
+        if ($tahun_ajaran != '') {
+            $title    = 'LAPORAN TUNGGAKAN KELAS '.strtoupper($kelas_siswa_input).' '.$tahun_ajaran;
+            $explode_tahun_ajaran = explode('/',$tahun_ajaran);
+            $bulan_range = null;
+        }
+        else {
+            $title    = 'LAPORAN TUNGGAKAN KELAS '.strtoupper($kelas_siswa_input).' Dari Bulan '.($bulan_awal).''.$tahun_awal.' Sampai Bulan '.$bulan_akhir.''.$tahun_akhir;
+            if ($tahun_awal == $tahun_akhir) {
+                $explode_tahun_ajaran = [$tahun_awal];
+                // $bulan_range          = [][];
+                $bulan_range[0]['bulan_awal']  = (int)$bulan_awal;
+                $bulan_range[0]['bulan_akhir'] = (int)$bulan_akhir;
+            }
+            else {
+                $explode_tahun_ajaran = [$tahun_awal,$tahun_akhir];
+                $bulan_range[0]['bulan_awal']  = (int)$bulan_awal;
+                $bulan_range[0]['bulan_akhir'] = 12;
+                $bulan_range[1]['bulan_awal']  = 1;
+                $bulan_range[1]['bulan_akhir'] = (int)$bulan_akhir;
+            }
+        }
+
+        $spp             = new Spp;
+        $spp_bulan_tahun = new SppBulanTahun;
+        $kolom_spp       = new KolomSpp;
+        $spp_detail      = new SppDetail;
+
+        return view('Admin.laporan.laporan-tunggakan-lihat-data',compact('title','bulan_awal','bulan_akhir','tahun_ajaran','kelas_siswa_input','tahun_awal','tahun_akhir','explode_tahun_ajaran','bulan_range','spp','spp_bulan_tahun','kolom_spp','spp_detail'));
+    }
+
     public function laporanPembukuanView()
     {
         $title = 'Laporan Pembukuan';

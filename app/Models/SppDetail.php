@@ -246,4 +246,36 @@ class SppDetail extends Model
 
         return $data_spp;
     }
+
+    public static function kolomSppTunggakanTahunAjaran($tahun_ajaran,$kelas,$bulan_tahun)
+    {
+        $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                        ->where('kelas',$kelas)
+                                        ->where('tahun_ajaran',$tahun_ajaran)
+                                        ->where('bulan_tahun',$bulan_tahun)
+                                        ->distinct()
+                                        ->get('id_kolom_spp');
+
+        return $distinct_kolom_spp;
+    }
+
+    public static function kolomSppTunggakanTahun($tahun,$kelas,$bulan_tahun)
+    {
+        $distinct_kolom_spp = SppDetail::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                        ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                        ->where('kelas',$kelas)
+                                        ->where('spp_bulan_tahun.tahun',$tahun)
+                                        ->where('bulan_tahun',$bulan_tahun)
+                                        ->distinct()
+                                        ->get('id_kolom_spp');
+
+        return $distinct_kolom_spp;
+    }
 }

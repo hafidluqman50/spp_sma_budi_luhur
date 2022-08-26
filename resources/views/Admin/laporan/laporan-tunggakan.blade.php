@@ -93,9 +93,8 @@
                                         <td>{{ $i+1 }}</td>
                                         <td>{{ $kelas[$i] }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/laporan-tunggakan/lihat-data/'.strtolower($kelas[$i])) }}"></a>
                                             <button class="btn btn-success" name="btn_cetak" value="laporan-tunggakan" id-kelas="{{ $kelas[$i] }}">Cetak Laporan</button>
-                                            <button class="btn btn-info lihat-data" id-kelas="{{ $kelas[$i] }}" type="button">Lihat Data</button>
+                                            <button class="btn btn-info info-tunggakan" id-kelas="{{ $kelas[$i] }}" type="button">Lihat Data</button>
                                         </td>
                                     </tr>
                                     @endfor
@@ -146,46 +145,18 @@
             $(`input[name="kelas_siswa_input"]`).val(attr)
         })
 
-        $('.lihat-data').click(function() {
+        $('.info-tunggakan').click(function() {
             let attr         = $(this).attr('id-kelas')
             let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
             let tahun_awal   = $('input[name="tahun_awal"]').val()
             let bulan_awal   = $('select[name="bulan_awal"]').val()
             let tahun_akhir  = $('input[name="tahun_akhir"]').val()
             let bulan_akhir  = $('select[name="bulan_akhir"]').val()
-            console.log({tahun_awal,tahun_akhir,bulan_awal,bulan_akhir})
+            // console.log({tahun_awal,tahun_akhir,bulan_awal,bulan_akhir})
 
-            if (tahun_ajaran != null) {
-                $(this).html('Loading ...')
-                $('.bd-example-modal-sm').modal('show')
-                // $.ajax({
-                //     url: `${base_url}/get-lihat-tunggakan`,
-                //     type: 'GET',
-                //     data: {tahun_ajaran:tahun_ajaran},
-                // })
-                // .done(function(done) {
-                //     $('.lihat-data').html('Lihat Data')
-                //     $('')
-                // })
-                // .fail(function() {
-                //     console.log("error");
-                // });
-                
-            }
-            else if (tahun_awal != null && tahun_akhir != null && bulan_awal != null && bulan_akhir != null) {
-                $(this).html('Loading ...')
-                // $.ajax({
-                //     url: `${base_url}/get-lihat-tunggakan`,
-                //     type: 'GET',
-                //     data: {tahun_ajaran:tahun_ajaran},
-                // })
-                // .done(function(done) {
-                //     $('.lihat-data').html('Lihat Data')
-                // })
-                // .fail(function() {
-                //     console.log("error");
-                // });
-            }
+            let url = `${base_url}/admin/laporan-tunggakan/lihat-data?kelas_siswa_input=${attr}&tahun_ajaran=${tahun_ajaran}&tahun_awal=${tahun_awal}&tahun_akhir=${tahun_akhir}&bulan_awal=${bulan_awal}&bulan_akhir=${bulan_akhir}`
+
+            window.open(url,'_blank')
         })
     })
 

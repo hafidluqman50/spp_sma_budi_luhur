@@ -317,6 +317,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/laporan-data-siswa',[AdminLaporanController::class, 'laporanDataSiswaView']);
     Route::get('/laporan-data-siswa/lihat-data',[AdminLaporanController::class, 'laporanDataSiswaLihatData']);
     Route::get('/laporan-tunggakan',[AdminLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-tunggakan/lihat-data',[AdminLaporanController::class, 'laporanTunggakanLihatData']);
     Route::get('/laporan-rab',[AdminLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[AdminLaporanController::class, 'laporanCetak']);
     Route::get('/laporan-pembukuan',[AdminLaporanController::class, 'laporanPembukuanView']);

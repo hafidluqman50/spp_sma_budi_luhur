@@ -152,4 +152,23 @@ class SppBulanTahun extends Model
 
         return $val;
     }
+
+    public static function getBulanTahunTunggakan($tahun_ajaran,$bulan_awal,$bulan_akhir,$kelas_siswa)
+    {
+        $sheet_bulan_tahun = self::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                // ->join('spp_bulan_tahun','spp.id_spp','=','spp_bulan_tahun.id_spp')
+                                // ->whereBetween('spp_bulan_tahun.bulan',[$bulan_awal,$bulan_akhir])
+                                ->where('spp_bulan_tahun.bulan','>=',$bulan_awal)
+                                ->where('spp_bulan_tahun.bulan','<=',$bulan_akhir)
+                                ->where('spp_bulan_tahun.tahun',$tahun_ajaran)
+                                ->where('slug_kelas','like','%'.strtolower($kelas_siswa).'-%')
+                                ->distinct()
+                                ->orderByRaw("FIELD(bulan_tahun,'Januari, $tahun_ajaran','Februari, $tahun_ajaran','Maret, $tahun_ajaran','April, $tahun_ajaran','Mei, $tahun_ajaran','Juni, $tahun_ajaran','Juli, $tahun_ajaran','Agustus, $tahun_ajaran','September, $tahun_ajaran','Oktober, $tahun_ajaran','November, $tahun_ajaran','Desember, $tahun_ajaran')")
+                                ->get('bulan_tahun');
+
+        return $sheet_bulan_tahun;
+    }
 }
