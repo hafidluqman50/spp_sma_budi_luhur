@@ -278,4 +278,47 @@ class SppDetail extends Model
 
         return $distinct_kolom_spp;
     }
+
+    public static function getTunggakanKelasRekap($kelas_siswa)
+    {
+        $spp_detail = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('slug_kelas','like','%'.$kelas_siswa.'-%')
+                                            ->where('status_bayar',0)
+                                            ->distinct()
+                                            ->get('kelas');
+
+        return $spp_detail;
+    }
+
+    public static function getKolomRekap($kelas)
+    {
+        $kolom_rekap = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('kelas',$kelas)
+                                            ->where('status_bayar',0)
+                                            ->distinct()
+                                            ->get('id_kolom_spp');
+
+        return $kolom_rekap;
+    }
+
+    public static function getSiswaRekap($kelas)
+    {
+        $siswa_rekap = self::join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                            ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                            ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                            ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                            ->where('kelas',$kelas)
+                                            ->where('status_bayar',0)
+                                            ->groupBy('kelas_siswa.id_siswa')
+                                            ->get();
+
+        return $siswa_rekap;
+    }
 }

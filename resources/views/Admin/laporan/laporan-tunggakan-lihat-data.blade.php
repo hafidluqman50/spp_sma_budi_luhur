@@ -36,8 +36,8 @@
 						<td colspan="2">{{ $data->kelas }}</td>
 					</tr>
 					<tr>
-						<td>No.</td>
-						<td>Nama</td>
+						<td>NO.</td>
+						<td>NAMA</td>
 						@php
 							if ($tahun_ajaran != '') {
 								$distinct_kolom_spp = $spp_detail->kolomSppTunggakanTahunAjaran($tahun_ajaran,$data->kelas,$val->bulan_tahun);
@@ -52,7 +52,7 @@
 						<td>{{ strtoupper($kolom_spp->getNamaKolomSpp($j->id_kolom_spp)) }}</td>
 						<td>{{ strtoupper('Bulan') }}</td>
 						@endforeach
-						<td>Jumlah</td>
+						<td>JUMLAH</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,6 +86,62 @@
 			</table>
 			@endforeach
 		@endforeach
+	@endforeach
+	<hr>
+	<h6 align="center">REKAP SPP</h6>
+	<hr>
+	@php
+		$kelas_siswa_rekap = $spp_detail->getTunggakanKelasRekap($kelas_siswa_input);
+	@endphp
+	@foreach ($kelas_siswa_rekap as $key => $value)
+	@php
+		$kolom_rekap = $spp_detail->getKolomRekap($value->kelas);
+	@endphp
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<td colspan="2">{{ $value->kelas }}</td>
+			</tr>
+			<tr>
+				<td>NO.</td>
+				<td>NAMA</td>
+				@foreach ($kolom_rekap as $i => $j)
+				<td>{{ strtoupper($kolom_spp->getNamaKolomSpp($j->id_kolom_spp)) }}</td>
+				<td>{{ strtoupper('Bulan') }}</td>
+				@endforeach
+				<td>JUMLAH</td>
+			</tr>
+		</thead>
+		<tbody>
+			@php
+				$data_siswa_rekap = $spp_detail->getSiswaRekap($value->kelas);
+				$sum = 0;
+			@endphp
+			@foreach ($data_siswa_rekap as $id_siswa => $data_siswa_rekap_)
+			<tr>
+				<td>{{ $id_siswa+1; }}</td>
+				<td>{{ $data_siswa_rekap_->nama_siswa }}</td>
+				@foreach ($kolom_rekap as $k => $z)
+				@if ($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) == '-')
+				<td>{{ $spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) }}</td>
+				@else
+				<td>{{ format_rupiah($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa)) }}</td>
+				@endif
+				<td>{{ $spp_detail->getTunggakanBulanRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) }}</td>
+				@php
+					if ($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) != '-') {
+						$sum = $sum + $spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa);
+					}
+				@endphp
+				@endforeach
+				<td>{{ format_rupiah($sum) }}</td>
+				@php
+					$sum = 0;
+				@endphp
+			</tr>
+			@endforeach
+		</tbody>
+	</table>
 	@endforeach
 </body>
 </html>

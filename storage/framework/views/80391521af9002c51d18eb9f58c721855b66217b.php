@@ -36,8 +36,8 @@
 						<td colspan="2"><?php echo e($data->kelas); ?></td>
 					</tr>
 					<tr>
-						<td>No.</td>
-						<td>Nama</td>
+						<td>NO.</td>
+						<td>NAMA</td>
 						<?php
 							if ($tahun_ajaran != '') {
 								$distinct_kolom_spp = $spp_detail->kolomSppTunggakanTahunAjaran($tahun_ajaran,$data->kelas,$val->bulan_tahun);
@@ -52,7 +52,7 @@
 						<td><?php echo e(strtoupper($kolom_spp->getNamaKolomSpp($j->id_kolom_spp))); ?></td>
 						<td><?php echo e(strtoupper('Bulan')); ?></td>
 						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-						<td>Jumlah</td>
+						<td>JUMLAH</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,6 +86,62 @@
 			</table>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+	<hr>
+	<h6 align="center">REKAP SPP</h6>
+	<hr>
+	<?php
+		$kelas_siswa_rekap = $spp_detail->getTunggakanKelasRekap($kelas_siswa_input);
+	?>
+	<?php $__currentLoopData = $kelas_siswa_rekap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+	<?php
+		$kolom_rekap = $spp_detail->getKolomRekap($value->kelas);
+	?>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<td colspan="2"><?php echo e($value->kelas); ?></td>
+			</tr>
+			<tr>
+				<td>NO.</td>
+				<td>NAMA</td>
+				<?php $__currentLoopData = $kolom_rekap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $j): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+				<td><?php echo e(strtoupper($kolom_spp->getNamaKolomSpp($j->id_kolom_spp))); ?></td>
+				<td><?php echo e(strtoupper('Bulan')); ?></td>
+				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+				<td>JUMLAH</td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				$data_siswa_rekap = $spp_detail->getSiswaRekap($value->kelas);
+				$sum = 0;
+			?>
+			<?php $__currentLoopData = $data_siswa_rekap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id_siswa => $data_siswa_rekap_): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+			<tr>
+				<td><?php echo e($id_siswa+1); ?></td>
+				<td><?php echo e($data_siswa_rekap_->nama_siswa); ?></td>
+				<?php $__currentLoopData = $kolom_rekap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $z): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+				<?php if($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) == '-'): ?>
+				<td><?php echo e($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa)); ?></td>
+				<?php else: ?>
+				<td><?php echo e(format_rupiah($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa))); ?></td>
+				<?php endif; ?>
+				<td><?php echo e($spp_detail->getTunggakanBulanRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa)); ?></td>
+				<?php
+					if ($spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa) != '-') {
+						$sum = $sum + $spp_detail->getTunggakanNominalRekap($kolom_rekap[$k]->id_kolom_spp,$data_siswa_rekap_->id_siswa);
+					}
+				?>
+				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+				<td><?php echo e(format_rupiah($sum)); ?></td>
+				<?php
+					$sum = 0;
+				?>
+			</tr>
+			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+		</tbody>
+	</table>
 	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </body>
 </html><?php /**PATH /var/www/web_keuangan/resources/views/Admin/laporan/laporan-tunggakan-lihat-data.blade.php ENDPATH**/ ?>
