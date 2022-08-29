@@ -197,9 +197,7 @@
                                     <li>
                                         <a href="<?php echo e(url('/admin/laporan-pembukuan')); ?>">Laporan Pembukuan</a>
                                     </li>
-                                    <li>
-                                        <a href="<?php echo e(url('/admin/laporan-rab')); ?>">Laporan RAB</a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
                             <li class="has-submenu">

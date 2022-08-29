@@ -12,7 +12,7 @@
                                 <li class="breadcrumb-item active"><a href="<?php echo e(url('/admin/data-perincian-rab')); ?>">Rincian Pengeluaran</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Rincian Pengeluaran</h4>
+                        <h4 class="page-title">Rincian Pembelanjaan</h4>
                     </div>
                 </div>
             </div>
@@ -25,9 +25,19 @@
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/tambah')); ?>">
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/')); ?>">
+                                <button class="btn btn-default" style="cursor:pointer;">
+                                    <i class="fa fa-arrow-left m-r-5"></i>Kembali
+                                </button>
+                            </a>
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan-uang-makan/'.$id.'/tambah')); ?>">
                                 <button class="btn btn-primary" style="cursor:pointer;">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
+                                </button>
+                            </a>
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/edit')); ?>">
+                                <button class="btn btn-warning" style="cursor:pointer;">
+                                    <i class="fa fa-pencil m-r-5"></i>Edit
                                 </button>
                             </a>
                         </div>
@@ -36,14 +46,15 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered data-rincian-pengeluaran force-fullwidth">
+                        <table class="table table-hover table-bordered data-rincian-pembelanjaan force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>" ket-data="uang-makan">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan, Tahun Laporan</th>
-                                <th>Bulan, Tahun Pengajuan</th>
-                                <th>Tahun Ajaran</th>
-                                <th>Saldo Awal</th>
+                                <th>Kategori Rincian</th>
+                                <th>Rincian</th>
+                                <th>Volume</th>
+                                <th>Uang Masuk</th>
+                                <th>Uang Keluar</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -58,4 +69,4 @@
     </div>
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pengeluaran/main.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/main-uang-makan.blade.php ENDPATH**/ ?>

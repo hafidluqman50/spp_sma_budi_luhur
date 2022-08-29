@@ -201,9 +201,9 @@
                                     <li>
                                         <a href="{{ url('/admin/laporan-pembukuan') }}">Laporan Pembukuan</a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ url('/admin/laporan-rab') }}">Laporan RAB</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="has-submenu">

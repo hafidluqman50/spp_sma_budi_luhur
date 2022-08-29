@@ -38,7 +38,7 @@ class RincianPembelanjaanController extends Controller
         $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
         $jenis_rincian              = 'uang-makan';
 
-        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-tambah',compact('title','id','rincian_pengeluaran_detail','jenis_rincian'));
+        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-uang-makan-tambah',compact('title','id','rincian_pengeluaran_detail','jenis_rincian'));
     }
 
     public function save(Request $request, $id)
@@ -53,7 +53,7 @@ class RincianPembelanjaanController extends Controller
         foreach ($rincian as $key => $value) {
             $data_rincian_pembelanjaan = [
                 'id_rincian_pengeluaran'        => $id,
-                'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : null,
+                'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
                 'id_rincian_pengeluaran_detail' => $rincian[$key],
                 'jenis_rincian_pembelanjaan'    => $jenis_rincian
             ];

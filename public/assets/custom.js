@@ -987,6 +987,7 @@ $(() => {
             }},
             {data:'bulan_tahun_laporan',name:'bulan_tahun_laporan'},
             {data:'bulan_tahun_pengajuan',name:'bulan_tahun_pengajuan'},
+            {data:'tahun_ajaran',name:'tahun_ajaran'},
             {data:'saldo_awal',name:'saldo_awal'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
@@ -1018,7 +1019,7 @@ $(() => {
             {data:'tanggal_rincian',name:'tanggal_rincian'},
             {data:'uraian_rincian',name:'uraian_rincian'},
             {data:'volume_rincian',name:'volume_rincian'},
-            {data:'nominal_pendapatan',name:'nominal_pendapatan'},
+            {data:'nominal_rincian',name:'nominal_rincian'},
             {data:'total_nominal_uraian',name:'total_nominal_uraian'},
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
             {data:'uraian_rab',name:'uraian_rab'},
@@ -1057,8 +1058,8 @@ $(() => {
             {data:'kategori_rincian_pembelanjaan',name:'kategori_rincian_pembelanjaan'},
             {data:'uraian_rincian',name:'uraian_rincian'},
             {data:'volume_rincian',name:'volume_rincian'},
-            {data:'nominal_pendapatan',name:'nominal_pendapatan'},
             {data:'nominal_pendapatan_spp',name:'nominal_pendapatan_spp'},
+            {data:'nominal_rincian',name:'nominal_rincian'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,

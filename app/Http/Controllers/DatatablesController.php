@@ -673,7 +673,7 @@ class DatatablesController extends Controller
 
     public function dataRincianPengeluaran()
     {
-        $rincian_pengeluaran = RincianPengeluaran::all();
+        $rincian_pengeluaran = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->get();
 
         $datatables = Datatables::of($rincian_pengeluaran)->addColumn('action',function($action){
             $column = '
@@ -692,6 +692,9 @@ class DatatablesController extends Controller
                            </a>
                             <a href="'.url("/$this->level/data-perincian-rab/edit/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-warning"> Edit </button>
+                           </a>
+                            <a href="'.url("/$this->level/laporan/cetak?id_rincian_pengeluaran=$action->id_rincian_pengeluaran&btn_cetak=laporan-rab").'">
+                              <button class="btn btn-default"> Cetak <span class="fa fa-file-excel-o"></span></button>
                            </a>
                            <form action="'.url("/$this->level/data-perincian-rab/delete/$action->id_rincian_pengeluaran").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -730,11 +733,11 @@ class DatatablesController extends Controller
         })->editColumn('tanggal_rincian',function($add){
             return human_date($add->tanggal_rincian);
         })->addColumn('total_nominal_uraian',function($add){
-            return format_rupiah($add->volume_rincian * $add->nominal_pendapatan);
+            return format_rupiah($add->volume_rincian * $add->nominal_rincian);
         })->addColumn('total_nominal_rab',function($add){
             return format_rupiah($add->volume_rab * $add->nominal_rab);
-        })->editColumn('nominal_pendapatan',function($add){
-            return format_rupiah($add->nominal_pendapatan);
+        })->editColumn('nominal_rincian',function($add){
+            return format_rupiah($add->nominal_rincian);
         })->editColumn('nominal_pendapatan_spp',function($add){
             return format_rupiah($add->nominal_pendapatan_spp);
         })->editColumn('nominal_rab',function($add){
@@ -761,8 +764,8 @@ class DatatablesController extends Controller
                            </div>
                         ';
                 return $column;
-            })->editColumn('nominal_pendapatan',function($edit){
-                return format_rupiah($edit->nominal_pendapatan);
+            })->editColumn('nominal_rincian',function($edit){
+                return format_rupiah($edit->nominal_rincian);
             })->editColumn('nominal_pendapatan_spp',function($edit){
                 return format_rupiah($edit->nominal_pendapatan_spp);
             })->make(true);

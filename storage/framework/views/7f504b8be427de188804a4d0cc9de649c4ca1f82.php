@@ -105,7 +105,7 @@
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
                         </div>
-                        <input type="hidden" name="jenis_rincian" value="operasional">
+                        <input type="hidden" name="jenis_rincian" value="uang-makan">
                     </form>
                 </div>
             </div>
@@ -261,4 +261,4 @@
     })
 </script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/rincian-pembelanjaan-tambah.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/rincian-pembelanjaan-uang-makan-tambah.blade.php ENDPATH**/ ?>

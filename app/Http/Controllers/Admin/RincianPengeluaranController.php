@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 use App\Models\KolomSpp;
+use App\Models\SppBayarDetail;
 
 class RincianPengeluaranController extends Controller
 {
@@ -65,7 +66,7 @@ class RincianPengeluaranController extends Controller
                 'tanggal_rincian'        => $tanggal_perincian[$i],
                 'uraian_rincian'         => $uraian_rincian[$i],
                 'volume_rincian'         => $volume_rincian[$i],
-                'nominal_pendapatan'     => $nominal_pendapatan[$i],
+                'nominal_rincian'        => $nominal_rincian[$i],
                 'id_kolom_spp'           => $id_kolom_spp[$i],
                 'nominal_pendapatan_spp' => $nominal_pendapatan,
                 'uraian_rab'             => $uraian_rab[$i],

@@ -1,4 +1,6 @@
-<?php $__env->startSection('content'); ?>
+@extends('Admin.layout-app.layout-rab')
+
+@section('content')
     <div class="wrapper">
         <div class="container">
 
@@ -11,7 +13,7 @@
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan <?php echo e($jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian)); ?></a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</a></li>
                             </ol>
                         </div>
                     </div>
@@ -24,14 +26,14 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url()->previous()); ?>">
+                            <a href="{{ url()->previous() }}">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data <?php echo e($jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian)); ?></h4>
+                        <h4 class="header-title m-t-0">Tambah Data {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</h4>
                     </div>
-                    <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save')); ?>" method="POST">
-                        <?php echo csrf_field(); ?>
+                    <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
+                        @csrf
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
                                 <div class="form-group">
@@ -55,9 +57,9 @@
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
-                                                        <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>"><?php echo e($data->uraian_rincian); ?></option>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        @foreach ($rincian_pengeluaran_detail as $data)
+                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rincian }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>  
                                             </div>
@@ -105,7 +107,7 @@
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
                         </div>
-                        <input type="hidden" name="jenis_rincian" value="operasional">
+                        <input type="hidden" name="jenis_rincian" value="uang-makan">
                     </form>
                 </div>
             </div>
@@ -114,9 +116,9 @@
     </div>
     <!-- end wrapper -->
 
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('js'); ?>
+@section('js')
 <script>
     $(() => {
         var input_kategori_rincian       = 2;
@@ -233,7 +235,7 @@
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({
-                url: "<?php echo e(url('/ajax/get-rincian')); ?>",
+                url: "{{ url('/ajax/get-rincian') }}",
                 data: {id_rincian: val},
             })
             .done(function(done) {
@@ -260,5 +262,4 @@
         })
     })
 </script>
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/rincian-pembelanjaan-tambah.blade.php ENDPATH**/ ?>
+@endsection

@@ -43,7 +43,7 @@
                                             <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="1">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" id-delete-kategori="1">X</button>
+                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
                                         </div>
                                     </div>
                                 </div>
@@ -79,28 +79,30 @@
                                                 <div class="form-group">
                                                     <label class="col-form-label">Uang Masuk</label>
                                                     <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
-                                                </div>  
+                                                    <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Uang Keluar</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
-                                                </div>  
+                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
+                                                </div> 
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" style="margin-top:19%;" id-delete-rincian="1">X</button>
+                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="1">X</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-success tambah-input-rincian" id-act="1">Tambah Input Rincian</button>
+                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="1">Tambah Input Rincian</button>
                                 <hr>
                             </div>
                         </div>
                         <div class="card-box">
-                            <button class="btn btn-primary tambah-input">Tambah Input</button>
+                            <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
@@ -119,9 +121,18 @@
 @section('js')
 <script>
     $(() => {
-        var input_kategori_rincian = 2;
-        var btn_delete_rincian     = 2;
+        var input_kategori_rincian       = 2;
+        var hapus_input_kategori_rincian = 1;
+        var btn_delete_rincian           = 2;
 
+        var id_layout_rincian            = 2;
+        var id_rincian                   = 2;
+        var id_volume                    = 2;
+        var id_spp                       = 2;
+        var id_uang_masuk                = 2;
+        var id_uang_keluar               = 2;
+        var id_uang_masuk_label          = 2;
+        var id_uang_keluar_label         = 2;
 
         $('.tambah-input').click(() => {
             $('.rincian').each(function(){
@@ -142,17 +153,39 @@
                 sortField:'text'
             })
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
-            $('.btn-delete-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
-            $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian)
-            input_kategori_rincian++
-        })
+            
+            $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
 
-        var id_rincian     = 2;
-        var id_volume      = 2;
-        var id_spp         = 2;
-        var id_uang_masuk  = 2;
-        var id_uang_keluar = 2;
+            $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
+
+            if (!$('.btn-delete-rincian:last').hasClass('form-hide')) {
+                $('.btn-delete-rincian:last').addClass('form-hide')
+            }
+            
+            $(`.input-rincian-layout[id-layout-input-rincian="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('select.rincian:last').attr('id-rincian',id_rincian++)
+            
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.spp:last').attr('id-spp',id_spp++)
+            $(`.spp:last`).val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.volume:last').attr('id-volume',id_volume++)
+            $(`.volume:last`).val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-masuk:last').attr('id-uang-masuk',id_uang_masuk++)
+            $(`.uang-masuk:last`).val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-masuk-label:last').attr('id-uang-masuk-label',id_uang_masuk_label++)
+            $(`.uang-masuk-label:last`).html(rupiah_format(0))
+            
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar:last').attr('id-uang-keluar',id_uang_keluar++)
+            $(`.uang-keluar:last`).val('')
+
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
+            $(`.uang-keluar-label:last`).html(rupiah_format(0))
+            input_kategori_rincian++
+            hapus_input_kategori_rincian++
+        })
 
         $(document).on('click','.tambah-input-rincian',function() {
             let attr = $(this).attr('id-act')
@@ -164,16 +197,32 @@
                 }
             })
             $(`.input-rincian-layout[id-layout-input-rincian="${attr}"]:last`).clone().appendTo(`.input-rincian[id-layout-input-rincian="${attr}"]`)
+            $(`.input-rincian-layout[id-layout-input-rincian="${attr}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
             $('.rincian').selectize({
                 create:true,
                 sortField:'text'
             })
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').removeClass('form-hide')
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.rincian:last').attr('id-rincian',id_rincian++)
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('select.rincian:last').attr('id-rincian',id_rincian++)
+            
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.spp:last').attr('id-spp',id_spp++)
+            $(`.spp:last`).val('')
+            
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.volume:last').attr('id-volume',id_volume++)
+            $(`.volume:last`).val('')
+            
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-masuk:last').attr('id-uang-masuk',id_uang_masuk++)
+            $(`.uang-masuk:last`).val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-masuk-label:last').attr('id-uang-masuk-label',id_uang_masuk_label++)
+            $(`.uang-masuk-label:last`).html(rupiah_format(0))
+            
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar:last').attr('id-uang-keluar',id_uang_keluar++)
+            $(`.uang-keluar:last`).val('')
+
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
+            $(`.uang-keluar-label:last`).html(rupiah_format(0))
         })
 
         $(document).on('keyup','.kategori-rincian',function(){
@@ -190,14 +239,26 @@
                 data: {id_rincian: val},
             })
             .done(function(done) {
-                $(`.volume[id-volume="${attr}"]`).val(done.volume)
-                $(`.uang-keluar[id-uang-keluar="${attr}"`).val(done.uang_keluar)
                 $(`.spp[id-spp="${attr}"]`).val(done.spp)
+                $(`.volume[id-volume="${attr}"]`).val(done.volume)
                 $(`.uang-masuk[id-uang-masuk="${attr}"`).val(done.uang_masuk)
+                $(`.uang-masuk-label[id-uang-masuk-label="${attr}"`).html(rupiah_format(done.uang_masuk))
+                $(`.uang-keluar[id-uang-keluar="${attr}"`).val(done.uang_keluar)
+                $(`.uang-keluar-label[id-uang-keluar-label="${attr}"`).html(rupiah_format(done.uang_keluar))
             })
             .fail(function(fail) {
 
             });
+        })
+
+        $(document).on('click','.btn-delete-kategori-rincian',function(){
+            let attr = $(this).attr('id-delete-kategori');
+            $(`.input-kategori-rincian[id-input-kategori="${attr}"]`).remove()
+        })
+
+        $(document).on('click','.btn-delete-rincian',function(){
+            let attr = $(this).attr('id-delete-rincian');
+            $(`.input-rincian-layout[id-layout-rincian="${attr}"]`).remove()
         })
     })
 </script>
