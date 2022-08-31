@@ -36,6 +36,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-4 col-form-label">Tahun Ajaran</label>
+                                    <div class="col-7">
+                                        <select name="tahun_ajaran" class="form-control select2" required>
+                                            <option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
+                                            <?php $__currentLoopData = $tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($value->id_tahun_ajaran); ?>"><?php echo e($value->tahun_ajaran); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan Laporan</label>
                                     <div class="col-7">
                                         <select name="bulan_laporan" class="form-control select2" required>

@@ -38,6 +38,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-4 col-form-label">Tahun Ajaran</label>
+                                    <div class="col-7">
+                                        <select name="tahun_ajaran" class="form-control select2" required>
+                                            <option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
+                                            @foreach ($tahun_ajaran as $key => $value)
+                                            <option value="{{ $value->id_tahun_ajaran }}">{{ $value->tahun_ajaran }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan Laporan</label>
                                     <div class="col-7">
                                         <select name="bulan_laporan" class="form-control select2" required>

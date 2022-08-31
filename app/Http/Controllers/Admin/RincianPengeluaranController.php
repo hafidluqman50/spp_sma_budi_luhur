@@ -9,6 +9,7 @@ use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayarDetail;
+use App\Models\TahunAjaran;
 
 class RincianPengeluaranController extends Controller
 {
@@ -21,16 +22,18 @@ class RincianPengeluaranController extends Controller
 
     public function tambah()
     {
-        $title     = 'Admin | Form Rincian Pengeluaran';
-        $kolom_spp = KolomSpp::where('status_delete',0)->get();
+        $title        = 'Admin | Form Rincian Pengeluaran';
+        $kolom_spp    = KolomSpp::where('status_delete',0)->get();
+        $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
 
-        return view('Admin.rincian-pengeluaran.rincian-pengeluaran-tambah',compact('title','kolom_spp'));
+        return view('Admin.rincian-pengeluaran.rincian-pengeluaran-tambah',compact('title','kolom_spp','tahun_ajaran'));
     }
 
     public function save(Request $request)
     {   
         $id_rincian_pengeluaran = (string)Str::uuid();
         $saldo_awal         = $request->saldo_awal;
+        $tahun_ajaran       = $request->tahun_ajaran;
         $bulan_laporan      = $request->bulan_laporan;
         $tahun_laporan      = $request->tahun_laporan;
         $bulan_pengajuan    = $request->bulan_pengajuan;
@@ -48,6 +51,7 @@ class RincianPengeluaranController extends Controller
         $data_rincian_pengeluaran = [
             'id_rincian_pengeluaran' => $id_rincian_pengeluaran,
             'saldo_awal'             => $saldo_awal,
+            'id_tahun_ajaran'        => $tahun_ajaran,
             'bulan_laporan'          => $bulan_laporan,
             'tahun_laporan'          => $tahun_laporan,
             'bulan_pengajuan'        => $bulan_pengajuan,

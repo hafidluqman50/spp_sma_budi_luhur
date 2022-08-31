@@ -237,7 +237,7 @@ class DatatablesController extends Controller
         $spp_bulan_tahun = SppBulanTahun::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")
                                         ->leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                                         ->where('id_spp',$id)
-                                        ->orderByRaw("CAST('tahun' as signed) ASC, FIELD('',`bulan_numeric`,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
+                                        ->orderByRaw("CAST('tahun' as signed) DESC, FIELD(`bulan_numeric`,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') DESC")
                                         // ->orderBy('tahun_numeric','ASC')
                                         ->get();
 

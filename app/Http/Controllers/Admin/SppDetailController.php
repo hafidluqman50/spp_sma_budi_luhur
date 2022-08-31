@@ -90,8 +90,7 @@ class SppDetailController extends Controller
         $data_spp_bayar = [
             'id_spp_bayar'       => $id_spp_bayar,
             'id_spp_bayar_data'  => $id_spp_bayar_data,
-            'id_spp_bulan_tahun' => $id_bulan_tahun,
-            'id_users'           => Auth::user()->id_users
+            'id_spp_bulan_tahun' => $id_bulan_tahun
         ];
         SppBayar::create($data_spp_bayar);
 
@@ -141,14 +140,15 @@ class SppDetailController extends Controller
 
     public function bayarSemua(Request $request,$id,$id_bulan_tahun)
     {
-        $tanggal_bayar = date('Y-m-d');
-        $id_spp_bayar  = (string)Str::uuid();
-        $id_detail     = $request->id_detail;
-        $bayar_spp     = $request->bayar_spp;
-        $total_biaya   = $request->total_biaya;
-        $bayar_total   = $request->bayar_total;
-        $kembalian     = $request->kembalian;
-        $keterangan    = $request->keterangan_spp;
+        $tanggal_bayar     = date('Y-m-d');
+        $id_spp_bayar_data = (string)Str::uuid();
+        $id_spp_bayar      = (string)Str::uuid();
+        $id_detail         = $request->id_detail;
+        $bayar_spp         = $request->bayar_spp;
+        $total_biaya       = $request->total_biaya;
+        $bayar_total       = $request->bayar_total;
+        $kembalian         = $request->kembalian;
+        $keterangan        = $request->keterangan_spp;
 
         foreach ($bayar_spp as $key => $value) {
             $spp_detail = SppDetail::where('id_spp_detail',$id_detail[$key])->firstOrFail();
@@ -201,15 +201,22 @@ class SppDetailController extends Controller
             HistoryProsesSpp::create($history);
         }
 
+        $data_spp_bayar_data = [
+            'id_spp_bayar_data'    => $id_spp_bayar_data,
+            'id_spp'               => $get_id_spp,
+            'tanggal_bayar'        => $tanggal_bayar,
+            'total_biaya'          => $total_biaya,
+            'nominal_bayar'        => $bayar_total,
+            'kembalian'            => $kembalian,
+            'keterangan_bayar_spp' => $keterangan,
+            'id_users'             => auth()->user()->id_users
+        ];
+        SppBayarData::create($data_spp_bayar_data);
+
         $data_spp_bayar = [
             'id_spp_bayar'       => $id_spp_bayar,
-            'id_spp_bulan_tahun' => $id_bulan_tahun,
-            'tanggal_bayar'      => $tanggal_bayar,
-            'total_biaya'        => $total_biaya,
-            'nominal_bayar'      => $bayar_total,
-            'kembalian'          => $kembalian,
-            'keterangan_bayar'   => $keterangan,
-            'id_users'           => Auth::user()->id_users
+            'id_spp_bayar_data'  => $id_spp_bayar_data,
+            'id_spp_bulan_tahun' => $id_bulan_tahun
         ];
         SppBayar::create($data_spp_bayar);
 

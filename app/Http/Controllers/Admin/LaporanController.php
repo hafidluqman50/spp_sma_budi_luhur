@@ -965,6 +965,8 @@ class LaporanController extends Controller
                 $jumlah_uang_keluar.="+I$cell_pembelanjaan";
             }
             $jumlah_kategori = 0;
+
+            $cell_pembelanjaan++;
         }
         $cell_pembelanjaan++;
         $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,'Total');
@@ -1097,6 +1099,8 @@ class LaporanController extends Controller
                 $jumlah_uang_keluar_uang_makan.="+I$cell_pembelanjaan_uang_makan";
             }
             $jumlah_kategori = 0;
+            
+            $cell_pembelanjaan_uang_makan++;
         }
         $cell_pembelanjaan_uang_makan++;
         $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,'Total');
