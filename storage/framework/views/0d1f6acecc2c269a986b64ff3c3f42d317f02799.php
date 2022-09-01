@@ -53,8 +53,7 @@
                                 <th>Kategori Rincian</th>
                                 <th>Rincian</th>
                                 <th>Volume</th>
-                                <th>Uang Masuk</th>
-                                <th>Uang Keluar</th>
+                                <th>Nominal Rincian</th>
                                 <th>#</th>
                             </tr>
                             </thead>

@@ -29,6 +29,9 @@ use App\Http\Controllers\Admin\DashboardRABController as AdminDashboardRABContro
 use App\Http\Controllers\Admin\RincianPengeluaranController as AdminRincianPengeluaranController;
 use App\Http\Controllers\Admin\RincianPengeluaranDetailController as AdminRincianPengeluaranDetailController;
 use App\Http\Controllers\Admin\RincianPembelanjaanController as AdminRincianPembelanjaanController;
+use App\Http\Controllers\Admin\RincianPengajuanController as AdminRincianPengajuanController;
+// use App\Http\Controllers\Admin\BonPengajuanController as AdminBonPengajuanController;
+use App\Http\Controllers\Admin\SaprasController as AdminSaprasController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -142,6 +145,7 @@ Route::group(['prefix' => 'ajax'],function() {
     Route::get('/get-tunggakan-detail/{id_bulan_tahun}',[AjaxController::class, 'getTunggakanDetail']);
     Route::post('/get-bayar',[AjaxController::class, 'getBayar']);
     Route::get('/get-rincian',[AjaxController::class, 'getRincian']);
+    Route::get('/get-rab',[AjaxController::class, 'getRab']);
     Route::get('/get-keluarga-siswa/{id_siswa}',[AjaxController::class, 'getKeluargaSiswa']);
 });
 
@@ -172,6 +176,8 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-rincian-pengeluaran',[DatatablesController::class, 'dataRincianPengeluaran']);
     Route::get('/data-rincian-pengeluaran-detail/{id}',[DatatablesController::class, 'dataRincianPengeluaranDetail']);
     Route::get('/data-rincian-pembelanjaan/{id}/{ket}',[DatatablesController::class, 'dataRincianPembelanjaan']);
+    Route::get('/data-rincian-pengajuan/{id}',[DatatablesController::class, 'dataRincianPengajuan']);
+    Route::get('/data-sapras/{id}',[DatatablesController::class, 'dataSapras']);
 });
 
 Route::get('/oke',function(){
@@ -363,6 +369,20 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/edit',[AdminRincianPembelanjaanController::class,'editRincianPembelanjaanUangMakan']);
     Route::put('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/update',[AdminRincianPembelanjaanController::class,'update']);
     Route::delete('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/delete/{id_detail}',[AdminRincianPembelanjaanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[AdminRincianPengajuanController::class,'index']);
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/tambah',[AdminRincianPengajuanController::class,'tambah']);
+    Route::post('/data-perincian-rab/rincian-pengajuan/{id}/save',[AdminRincianPengajuanController::class,'save']);
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/edit/{id_detail}',[AdminRincianPengajuanController::class,'edit']);
+    Route::put('/data-perincian-rab/rincian-pengajuan/{id}/update/{id_detail}',[AdminRincianPengajuanController::class,'update']);
+    Route::delete('/data-perincian-rab/rincian-pengajuan/{id}/delete/{id_detail}',[AdminRincianPengajuanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/sapras/{id}',[AdminSaprasController::class,'index']);
+    Route::get('/data-perincian-rab/sapras/{id}/tambah',[AdminSaprasController::class,'tambah']);
+    Route::post('/data-perincian-rab/sapras/{id}/save',[AdminSaprasController::class,'save']);
+    Route::get('/data-perincian-rab/sapras/{id}/edit/{id_detail}',[AdminSaprasController::class,'edit']);
+    Route::put('/data-perincian-rab/sapras/{id}/update/{id_detail}',[AdminSaprasController::class,'update']);
+    Route::delete('/data-perincian-rab/sapras/{id}/delete/{id_detail}',[AdminSaprasController::class,'delete']);
 });
 
 Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){

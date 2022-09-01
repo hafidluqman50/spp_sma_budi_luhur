@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout-rab')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
 
@@ -12,8 +10,8 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan Uang Makan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pengajuan</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pengajuan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -26,14 +24,14 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</h4>
+                        <h4 class="header-title m-t-0">Tambah Data Rincian Pengajuan</h4>
                     </div>
-                    <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
-                        @csrf
+                    <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pengajuan/'.$id.'/save')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
                                 <div class="form-group">
@@ -57,9 +55,9 @@
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
-                                                        @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rincian }}</option>
-                                                        @endforeach
+                                                        <?php $__currentLoopData = $rincian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>"><?php echo e($data->uraian_rab); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
                                             </div>
@@ -69,19 +67,7 @@
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
-                                            {{-- <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">SPP</label>
-                                                    <input type="text" class="spp form-control" id-spp="1" readonly>
-                                                </div>  
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Uang Masuk</label>
-                                                    <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
-                                                    <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
-                                                </div>
-                                            </div> --}}
+                                            
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nominal Rincian</label>
@@ -107,7 +93,6 @@
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
                         </div>
-                        <input type="hidden" name="jenis_rincian" value="uang-makan">
                     </form>
                 </div>
             </div>
@@ -116,9 +101,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         var input_kategori_rincian       = 2;
@@ -236,7 +221,7 @@
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({
-                url: "{{ url('/ajax/get-rincian') }}",
+                url: "<?php echo e(url('/ajax/get-rab')); ?>",
                 data: {id_rincian: val},
             })
             .done(function(done) {
@@ -263,4 +248,5 @@
         })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pengajuan/rincian-pengajuan-tambah.blade.php ENDPATH**/ ?>

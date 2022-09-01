@@ -25,6 +25,8 @@ use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 use App\Models\RincianPembelanjaan;
 use App\Models\RincianPenerimaan;
+use App\Models\RincianPengajuan;
+use App\Models\Sapras;
 use Auth;
 
 class DatatablesController extends Controller
@@ -687,8 +689,14 @@ class DatatablesController extends Controller
                             <a href="'.url("/$this->level/data-perincian-rab/rincian-pembelanjaan-uang-makan/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-success waves-light"> Rincian Pembelanjaan Uang Makan </button>
                            </a>
-                            <a href="'.url("/$this->level/data-perincian-rab/rincian-penerimaan/$action->id_rincian_pengeluaran").'">
-                              <button class="btn btn-success waves-light"> Rincian Penerimaan </button>
+                            <a href="'.url("/$this->level/data-perincian-rab/penerimaan/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Penerimaan </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pengajuan/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Rincian Pengajuan </button>
+                           </a>
+                            <a href="'.url("/$this->level/data-perincian-rab/sapras/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Sapras </button>
                            </a>
                             <a href="'.url("/$this->level/data-perincian-rab/edit/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-warning"> Edit </button>
@@ -754,9 +762,10 @@ class DatatablesController extends Controller
             ->where('jenis_rincian_pembelanjaan',$ket)
             ->get();
 
-        $datatables = Datatables::of($rincian_pembelanjaan)->addColumn('action',function($action){
+        $datatables = Datatables::of($rincian_pembelanjaan)->addColumn('action',function($action)use($ket){
+                $array_url = ['operasional' => 'rincian-pembelanjaan', 'uang-makan' => 'rincian-pembelanjaan-uang-makan'];
                 $column = ' <div class="d-flex">
-                               <form action="'.url("/$this->level/data-perincian-rab/detail/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_detail").'" method="POST">
+                               <form action="'.url("/$this->level/data-perincian-rab/$array_url[$ket]/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pembelanjaan").'" method="POST">
                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -766,8 +775,52 @@ class DatatablesController extends Controller
                 return $column;
             })->editColumn('nominal_rincian',function($edit){
                 return format_rupiah($edit->nominal_rincian);
-            })->editColumn('nominal_pendapatan_spp',function($edit){
-                return format_rupiah($edit->nominal_pendapatan_spp);
+            })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataRincianPengajuan($id)
+    {
+        $rincian_pengajuan = RincianPengajuan::join('rincian_pengeluaran_detail','rincian_pengajuan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
+            ->where('rincian_pengajuan.id_rincian_pengeluaran',$id)
+            ->get();
+
+        $datatables = Datatables::of($rincian_pengajuan)->addColumn('action',function($action){
+                $column = ' <div class="d-flex">
+                               <form action="'.url("/$this->level/data-perincian-rab/rincian-pengajuan/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengajuan").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                return $column;
+            })->editColumn('nominal_rincian',function($edit){
+                return format_rupiah($edit->nominal_rincian);
+            })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataSapras($id)
+    {
+        $sapras = Sapras::where('id_rincian_pengeluaran',$id)->get();
+
+        $datatables = Datatables::of($sapras)->addColumn('action',function($action){
+                $column = ' <div class="d-flex">
+                               <form action="'.url("/$this->level/data-perincian-rab/sapras/$action->id_rincian_pengeluaran/delete/$action->id_sapras").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                return $column;
+            })->editColumn('harga_barang',function($edit){
+                return format_rupiah($edit->harga_barang);
+            })->editColumn('jumlah',function($edit){
+                return format_rupiah($edit->jumlah);
             })->make(true);
 
         return $datatables;

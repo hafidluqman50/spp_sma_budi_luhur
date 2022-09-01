@@ -1058,7 +1058,6 @@ $(() => {
             {data:'kategori_rincian_pembelanjaan',name:'kategori_rincian_pembelanjaan'},
             {data:'uraian_rincian',name:'uraian_rincian'},
             {data:'volume_rincian',name:'volume_rincian'},
-            {data:'nominal_pendapatan_spp',name:'nominal_pendapatan_spp'},
             {data:'nominal_rincian',name:'nominal_rincian'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
@@ -1074,6 +1073,70 @@ $(() => {
     });
     rincian_pembelanjaan.on( 'order.dt search.dt', function () {
         rincian_pembelanjaan.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var id_rincian_       = $('.data-rincian-pengajuan').attr('id-rincian-pengeluaran')
+    var rincian_pengajuan = $('.data-rincian-pengajuan').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-pengajuan/${id_rincian_}`,
+        columns:[
+            {data:'id_rincian_pengajuan',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'kategori_rincian_pengajuan',name:'kategori_rincian_pengajuan'},
+            {data:'uraian_rab',name:'uraian_rab'},
+            {data:'volume_rab',name:'volume_rab'},
+            {data:'nominal_rab',name:'nominal_rab'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_pengajuan.on( 'order.dt search.dt', function () {
+        rincian_pengajuan.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var id_rincian__= $('.data-sapras').attr('id-rincian-pengeluaran')
+    var sapras = $('.data-sapras').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-sapras/${id_rincian__}`,
+        columns:[
+            {data:'id_sapras',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'kategori_sapras',name:'kategori_sapras'},
+            {data:'nama_barang',name:'nama_barang'},
+            {data:'qty',name:'qty'},
+            {data:'ket',name:'ket'},
+            {data:'harga_barang',name:'harga_barang'},
+            {data:'jumlah',name:'jumlah'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    sapras.on( 'order.dt search.dt', function () {
+        sapras.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         });
     }).draw();

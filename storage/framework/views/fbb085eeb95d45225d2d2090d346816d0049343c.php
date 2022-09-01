@@ -9,10 +9,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="<?php echo e(url('/admin/dashboard')); ?>">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="<?php echo e(url('/admin/dashboard-rab')); ?>">Dashboard RAB</a></li>
-                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/admin/data-perincian-rab')); ?>">Rincian Pengeluaran</a></li>
+                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/admin/data-perincian-rab')); ?>">Sapras</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Rincian Pembelanjaan</h4>
+                        <h4 class="page-title">Sapras</h4>
                     </div>
                 </div>
             </div>
@@ -20,22 +20,19 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>DATA PERINCIAN RAB</b></h4>
-                        <p class="text-muted font-13">
-                            Data sesuai yang diinputkan oleh bendahara.
-                        </p>
+                        <h4 class="m-t-0 header-title"><b>DATA SAPRAS</b></h4>
                         <div class="button-list" style="margin-bottom:1%;">
                             <a href="<?php echo e(url('/admin/data-perincian-rab/')); ?>">
                                 <button class="btn btn-default" style="cursor:pointer;">
                                     <i class="fa fa-arrow-left m-r-5"></i>Kembali
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/tambah')); ?>">
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/sapras/'.$id.'/tambah')); ?>">
                                 <button class="btn btn-primary" style="cursor:pointer;">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/edit')); ?>">
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/sapras/'.$id.'/edit')); ?>">
                                 <button class="btn btn-warning" style="cursor:pointer;">
                                     <i class="fa fa-pencil m-r-5"></i>Edit
                                 </button>
@@ -46,14 +43,16 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered data-rincian-pembelanjaan force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>" ket-data="operasional">
+                        <table class="table table-hover table-bordered data-sapras force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Kategori Rincian</th>
-                                <th>Rincian</th>
-                                <th>Volume</th>
-                                <th>Nominal Rincian</th>
+                                <th>Kategori Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Qty</th>
+                                <th>Ket</th>
+                                <th>Harga Barang</th>
+                                <th>Jumlah</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -68,4 +67,4 @@
     </div>
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/main.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/sapras/main.blade.php ENDPATH**/ ?>

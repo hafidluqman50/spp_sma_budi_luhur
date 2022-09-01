@@ -12,8 +12,8 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan Uang Makan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pengajuan</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pengajuan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -30,9 +30,9 @@
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</h4>
+                        <h4 class="header-title m-t-0">Tambah Data Rincian Pengajuan</h4>
                     </div>
-                    <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
+                    <form action="{{ url('/admin/data-perincian-rab/rincian-pengajuan/'.$id.'/save') }}" method="POST">
                         @csrf
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
@@ -57,8 +57,8 @@
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
-                                                        @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rincian }}</option>
+                                                        @foreach ($rincian as $data)
+                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rab }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>  
@@ -107,7 +107,6 @@
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
                         </div>
-                        <input type="hidden" name="jenis_rincian" value="uang-makan">
                     </form>
                 </div>
             </div>
@@ -236,7 +235,7 @@
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({
-                url: "{{ url('/ajax/get-rincian') }}",
+                url: "{{ url('/ajax/get-rab') }}",
                 data: {id_rincian: val},
             })
             .done(function(done) {

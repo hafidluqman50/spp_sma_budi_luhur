@@ -69,7 +69,7 @@
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-4">
+                                            {{-- <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">SPP</label>
                                                     <input type="text" class="spp form-control" id-spp="1" readonly>
@@ -81,10 +81,10 @@
                                                     <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
                                                     <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Uang Keluar</label>
+                                                    <label class="col-form-label">Nominal Rincian</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
                                                     <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
                                                 </div> 
@@ -145,6 +145,7 @@
             $('#input-kategori-rincian').clone().appendTo('#input-kategori-rincian-layout')
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
+            $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')
             $('.input-rincian:last').attr('id-layout-input-rincian',input_kategori_rincian)
             $('.input-rincian-layout:last').attr('id-layout-input-rincian',input_kategori_rincian)
             $('.tambah-input-rincian:last').attr('id-act',input_kategori_rincian)

@@ -1,4 +1,6 @@
-<?php $__env->startSection('content'); ?>
+@extends('Admin.layout-app.layout-rab')
+
+@section('content')
     <div class="wrapper">
         <div class="container">
             <!-- Page-Title -->
@@ -7,12 +9,12 @@
                     <div class="page-title-box">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item"><a href="<?php echo e(url('/admin/dashboard')); ?>">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="<?php echo e(url('/admin/dashboard-rab')); ?>">Dashboard RAB</a></li>
-                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/admin/data-perincian-rab')); ?>">Rincian Pengeluaran</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard-rab') }}">Dashboard RAB</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/data-perincian-rab') }}">Rincian Pengeluaran</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Rincian Pembelanjaan</h4>
+                        <h4 class="page-title">Rincian Pengajuan</h4>
                     </div>
                 </div>
             </div>
@@ -25,28 +27,28 @@
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/')); ?>">
+                            <a href="{{ url('/admin/data-perincian-rab/') }}">
                                 <button class="btn btn-default" style="cursor:pointer;">
                                     <i class="fa fa-arrow-left m-r-5"></i>Kembali
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/tambah')); ?>">
+                            <a href="{{ url('/admin/data-perincian-rab/rincian-pengajuan/'.$id.'/tambah') }}">
                                 <button class="btn btn-primary" style="cursor:pointer;">
                                     <i class="fa fa-plus m-r-5"></i>Tambah
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/edit')); ?>">
+                            <a href="{{ url('/admin/data-perincian-rab/rincian-pengajuan/'.$id.'/edit') }}">
                                 <button class="btn btn-warning" style="cursor:pointer;">
                                     <i class="fa fa-pencil m-r-5"></i>Edit
                                 </button>
                             </a>
                         </div>
-                        <?php if(session()->has('message')): ?>
+                        @if (session()->has('message'))
                         <div class="alert alert-success alert-dismissible">
-                            <?php echo e(session('message')); ?> <button class="close">X</button>
+                            {{ session('message') }} <button class="close">X</button>
                         </div>
-                        <?php endif; ?>
-                        <table class="table table-hover table-bordered data-rincian-pembelanjaan force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>" ket-data="operasional">
+                        @endif
+                        <table class="table table-hover table-bordered data-rincian-pengajuan force-fullwidth" id-rincian-pengeluaran="{{$id}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -67,5 +69,4 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Admin/rincian-pembelanjaan/main.blade.php ENDPATH**/ ?>
+@endsection

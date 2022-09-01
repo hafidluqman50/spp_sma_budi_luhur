@@ -62,6 +62,7 @@ class RincianPengeluaranController extends Controller
 
         for ($i=0; $i < count($uraian_rincian); $i++) {
             $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
+                                                ->whereYear('tanggal_bayar',$tahun_laporan)
                                                 ->where('id_kolom_spp',$id_kolom_spp[$i])
                                                 ->sum('nominal_bayar');
 
