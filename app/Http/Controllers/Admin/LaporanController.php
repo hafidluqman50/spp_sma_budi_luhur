@@ -829,8 +829,14 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_no,$value->volume_rincian);
             $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_no,$value->nominal_rincian);
             $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_no,$value->volume_rincian * $value->nominal_rincian);
-            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->nama_kolom_spp);
-            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan_spp);
+            if ($value->kolom_pendapatan != '') {
+                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->nama_kolom_spp);
+                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan_spp);
+            }
+            else {
+                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->kolom_pendapatan);
+                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan);   
+            }
             $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_no,$value->uraian_rab);
             $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_no,$value->volume_rab);
             $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_no,$value->nominal_rab);
@@ -886,6 +892,8 @@ class LaporanController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(3);
         $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+
+        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
         $spreadsheet->setActiveSheetIndex(1);
         $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
@@ -969,6 +977,7 @@ class LaporanController extends Controller
                 $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan,'x');
                 $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
                 $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=D$cell_pembelanjaan*G$cell_pembelanjaan");
+                $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,$val->keterangan_pembelanjaan);
                 $jumlah_kategori = $jumlah_kategori+1;
                 $cell_pembelanjaan++;
             }
@@ -1020,6 +1029,7 @@ class LaporanController extends Controller
             ];
 
         $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:G$cell_pembelanjaan")->applyFromArray($styleArray);
+        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
         $spreadsheet->setActiveSheetIndex(0);
         $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
@@ -1103,6 +1113,7 @@ class LaporanController extends Controller
                 $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan_uang_makan,'x');
                 $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
                 $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,"=D$cell_pembelanjaan_uang_makan*G$cell_pembelanjaan_uang_makan");
+                $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,$val->keterangan_pembelanjaan);
                 $jumlah_kategori = $jumlah_kategori+1;
                 $cell_pembelanjaan_uang_makan++;
             }
@@ -1154,6 +1165,7 @@ class LaporanController extends Controller
             ];
 
         $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:G$cell_pembelanjaan_uang_makan")->applyFromArray($styleArray);
+        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
         $spreadsheet->setActiveSheetIndex(4);
         $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
@@ -1278,6 +1290,8 @@ class LaporanController extends Controller
 
         $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:G$cell_pengajuan")->applyFromArray($styleArray);
 
+        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+
         $spreadsheet->setActiveSheetIndex(5);
         $spreadsheet->getDefaultStyle()->getFont()->setSize(14);
         $spreadsheet->getActiveSheet()->setCellValue('A9','RINCIAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
@@ -1401,6 +1415,8 @@ class LaporanController extends Controller
 
         $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
         $spreadsheet->getActiveSheet()->getStyle('A1:F'.$cell_sapras)->applyFromArray($styleTable);
+
+        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
         $spreadsheet->setActiveSheetIndex(2);
         

@@ -50,7 +50,7 @@
                                     <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
                                         <input type="hidden" name="kategori_rincian[]" value="">
                                         <div class="col-md-10 row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
@@ -61,18 +61,24 @@
                                                     </select>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
                                             
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nominal Rincian</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
                                                     <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keterangan</label>
+                                                    <input type="text" name="keterangan_pembelanjaan[]" class="form-control">
                                                 </div> 
                                             </div>
                                         </div>

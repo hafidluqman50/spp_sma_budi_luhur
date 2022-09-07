@@ -750,6 +750,24 @@ class DatatablesController extends Controller
             return format_rupiah($add->nominal_pendapatan_spp);
         })->editColumn('nominal_rab',function($add){
             return format_rupiah($add->nominal_rab);
+        })->addColumn('asal_pendapatan',function($add){
+            if ($add->kolom_pendapatan != '') {
+                $result = $add->kolom_pendapatan;
+            }
+            else {
+                $result = $add->nama_kolom_spp;
+            }
+
+            return $result;
+        })->addColumn('nominal_pendapatan_rincian',function($add){
+            if ($add->nominal_pendapatan != '') {
+                $result = format_rupiah($add->nominal_pendapatan);
+            }
+            else {
+                $result = format_rupiah($add->nominal_pendapatan_spp);
+            }
+
+            return $result;
         })->make(true);
 
         return $datatables;

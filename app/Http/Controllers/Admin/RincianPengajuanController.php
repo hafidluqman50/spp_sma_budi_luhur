@@ -26,8 +26,9 @@ class RincianPengajuanController extends Controller
 
     public function save(Request $request, $id)
     {
-        $kategori_rincian = $request->kategori_rincian;
-        $rincian          = $request->rincian;
+        $kategori_rincian     = $request->kategori_rincian;
+        $rincian              = $request->rincian;
+        $keterangan_pengajuan = $request->keterangan_pengajuan;
         // $volume           = $request->volume;
         // $uang_masuk       = $request->uang_masuk;
         // $uang_keluar      = $request->uang_keluar;
@@ -36,8 +37,9 @@ class RincianPengajuanController extends Controller
         foreach ($rincian as $key => $value) {
             $data_rincian_pengajuan = [
                 'id_rincian_pengeluaran'        => $id,
-                'kategori_rincian_pengajuan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
-                'id_rincian_pengeluaran_detail' => $rincian[$key]
+                'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                'id_rincian_pengeluaran_detail' => $rincian[$key],
+                'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
                 // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
             ];
 

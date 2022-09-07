@@ -86,87 +86,108 @@
                     <div class="col-sm-12">
                         <div class="card-box">
                             <div class="layout-input-perincian" id="layout-input-perincian">
-                                <div class="input-perincian" id="input-perincian">
+                                <div class="input-perincian" id="input-perincian" input-perincian-id="1">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Tanggal Perincian</label>
-                                                <div>
-                                                    <input type="date" name="tanggal_perincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
+                                        <div class="col-md-11">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Tanggal Perincian</label>
+                                                        <div>
+                                                            <input type="date" name="tanggal_perincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nominal Rincian</label>
+                                                        <div>
+                                                            <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-id="1">
+                                                            <label for="" class="nominal-rincian-label" nominal-rincian-id="1">Rp 0,00</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Uraian RAB</label>
+                                                        <div>
+                                                            <input type="text" name="uraian_rab[]" class="form-control" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Uraian Rincian</label>
+                                                        <div>
+                                                            <input type="text" name="uraian_rincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Pendapatan</label>
+                                                        <div>
+                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="1">
+                                                                <option value="" selected disabled>=== Pilih Pendapatan ===</option>
+                                                                <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <option value="<?php echo e($element->id_kolom_spp); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            </select>
+                                                            <input type="text" name="pendapatan_input[]" class="form-control form-hide pendapatan-input" pendapatan-input-id="1" placeholder="Isi Pendapatan Input; Ex: Almamater">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nominal RAB</label>
+                                                        <div>
+                                                            <input type="number" name="nominal_rab[]" class="form-control nominal-rab" placeholder="Isi Nominal RAB" nominal-rab-id="1">
+                                                            <label for="" class="nominal-rab-label" nominal-rab-id="1">Rp 0,00</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Volume Rincian</label>
+                                                        <div>
+                                                            <input type="number" name="volume_rincian[]" class="form-control" placeholder="Isi Volume Rincian" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nominal Pendapatan</label>
+                                                        <div>
+                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="1" readonly>
+                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="1" placeholder="Isi Nominal Pendapatan">
+                                                            <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="1">Rp 0,00</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Volume RAB</label>
+                                                        <div>
+                                                            <input type="number" name="volume_rab[]" class="form-control" placeholder="Isi Volume RAB">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Nominal Rincian</label>
-                                                <div>
-                                                    <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-id="1">
-                                                    <label for="" class="nominal-rincian-label" nominal-rincian-id="1">Rp 0,00</label>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-danger form-hide hapus-act-perincian" style="margin-top: 41%;" id="hapus-act-perincian" hapus-id="1">X</button>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Uraian RAB</label>
-                                                <div>
-                                                    <input type="text" name="uraian_rab[]" class="form-control" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Uraian Rincian</label>
-                                                <div>
-                                                    <input type="text" name="uraian_rincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Pendapatan</label>
-                                                <div>
-                                                    <select name="id_kolom_spp[]" class="form-control selectize pendapatan">
-                                                        <option value="" selected disabled>=== Pilih Pendapatan ===</option>
-                                                        <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($element->id_kolom_spp); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Nominal RAB</label>
-                                                <div>
-                                                    <input type="number" name="nominal_rab[]" class="form-control nominal-rab" placeholder="Isi Nominal RAB" nominal-rab-id="1">
-                                                    <label for="" class="nominal-rab-label" nominal-rab-id="1">Rp 0,00</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Volume Rincian</label>
-                                                <div>
-                                                    <input type="number" name="volume_rincian[]" class="form-control" placeholder="Isi Volume Rincian" required="required">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Volume RAB</label>
-                                                <div>
-                                                    <input type="number" name="volume_rab[]" class="form-control" placeholder="Isi Volume RAB">
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-info input-pendapatan" input-pendapatan-id="1">Input Pendapatan</button>
+                                        <button type="button" class="btn btn-info form-hide pilih-pendapatan" pilih-pendapatan-id="1">Pilih Pendapatan</button>
                                     </div>
                                     <hr>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-success" id="input-act-perincian">Tambah Input</button>
-                                <button type="button" class="btn btn-danger form-hide" id="hapus-act-perincian">Hapus Input</button>
+                                
                             </div>
                             <hr>
                             <div class="form-group">
@@ -190,6 +211,7 @@
 <?php $__env->startSection('js'); ?>
 <script>
     $(() => {
+        $('.selectize-control:first').attr('pendapatan-id',1)
         $('input[name="saldo_awal"]').keyup(function(){
             let val = $(this).val()
             if (val == 0) {
@@ -200,12 +222,19 @@
             }
         })
 
-        var nominal_rincian_input    = 2;
-        // var nominal_pendapatan_input = 2;
-        var nominal_rab_input        = 2;
-        var nominal_rincian_label    = 2;
-        // var nominal_pendapatan_label = 2;
-        var nominal_rab_label        = 2;
+        var input_perincian_id        = 2;
+        var pendapatan_id             = 2;
+        var pendapatan_input_id       = 2;
+        var nominal_rincian_input     = 2;
+        var nominal_pendapatan_select = 2;
+        var nominal_pendapatan_input  = 2;
+        var nominal_rab_input         = 2;
+        var nominal_rincian_label     = 2;
+        var nominal_pendapatan_label  = 2;
+        var nominal_rab_label         = 2;
+        var hapus_id                  = 2;
+        var btn_input_pendapatan      = 2;
+        var btn_pilih_pendapatan      = 2;
 
         $('#input-act-perincian').click(() => {
             $('.pendapatan').each(function(){
@@ -215,25 +244,71 @@
                     $(this).val(value);  // set back the value of the select/input
                 }
             })
+
             $('#input-perincian').clone().appendTo('#layout-input-perincian')
             $('.pendapatan').selectize({
                 create:true,
                 sortField:'text'
             })
 
+            $('.input-perincian:last').attr('input-perincian-id',input_perincian_id++)
+
+            if ($('select.pendapatan:last').hasClass('form-hide')) {
+                $('select.pendapatan:last').removeClass('form-hide')
+            }
+
+            $('select.pendapatan:last').attr('pendapatan-id',pendapatan_id++)
+
+            $('select.pendapatan').each(function(index,element){
+                console.log(index)
+                let attr = $(this).attr('pendapatan-id')
+                $('.selectize-control').eq(index).attr('pendapatan-id',attr)
+            })
+
+            $('.pendapatan:last').attr('pendapatan-id',pendapatan_id)
+
+            $('.pendapatan-input:last').attr('pendapatan-input-id',pendapatan_input_id++)
+
             $('.nominal-rincian:last').attr('nominal-rincian-id',nominal_rincian_input++)
-            // $('.nominal-pendapatan:last').attr('nominal-pendapatan-id',nominal_pendapatan_input++)
+            $('.nominal-pendapatan:last').attr('nominal-pendapatan-id',nominal_pendapatan_select++)
+            $('.nominal-pendapatan-input:last').attr('nominal-pendapatan-input-id',nominal_pendapatan_input++)
             $('.nominal-rab:last').attr('nominal-rab-id',nominal_rab_input++)
 
             $('.nominal-rincian-label:last').attr('nominal-rincian-id',nominal_rincian_label++)
-            // $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-id',nominal_pendapatan_label++)
+            $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-label-id',nominal_pendapatan_label++)
             $('.nominal-rab-label:last').attr('nominal-rab-id',nominal_rab_label++)
 
+            $('.hapus-act-perincian:last').attr('hapus-id',hapus_id++)
+            $('.input-pendapatan:last').attr('input-pendapatan-id',btn_input_pendapatan++)
+            $('.pilih-pendapatan:last').attr('pilih-pendapatan-id',btn_pilih_pendapatan++)
+
+            if ($('.input-pendapatan:last').hasClass('form-hide')) {
+                $('.input-pendapatan:last').removeClass('form-hide')
+            }
+
+            if (!$('.pilih-pendapatan:last').hasClass('form-hide')) {
+                $('.pilih-pendapatan:last').addClass('form-hide')
+            }
+
+            if ($('select.pendapatan:last').hasClass('form-hide') || $('.selectize-control:last').hasClass('form-hide')) {
+                $('select.pendapatan:last').removeClass('form-hide')
+                $('.selectize-control:last').removeClass('form-hide')
+                $('.nominal-pendapatan:last').removeClass('form-hide')
+
+                $('.pendapatan-input:last').addClass('form-hide')
+                $('.nominal-pendapatan-input:last').addClass('form-hide')
+            }
+
             $('.input-perincian:last').find('input').val('')
+
+            $('.nominal-pendapatan:last').val()
+            $('.nominal-pendapatan-input:last').val()
+
             $('.nominal-rincian-label:last').html(`${rupiah_format(0)}`)
             $('.nominal-rab-label:last').html(`${rupiah_format(0)}`)
+            $('.nominal-pendapatan-label:last').html(rupiah_format(0))
 
-            $('#hapus-act-perincian').removeClass('form-hide')
+            $('.hapus-act-perincian:last').removeClass('form-hide')
         })
         $(document).on('keyup','.nominal-rincian',function() {
             let val  = $(this).val()
@@ -265,10 +340,80 @@
                 $(`.nominal-rab-label[nominal-rab-id="${attr}"]`).html(rupiah_format(val))
             }
         })
-        $('#hapus-act-perincian').click(() => {
-            $('.input-perincian').last().remove()
-            if ($('.input-perincian').length == 1) {
-                $('#hapus-act-perincian').addClass('form-hide')
+        $(document).on('change','select.pendapatan',function() {
+            let val           = $(this).val()
+            let attr          = $(this).attr('pendapatan-id')
+            let bulan_laporan = $('select[name="bulan_laporan"]').val()
+            let tahun_laporan = $('input[name="tahun_laporan"]').val()
+
+            $.ajax({
+                url: `${base_url}/ajax/get-pendapatan-spp`,
+                data: {id_kolom_spp: val,bulan_laporan: bulan_laporan, tahun_laporan: tahun_laporan},
+            })
+            .done(function(done) {
+                $(`.nominal-pendapatan[nominal-pendapatan-id="${attr}"]`).val(done);
+                $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(done))
+            })
+            .fail(function(fail) {
+                console.log(fail)
+            });
+            
+        })
+        $(document).on('click','.hapus-act-perincian',function() {
+            let attr = $(this).attr('hapus-id')
+            $(`.input-perincian[input-perincian-id="${attr}"]`).remove()
+            // $('.input-perincian').last().remove()
+            // if ($('.input-perincian').length == 1) {
+            //     $('#hapus-act-perincian').addClass('form-hide')
+            // }
+        })
+        $(document).on('click', '.input-pendapatan', function() {
+            let attr = $(this).attr('input-pendapatan-id')
+            $(this).addClass('form-hide')
+            $(`.pilih-pendapatan[pilih-pendapatan-id="${attr}"]`).removeClass('form-hide')
+            console.log($(this).addClass('form-hide'))
+
+            $(`select.pendapatan[pendapatan-id="${attr}"]`)[0].selectize.clear()
+            $(`select.pendapatan[pendapatan-id="${attr}"], .selectize-control[pendapatan-id="${attr}"]`).addClass('form-hide')
+            // $(`select.pendapatan[pendapatan-id="${attr}"].selectize-control`).addClass('form-hide')
+            $(`.pendapatan-input[pendapatan-input-id="${attr}"]`).removeClass('form-hide')
+            $(`.pendapatan-input[pendapatan-input-id="${attr}"]`).val('')
+
+            $(`.nominal-pendapatan[nominal-pendapatan-id="${attr}"]`).val('')
+            $(`.nominal-pendapatan[nominal-pendapatan-id="${attr}"]`).addClass('form-hide')
+            $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(0))
+
+            $(`.nominal-pendapatan-input[nominal-pendapatan-input-id="${attr}"]`).removeClass('form-hide')
+            $(`.nominal-pendapatan-input[nominal-pendapatan-input-id="${attr}"]`).val('')
+        });
+
+        $(document).on('click', '.pilih-pendapatan', function() {
+            let attr = $(this).attr('pilih-pendapatan-id')
+            $(this).addClass('form-hide')
+            $(`.input-pendapatan[input-pendapatan-id="${attr}"]`).removeClass('form-hide')
+
+            $(`select.pendapatan[pendapatan-id="${attr}"]`)[0].selectize.clear()
+            $(`select.pendapatan[pendapatan-id="${attr}"], .selectize-control[pendapatan-id="${attr}"]`).removeClass('form-hide')
+            $(`.pendapatan-input[pendapatan-input-id="${attr}"]`).addClass('form-hide')
+            $(`.pendapatan-input[pendapatan-input-id="${attr}"]`).val('')
+
+            $(`.nominal-pendapatan[nominal-pendapatan-id="${attr}"]`).val('')
+            $(`.nominal-pendapatan[nominal-pendapatan-id="${attr}"]`).removeClass('form-hide')
+            $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(0))
+
+            $(`.nominal-pendapatan-input[nominal-pendapatan-input-id="${attr}"]`).addClass('form-hide')
+            $(`.nominal-pendapatan-input[nominal-pendapatan-input-id="${attr}"]`).val('')
+        });
+
+        $(document).on('keyup','.nominal-pendapatan-input',function(){
+            let attr = $(this).attr('nominal-pendapatan-input-id')
+            let val  = $(this).val()
+
+            if (val != '') {
+                $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(val))
+            }
+            else {
+                $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(0))   
             }
         })
     })

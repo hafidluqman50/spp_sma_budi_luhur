@@ -10,6 +10,9 @@ use App\Models\KolomSpp;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
+use App\Models\SppBayarData;
+use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
 
@@ -261,5 +264,19 @@ class AjaxController extends Controller
 
         $data = ['volume' => $get_rincian_detail->volume_rab, 'uang_keluar' => $get_rincian_detail->nominal_rab, 'uang_masuk' => $get_rincian_detail->nominal_pendapatan_spp, 'spp'=>$get_rincian_detail->nama_kolom_spp];
         return response()->json($data);
+    }
+
+    public function getPendapatanSpp(Request $request)
+    {
+        $bulan_laporan = $request->bulan_laporan;
+        $tahun_laporan = $request->tahun_laporan;
+        $id_kolom_spp  = $request->id_kolom_spp;
+
+        $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
+                                            ->whereYear('tanggal_bayar',$tahun_laporan)
+                                            ->where('id_kolom_spp',$id_kolom_spp)
+                                            ->sum('nominal_bayar');
+
+        return $nominal_pendapatan;
     }
 }

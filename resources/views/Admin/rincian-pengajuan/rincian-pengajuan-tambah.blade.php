@@ -52,7 +52,7 @@
                                     <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
                                         <input type="hidden" name="kategori_rincian[]" value="">
                                         <div class="col-md-10 row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
@@ -63,30 +63,36 @@
                                                     </select>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
-                                            {{-- <div class="col-md-4">
+                                            {{-- <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">SPP</label>
                                                     <input type="text" class="spp form-control" id-spp="1" readonly>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Uang Masuk</label>
                                                     <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
                                                     <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
                                                 </div>
                                             </div> --}}
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nominal Rincian</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
                                                     <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keterangan</label>
+                                                    <input type="text" name="keterangan_pengajuan[]" class="form-control keterangan-pengajuan">
                                                 </div> 
                                             </div>
                                         </div>
@@ -183,6 +189,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pengajuan:last').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -223,6 +231,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pengajuan:last').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){

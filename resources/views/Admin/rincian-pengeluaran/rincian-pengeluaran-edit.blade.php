@@ -12,14 +12,15 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Perincian</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Data Perincian</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Edit Data Perincian</a></li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="{{ url('/admin/data-perincian-rab/save') }}" method="POST">
+            <form action="{{ url('/admin/data-perincian-rab/update/'.$id) }}" method="POST">
+                @method('PUT')
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box">
@@ -28,13 +29,13 @@
                                     <button class="btn btn-default" type="button">Kembali</button>
                                 </a>
                             </div>
-                            <h4 class="header-title m-t-0">Tambah Data Perincian</h4>
+                            <h4 class="header-title m-t-0">Edit Data Perincian</h4>
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Saldo Awal</label>
                                     <div class="col-7">
-                                        <input type="number" name="saldo_awal" class="form-control" placeholder="Isi Saldo Awal" required>
-                                        <label for="" class="saldo-awal-label">Rp 0,00</label>
+                                        <input type="number" name="saldo_awal" class="form-control" value="{{ $row->saldo_awal }}" placeholder="Isi Saldo Awal" required>
+                                        <label for="" class="saldo-awal-label">{{ format_rupiah($row->saldo_awal) }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -43,7 +44,7 @@
                                         <select name="tahun_ajaran" class="form-control select2" required>
                                             <option value="" selected disabled>=== Pilih Tahun Ajaran ===</option>
                                             @foreach ($tahun_ajaran as $key => $value)
-                                            <option value="{{ $value->id_tahun_ajaran }}">{{ $value->tahun_ajaran }}</option>
+                                            <option value="{{ $value->id_tahun_ajaran }}" {!!$row->id_tahun_ajaran == $value->id_tahun_ajaran ? 'selected="selected"' : ''!!}>{{ $value->tahun_ajaran }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -54,7 +55,7 @@
                                         <select name="bulan_laporan" class="form-control select2" required>
                                             <option value="" selected disabled>=== Pilih Bulan Laporan ===</option>
                                             @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}">{{ month(zero_front_number($i)) }}</option>
+                                            <option value="{{ $i }}" {!!$row->bulan_laporan == $i ? 'selected="selected"' : ''!!}>{{ month(zero_front_number($i)) }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -62,7 +63,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Laporan</label>
                                     <div class="col-7">
-                                        <input type="text" name="tahun_laporan" class="form-control" placeholder="Isi Tahun Laporan; Ex: 2022;" required>
+                                        <input type="text" name="tahun_laporan" class="form-control" value="{{ $row->tahun_laporan }}" placeholder="Isi Tahun Laporan; Ex: 2022;" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -71,7 +72,7 @@
                                         <select name="bulan_pengajuan" class="form-control select2" required>
                                             <option value="" selected disabled>=== Pilih Bulan Pengajuan ===</option>
                                             @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}">{{ month(zero_front_number($i)) }}</option>
+                                            <option value="{{ $i }}" {!!$row->bulan_pengajuan == $i ? 'selected="selected"' : ''!!}>{{ month(zero_front_number($i)) }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -79,7 +80,7 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Tahun Pengajuan</label>
                                     <div class="col-7">
-                                        <input type="text" name="tahun_pengajuan" class="form-control" placeholder="Isi Tahun Pengajuan; Ex: 2022;" required>
+                                        <input type="text" name="tahun_pengajuan" class="form-control" value="{{ $row->tahun_pengajuan }}" placeholder="Isi Tahun Pengajuan; Ex: 2022;" required>
                                     </div>
                                 </div>
                             {{-- <div class="visible-lg" style="height: 79px;"></div> --}}
@@ -88,7 +89,11 @@
                     <div class="col-sm-12">
                         <div class="card-box">
                             <div class="layout-input-perincian" id="layout-input-perincian">
-                                <div class="input-perincian" id="input-perincian" input-perincian-id="1">
+                                @foreach ($row_detail as $key => $value)
+                                @php
+                                    $no = $key+1;
+                                @endphp
+                                <div class="input-perincian" id="input-perincian" input-perincian-id="{{ $no }}">
                                     <div class="row">
                                         <div class="col-md-11">
                                             <div class="row">
@@ -96,7 +101,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Tanggal Perincian</label>
                                                         <div>
-                                                            <input type="date" name="tanggal_perincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
+                                                            <input type="date" name="tanggal_perincian[]" class="form-control" value="{{ $value->tanggal_rincian }}" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,8 +109,8 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Nominal Rincian</label>
                                                         <div>
-                                                            <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-id="1">
-                                                            <label for="" class="nominal-rincian-label" nominal-rincian-id="1">Rp 0,00</label>
+                                                            <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian" value="{{ $value->nominal_rincian }}" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-id="{{ $no }}">
+                                                            <label for="" class="nominal-rincian-label" nominal-rincian-id="{{ $no }}">{{ format_rupiah($value->nominal_rincian) }}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,7 +118,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Uraian RAB</label>
                                                         <div>
-                                                            <input type="text" name="uraian_rab[]" class="form-control" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
+                                                            <input type="text" name="uraian_rab[]" class="form-control" value="{{ $value->uraian_rab }}" placeholder="Isi Uraian RAB; Ex: PDAM Bulan Mei 2022">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -121,7 +126,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Uraian Rincian</label>
                                                         <div>
-                                                            <input type="text" name="uraian_rincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
+                                                            <input type="text" name="uraian_rincian[]" class="form-control" value="{{ $value->uraian_rincian }}" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,13 +134,31 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Pendapatan</label>
                                                         <div>
-                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="1">
+                                                            @if ($value->id_kolom_spp != null && $value->kolom_pendapatan == null)
+                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="{{ $no }}">
+                                                                <option value="" selected disabled>=== Pilih Pendapatan ===</option>
+                                                                @foreach ($kolom_spp as $element)
+                                                                <option value="{{ $element->id_kolom_spp }}" {!!$value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"': ''!!}>{{ $element->nama_kolom_spp }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <input type="text" name="pendapatan_input[]" class="form-control form-hide pendapatan-input" pendapatan-input-id="{{ $no }}" placeholder="Isi Pendapatan Input; Ex: Almamater">
+                                                            @elseif ($value->id_kolom_spp == null && $value->kolom_pendapatan != null)
+                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="{{ $no }}">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
                                                                 @foreach ($kolom_spp as $element)
                                                                 <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
                                                                 @endforeach
                                                             </select>
-                                                            <input type="text" name="pendapatan_input[]" class="form-control form-hide pendapatan-input" pendapatan-input-id="1" placeholder="Isi Pendapatan Input; Ex: Almamater">
+                                                            <input type="text" name="pendapatan_input[]" class="form-control pendapatan-input" value="{{ $value->kolom_pendapatan }}" pendapatan-input-id="{{ $no }}" placeholder="Isi Pendapatan Input; Ex: Almamater">
+                                                            @else
+                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="{{ $no }}">
+                                                                <option value="" selected disabled>=== Pilih Pendapatan ===</option>
+                                                                @foreach ($kolom_spp as $element)
+                                                                <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <input type="text" name="pendapatan_input[]" class="form-control form-hide pendapatan-input" pendapatan-input-id="{{ $no }}" placeholder="Isi Pendapatan Input; Ex: Almamater">
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,8 +166,8 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Nominal RAB</label>
                                                         <div>
-                                                            <input type="number" name="nominal_rab[]" class="form-control nominal-rab" placeholder="Isi Nominal RAB" nominal-rab-id="1">
-                                                            <label for="" class="nominal-rab-label" nominal-rab-id="1">Rp 0,00</label>
+                                                            <input type="number" name="nominal_rab[]" class="form-control nominal-rab" value="{{ $value->nominal_rab }}" placeholder="Isi Nominal RAB" nominal-rab-id="{{ $no }}">
+                                                            <label for="" class="nominal-rab-label" nominal-rab-id="{{ $no }}">{{ format_rupiah($value->nominal_rab) }}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,7 +175,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Volume Rincian</label>
                                                         <div>
-                                                            <input type="number" name="volume_rincian[]" class="form-control" placeholder="Isi Volume Rincian" required="required">
+                                                            <input type="number" name="volume_rincian[]" class="form-control" value="{{ $value->volume_rincian }}" placeholder="Isi Volume Rincian" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,9 +183,17 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Nominal Pendapatan</label>
                                                         <div>
-                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="1" readonly>
-                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="1" placeholder="Isi Nominal Pendapatan">
-                                                            <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="1">Rp 0,00</label>
+                                                            @if ($value->nominal_pendapatan_spp != null && $value->nominal_pendapatan == null)
+                                                            <input type="number" class="form-control nominal-pendapatan" value="{{ $value->nominal_pendapatan_spp }}" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                            @elseif ($value->nominal_pendapatan != null && $value->nominal_pendapatan_spp == null)
+                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control nominal-pendapatan-input" value="{{ $value->nominal_pendapatan }}" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                            @else
+                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                            @endif
+                                                            <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="{{ $no }}">{{ $value->nominal_pendapatan_spp != null ? format_rupiah($value->nominal_pendapatan_spp) : format_rupiah($value->nominal_pendapatan) }}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -170,22 +201,29 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Volume RAB</label>
                                                         <div>
-                                                            <input type="number" name="volume_rab[]" class="form-control" placeholder="Isi Volume RAB">
+                                                            <input type="number" name="volume_rab[]" class="form-control" value="{{ $value->volume_rab }}" placeholder="Isi Volume RAB">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id_rincian_pengeluaran_detail[]" value="{{ $value->id_rincian_pengeluaran_detail }}">
                                         <div class="col-md-1">
-                                            <button class="btn btn-danger form-hide hapus-act-perincian" style="margin-top: 41%;" id="hapus-act-perincian" hapus-id="1">X</button>
+                                            <button class="btn btn-danger hapus-act-perincian" style="margin-top: 41%;" id="hapus-act-perincian" hapus-id="{{ $no }}">X</button>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-info input-pendapatan" input-pendapatan-id="1">Input Pendapatan</button>
-                                        <button type="button" class="btn btn-info form-hide pilih-pendapatan" pilih-pendapatan-id="1">Pilih Pendapatan</button>
+                                        @if ($value->kolom_pendapatan == null && $value->nominal_pendapatan == null)
+                                        <button type="button" class="btn btn-info input-pendapatan" input-pendapatan-id="{{ $no }}">Input Pendapatan</button>
+                                        <button type="button" class="btn btn-info form-hide pilih-pendapatan" pilih-pendapatan-id="{{ $no }}">Pilih Pendapatan</button>
+                                        @else
+                                        <button type="button" class="btn btn-info form-hide input-pendapatan" input-pendapatan-id="{{ $no }}">Input Pendapatan</button>
+                                        <button type="button" class="btn btn-info pilih-pendapatan" pilih-pendapatan-id="{{ $no }}">Pilih Pendapatan</button>
+                                        @endif
                                     </div>
                                     <hr>
                                 </div>
+                                @endforeach
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-success" id="input-act-perincian">Tambah Input</button>
@@ -213,7 +251,14 @@
 @section('js')
 <script>
     $(() => {
-        $('.selectize-control:first').attr('pendapatan-id',1)
+        // $('.selectize-control:first').attr('pendapatan-id',1)
+
+        $('select.pendapatan').each(function(index,element){
+            console.log(index)
+            let attr = $(this).attr('pendapatan-id')
+            $('.selectize-control').eq(index).attr('pendapatan-id',attr)
+        })
+
         $('input[name="saldo_awal"]').keyup(function(){
             let val = $(this).val()
             if (val == 0) {
@@ -224,19 +269,19 @@
             }
         })
 
-        var input_perincian_id        = 2;
-        var pendapatan_id             = 2;
-        var pendapatan_input_id       = 2;
-        var nominal_rincian_input     = 2;
-        var nominal_pendapatan_select = 2;
-        var nominal_pendapatan_input  = 2;
-        var nominal_rab_input         = 2;
-        var nominal_rincian_label     = 2;
-        var nominal_pendapatan_label  = 2;
-        var nominal_rab_label         = 2;
-        var hapus_id                  = 2;
-        var btn_input_pendapatan      = 2;
-        var btn_pilih_pendapatan      = 2;
+        var input_perincian_id        = parseInt($('.input-perincian:last').attr('input-perincian-id'))+1;
+        var pendapatan_id             = parseInt($('select.pendapatan:last').attr('pendapatan-id'))+1;
+        var pendapatan_input_id       = parseInt($('.pendapatan-input:last').attr('pendapatan-input-id'))+1;
+        var nominal_rincian_input     = parseInt($('.nominal-rincian:last').attr('nominal-rincian-id'))+1;
+        var nominal_pendapatan_select = parseInt($('.nominal-pendapatan:last').attr('nominal-pendapatan-id'))+1;
+        var nominal_pendapatan_input  = parseInt($('.nominal-pendapatan-input:last').attr('nominal-pendapatan-input-id'))+1;
+        var nominal_rab_input         = parseInt($('.nominal-rab:last').attr('nominal-rab-id'))+1;
+        var nominal_rincian_label     = parseInt($('.nominal-rincian-label:last').attr('nominal-rincian-id'))+1;
+        var nominal_pendapatan_label  = parseInt($('.nominal-pendapatan-label:last').attr('nominal-pendapatan-label-id'))+1;
+        var nominal_rab_label         = parseInt($('.nominal-rab-label:last').attr('nominal-rab-id'))+1;
+        var hapus_id                  = parseInt($('.hapus-act-perincian:last').attr('hapus-id'))+1;
+        var btn_input_pendapatan      = parseInt($('.input-pendapatan:last').attr('input-pendapatan-id'))+1;
+        var btn_pilih_pendapatan      = parseInt($('.pilih-pendapatan:last').attr('pilih-pendapatan-id'))+1;
 
         $('#input-act-perincian').click(() => {
             $('.pendapatan').each(function(){
@@ -303,15 +348,19 @@
 
             $('.input-perincian:last').find('input').val('')
 
-            $('.nominal-pendapatan:last').val()
-            $('.nominal-pendapatan-input:last').val()
+            $('.nominal-pendapatan:last').val('')
+            $('.nominal-pendapatan-input:last').val('')
 
             $('.nominal-rincian-label:last').html(`${rupiah_format(0)}`)
             $('.nominal-rab-label:last').html(`${rupiah_format(0)}`)
             $('.nominal-pendapatan-label:last').html(rupiah_format(0))
 
             $('.hapus-act-perincian:last').removeClass('form-hide')
+            $('input[name="id_rincian_pengeluaran_detail[]"]:last').val('')
+
+            $('select.pendapatan:last')[0].selectize.clear()
         })
+
         $(document).on('keyup','.nominal-rincian',function() {
             let val  = $(this).val()
             let attr = $(this).attr('nominal-rincian-id')
@@ -322,6 +371,7 @@
                 $(`.nominal-rincian-label[nominal-rincian-id="${attr}"]`).html(rupiah_format(val))
             }
         })
+
         $(document).on('keyup','.nominal-pendapatan',function() {
             let val  = $(this).val()
             let attr = $(this).attr('nominal-pendapatan-id')
@@ -332,6 +382,7 @@
                 $(`.nominal-pendapatan-label[nominal-pendapatan-id="${attr}"]`).html(rupiah_format(val))
             }
         })
+
         $(document).on('keyup','.nominal-rab',function() {
             let val  = $(this).val()
             let attr = $(this).attr('nominal-rab-id')
@@ -342,6 +393,7 @@
                 $(`.nominal-rab-label[nominal-rab-id="${attr}"]`).html(rupiah_format(val))
             }
         })
+
         $(document).on('change','select.pendapatan',function() {
             let val           = $(this).val()
             let attr          = $(this).attr('pendapatan-id')
@@ -361,6 +413,7 @@
             });
             
         })
+
         $(document).on('click','.hapus-act-perincian',function() {
             let attr = $(this).attr('hapus-id')
             $(`.input-perincian[input-perincian-id="${attr}"]`).remove()
@@ -369,6 +422,7 @@
             //     $('#hapus-act-perincian').addClass('form-hide')
             // }
         })
+
         $(document).on('click', '.input-pendapatan', function() {
             let attr = $(this).attr('input-pendapatan-id')
             $(this).addClass('form-hide')

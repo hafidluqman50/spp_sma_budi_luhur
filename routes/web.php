@@ -147,6 +147,7 @@ Route::group(['prefix' => 'ajax'],function() {
     Route::get('/get-rincian',[AjaxController::class, 'getRincian']);
     Route::get('/get-rab',[AjaxController::class, 'getRab']);
     Route::get('/get-keluarga-siswa/{id_siswa}',[AjaxController::class, 'getKeluargaSiswa']);
+    Route::get('/get-pendapatan-spp',[AjaxController::class, 'getPendapatanSpp']);
 });
 
 Route::group(['prefix' => 'datatables'],function(){

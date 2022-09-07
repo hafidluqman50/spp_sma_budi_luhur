@@ -43,19 +43,21 @@ class RincianPembelanjaanController extends Controller
 
     public function save(Request $request, $id)
     {
-        $kategori_rincian = $request->kategori_rincian;
-        $rincian          = $request->rincian;
-        $volume           = $request->volume;
-        $uang_masuk       = $request->uang_masuk;
-        $uang_keluar      = $request->uang_keluar;
-        $jenis_rincian    = $request->jenis_rincian;
+        $kategori_rincian        = $request->kategori_rincian;
+        $rincian                 = $request->rincian;
+        $volume                  = $request->volume;
+        $uang_masuk              = $request->uang_masuk;
+        $uang_keluar             = $request->uang_keluar;
+        $jenis_rincian           = $request->jenis_rincian;
+        $keterangan_pembelanjaan = $request->keterangan_pembelanjaan;
 
         foreach ($rincian as $key => $value) {
             $data_rincian_pembelanjaan = [
                 'id_rincian_pengeluaran'        => $id,
                 'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
                 'id_rincian_pengeluaran_detail' => $rincian[$key],
-                'jenis_rincian_pembelanjaan'    => $jenis_rincian
+                'jenis_rincian_pembelanjaan'    => $jenis_rincian,
+                'keterangan_pembelanjaan'       => $keterangan_pembelanjaan[$key]
             ];
 
             RincianPembelanjaan::create($data_rincian_pembelanjaan);
