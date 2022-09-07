@@ -356,12 +356,13 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::delete('/data-perincian-rab/delete/{id}',[AdminRincianPengeluaranController::class,'delete']);
 
     Route::get('/data-perincian-rab/detail/{id}',[AdminRincianPengeluaranDetailController::class,'index']);
+    Route::get('/data-perincian-rab/detail/{id}/delete/{id_detail}',[AdminRincianPengeluaranDetailController::class,'delete']);
 
     Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}',[AdminRincianPembelanjaanController::class,'rincianPembelanjaan']);
     Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}/tambah',[AdminRincianPembelanjaanController::class,'tambahRincianPembelanjaan']);
     Route::post('/data-perincian-rab/rincian-pembelanjaan/{id}/save',[AdminRincianPembelanjaanController::class,'save']);
-    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}/edit/{id_detail}',[AdminRincianPembelanjaanController::class,'editRincianPembelanjaan']);
-    Route::put('/data-perincian-rab/rincian-pembelanjaan/{id}/update/{id_detail}',[AdminRincianPembelanjaanController::class,'update']);
+    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}/edit',[AdminRincianPembelanjaanController::class,'editRincianPembelanjaan']);
+    Route::put('/data-perincian-rab/rincian-pembelanjaan/{id}/update',[AdminRincianPembelanjaanController::class,'update']);
     Route::delete('/data-perincian-rab/rincian-pembelanjaan/{id}/delete/{id_detail}',[AdminRincianPembelanjaanController::class,'delete']);
 
     Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}',[AdminRincianPembelanjaanController::class,'rincianPembelanjaanUangMakan']);

@@ -13,7 +13,7 @@
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Edit Rincian Pembelanjaan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -30,35 +30,50 @@
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data</h4>
+                        <h4 class="header-title m-t-0">Edit Data</h4>
                     </div>
-                    <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
+                    <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/update') }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div id="input-kategori-rincian-layout">
-                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
+                            @php
+                                $no__ = 0;
+                            @endphp
+                            @foreach ($kategori_group as $key => $value)
+                            @php
+                                $no = $key+1;
+                            @endphp
+                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="{{ $no }}">
                                 <div class="form-group">
                                     <label class="col-form-label">Kategori Rincian</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="1">
+                                            <input type="text" class="form-control kategori-rincian" value="{{ $value->kategori_rincian_pembelanjaan }}" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="{{ $no }}">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
+                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="{{ $no }}">X</button>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="1">
-                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
-                                        <input type="hidden" name="kategori_rincian[]" value="">
+                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="{{ $no }}">
+                                    @php
+                                        $get_rincian_pembelanjaan = $rincian_pembelanjaan->getRincianByKategori($value->kategori_rincian_pembelanjaan,'operasional');
+                                    @endphp
+                                    @foreach ($get_rincian_pembelanjaan as $index => $val)
+                                    @php
+                                        $no__ = $no__+1;
+                                    @endphp
+                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="{{ $no__ }}" id-layout-input-rincian="{{ $no }}">
+                                        <input type="hidden" name="kategori_rincian[]" value="{{ $value->kategori_rincian_pembelanjaan }}">
                                         <div class="col-md-10 row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
+                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rincian }}</option>
+                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}" {!!$val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>  
@@ -66,7 +81,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
-                                                    <input type="text" class="volume form-control" id-volume="1" readonly>
+                                                    <input type="text" class="volume form-control" value="{{ $val->volume_rincian }}" id-volume="{{ $no__ }}" readonly>
                                                 </div>  
                                             </div>
                                             {{-- <div class="col-md-6">
@@ -85,33 +100,36 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nominal Rincian</label>
-                                                    <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
-                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
+                                                    <input type="text" class="uang-keluar form-control" value="{{ $val->nominal_rincian }}" id-uang-keluar="{{ $no__ }}" readonly>
+                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="{{ $no__ }}">{{ format_rupiah($val->nominal_rincian) }}</label>
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Keterangan</label>
-                                                    <input type="text" name="keterangan_pembelanjaan[]" class="form-control keterangan-pembelanjaan">
+                                                    <input type="text" name="keterangan_pembelanjaan[]" value="{{ $val->keterangan_pembelanjaan }}" class="form-control keterangan-pembelanjaan">
                                                 </div> 
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="1">X</button>
+                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="id_rincian_pembelanjaan[]" value="{{ $val->id_rincian_pembelanjaan }}">
+                                    @endforeach
                                 </div>
-                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="1">Tambah Input Rincian</button>
+                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="{{ $no }}">Tambah Input Rincian</button>
                                 <hr>
                             </div>
+                            @endforeach
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
                         </div>
                         <div class="card-box">
-                            <button class="btn btn-primary">Simpan Data</button>
+                            <button class="btn btn-warning">Edit Data</button>
                         </div>
                         <input type="hidden" name="jenis_rincian" value="operasional">
                     </form>
@@ -127,18 +145,29 @@
 @section('js')
 <script>
     $(() => {
-        var input_kategori_rincian       = 2;
-        var hapus_input_kategori_rincian = 1;
-        var btn_delete_rincian           = 2;
+        var get_id_input_kategori_rincian = parseInt($('.input-kategori-rincian:last').attr('id-input-kategori'));
 
-        var id_layout_rincian            = 2;
-        var id_rincian                   = 2;
-        var id_volume                    = 2;
-        var id_spp                       = 2;
-        var id_uang_masuk                = 2;
-        var id_uang_keluar               = 2;
-        var id_uang_masuk_label          = 2;
-        var id_uang_keluar_label         = 2;
+        var input_kategori_rincian        = parseInt($('.input-kategori-rincian:last').attr('id-input-kategori'))+1;
+
+        var hapus_input_kategori_rincian  = get_id_input_kategori_rincian;
+
+        var btn_delete_rincian            = parseInt($('.btn-delete-rincian:last').attr('id-delete-rincian'))+1;
+
+        var id_layout_rincian             = parseInt($(`.input-rincian-layout[id-layout-input-rincian="${get_id_input_kategori_rincian}"]:last`).attr('id-layout-rincian'))+1;
+
+        var id_rincian                    = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('select.rincian:last').attr('id-rincian'))+1;
+        
+        var id_volume                     = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.volume:last').attr('id-volume'))+1;
+        
+        var id_spp                        = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.spp:last').attr('id-spp'))+1;
+
+        var id_uang_masuk                 = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.uang-masuk:last').attr('id-uang-masuk'))+1;
+
+        var id_uang_keluar                = $(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.uang-keluar:last').attr('id-uang-keluar');
+
+        var id_uang_masuk_label           = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.uang-masuk-label:last').attr('id-uang-masuk-label'))+1;
+
+        var id_uang_keluar_label          = parseInt($(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label'))+1;
 
         $('.tambah-input').click(() => {
             $('.rincian').each(function(){
@@ -172,13 +201,13 @@
             
             $(`.input-rincian-layout[id-layout-input-rincian="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
              $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('select.rincian:last').attr('id-rincian',id_rincian++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('select.rincian:last')[0].selectize.clear()
+             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('select.rincian:last')[0].selectize.clear()
             
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.spp:last').attr('id-spp',id_spp++)
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.spp:last').val('')
             
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.volume:last').attr('id-volume',id_volume++)
-           $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.volume:last').val('')
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.volume:last').val('')
             
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-masuk:last').attr('id-uang-masuk',id_uang_masuk++)
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-masuk:last').val('')
@@ -193,7 +222,7 @@
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').html(rupiah_format(0))
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.keterangan-pembelanjaan:last').val('')
-
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -217,7 +246,7 @@
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('select.rincian:last').attr('id-rincian',id_rincian++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('select.rincian:last')[0].selectize.clear()
-
+            
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.spp:last').attr('id-spp',id_spp++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.spp:last').val('')
             
@@ -237,6 +266,8 @@
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').html(rupiah_format(0))
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.keterangan-pembelanjaan:last').val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){
@@ -248,21 +279,23 @@
         $(document).on('change','select[name="rincian[]"]',function(){
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
-            $.ajax({
-                url: "{{ url('/ajax/get-rincian') }}",
-                data: {id_rincian: val},
-            })
-            .done(function(done) {
-                $(`.spp[id-spp="${attr}"]`).val(done.spp)
-                $(`.volume[id-volume="${attr}"]`).val(done.volume)
-                $(`.uang-masuk[id-uang-masuk="${attr}"`).val(done.uang_masuk)
-                $(`.uang-masuk-label[id-uang-masuk-label="${attr}"`).html(rupiah_format(done.uang_masuk))
-                $(`.uang-keluar[id-uang-keluar="${attr}"`).val(done.uang_keluar)
-                $(`.uang-keluar-label[id-uang-keluar-label="${attr}"`).html(rupiah_format(done.uang_keluar))
-            })
-            .fail(function(fail) {
+            if (val != '') {
+                $.ajax({
+                    url: "{{ url('/ajax/get-rincian') }}",
+                    data: {id_rincian: val},
+                })
+                .done(function(done) {
+                    $(`.spp[id-spp="${attr}"]`).val(done.spp)
+                    $(`.volume[id-volume="${attr}"]`).val(done.volume)
+                    $(`.uang-masuk[id-uang-masuk="${attr}"`).val(done.uang_masuk)
+                    $(`.uang-masuk-label[id-uang-masuk-label="${attr}"`).html(rupiah_format(done.uang_masuk))
+                    $(`.uang-keluar[id-uang-keluar="${attr}"`).val(done.uang_keluar)
+                    $(`.uang-keluar-label[id-uang-keluar-label="${attr}"`).html(rupiah_format(done.uang_keluar))
+                })
+                .fail(function(fail) {
 
-            });
+                });
+            }
         })
 
         $(document).on('click','.btn-delete-kategori-rincian',function(){

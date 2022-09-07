@@ -11,7 +11,7 @@
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan <?php echo e($jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian)); ?></a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data <?php echo e($jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian)); ?></h4>
+                        <h4 class="header-title m-t-0">Tambah Data</h4>
                     </div>
                     <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
@@ -78,7 +78,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Keterangan</label>
-                                                    <input type="text" name="keterangan_pembelanjaan[]" class="form-control">
+                                                    <input type="text" name="keterangan_pembelanjaan[]" class="form-control keterangan-pembelanjaan">
                                                 </div> 
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
             
-            $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
+            // $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
 
             $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
 
@@ -176,6 +176,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pembelanjaan:last').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -216,6 +218,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pembelanjaan:last').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){

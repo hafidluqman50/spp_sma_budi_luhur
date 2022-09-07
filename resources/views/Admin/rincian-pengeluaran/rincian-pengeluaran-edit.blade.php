@@ -232,8 +232,8 @@
                             <hr>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                        Simpan
+                                    <button type="submit" class="btn btn-warning waves-effect waves-light">
+                                        Edit
                                     </button>
                                 </div>
                             </div>

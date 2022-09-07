@@ -13,7 +13,7 @@
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan Uang Makan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Tambah Rincian Pembelanjaan Uang Makan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
-                        <h4 class="header-title m-t-0">Tambah Data {{ $jenis_rincian == 'operasional' ? '' : unslug_str($jenis_rincian) }}</h4>
+                        <h4 class="header-title m-t-0">Tambah Data Uang Makan</h4>
                     </div>
                     <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
                         @csrf

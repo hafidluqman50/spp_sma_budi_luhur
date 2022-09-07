@@ -13,4 +13,13 @@ class RincianPengeluaranDetailController extends Controller
 
         return view('Admin.rincian-pengeluaran.rincian-pengeluaran-detail',compact('title','id'));
     }
+
+    public function delete($id,$id_detail)
+    {
+        RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)
+                                ->where('id_rincian_pengeluaran_detail',$id_detail)
+                                ->delete();
+
+        return redirect('/admin/data-perincian-rab/detail/'.$id)->with('message','Berhasil Hapus Data');
+    }
 }
