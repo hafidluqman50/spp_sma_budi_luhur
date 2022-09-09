@@ -56,6 +56,7 @@
                                 <th>Rincian</th>
                                 <th>Volume</th>
                                 <th>Nominal Rincian</th>
+                                <th>Keterangan</th>
                                 <th>#</th>
                             </tr>
                             </thead>

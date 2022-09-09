@@ -375,15 +375,15 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[AdminRincianPengajuanController::class,'index']);
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}/tambah',[AdminRincianPengajuanController::class,'tambah']);
     Route::post('/data-perincian-rab/rincian-pengajuan/{id}/save',[AdminRincianPengajuanController::class,'save']);
-    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/edit/{id_detail}',[AdminRincianPengajuanController::class,'edit']);
-    Route::put('/data-perincian-rab/rincian-pengajuan/{id}/update/{id_detail}',[AdminRincianPengajuanController::class,'update']);
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/edit',[AdminRincianPengajuanController::class,'edit']);
+    Route::put('/data-perincian-rab/rincian-pengajuan/{id}/update',[AdminRincianPengajuanController::class,'update']);
     Route::delete('/data-perincian-rab/rincian-pengajuan/{id}/delete/{id_detail}',[AdminRincianPengajuanController::class,'delete']);
 
     Route::get('/data-perincian-rab/sapras/{id}',[AdminSaprasController::class,'index']);
     Route::get('/data-perincian-rab/sapras/{id}/tambah',[AdminSaprasController::class,'tambah']);
     Route::post('/data-perincian-rab/sapras/{id}/save',[AdminSaprasController::class,'save']);
-    Route::get('/data-perincian-rab/sapras/{id}/edit/{id_detail}',[AdminSaprasController::class,'edit']);
-    Route::put('/data-perincian-rab/sapras/{id}/update/{id_detail}',[AdminSaprasController::class,'update']);
+    Route::get('/data-perincian-rab/sapras/{id}/edit',[AdminSaprasController::class,'edit']);
+    Route::put('/data-perincian-rab/sapras/{id}/update',[AdminSaprasController::class,'update']);
     Route::delete('/data-perincian-rab/sapras/{id}/delete/{id_detail}',[AdminSaprasController::class,'delete']);
 });
 

@@ -13,4 +13,13 @@ class RincianPengajuan extends Model
     protected $table      = 'rincian_pengajuan';
     protected $primaryKey = 'id_rincian_pengajuan';
     protected $guarded    = [];
+
+    public static function getRincianByKategori($kategori)
+    {
+        $get = self::join('rincian_pengeluaran_detail','rincian_pengajuan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
+                    ->where('kategori_rincian_pengajuan',$kategori)
+                    ->get();
+
+        return $get;
+    }
 }

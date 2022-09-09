@@ -49,6 +49,56 @@ class RincianPengajuanController extends Controller
         return redirect('/admin/data-perincian-rab/rincian-pengajuan/'.$id)->with('message','Berhasil Input Data');
     }
 
+    public function edit($id)
+    {
+        $title          = 'Admin | Form Rincian Pengajuan';
+        $kategori_group = RincianPengajuan::where('id_rincian_pengeluaran',$id)
+                                                ->groupBy('kategori_rincian_pengajuan')
+                                                ->get();
+        $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
+        $rincian_pengajuan = new RincianPengajuan;
+
+        return view('Admin.rincian-pengajuan.rincian-pengajuan-edit',compact('title','kategori_group','id','rincian_pengajuan','rincian_pengeluaran_detail'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $kategori_rincian     = $request->kategori_rincian;
+        $rincian              = $request->rincian;
+        $keterangan_pengajuan = $request->keterangan_pengajuan;
+        $id_rincian_pengajuan = $request->id_rincian_pengajuan;
+        // $volume           = $request->volume;
+        // $uang_masuk       = $request->uang_masuk;
+        // $uang_keluar      = $request->uang_keluar;
+        // $jenis_rincian    = $request->jenis_rincian;
+
+        foreach ($rincian as $key => $value) {
+            if ($id_rincian_pengajuan[$key] != '') {
+                $data_rincian_pengajuan = [
+                    'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'id_rincian_pengeluaran_detail' => $rincian[$key],
+                    'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
+                    // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
+                ];
+
+                RincianPengajuan::where('id_rincian_pengajuan',$id_rincian_pengajuan[$key])->update($data_rincian_pengajuan);
+            }
+            else {
+                $data_rincian_pengajuan = [
+                    'id_rincian_pengeluaran'        => $id,
+                    'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'id_rincian_pengeluaran_detail' => $rincian[$key],
+                    'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
+                    // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
+                ];
+
+                RincianPengajuan::create($data_rincian_pengajuan);
+            }
+        }
+
+        return redirect('/admin/data-perincian-rab/rincian-pengajuan/'.$id)->with('message','Berhasil Update Data');
+    }
+
     public function delete($id,$id_rincian_pengajuan)
     {
         RincianPengajuan::where('id_rincian_pengeluaran',$id)->where('id_rincian_pengajuan',$id_rincian_pengajuan)->delete();

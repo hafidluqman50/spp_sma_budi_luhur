@@ -208,6 +208,7 @@
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').html(rupiah_format(0))
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.keterangan-pembelanjaan:last').val('')
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -251,6 +252,8 @@
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').html(rupiah_format(0))
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.keterangan-pembelanjaan:last').val('')
+            
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){

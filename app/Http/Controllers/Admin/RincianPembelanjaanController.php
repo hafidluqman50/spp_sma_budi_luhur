@@ -101,22 +101,22 @@ class RincianPembelanjaanController extends Controller
     {
         $kategori_rincian        = $request->kategori_rincian;
         $rincian                 = $request->rincian;
-        $volume                  = $request->volume;
-        $uang_masuk              = $request->uang_masuk;
-        $uang_keluar             = $request->uang_keluar;
         $jenis_rincian           = $request->jenis_rincian;
         $keterangan_pembelanjaan = $request->keterangan_pembelanjaan;
         $id_rincian_pembelanjaan = $request->id_rincian_pembelanjaan;
+        // $volume                  = $request->volume;
+        // $uang_masuk              = $request->uang_masuk;
+        // $uang_keluar             = $request->uang_keluar;
 
         foreach ($rincian as $key => $value) {
-            if ($id_rincian_pembelanjaan[$i] != '') {
+            if ($id_rincian_pembelanjaan[$key] != '') {
                 $data_rincian_pembelanjaan = [
                     'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
                     'id_rincian_pengeluaran_detail' => $rincian[$key],
                     'jenis_rincian_pembelanjaan'    => $jenis_rincian,
                     'keterangan_pembelanjaan'       => $keterangan_pembelanjaan[$key]
                 ];
-                RincianPembelanjaan::where('id_rincian_pembelanjaan',$id_rincian_pembelanjaan[$i])->update($data_rincian_pembelanjaan);
+                RincianPembelanjaan::where('id_rincian_pembelanjaan',$id_rincian_pembelanjaan[$key])->update($data_rincian_pembelanjaan);
             }
             else {
                 $data_rincian_pembelanjaan = [

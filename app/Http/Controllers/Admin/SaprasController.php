@@ -48,6 +48,59 @@ class SaprasController extends Controller
         return redirect('/admin/data-perincian-rab/sapras/'.$id)->with('message','Berhasil Input Data');
     }
 
+    public function edit($id)
+    {
+        $title = 'Admin | Form Sapras';
+        $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id)
+                                ->groupBy('kategori_sapras')
+                                ->get();
+
+        $sapras = new Sapras;
+
+        return view('Admin.sapras.sapras-edit',compact('title','kategori_sapras','sapras','id'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $kategori_rincian = $request->kategori_rincian;
+        $nama_barang      = $request->nama_barang;
+        $qty              = $request->qty;
+        $ket              = $request->ket;
+        $harga_barang     = $request->harga_barang;
+        $jumlah           = $request->jumlah;
+        $id_sapras        = $request->id_sapras;
+
+        foreach ($nama_barang as $key => $value) {
+            if ($id_sapras[$key] != '') {
+                $data_rincian_pengajuan = [
+                    'kategori_sapras'        => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'nama_barang'            => $nama_barang[$key],
+                    'qty'                    => $qty[$key],
+                    'ket'                    => $ket[$key],
+                    'harga_barang'           => $harga_barang[$key],
+                    'jumlah'                 => $jumlah[$key]
+                ];
+
+                Sapras::where('id_sapras',$id_sapras[$key])->update($data_rincian_pengajuan);
+            }
+            else {
+                $data_rincian_pengajuan = [
+                    'id_rincian_pengeluaran' => $id,
+                    'kategori_sapras'        => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'nama_barang'            => $nama_barang[$key],
+                    'qty'                    => $qty[$key],
+                    'ket'                    => $ket[$key],
+                    'harga_barang'           => $harga_barang[$key],
+                    'jumlah'                 => $jumlah[$key]
+                ];
+
+                Sapras::create($data_rincian_pengajuan);
+            }
+        }
+
+        return redirect('/admin/data-perincian-rab/sapras/'.$id)->with('message','Berhasil Input Data');
+    }
+
     public function delete($id,$id_sapras)
     {
         Sapras::where('id_rincian_pengeluaran',$id)->where('id_sapras',$id_sapras)->delete();

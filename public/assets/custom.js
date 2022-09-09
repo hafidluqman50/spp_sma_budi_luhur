@@ -1059,6 +1059,7 @@ $(() => {
             {data:'uraian_rincian',name:'uraian_rincian'},
             {data:'volume_rincian',name:'volume_rincian'},
             {data:'nominal_rincian',name:'nominal_rincian'},
+            {data:'keterangan_pembelanjaan',name:'keterangan_pembelanjaan'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -1090,6 +1091,7 @@ $(() => {
             {data:'uraian_rab',name:'uraian_rab'},
             {data:'volume_rab',name:'volume_rab'},
             {data:'nominal_rab',name:'nominal_rab'},
+            {data:'keterangan_pengajuan',name:'keterangan_pengajuan'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,

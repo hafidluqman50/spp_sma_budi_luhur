@@ -32,69 +32,87 @@
                         </div>
                         <h4 class="header-title m-t-0">Tambah Data Sapras</h4>
                     </div>
-                    <form action="{{ url('/admin/data-perincian-rab/sapras/'.$id.'/save') }}" method="POST">
+                    <form action="{{ url('/admin/data-perincian-rab/sapras/'.$id.'/update') }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div id="input-kategori-rincian-layout">
-                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
+                            @php
+                                $no__ = 0;
+                            @endphp
+                            @foreach ($kategori_sapras as $key => $value)
+                            @php
+                                $no = $key+1;
+                            @endphp
+                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="{{ $no }}">
                                 <div class="form-group">
                                     <label class="col-form-label">Kategori Barang</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Barang; Ex: Obat" id-kategori-rincian="1">
+                                            <input type="text" class="form-control kategori-rincian" value="{{ $value->kategori_sapras }}" placeholder="Isi Kategori Barang; Ex: Obat" id-kategori-rincian="{{ $no }}">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
+                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="{{ $no }}">X</button>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="1">
-                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
-                                        <input type="hidden" name="kategori_rincian[]" value="">
+                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="{{ $no }}">
+                                    @php
+                                        $get_sapras = $sapras->where('kategori_sapras',$value->kategori_sapras)->get();
+                                    @endphp
+                                    @foreach ($get_sapras as $index => $val)
+                                    @php
+                                        $no__ = $no__+1;
+                                    @endphp
+                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="{{ $no__ }}" id-layout-input-rincian="{{ $no }}">
+                                        <input type="hidden" name="kategori_rincian[]" value="{{ $value->kategori_sapras }}">
                                         <div class="col-md-10 row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nama Barang</label>
-                                                    <input type="text" name="nama_barang[]" class="form-control nama-barang" id-nama-barang="1">
+                                                    <input type="text" name="nama_barang[]" class="form-control nama-barang" value="{{ $val->nama_barang }}" id-nama-barang="{{ $no__ }}">
                                                 </div>  
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Qty</label>
-                                                    <input type="text" name="qty[]" class="qty form-control" id-qty="1">
+                                                    <input type="text" name="qty[]" class="qty form-control" value="{{ $val->qty }}" id-qty="{{ $no__ }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Ket</label>
-                                                    <input type="text" name="ket[]" class="ket form-control" id-ket="1">
+                                                    <input type="text" name="ket[]" class="ket form-control" value="{{ $val->ket }}" id-ket="{{ $no__ }}">
                                                 </div>  
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Harga Barang</label>
-                                                    <input type="text" name="harga_barang[]" class="harga-barang form-control" id-harga-barang="1">
-                                                    <label for="" class="harga-barang-label" id="harga-barang-label" id-harga-barang-label="1">Rp. 0,00</label>
+                                                    <input type="text" name="harga_barang[]" class="harga-barang form-control" value="{{ $val->harga_barang }}" id-harga-barang="{{ $no__ }}">
+                                                    <label for="" class="harga-barang-label" id="harga-barang-label" id-harga-barang-label="{{ $no__ }}">{{ format_rupiah($val->harga_barang) }}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Jumlah</label>
-                                                    <input type="text" name="jumlah[]" class="jumlah form-control" id-jumlah="1" readonly>
-                                                    <label for="" class="jumlah-label" id="jumlah-label" id-jumlah-label="1">Rp. 0,00</label>
+                                                    <input type="text" name="jumlah[]" class="jumlah form-control" value="{{ $val->jumlah }}" id-jumlah="{{ $no__ }}" readonly>
+                                                    <label for="" class="jumlah-label" id="jumlah-label" id-jumlah-label="{{ $no__ }}">{{ format_rupiah($val->jumlah) }}</label>
                                                 </div> 
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id_sapras[]" value="{{ $val->id_sapras }}">
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="1">X</button>
+                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="1">Tambah Input Rincian</button>
+                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="{{ $no }}">Tambah Input Rincian</button>
                                 <hr>
                             </div>
+                            @endforeach
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
@@ -115,18 +133,34 @@
 @section('js')
 <script>
     $(() => {
-        var input_kategori_rincian       = 2;
-        var hapus_input_kategori_rincian = 1;
-        var btn_delete_rincian           = 2;
+        // var input_kategori_rincian       = 2;
+        // var hapus_input_kategori_rincian = 1;
+        // var btn_delete_rincian           = 2;
+        // var id_layout_rincian     = 2;
 
-        var id_layout_rincian     = 2;
-        var id_nama_barang        = 2;
-        var id_qty                = 2;
-        var id_harga_barang       = 2;
-        var id_ket                = 2;
-        var id_jumlah             = 2;
-        var id_harga_barang_label = 2;
-        var id_jumlah_label       = 2;
+        var get_id_input_kategori_rincian = parseInt($('.input-kategori-rincian:last').attr('id-input-kategori'));
+
+        var input_kategori_rincian        = parseInt($('.input-kategori-rincian:last').attr('id-input-kategori'))+1;
+
+        var hapus_input_kategori_rincian  = get_id_input_kategori_rincian;
+
+        var btn_delete_rincian            = parseInt($('.btn-delete-rincian:last').attr('id-delete-rincian'))+1;
+
+        var id_layout_rincian             = parseInt($(`.input-rincian-layout[id-layout-input-rincian="${get_id_input_kategori_rincian}"]:last`).attr('id-layout-rincian'))+1;
+
+        var id_nama_barang        = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang'))+1;
+
+        var id_qty                = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.qty:last').attr('id-qty'))+1;
+
+        var id_harga_barang       = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.harga-barang:last').attr('id-harga-barang'))+1;
+
+        var id_ket                = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.ket:last').attr('id-ket'))+1;
+
+        var id_jumlah             = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.jumlah:last').attr('id-jumlah'))+1;
+
+        var id_harga_barang_label = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label'))+1;
+
+        var id_jumlah_label       = parseInt($(`.input-rincian[id-layout-input-rincian="${get_id_input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label'))+1;
 
         $('.tambah-input').click(() => {
             // $('.rincian').each(function(){
@@ -159,7 +193,7 @@
             }
             
             $(`.input-rincian-layout[id-layout-input-rincian="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
-            
+
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
             
@@ -180,6 +214,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_sapras[]"]:last').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -201,7 +237,6 @@
             // })
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').removeClass('form-hide')
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
-
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.nama-barang:last').val('')
             
@@ -222,6 +257,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_sapras[]"]:last').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){
