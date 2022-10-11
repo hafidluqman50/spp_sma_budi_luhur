@@ -34,6 +34,16 @@
                     </div>
                     <form action="{{ url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save') }}" method="POST">
                         @csrf
+                        <div class="card-box">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Tanggal Setor Uang Makan</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="date" name="tanggal_setor_dapur" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
                                 <div class="form-group">

@@ -202,6 +202,20 @@ function bulan_tahun($date) {
 	return month($explode[1]).', '.$explode[0];
 }
 
+function tahun_laporan($bulan,$tahun_ajaran) {
+	$explode            = explode('/',$tahun_ajaran);
+	$get_describe_month = $bulan;
+    $bulan_array = [0 => [7=>7,8=>8,9=>9,10=>10,11=>11,12=>12], 1 => [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6]];
+    if (isset($bulan_array[0][$get_describe_month])) {
+    	$val = $explode[0];
+    }
+    else {
+    	$val = $explode[1];
+    }
+
+    return $val;
+}
+
 function penyebut($nilai) {
 	$nilai = abs($nilai);
 	$huruf = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"];
@@ -257,6 +271,12 @@ function persentase_pendapatan($uang_sekarang,$uang_lalu) {
 	return $percentChange;
 }
 
+function persentase_penerimaan($oldPrice,$newPrice) {
+	$percentChange = (100 * $newPrice) / $oldPrice;
+
+	return floor($percentChange);
+}
+
 function backwards_date($param,$date) {
     $new_date = date('Y-m-d', strtotime($param, strtotime($date)));
 
@@ -267,4 +287,35 @@ function date_excel($date) {
 	$new_date = date('d/m/Y',strtotime($date));
 
 	return $new_date;
+}
+
+function vertical_text($str) {
+	$str = preg_split('/\r|\n/',$str);
+
+    $maxlength = 0;
+
+    $totalstr = count($str);
+
+    for($i=0;$i<$totalstr;$i++){
+        if($maxlength<strlen($str[$i])){
+            $maxlength = strlen($str[$i]);
+        }
+    }
+
+    $strings = array();
+
+    for($i=0;$i<$maxlength;$i++){
+        $strings[$i] = "";
+        for($j=0;$j<$totalstr;$j++){
+            $temp = strlen($str[$j])-($maxlength-$i);
+            if($temp>=0){
+                $strings[$i] .= substr($str[$j],$temp,1);
+            }
+            else{
+                $strings[$i] .= " ";
+            }
+        }
+    }
+
+    echo '<pre>'.implode("\r",$strings).'</pre>';
 }

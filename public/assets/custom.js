@@ -1142,4 +1142,112 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var rincian_id__ = $('.data-rincian-penerimaan').attr('id-rincian-pengeluaran')
+    var rincian_penerimaan = $('.data-rincian-penerimaan').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-penerimaan/${rincian_id__}`,
+        columns:[
+            {data:'tahun_ajaran',name:'tahun_ajaran'},
+            {data:'bulan_laporan',name:'bulan_laporan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+
+    var rincian_penerimaan_id = $('.data-rincian-penerimaan-detail').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_detail = $('.data-rincian-penerimaan-detail').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-penerimaan-detail/${rincian_penerimaan_id}`,
+        columns:[
+            {data:'id_rincian_penerimaan_detail',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'perincian',name:'perincian'},
+            {data:'rencana',name:'rencana'},
+            {data:'penerimaan',name:'penerimaan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        // order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_penerimaan_detail.on( 'order.dt search.dt', function () {
+        rincian_penerimaan_detail.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var rincian_penerimaan_id_ = $('.data-rincian-penerimaan-rekap').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_rekap = $('.data-rincian-penerimaan-rekap').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-penerimaan-rekap/${rincian_penerimaan_id_}`,
+        columns:[
+            {data:'tanggal_bon_pengajuan',name:'tanggal_bon_pengajuan'},
+            {data:'nominal_bon_pengajuan',name:'nominal_bon_pengajuan'},
+            {data:'tanggal_realisasi_pengeluaran',name:'tanggal_realisasi_pengeluaran'},
+            {data:'nominal_realisasi_pengeluaran',name:'nominal_realisasi_pengeluaran'},
+            {data:'sisa_realisasi_pengeluaran',name:'sisa_realisasi_pengeluaran'},
+            {data:'tanggal_penerimaan_bulan_ini',name:'tanggal_penerimaan_bulan_ini'},
+            {data:'sisa_penerimaan_bulan_ini',name:'sisa_penerimaan_bulan_ini'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        // order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+
+    var rincian_penerimaan_id__ = $('.data-rincian-penerimaan-tahun-ajaran').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_tahun_ajaran = $('.data-rincian-penerimaan-tahun-ajaran').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-penerimaan-tahun-ajaran/${rincian_penerimaan_id__}`,
+        columns:[
+            {data:'id_rincian_penerimaan_tahun_ajaran',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'bulan_tahun',name:'bulan_tahun'},
+            {data:'pemasukan',name:'pemasukan'},
+            {data:'realisasi_pengeluaran',name:'realisasi_pengeluaran'},
+            {data:'sisa_akhir_bulan',name:'sisa_akhir_bulan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        // order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_penerimaan_tahun_ajaran.on( 'order.dt search.dt', function () {
+        rincian_penerimaan_tahun_ajaran.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

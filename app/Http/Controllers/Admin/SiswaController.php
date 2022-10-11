@@ -47,6 +47,7 @@ class SiswaController extends Controller
         $nama_ibu        = $request->nama_ibu;
         $nomor_orang_tua = $request->nomor_wa_ortu;
         $keluarga        = $request->keluarga;
+        $nomor_va        = $request->nomor_va;
 
         $data_siswa = [
             'id_siswa'        => $id_siswa,
@@ -61,6 +62,7 @@ class SiswaController extends Controller
             'nama_ayah'       => $nama_ayah,
             'nama_ibu'        => $nama_ibu,
             'nomor_orang_tua' => $nomor_orang_tua,
+            'nomor_va'        => $nomor_va,
             'status_delete'   => 0
         ];
 
@@ -115,6 +117,7 @@ class SiswaController extends Controller
         $nama_ibu        = $request->nama_ibu;
         $nomor_orang_tua = $request->nomor_wa_ortu;
         $keluarga        = $request->keluarga;
+        $nomor_va        = $request->nomor_va;
 
         // dd($keluarga);
 
@@ -133,7 +136,8 @@ class SiswaController extends Controller
             'wilayah'         => $wilayah,
             'nama_ayah'       => $nama_ayah,
             'nama_ibu'        => $nama_ibu,
-            'nomor_orang_tua' => $nomor_orang_tua
+            'nomor_orang_tua' => $nomor_orang_tua,
+            'nomor_va'        => $nomor_va
         ];
 
         Siswa::where('id_siswa',$id)->update($data_siswa);

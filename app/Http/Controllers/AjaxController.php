@@ -279,4 +279,19 @@ class AjaxController extends Controller
 
         return $nominal_pendapatan;
     }
+
+    public function getPenerimaanRab(Request $request)
+    {
+        $id_rincian_pengeluaran_detail = $request->id_rincian_pengeluaran_detail;
+
+        $get = RincianPengeluaranDetail::where('id_rincian_pengeluaran_detail',$id_rincian_pengeluaran_detail)->firstOrFail();
+        if ($get->kolom_pendapatan != '') {
+            $result = $get->nominal_pendapatan;
+        }
+        else {
+            $result = $get->nominal_pendapatan_spp;
+        }
+
+        return $result;
+    }
 }

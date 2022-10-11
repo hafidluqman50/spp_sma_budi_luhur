@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RincianPengeluaranDetail;
 use App\Models\RincianPembelanjaan;
+use App\Models\RincianPengeluaran;
 
 class RincianPembelanjaanController extends Controller
 {
@@ -48,6 +49,7 @@ class RincianPembelanjaanController extends Controller
         $uang_keluar             = $request->uang_keluar;
         $jenis_rincian           = $request->jenis_rincian;
         $keterangan_pembelanjaan = $request->keterangan_pembelanjaan;
+        $tanggal_setor_dapur     = $request->tanggal_setor_dapur;
 
         foreach ($rincian as $key => $value) {
             $data_rincian_pembelanjaan = [
@@ -65,6 +67,7 @@ class RincianPembelanjaanController extends Controller
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan/'.$id;
         }
         else if ($jenis_rincian == 'uang-makan') {
+            RincianPembelanjaan::where('id_rincian_pengeluaran',$id)->update(['tanggal_setor_dapur'=>$tanggal_setor_dapur]);
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan-uang-makan/'.$id;
         }
 
@@ -91,10 +94,11 @@ class RincianPembelanjaanController extends Controller
                                                 ->where('jenis_rincian_pembelanjaan','uang-makan')
                                                 ->groupBy('kategori_rincian_pembelanjaan')
                                                 ->get();
+        $tanggal_setor_dapur = RincianPengeluaran::where('id_rincian_pengeluaran',$id)->firstOrFail()->tanggal_setor_dapur;
         $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
         $rincian_pembelanjaan = new RincianPembelanjaan;
 
-        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-uang-makan-edit',compact('title','kategori_group','id','rincian_pembelanjaan','rincian_pengeluaran_detail'));
+        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-uang-makan-edit',compact('title','kategori_group','id','rincian_pembelanjaan','rincian_pengeluaran_detail','tanggal_setor_dapur'));
     }
 
     public function update(Request $request,$id)
@@ -104,6 +108,7 @@ class RincianPembelanjaanController extends Controller
         $jenis_rincian           = $request->jenis_rincian;
         $keterangan_pembelanjaan = $request->keterangan_pembelanjaan;
         $id_rincian_pembelanjaan = $request->id_rincian_pembelanjaan;
+        $tanggal_setor_dapur     = $request->tanggal_setor_dapur;
         // $volume                  = $request->volume;
         // $uang_masuk              = $request->uang_masuk;
         // $uang_keluar             = $request->uang_keluar;
@@ -135,6 +140,7 @@ class RincianPembelanjaanController extends Controller
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan/'.$id;
         }
         else if ($jenis_rincian == 'uang-makan') {
+            RincianPengeluaran::where('id_rincian_pengeluaran',$id)->update(['tanggal_setor_dapur'=>$tanggal_setor_dapur]);
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan-uang-makan/'.$id;
         }
 
