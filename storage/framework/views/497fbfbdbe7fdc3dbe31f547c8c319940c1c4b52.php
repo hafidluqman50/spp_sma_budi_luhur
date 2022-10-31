@@ -55,7 +55,12 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="<?php echo e($row->nama_kantin); ?>" disabled="disabled">
+                                        <select name="kantin" class="form-control select2" required>   
+                                            <option value="" selected disabled>=== Pilih Kantin ===</option>
+                                            <?php $__currentLoopData = $kantin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($element->id_kantin); ?>" <?php echo $row->id_kantin == $element->id_kantin ? 'selected="selected"' : ''; ?>><?php echo e($element->nama_kantin); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -107,6 +112,7 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    <input type="hidden" name="id_spp_detail[]" value="<?php echo e($element->id_spp_detail); ?>">
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <div id="bayar-spp-hide" class="bayar-spp-hide form-hide" id-spp="1">
@@ -266,6 +272,8 @@
                 // })
                 // $('.hapus-input-hide:last').removeClass('form-hide')
             }
+
+            $('select.kolom-spp:last')[0].selectize.clear()
         })
 
         // $('#hapus-input').click(function() {

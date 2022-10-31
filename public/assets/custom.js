@@ -1250,4 +1250,33 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var id_spp_bulan_tahun__ = $('.data-pemasukan-kantin').attr('id-spp-bulan-tahun')
+    var pemasukan_kantin = $('.data-pemasukan-kantin').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/pemasukan-kantin/'+id_spp_bulan_tahun__,
+        columns:[
+            {data:'id_pemasukan_kantin',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nama_kantin',name:'nama_kantin'},
+            {data:'nominal_pemasukan',name:'nominal_pemasukan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    pemasukan_kantin.on( 'order.dt search.dt', function () {
+        pemasukan_kantin.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

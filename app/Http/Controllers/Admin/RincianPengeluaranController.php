@@ -25,8 +25,9 @@ class RincianPengeluaranController extends Controller
         $title        = 'Admin | Form Rincian Pengeluaran';
         $kolom_spp    = KolomSpp::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
+        $kantin       = Kantin::where('status_delete',0)->get();
 
-        return view('Admin.rincian-pengeluaran.rincian-pengeluaran-tambah',compact('title','kolom_spp','tahun_ajaran'));
+        return view('Admin.rincian-pengeluaran.rincian-pengeluaran-tambah',compact('title','kolom_spp','tahun_ajaran','kantin'));
     }
 
     public function edit($id)
@@ -52,13 +53,15 @@ class RincianPengeluaranController extends Controller
         $tanggal_perincian        = $request->tanggal_perincian;
         $uraian_rincian           = $request->uraian_rincian;
         $volume_rincian           = $request->volume_rincian;
+        $ket_volume_rincian       = $request->ket_volume_rincian;
         $nominal_rincian          = $request->nominal_rincian;
         $id_kolom_spp             = $request->id_kolom_spp;
-        // $nominal_pendapatan       = $request->nominal_pendapatan;
+        // $nominal_pendapatan    = $request->nominal_pendapatan;
         $pendapatan_input         = $request->pendapatan_input;
         $nominal_pendapatan_input = $request->nominal_pendapatan_input;
         $uraian_rab               = $request->uraian_rab;
         $volume_rab               = $request->volume_rab;
+        $ket_volume_rab           = $request->ket_volume_rab;
         $nominal_rab              = $request->nominal_rab;
 
         $data_rincian_pengeluaran = [
@@ -88,6 +91,7 @@ class RincianPengeluaranController extends Controller
                 'tanggal_rincian'        => $tanggal_perincian[$i],
                 'uraian_rincian'         => $uraian_rincian[$i],
                 'volume_rincian'         => $volume_rincian[$i],
+                'ket_volume_rincian'     => $ket_volume_rincian[$i],
                 'nominal_rincian'        => $nominal_rincian[$i],
                 'id_kolom_spp'           => $id_kolom_spp[$i],
                 'nominal_pendapatan_spp' => $nominal_pendapatan,
@@ -95,6 +99,7 @@ class RincianPengeluaranController extends Controller
                 'nominal_pendapatan'     => $nominal_pendapatan_input[$i],
                 'uraian_rab'             => $uraian_rab[$i],
                 'volume_rab'             => $volume_rab[$i],
+                'ket_volume_rab'         => $ket_volume_rab[$i],
                 'nominal_rab'            => $nominal_rab[$i]
             ];
 
@@ -115,6 +120,7 @@ class RincianPengeluaranController extends Controller
         $tanggal_perincian             = $request->tanggal_perincian;
         $uraian_rincian                = $request->uraian_rincian;
         $volume_rincian                = $request->volume_rincian;
+        $ket_volume_rincian            = $request->ket_volume_rincian;
         $nominal_rincian               = $request->nominal_rincian;
         $id_kolom_spp                  = $request->id_kolom_spp;
         // $nominal_pendapatan         = $request->nominal_pendapatan;
@@ -122,6 +128,7 @@ class RincianPengeluaranController extends Controller
         $nominal_pendapatan_input      = $request->nominal_pendapatan_input;
         $uraian_rab                    = $request->uraian_rab;
         $volume_rab                    = $request->volume_rab;
+        $ket_volume_rab                = $request->ket_volume_rab;
         $nominal_rab                   = $request->nominal_rab;
         $id_rincian_pengeluaran_detail = $request->id_rincian_pengeluaran_detail;
 
@@ -153,6 +160,7 @@ class RincianPengeluaranController extends Controller
                     'tanggal_rincian'        => $tanggal_perincian[$i],
                     'uraian_rincian'         => $uraian_rincian[$i],
                     'volume_rincian'         => $volume_rincian[$i],
+                    'ket_volume_rincian'     => $ket_volume_rincian[$i],
                     'nominal_rincian'        => $nominal_rincian[$i],
                     'id_kolom_spp'           => $id_kolom_spp[$i],
                     'nominal_pendapatan_spp' => $nominal_pendapatan,
@@ -160,6 +168,7 @@ class RincianPengeluaranController extends Controller
                     'nominal_pendapatan'     => $nominal_pendapatan_input[$i],
                     'uraian_rab'             => $uraian_rab[$i],
                     'volume_rab'             => $volume_rab[$i],
+                    'ket_volume_rab'         => $ket_volume_rab[$i],
                     'nominal_rab'            => $nominal_rab[$i]
                 ];
 

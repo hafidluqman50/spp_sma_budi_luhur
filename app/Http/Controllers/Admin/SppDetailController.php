@@ -44,7 +44,7 @@ class SppDetailController extends Controller
         $id_spp_bayar      = (string)Str::uuid();
         $id_spp_bayar_data = (string)Str::uuid();
 
-        $spp_detail = SppDetail::where('id_spp_detail',$id_detail)->firstOrFail();
+        $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_spp_detail',$id_detail)->firstOrFail();
 
         if ($bayar_spp > $spp_detail->sisa_bayar) {
             $status_bayar = 1;
@@ -74,6 +74,34 @@ class SppDetailController extends Controller
 
         SppDetail::where('id_spp_detail',$id_detail)
                 ->update($data_spp_detail);
+
+        if ($spp_detail->slug_kolom_spp == 'uang-makan') {
+            $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                        ->firstOrFail()->id_kantin;
+
+            $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                      ->where('id_kantin',$spp_detail->id_kantin)
+                                                      ->count();
+            if ($check_pemasukan_kantin > 0) {
+                $nominal_lama = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                            ->where('id_kantin',$spp_detail->id_kantin)
+                                            ->firstOrFail()->nominal_pemasukan;
+
+                $nominal_kalkulasi = $nominal_lama + $bayar_spp;
+                $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                            ->where('id_kantin',$spp_detail->id_kantin)
+                                            ->update(['nominal_pemasukan' => $nominal_kalkulasi]);
+            }
+            else {
+                $data_pemasukan_kantin = [
+                    'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun;
+                    'id_kantin'          => $spp_detail->id_kantin;
+                    'nominal_pemasukan'  => $bayar_spp
+                ];
+
+                $nominal = PemasukanKantin::create($data_pemasukan_kantin);
+            }
+        }
 
         $data_spp_bayar_data = [
             'id_spp_bayar_data'    => $id_spp_bayar_data,
@@ -151,7 +179,7 @@ class SppDetailController extends Controller
         $keterangan        = $request->keterangan_spp;
 
         foreach ($bayar_spp as $key => $value) {
-            $spp_detail = SppDetail::where('id_spp_detail',$id_detail[$key])->firstOrFail();
+            $spp_detail = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_spp_detail',$id_detail[$key])->firstOrFail();
 
             if ($bayar_spp[$key] > $spp_detail->sisa_bayar) {
                 $status_bayar = 1;
@@ -189,6 +217,34 @@ class SppDetailController extends Controller
                     'nominal_bayar'       => $bayar_spp[$key],
                     'tanggal_bayar'       => $tanggal_bayar
                 ];
+                
+                if ($spp_detail->slug_kolom_spp == 'uang-makan') {
+                    $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                ->firstOrFail()->id_kantin;
+
+                    $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                              ->where('id_kantin',$spp_detail->id_kantin)
+                                                              ->count();
+                    if ($check_pemasukan_kantin > 0) {
+                        $nominal_lama = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                    ->where('id_kantin',$spp_detail->id_kantin)
+                                                    ->firstOrFail()->nominal_pemasukan;
+
+                        $nominal_kalkulasi = $nominal_lama + $bayar_spp;
+                        $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
+                                                    ->where('id_kantin',$spp_detail->id_kantin)
+                                                    ->update(['nominal_pemasukan' => $nominal_kalkulasi]);
+                    }
+                    else {
+                        $data_pemasukan_kantin = [
+                            'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun;
+                            'id_kantin'          => $spp_detail->id_kantin;
+                            'nominal_pemasukan'  => $bayar_spp
+                        ];
+
+                        $nominal = PemasukanKantin::create($data_pemasukan_kantin);
+                    }
+                }
             }
 
             // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);

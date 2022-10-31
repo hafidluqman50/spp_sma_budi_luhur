@@ -294,4 +294,18 @@ class AjaxController extends Controller
 
         return $result;
     }
+
+    public function getPemasukanUangMakan(Request $request)
+    {
+        $bulan_laporan = $request->bulan_laporan;
+        $tahun_laporan = $request->tahun_laporan;
+
+        $sum = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                            ->where('slug_kolom_spp','uang-makan')
+                            ->whereMonth('tanggal_bayar',$bulan_laporan)
+                            ->whereYear('tanggal_bayar',$tahun_laporan)
+                            ->sum('nominal_bayar');
+
+        return $sum;
+    }
 }

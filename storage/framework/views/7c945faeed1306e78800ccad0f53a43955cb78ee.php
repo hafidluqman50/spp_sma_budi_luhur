@@ -141,7 +141,7 @@
                                                             </select>
                                                             <input type="text" name="pendapatan_input[]" class="form-control form-hide pendapatan-input" pendapatan-input-id="<?php echo e($no); ?>" placeholder="Isi Pendapatan Input; Ex: Almamater">
                                                             <?php elseif($value->id_kolom_spp == null && $value->kolom_pendapatan != null): ?>
-                                                            <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="<?php echo e($no); ?>">
+                                                            <select name="id_kolom_spp[]" class="form-control form-hide selectize pendapatan" pendapatan-id="<?php echo e($no); ?>">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
                                                                 <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                 <option value="<?php echo e($element->id_kolom_spp); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
@@ -172,8 +172,13 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Volume Rincian</label>
-                                                        <div>
-                                                            <input type="number" name="volume_rincian[]" class="form-control" value="<?php echo e($value->volume_rincian); ?>" placeholder="Isi Volume Rincian" required="required">
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <input type="number" name="volume_rincian[]" class="form-control" value="<?php echo e($value->volume_rincian); ?>" placeholder="Isi Volume Rincian" required="required">
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" name="ket_volume_rincian[]" class="form-control" value="<?php echo e($value->ket_volume_rincian); ?>" placeholder="Ket Volume Rincian" required="required">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -186,7 +191,7 @@
                                                             <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="<?php echo e($no); ?>" placeholder="Isi Nominal Pendapatan">
                                                             <?php elseif($value->nominal_pendapatan != null && $value->nominal_pendapatan_spp == null): ?>
                                                             <input type="text" name="nominal_pendapatan_input[]" class="form-control nominal-pendapatan-input" value="<?php echo e($value->nominal_pendapatan); ?>" nominal-pendapatan-input-id="<?php echo e($no); ?>" placeholder="Isi Nominal Pendapatan">
-                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="<?php echo e($no); ?>" readonly>
+                                                            <input type="number" class="form-control form-hide nominal-pendapatan" nominal-pendapatan-id="<?php echo e($no); ?>" readonly>
                                                             <?php else: ?>
                                                             <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="<?php echo e($no); ?>" readonly>
                                                             <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="<?php echo e($no); ?>" placeholder="Isi Nominal Pendapatan">
@@ -198,8 +203,13 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Volume RAB</label>
-                                                        <div>
-                                                            <input type="number" name="volume_rab[]" class="form-control" value="<?php echo e($value->volume_rab); ?>" placeholder="Isi Volume RAB">
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <input type="number" name="volume_rab[]" class="form-control" value="<?php echo e($value->volume_rab); ?>" placeholder="Isi Volume RAB">
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" name="ket_volume_rab[]" class="form-control" value="<?php echo e($value->ket_volume_rab); ?>" placeholder="Ket Volume RAB">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -9,6 +9,7 @@ use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\HistoryProsesSpp;
+use App\Models\Kantin;
 use Auth;
 
 class SppBulanTahunController extends Controller
@@ -25,6 +26,8 @@ class SppBulanTahunController extends Controller
     {
         $title = 'Edit SPP Bulan Tahun';
 
+        $kantin = Kantin::where('status_delete',0)->get();
+
         $row = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
                             ->join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                             ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
@@ -39,21 +42,24 @@ class SppBulanTahunController extends Controller
                                 ->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                 ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
                                 ->where('spp_detail.id_spp_bulan_tahun',$id_bulan_tahun)
-                                ->where('bayar_spp',0)
-                                ->where('status_bayar',0)
+                                // ->where('bayar_spp',0)
+                                // ->where('status_bayar',0)
                                 ->get();
 
         $kolom_spp = KolomSpp::where('status_delete',0)->get();
 
-        return view('Admin.spp-bulan-tahun.spp-bulan-tahun-edit',compact('title','id','id_bulan_tahun','row','row_kolom_spp','kolom_spp'));
+        return view('Admin.spp-bulan-tahun.spp-bulan-tahun-edit',compact('title','id','id_bulan_tahun','row','row_kolom_spp','kolom_spp','kantin'));
     }
 
     public function update(Request $request,$id,$id_bulan_tahun)
     {
+        $kantin           = $request->kantin;
         $kolom_spp        = $request->kolom_spp;
         $nominal_spp      = $request->nominal_spp;
         $kolom_spp_hide   = $request->kolom_spp_hide;
         $nominal_spp_hide = $request->nominal_spp_hide;
+
+        SppBulanTahun::where('id_spp_bulan_tahun',$id_bulan_tahun)->update(['id_kantin' => $kantin]);
 
         if (count($kolom_spp_hide) != 0) {
             foreach ($kolom_spp_hide as $key => $value) {
@@ -68,6 +74,19 @@ class SppBulanTahunController extends Controller
 
                 SppDetail::create($data_kolom_spp);
             }
+
+            foreach ($kolom_spp as $index => $val) {
+                $data_kolom_spp = [
+                    'id_spp_bulan_tahun' => $id_bulan_tahun,
+                    'id_kolom_spp'       => $kolom_spp[$index],
+                    'nominal_spp'        => $nominal_spp[$index],
+                    'bayar_spp'          => 0,
+                    'sisa_bayar'         => $nominal_spp[$index],
+                    'status_bayar'       => 0
+                ];
+
+                SppDetail::where('id_spp_detail',$id_spp_detail[$index])->update($data_kolom_spp);
+            }
         }
         else {
 
@@ -80,19 +99,19 @@ class SppBulanTahunController extends Controller
 
             // Spp::where('id_spp',$id)->update(['total_harus_bayar' => $total_harus_bayar_old - $get_sum_total_old]);
 
-            SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
+            // SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
 
-            foreach ($kolom_spp as $key => $value) {
+            foreach ($kolom_spp as $index => $val) {
                 $data_kolom_spp = [
                     'id_spp_bulan_tahun' => $id_bulan_tahun,
-                    'id_kolom_spp'       => $kolom_spp[$key],
-                    'nominal_spp'        => $nominal_spp[$key],
+                    'id_kolom_spp'       => $kolom_spp[$index],
+                    'nominal_spp'        => $nominal_spp[$index],
                     'bayar_spp'          => 0,
-                    'sisa_bayar'         => $nominal_spp[$key],
+                    'sisa_bayar'         => $nominal_spp[$index],
                     'status_bayar'       => 0
                 ];
 
-                SppDetail::create($data_kolom_spp);
+                SppDetail::where('id_spp_detail',$id_spp_detail[$index])->update($data_kolom_spp);
             }
         }
 
@@ -125,5 +144,20 @@ class SppBulanTahunController extends Controller
                     ->delete();
 
         return redirect('/admin/spp/tunggakan/'.$id)->with('message','Berhasil Hapus Data');
+    }
+
+    public function lihatPemasukanKantin($id,$id_bulan_tahun)
+    {
+        $title = 'Lihat Pemasukan Kantin | Admin';
+        $data_spp = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
+                                ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
+                                ->where('spp_bulan_tahun.id_spp',$id)
+                                ->where('spp_bulan_tahun.id_spp_bulan_tahun',$id_bulan_tahun)
+                                ->firstOrFail();
+
+        return view('Admin.pemasukan-kantin.main',compact('title','id','id_bulan_tahun','data_spp'));
     }
 }

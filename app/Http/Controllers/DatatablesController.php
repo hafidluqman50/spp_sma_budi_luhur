@@ -30,6 +30,7 @@ use App\Models\RincianPenerimaanRekap;
 use App\Models\RincianPenerimaanTahunAjaran;
 use App\Models\RincianPengajuan;
 use App\Models\Sapras;
+use App\Models\PemasukanKantin;
 use Auth;
 
 class DatatablesController extends Controller
@@ -260,6 +261,9 @@ class DatatablesController extends Controller
 
             $column = '
                         <div class="d-flex">
+                            <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-pemasukan-kantin/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
+                              <button class="btn btn-success"> Lihat Pemasukan Kantin </button>
+                           </a>
                             <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-spp/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Lihat SPP </button>
                            </a>
@@ -749,6 +753,24 @@ class DatatablesController extends Controller
             return format_rupiah($add->volume_rab * $add->nominal_rab);
         })->editColumn('nominal_rincian',function($add){
             return format_rupiah($add->nominal_rincian);
+        })->editColumn('volume_rincian',function($edit){
+            if ($edit->ket_volume_rincian == '' || $edit->ket_volume_rincian == '-') {
+                $result = $edit->volume_rincian;
+            }
+            else {
+                $result = $edit->volume_rincian.' '.$edit->ket_volume_rincian;
+            }
+            return $result;
+        })->editColumn('volume_rab',function($edit){
+            if ($edit->ket_volume_rab == '' || $edit->ket_volume_rab == '-') {
+                $result = $edit->volume_rab;
+            }
+            else {
+                $result = $edit->volume_rab.' '.$edit->ket_volume_rab;
+            }
+            return $result;
+        })->editColumn('nominal_rincian',function($add){
+            return format_rupiah($add->nominal_rincian);
         })->editColumn('nominal_pendapatan_spp',function($add){
             return format_rupiah($add->nominal_pendapatan_spp);
         })->editColumn('nominal_rab',function($add){
@@ -975,6 +997,30 @@ class DatatablesController extends Controller
                 return format_rupiah($edit->realisasi_pengeluaran);
             })->editColumn('sisa_akhir_bulan',function($edit){
                 return format_rupiah($edit->sisa_akhir_bulan);
+            })->make(true);
+
+        return $datatables;
+    }
+
+    public function dataPemasukanKantin($id)
+    {
+        $pemasukan_kantin = PemasukanKantin::join('spp_bulan_tahun','pemasukan_kantin.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                ->join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                                                ->where('pemasukan_kantin.id_spp_bulan_tahun',$id)
+                                                ->get();
+
+        $datatables = Datatables::of($pemasukan_kantin)->addColumn('action',function($action)use($id){
+                $column = ' <div style="display:flex; flex-direction:column;">
+                               <form action="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-pemasukan-kantin/$action->id_spp_bulan_tahun/delete/$action->id_pemasukan_kantin").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                return $column;
+            })->editColumn('nominal_pemasukan',function($edit){
+                return format_rupiah($edit->nominal_pemasukan);
             })->make(true);
 
         return $datatables;

@@ -57,7 +57,12 @@
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label">Kantin<span class="text-danger">*</span></label>
                                     <div class="col-7">
-                                        <input type="text" name="kantin" class="form-control" readonly="readonly" value="{{ $row->nama_kantin }}" disabled="disabled">
+                                        <select name="kantin" class="form-control select2" required>   
+                                            <option value="" selected disabled>=== Pilih Kantin ===</option>
+                                            @foreach ($kantin as $element)
+                                            <option value="{{ $element->id_kantin }}" {!! $row->id_kantin == $element->id_kantin ? 'selected="selected"' : '' !!}>{{ $element->nama_kantin }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -109,6 +114,7 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    <input type="hidden" name="id_spp_detail[]" value="{{ $element->id_spp_detail }}">
                                 </div>
                                 @endforeach
                                 <div id="bayar-spp-hide" class="bayar-spp-hide form-hide" id-spp="1">
@@ -268,6 +274,8 @@
                 // })
                 // $('.hapus-input-hide:last').removeClass('form-hide')
             }
+
+            $('select.kolom-spp:last')[0].selectize.clear()
         })
 
         // $('#hapus-input').click(function() {
