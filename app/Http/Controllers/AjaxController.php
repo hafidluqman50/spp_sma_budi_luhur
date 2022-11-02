@@ -15,6 +15,7 @@ use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranDetail;
+use App\Models\PemasukanKantin;
 
 class AjaxController extends Controller
 {
@@ -272,10 +273,17 @@ class AjaxController extends Controller
         $tahun_laporan = $request->tahun_laporan;
         $id_kolom_spp  = $request->id_kolom_spp;
 
-        $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
-                                            ->whereYear('tanggal_bayar',$tahun_laporan)
-                                            ->where('id_kolom_spp',$id_kolom_spp)
-                                            ->sum('nominal_bayar');
+        if ($id_kolom_spp != 'SPP') {
+            $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
+                                                ->whereYear('tanggal_bayar',$tahun_laporan)
+                                                ->where('id_kolom_spp',$id_kolom_spp)
+                                                ->sum('nominal_bayar');
+        }
+        else {
+            $nominal_pendapatan = SppBayarDetail::whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
+                                                ->whereYear('tanggal_bayar',$tahun_laporan)
+                                                ->sum('nominal_bayar');
+        }
 
         return $nominal_pendapatan;
     }
@@ -307,5 +315,20 @@ class AjaxController extends Controller
                             ->sum('nominal_bayar');
 
         return $sum;
+    }
+
+    public function getPemasukanKantin(Request $request)
+    {
+        $id_kantin     = $request->id_kantin;
+        $bulan_laporan = $request->bulan_laporan;
+        $tahun_laporan = $request->tahun_laporan;
+
+        $get_sum_pemasukan = PemasukanKantin::join('spp_bulan_tahun','pemasukan_kantin.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                            ->where('bulan',$bulan_laporan)
+                                            ->where('tahun',$tahun_laporan)
+                                            ->where('pemasukan_kantin.id_kantin',$id_kantin)
+                                            ->sum('nominal_pemasukan');
+
+        return $get_sum_pemasukan;
     }
 }

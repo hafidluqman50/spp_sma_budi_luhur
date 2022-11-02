@@ -137,6 +137,7 @@
                                                             @if ($value->id_kolom_spp != null && $value->kolom_pendapatan == null)
                                                             <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="{{ $no }}">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
+                                                                <option value="SPP" {!!$value->kolom_pendapatan == 'SPP' ? 'selected="selected"': ''!!}>SPP</option>
                                                                 @foreach ($kolom_spp as $element)
                                                                 <option value="{{ $element->id_kolom_spp }}" {!!$value->id_kolom_spp == $element->id_kolom_spp ? 'selected="selected"': ''!!}>{{ $element->nama_kolom_spp }}</option>
                                                                 @endforeach
@@ -189,16 +190,24 @@
                                                         <label class="col-form-label">Nominal Pendapatan</label>
                                                         <div>
                                                             @if ($value->nominal_pendapatan_spp != null && $value->nominal_pendapatan == null)
-                                                            <input type="number" class="form-control nominal-pendapatan" value="{{ $value->nominal_pendapatan_spp }}" nominal-pendapatan-id="{{ $no }}" readonly>
-                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                                    @if ($value->kolom_pendapatan == 'SPP')
+                                                                    <input type="number" class="form-control nominal-pendapatan" value="{{ $value->nominal_pendapatan }}" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                                    @else
+                                                                    <input type="number" class="form-control nominal-pendapatan" value="{{ $value->nominal_pendapatan_spp }}" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                                    @endif
+                                                                <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
                                                             @elseif ($value->nominal_pendapatan != null && $value->nominal_pendapatan_spp == null)
-                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control nominal-pendapatan-input" value="{{ $value->nominal_pendapatan }}" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
-                                                            <input type="number" class="form-control form-hide nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                                <input type="text" name="nominal_pendapatan_input[]" class="form-control nominal-pendapatan-input" value="{{ $value->nominal_pendapatan }}" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                                <input type="number" class="form-control form-hide nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
                                                             @else
-                                                            <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
-                                                            <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
+                                                                <input type="number" class="form-control nominal-pendapatan" nominal-pendapatan-id="{{ $no }}" readonly>
+                                                                <input type="text" name="nominal_pendapatan_input[]" class="form-control form-hide nominal-pendapatan-input" nominal-pendapatan-input-id="{{ $no }}" placeholder="Isi Nominal Pendapatan">
                                                             @endif
-                                                            <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="{{ $no }}">{{ $value->nominal_pendapatan_spp != null ? format_rupiah($value->nominal_pendapatan_spp) : format_rupiah($value->nominal_pendapatan) }}</label>
+                                                            @if ($value->kolom_pendapatan == 'SPP')
+                                                                <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="{{ $no }}">{{ format_rupiah($value->nominal_pendapatan) }}</label>
+                                                            @else
+                                                                <label for="" class="nominal-pendapatan-label" nominal-pendapatan-label-id="{{ $no }}">{{ $value->nominal_pendapatan_spp != null ? format_rupiah($value->nominal_pendapatan_spp) : format_rupiah($value->nominal_pendapatan) }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>

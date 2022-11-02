@@ -246,4 +246,24 @@ $(() => {
         });
         
     })
+
+    $(document).on('change','.kantin',function(){
+        let val           = $(this).val()
+        let attr          = $(this).attr('kantin-id')
+        let bulan_laporan = $('select[name="bulan_laporan"]').val()
+        let tahun_laporan = $('input[name="tahun_laporan"]').val()
+
+        $.ajax({
+            url: `${base_url}/ajax/get-pemasukan-kantin`,
+            data: {id_kantin: val, bulan_laporan: bulan_laporan, tahun_laporan: tahun_laporan},
+        })
+        .done(function(done) {
+            $(`.nominal-rincian-uang-makan[nominal-rincian-uang-makan-id="${attr}"]`).val(done)
+            $(`.nominal-rincian-uang-makan-label[nominal-rincian-uang-makan-id="${attr}"]`).html(rupiah_format(done))
+        })
+        .fail(function(error) {
+            console.log(error)
+        });
+        
+    })
 })

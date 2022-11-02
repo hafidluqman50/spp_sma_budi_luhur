@@ -1007,13 +1007,13 @@ $(() => {
         });
     }).draw();
 
-    var id_rincian_pengeluaran = $('.data-rincian-pengeluaran-detail').attr('id-rincian-pengeluaran')
-    var rincian_pengeluaran_detail = $('.data-rincian-pengeluaran-detail').DataTable({
+    var id_rincian_pengeluaran = $('.data-rincian-pengeluaran-sekolah').attr('id-rincian-pengeluaran')
+    var rincian_pengeluaran_sekolah = $('.data-rincian-pengeluaran-sekolah').DataTable({
         processing:true,
         serverSide:true,
-        ajax:base_url+'/datatables/data-rincian-pengeluaran-detail/'+id_rincian_pengeluaran,
+        ajax:base_url+'/datatables/data-rincian-pengeluaran-sekolah/'+id_rincian_pengeluaran,
         columns:[
-            {data:'id_rincian_pengeluaran_detail',searchable:false,render:function(data,type,row,meta){
+            {data:'id_rincian_pengeluaran_sekolah',searchable:false,render:function(data,type,row,meta){
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'tanggal_rincian',name:'tanggal_rincian'},
@@ -1039,8 +1039,41 @@ $(() => {
         responsive:true,
         fixedColumns: true
     });
-    rincian_pengeluaran_detail.on( 'order.dt search.dt', function () {
-        rincian_pengeluaran_detail.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+    rincian_pengeluaran_sekolah.on( 'order.dt search.dt', function () {
+        rincian_pengeluaran_sekolah.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
+    var id_rincian_pengeluaran__ = $('.data-rincian-pengeluaran-uang-makan').attr('id-rincian-pengeluaran')
+    var rincian_pengeluaran_uang_makan = $('.data-rincian-pengeluaran-uang-makan').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-rincian-pengeluaran-uang-makan/'+id_rincian_pengeluaran__,
+        columns:[
+            {data:'id_rincian_pengeluaran_uang_makan',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'tanggal_rincian',name:'tanggal_rincian'},
+            {data:'uraian_rincian',name:'uraian_rincian'},
+            {data:'nama_kantin',name:'nama_kantin'},
+            {data:'volume_rincian',name:'volume_rincian'},
+            {data:'nominal_rincian',name:'nominal_rincian'},
+            {data:'total_nominal_uraian',name:'total_nominal_uraian'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 1, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_pengeluaran_uang_makan.on( 'order.dt search.dt', function () {
+        rincian_pengeluaran_uang_makan.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         });
     }).draw();

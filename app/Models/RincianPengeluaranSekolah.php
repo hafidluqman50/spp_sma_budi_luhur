@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\UuidInsert;
 
-class RincianPengeluaranDetail extends Model
+class RincianPengeluaranSekolah extends Model
 {
     use HasFactory, UuidInsert;
 
-    protected $table      = 'rincian_pengeluaran_detail';
-    protected $primaryKey = 'id_rincian_pengeluaran_detail';
+    protected $table      = 'rincian_pengeluaran_sekolah';
+    protected $primaryKey = 'id_rincian_pengeluaran_sekolah';
     protected $guarded    = [];
 }

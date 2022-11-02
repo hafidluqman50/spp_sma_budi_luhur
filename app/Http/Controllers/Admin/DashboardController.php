@@ -297,6 +297,34 @@ class DashboardController extends Controller
                             'nominal_bayar' => $val['nominal_bayar'],
                         ];
                         SppBayarDetail::create($data_spp_bayar_detail);
+                        $get_kolom_spp = KolomSpp::where('id_kolom_spp',$val['id_kolom_spp'])->firstOrFail();
+                        if ($get_kolom_spp->slug_kolom_spp == 'uang-makan') {
+                            $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$data_spp_bayar['id_spp_bulan_tahun'])
+                                                        ->firstOrFail()->id_kantin;
+
+                            $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$data_spp_bayar['id_spp_bulan_tahun'])
+                                                                      ->where('id_kantin',$get_kantin->id_kantin)
+                                                                      ->count();
+                            if ($check_pemasukan_kantin > 0) {
+                                $nominal_lama = PemasukanKantin::where('id_spp_bulan_tahun',$data_spp_bayar['id_spp_bulan_tahun'])
+                                                            ->where('id_kantin',$get_kantin->id_kantin)
+                                                            ->firstOrFail()->nominal_pemasukan;
+
+                                $nominal_kalkulasi = $nominal_lama + $val['nominal_bayar'];
+                                $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$data_spp_bayar['id_spp_bulan_tahun'])
+                                                            ->where('id_kantin',$get_kantin->id_kantin)
+                                                            ->update(['nominal_pemasukan' => $nominal_kalkulasi]);
+                            }
+                            else {
+                                $data_pemasukan_kantin = [
+                                    'id_spp_bulan_tahun' => $data_spp_bayar['id_spp_bulan_tahun'],
+                                    'id_kantin'          => $get_kantin->id_kantin,
+                                    'nominal_pemasukan'  => $val['nominal_bayar']
+                                ];
+
+                                $nominal = PemasukanKantin::create($data_pemasukan_kantin);
+                            }
+                        }
                     }
                 }   
             }

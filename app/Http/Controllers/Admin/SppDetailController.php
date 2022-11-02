@@ -80,16 +80,16 @@ class SppDetailController extends Controller
                                         ->firstOrFail()->id_kantin;
 
             $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                      ->where('id_kantin',$spp_detail->id_kantin)
+                                                      ->where('id_kantin',$get_kantin->id_kantin)
                                                       ->count();
             if ($check_pemasukan_kantin > 0) {
                 $nominal_lama = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                            ->where('id_kantin',$spp_detail->id_kantin)
+                                            ->where('id_kantin',$get_kantin->id_kantin)
                                             ->firstOrFail()->nominal_pemasukan;
 
                 $nominal_kalkulasi = $nominal_lama + $bayar_spp;
                 $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                            ->where('id_kantin',$spp_detail->id_kantin)
+                                            ->where('id_kantin',$get_kantin->id_kantin)
                                             ->update(['nominal_pemasukan' => $nominal_kalkulasi]);
             }
             else {
@@ -223,16 +223,16 @@ class SppDetailController extends Controller
                                                 ->firstOrFail()->id_kantin;
 
                     $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                              ->where('id_kantin',$spp_detail->id_kantin)
+                                                              ->where('id_kantin',$get_kantin->id_kantin)
                                                               ->count();
                     if ($check_pemasukan_kantin > 0) {
                         $nominal_lama = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                    ->where('id_kantin',$spp_detail->id_kantin)
+                                                    ->where('id_kantin',$get_kantin->id_kantin)
                                                     ->firstOrFail()->nominal_pemasukan;
 
                         $nominal_kalkulasi = $nominal_lama + $bayar_spp;
                         $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                    ->where('id_kantin',$spp_detail->id_kantin)
+                                                    ->where('id_kantin',$get_kantin->id_kantin)
                                                     ->update(['nominal_pemasukan' => $nominal_kalkulasi]);
                     }
                     else {

@@ -16,7 +16,8 @@ use App\Models\Spp;
 use App\Models\SppBulanTahun;
 use App\Models\SppDetail;
 use App\Models\RincianPengeluaran;
-use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPengeluaranSekolah;
+use App\Models\RincianPengeluaranUangMakan;
 use App\Models\RincianPembelanjaan;
 use App\Models\RincianPengajuan;
 use App\Models\SppBayarData;
@@ -781,14 +782,29 @@ class LaporanController extends Controller
                                         ->where('bulan_pengajuan',$bulan_pengajuan)
                                         ->where('tahun_pengajuan',$tahun_pengajuan)
                                         ->firstOrFail()->saldo_awal;
-
-        $get_rincian_detail = RincianPengeluaranDetail::leftJoin('rincian_pengeluaran','rincian_pengeluaran_detail.id_rincian_pengeluaran','=','rincian_pengeluaran.id_rincian_pengeluaran')
-                                                    ->leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+        $get_rincian_pendapatan_spp = RincianPengeluaranSekolah::leftJoin('rincian_pengeluaran','rincian_pengeluaran_sekolah.id_rincian_pengeluaran','=','rincian_pengeluaran.id_rincian_pengeluaran')
+                                                    ->leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                                                     ->where('bulan_laporan',$bulan_laporan)
                                                     ->where('tahun_laporan',$tahun_laporan)
                                                     ->where('bulan_pengajuan',$bulan_pengajuan)
                                                     ->where('tahun_pengajuan',$tahun_pengajuan)
+                                                    ->where('kolom_pendapatan','SPP')
+                                                    ->firstOrFail();
+
+        $get_rincian_detail = RincianPengeluaranSekolah::leftJoin('rincian_pengeluaran','rincian_pengeluaran_sekolah.id_rincian_pengeluaran','=','rincian_pengeluaran.id_rincian_pengeluaran')
+                                                    ->leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                    ->where('bulan_laporan',$bulan_laporan)
+                                                    ->where('tahun_laporan',$tahun_laporan)
+                                                    ->where('bulan_pengajuan',$bulan_pengajuan)
+                                                    ->where('tahun_pengajuan',$tahun_pengajuan)
+                                                    // ->where('kolom_pendapatan','!=','SPP')
                                                     ->get();
+
+        $penerimaan_uang_makan = RincianPengeluaran::where('bulan_laporan',$bulan_laporan)
+                                                    ->where('tahun_laporan',$tahun_laporan)
+                                                    ->where('bulan_pengajuan',$bulan_pengajuan)
+                                                    ->where('tahun_pengajuan',$tahun_pengajuan)
+                                                    ->firstOrFail()->pemasukan_uang_makan;
 
         $akumulasi_uang_makan = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                                             ->whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
@@ -811,79 +827,158 @@ class LaporanController extends Controller
 
         $spreadsheet->setActiveSheetIndex(2);
         $spreadsheet->getActiveSheet()->setCellValue('A1','SALDO AWAL');
-        $spreadsheet->getActiveSheet()->setCellValue('E1',$saldo_awal);
-        $spreadsheet->getActiveSheet()->setCellValue('A2','PENGELUARAN');
-        $spreadsheet->getActiveSheet()->setCellValue('F2','Akumulasi Uang Makan');
-        $spreadsheet->getActiveSheet()->setCellValue('G2',$akumulasi_uang_makan);
+        $spreadsheet->getActiveSheet()->setCellValue('F1',$saldo_awal);
+        // $spreadsheet->getActiveSheet()->setCellValue('A2','PENGELUARAN');
+        // $spreadsheet->getActiveSheet()->setCellValue('F2','Akumulasi Uang Makan');
+        // $spreadsheet->getActiveSheet()->setCellValue('G2',$akumulasi_uang_makan);
         $spreadsheet->getActiveSheet()->setCellValue('A3','Tgl');
         $spreadsheet->getActiveSheet()->setCellValue('B3','Uraian');
-        $spreadsheet->getActiveSheet()->setCellValue('E3','Nominal');
-        $spreadsheet->getActiveSheet()->setCellValue('F3','PENDAPATAN');
-        $spreadsheet->getActiveSheet()->setCellValue('G3','Nominal');
-        $spreadsheet->getActiveSheet()->setCellValue('H3','RAB');
-        $spreadsheet->getActiveSheet()->setCellValue('K3','Nominal');
+        $spreadsheet->getActiveSheet()->setCellValue('F3','Nominal');
+        $spreadsheet->getActiveSheet()->setCellValue('G3','PENDAPATAN');
+        $spreadsheet->getActiveSheet()->setCellValue('H3','Nominal');
+        // $spreadsheet->getActiveSheet()->setCellValue('I3','RAB');
+        $spreadsheet->getActiveSheet()->setCellValue('L3','Nominal');
 
-        $cell_no             = 4;
+        $cell_no             = 5;
         $sheet_4_data[]      = [];
         $sheet_4_pengajuan[] = [];
 
-        foreach ($get_rincian_detail as $key => $value) {
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_no,date_excel($value->tanggal_rincian));
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_no,$value->uraian_rincian);
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_no,$value->volume_rincian);
-            $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_no,$value->nominal_rincian);
-            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_no,$value->volume_rincian * $value->nominal_rincian);
-            if ($value->kolom_pendapatan != '') {
-                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->nama_kolom_spp);
-                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan_spp);
-            }
-            else {
-                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->kolom_pendapatan);
-                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nominal_pendapatan);   
-            }
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_no,$value->uraian_rab);
-            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_no,$value->volume_rab);
-            $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_no,$value->nominal_rab);
-            $spreadsheet->getActiveSheet()->setCellValue('K'.$cell_no,$value->volume_rab * $value->nominal_rab);
+        $spreadsheet->getActiveSheet()->setCellValue('A4',date_excel($get_rincian_pendapatan_spp->tanggal_rincian));
+        $spreadsheet->getActiveSheet()->setCellValue('B4',$get_rincian_pendapatan_spp->uraian_rincian);
+        $spreadsheet->getActiveSheet()->setCellValue('C4',$get_rincian_pendapatan_spp->volume_rincian);
+        $spreadsheet->getActiveSheet()->setCellValue('D4',$get_rincian_pendapatan_spp->ket_volume_rincian);
+        $spreadsheet->getActiveSheet()->setCellValue('E4',$get_rincian_pendapatan_spp->nominal_rincian);
+        $spreadsheet->getActiveSheet()->setCellValue('F4',$get_rincian_pendapatan_spp->volume_rincian * $get_rincian_pendapatan_spp->nominal_rincian);
+        $spreadsheet->getActiveSheet()->setCellValue('G4',$get_rincian_pendapatan_spp->kolom_pendapatan);
+        $spreadsheet->getActiveSheet()->setCellValue('H4',$get_rincian_pendapatan_spp->nominal_pendapatan);
+        $spreadsheet->getActiveSheet()->setCellValue('I4',$get_rincian_pendapatan_spp->uraian_rab);
+        $spreadsheet->getActiveSheet()->setCellValue('J4',$get_rincian_pendapatan_spp->volume_rab);
+        $spreadsheet->getActiveSheet()->setCellValue('K4',$get_rincian_pendapatan_spp->ket_volume_rab);
+        $spreadsheet->getActiveSheet()->setCellValue('L4',$get_rincian_pendapatan_spp->nominal_rab);
+        $spreadsheet->getActiveSheet()->setCellValue('M4',$get_rincian_pendapatan_spp->volume_rab * $get_rincian_pendapatan_spp->nominal_rab);
 
-            $sheet_4_data[$value->id_rincian_pengeluaran_detail] = [
-                'tanggal_rincian' => '=Sheet4!A'.$cell_no,
-                'uraian_rincian'  => '=Sheet4!B'.$cell_no,
-                'volume_rincian'  => '=Sheet4!C'.$cell_no,
-                'nominal_rincian' => '=Sheet4!D'.$cell_no
+        $sheet_4_data[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_detail] = [
+            'tanggal_rincian'    => '=Sheet4!A4',
+            'uraian_rincian'     => '=Sheet4!B4',
+            'volume_rincian'     => '=Sheet4!C4',
+            'ket_volume_rincian' => '=Sheet4!D4',
+            'nominal_rincian'    => '=Sheet4!E4'
+        ];
+        if ($get_rincian_pendapatan_spp->uraian_rab != '') {
+            $sheet_4_pengajuan[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_detail] = [
+                'tanggal_rincian' => '=Sheet4!A4',
+                'uraian_rab'      => '=Sheet4!I4',
+                'volume_rab'      => '=Sheet4!J4',
+                'ket_volume_rab'  => '=Sheet4!K4',
+                'nominal_rab'     => '=Sheet4!L4'
             ];
-            if ($value->uraian_rab != '') {
-                $sheet_4_pengajuan[$value->id_rincian_pengeluaran_detail] = [
-                    'tanggal_rincian' => '=Sheet4!A'.$cell_no,
-                    'uraian_rab'      => '=Sheet4!H'.$cell_no,
-                    'volume_rab'      => '=Sheet4!I'.$cell_no,
-                    'nominal_rab'     => '=Sheet4!J'.$cell_no
-                ];
-            }
-            $cell_no++;
         }
-        $cell_total       = $cell_no+1;
+
+        foreach ($get_rincian_detail as $key => $value) {
+            if ($value->kolom_pendapatan != 'SPP') {
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_no,date_excel($value->tanggal_rincian));
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_no,$value->uraian_rincian);
+                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_no,$value->volume_rincian);
+                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_no,$value->ket_volume_rincian);
+                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_no,$value->nominal_rincian);
+                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_no,$value->volume_rincian * $value->nominal_rincian);
+                if ($value->kolom_pendapatan == '') {
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->nama_kolom_spp);
+                    $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_no,$value->nominal_pendapatan_spp);
+                }
+                else {
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_no,$value->kolom_pendapatan);
+                    $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_no,$value->nominal_pendapatan);   
+                }
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_no,$value->uraian_rab);
+                $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_no,$value->volume_rab);
+                $spreadsheet->getActiveSheet()->setCellValue('K'.$cell_no,$value->ket_volume_rab);
+                $spreadsheet->getActiveSheet()->setCellValue('L'.$cell_no,$value->nominal_rab);
+                $spreadsheet->getActiveSheet()->setCellValue('M'.$cell_no,$value->volume_rab * $value->nominal_rab);
+
+                $sheet_4_data[$value->id_rincian_pengeluaran_detail] = [
+                    'tanggal_rincian'    => '=Sheet4!A'.$cell_no,
+                    'uraian_rincian'     => '=Sheet4!B'.$cell_no,
+                    'volume_rincian'     => '=Sheet4!C'.$cell_no,
+                    'ket_volume_rincian' => '=Sheet4!D'.$cell_no,
+                    'nominal_rincian'    => '=Sheet4!E'.$cell_no
+                ];
+                if ($value->uraian_rab != '') {
+                    $sheet_4_pengajuan[$value->id_rincian_pengeluaran_detail] = [
+                        'tanggal_rincian' => '=Sheet4!A4'.$cell_no,
+                        'uraian_rab'      => '=Sheet4!I4'.$cell_no,
+                        'volume_rab'      => '=Sheet4!J4'.$cell_no,
+                        'ket_volume_rab'  => '=Sheet4!K4'.$cell_no,
+                        'nominal_rab'     => '=Sheet4!L4'.$cell_no
+                    ];
+                }
+                $cell_no++;
+            }
+        }
+        $cell_total       = $cell_no;
         $cell_grand_total = $cell_total+1;
 
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_total,'Total');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_total,'=SUM(E4:E'.$cell_total.')');
-        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_total,'Total');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_total,'=SUM(G4:G'.$cell_total.')');
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_total,'TOTAL PENGELUARAN SEKOLAH');
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_total,'=SUM(F4:F'.$cell_total.')');
+        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_total,'TOTAL PEMASUKAN');
+        $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_total,'=SUM(H4:H'.$cell_total.')');
+        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_total,'TOTAL RAB');
+        $spreadsheet->getActiveSheet()->setCellValue('M'.$cell_total,'=SUM(M4:M'.$cell_total.')');
 
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_grand_total,'Sisa Uang');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_grand_total,'=E1-E'.$cell_total);
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_grand_total,'=G'.$cell_total.'+E'.$cell_grand_total);
+        // $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_grand_total,'Sisa Uang');
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_grand_total,'=F1-F'.$cell_total);
+        // $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_grand_total,'=G'.$cell_total.'+E'.$cell_grand_total);
 
         $spreadsheet->getActiveSheet()->getStyle('E1:G2')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->getStyle('D4:D'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
         $spreadsheet->getActiveSheet()->getStyle('E4:E'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->getStyle('G4:G'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->getStyle('J4:J'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->getStyle('K4:K'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('F4:F'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('H4:H'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('L4:L'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->getStyle('M4:M'.$cell_grand_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
         
         $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A3:K'.$cell_no)->applyFromArray($styleTable);
-        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_total.':G'.$cell_grand_total)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('A3:M'.$cell_no)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_total.':M'.$cell_total)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_grand_total.':F'.$cell_grand_total)->applyFromArray($styleTable);
+
+        $cell_pemasukan_uang_makan = $cell_grand_total+1;
+
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pemasukan_uang_makan,'Penerimaan Uang Makan');
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pemasukan_uang_makan,$penerimaan_uang_makan);
+
+        $cell_setor_uang_makan_awal = $cell_pemasukan_uang_makan+1;
+        $cell_setor_uang_makan      = $cell_pemasukan_uang_makan+1;
+
+        $setor_uang_makan = RincianPengeluaranUangMakan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->get();
+        foreach ($setor_uang_makan as $index => $val) {
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_setor_uang_makan,date_excel($val->tanggal_rincian));
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_setor_uang_makan,$val->uraian_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_setor_uang_makan,$val->volume_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_setor_uang_makan,$val->ket_volume_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_setor_uang_makan,$val->nominal_rincian);
+            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_setor_uang_makan,$val->volume_rincian * $val->nominal_rincian);
+
+            $sheet_4_data[$val->id_rincian_pengeluaran_detail] = [
+                'tanggal_rincian'    => '=Sheet4!A'.$cell_setor_uang_makan,
+                'uraian_rincian'     => '=Sheet4!B'.$cell_setor_uang_makan,
+                'volume_rincian'     => '=Sheet4!C'.$cell_setor_uang_makan,
+                'ket_volume_rincian' => '=Sheet4!D'.$cell_setor_uang_makan,
+                'nominal_rincian'    => '=Sheet4!E'.$cell_setor_uang_makan
+            ];
+            $cell_setor_uang_makan++;
+        }
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_setor_uang_makan,'TOTAL PENGELUARAN UANG MAKAN');
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_setor_uang_makan,"=SUM(E$cell_setor_uang_makan_awal:E$cell_setor_uang_makan)");
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_setor_uang_makan,"=SUM(F$cell_setor_uang_makan_awal:F$cell_setor_uang_makan)");
+
+        $cell_sisa_uang = $cell_setor_uang_makan+1;
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sisa_uang,'Sisa Uang');
+        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sisa_uang,"=F$cell_pemasukan_uang_makan-F$cell_setor_uang_makan");
+
+        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_pemasukan_uang_makan.':F'.$cell_sisa_uang)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        
+        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+        $spreadsheet->getActiveSheet()->getStyle('A'.$cell_pemasukan_uang_makan.':F'.$cell_sisa_uang)->applyFromArray($styleTable);
 
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -893,67 +988,43 @@ class LaporanController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(3);
-        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(3);
         $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
 
         $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
-        $spreadsheet->setActiveSheetIndex(1);
-        $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
-        $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
-        $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
-        $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
-        $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
-        $spreadsheet->getActiveSheet()->setCellValue('B14','Tgl');
-        $spreadsheet->getActiveSheet()->setCellValue('C14','Uraian');
-        $spreadsheet->getActiveSheet()->setCellValue('D14','Biaya Satuan');
-        $spreadsheet->getActiveSheet()->setCellValue('D15','Volume');
-        $spreadsheet->getActiveSheet()->mergeCells('D15:E15');
-        $spreadsheet->getActiveSheet()->setCellValue('F15','Harga');
-        $spreadsheet->getActiveSheet()->mergeCells('F15:G15');
-        $spreadsheet->getActiveSheet()->mergeCells('D14:G14');
-        $spreadsheet->getActiveSheet()->setCellValue('H14','MASUK');
-        $spreadsheet->getActiveSheet()->setCellValue('I14','KELUAR');
-        $spreadsheet->getActiveSheet()->setCellValue('J14','Keterangan Saldo');
-        $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
-        $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
-        $spreadsheet->getActiveSheet()->mergeCells('C14:C15');
-        $spreadsheet->getActiveSheet()->mergeCells('H14:H15');
-        $spreadsheet->getActiveSheet()->mergeCells('I14:I15');
-        $spreadsheet->getActiveSheet()->mergeCells('J14:J15');
-        $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
-        $spreadsheet->getActiveSheet()->mergeCells('A10:J10');
-        $spreadsheet->getActiveSheet()->mergeCells('A11:J11');
-
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle('A9:J15')->applyFromArray($styleArray);
-
-        $kategori_pembelanjaan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                                    ->where('jenis_rincian_pembelanjaan','operasional')
-                                                    ->groupBy('kategori_rincian_pembelanjaan')
-                                                    ->get();
-        $spreadsheet->getActiveSheet()->setCellValue('C16','Bon Ke Yayasan');
-        $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!E1');
-        $cell_pembelanjaan  = 17;
-        $cell_awal          = 0;
-        $jumlah_uang_keluar = '';
-
-        foreach ($kategori_pembelanjaan as $key => $value) {
-            $no = $key+1;
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,$no.'.');
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$value->kategori_rincian_pembelanjaan);
-            $pembelanjaan = RincianPembelanjaan::where('kategori_rincian_pembelanjaan',$value->kategori_rincian_pembelanjaan)
-                                                ->get();
-            $spreadsheet->getActiveSheet()->mergeCells("B$cell_pembelanjaan:C$cell_pembelanjaan");
+        // SHEET RINCIAN PEMBELANJAAN //
+        $check_pembelanjaan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('jenis_rincian_pembelanjaan','operasional')->count();
+        if ($check_pembelanjaan != 0) {
+            $spreadsheet->setActiveSheetIndex(1);
+            $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
+            $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
+            $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
+            $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
+            $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
+            $spreadsheet->getActiveSheet()->setCellValue('B14','Tgl');
+            $spreadsheet->getActiveSheet()->setCellValue('C14','Uraian');
+            $spreadsheet->getActiveSheet()->setCellValue('D14','Biaya Satuan');
+            $spreadsheet->getActiveSheet()->setCellValue('D15','Volume');
+            $spreadsheet->getActiveSheet()->mergeCells('D15:E15');
+            $spreadsheet->getActiveSheet()->setCellValue('F15','Harga');
+            $spreadsheet->getActiveSheet()->mergeCells('F15:G15');
+            $spreadsheet->getActiveSheet()->mergeCells('D14:G14');
+            $spreadsheet->getActiveSheet()->setCellValue('H14','MASUK');
+            $spreadsheet->getActiveSheet()->setCellValue('I14','KELUAR');
+            $spreadsheet->getActiveSheet()->setCellValue('J14','Keterangan Saldo');
+            $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
+            $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
+            $spreadsheet->getActiveSheet()->mergeCells('C14:C15');
+            $spreadsheet->getActiveSheet()->mergeCells('H14:H15');
+            $spreadsheet->getActiveSheet()->mergeCells('I14:I15');
+            $spreadsheet->getActiveSheet()->mergeCells('J14:J15');
+            $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
+            $spreadsheet->getActiveSheet()->mergeCells('A10:J10');
+            $spreadsheet->getActiveSheet()->mergeCells('A11:J11');
 
             $styleArray = ['font'  => [
                         'bold'  => true,
@@ -964,136 +1035,93 @@ class LaporanController extends Controller
                     ]
                 ];
 
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan")->applyFromArray($styleArray);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:B$cell_pembelanjaan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:B$cell_pembelanjaan")->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A9:J15')->applyFromArray($styleArray);
 
-            $cell_pembelanjaan++;
-            $cell_awal       = $cell_pembelanjaan;
-            $jumlah_kategori = 0;
+            $kategori_pembelanjaan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                                        ->where('jenis_rincian_pembelanjaan','operasional')
+                                                        ->groupBy('kategori_rincian_pembelanjaan')
+                                                        ->get();
+            $spreadsheet->getActiveSheet()->setCellValue('C16','Bon Ke Yayasan');
+            $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!E1');
+            $cell_pembelanjaan  = 17;
+            $cell_awal          = 0;
+            $jumlah_uang_keluar = '';
 
-            foreach ($pembelanjaan as $j => $val) {
-                $no__ = $j+1;
-                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,$no__);
-                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan,'x');
-                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=D$cell_pembelanjaan*G$cell_pembelanjaan");
-                $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,$val->keterangan_pembelanjaan);
-                $jumlah_kategori = $jumlah_kategori+1;
+            foreach ($kategori_pembelanjaan as $key => $value) {
+                $no = $key+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,$no.'.');
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$value->kategori_rincian_pembelanjaan);
+                $pembelanjaan = RincianPembelanjaan::where('kategori_rincian_pembelanjaan',$value->kategori_rincian_pembelanjaan)
+                                                    ->get();
+                $spreadsheet->getActiveSheet()->mergeCells("B$cell_pembelanjaan:C$cell_pembelanjaan");
+
+                $styleArray = ['font'  => [
+                            'bold'  => true,
+                        ],
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        ]
+                    ];
+
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan")->applyFromArray($styleArray);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:B$cell_pembelanjaan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:B$cell_pembelanjaan")->getFont()->setBold(true);
+
+                $cell_pembelanjaan++;
+                $cell_awal       = $cell_pembelanjaan;
+                $jumlah_kategori = 0;
+
+                foreach ($pembelanjaan as $j => $val) {
+                    $no__ = $j+1;
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,$no__);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan,'x');
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=D$cell_pembelanjaan*G$cell_pembelanjaan");
+                    $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,$val->keterangan_pembelanjaan);
+                    $jumlah_kategori = $jumlah_kategori+1;
+                    $cell_pembelanjaan++;
+                }
+                $cell_pembelanjaan++;
+                
+                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,'Jumlah - '.$jumlah_kategori);
+                $spreadsheet->getActiveSheet()->getStyle('C'.$cell_pembelanjaan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=SUM(I$cell_awal:I$cell_pembelanjaan)");
+                if ($jumlah_uang_keluar == '') {
+                    $jumlah_uang_keluar = "=I$cell_pembelanjaan";
+                }
+                else {
+                    $jumlah_uang_keluar.="+I$cell_pembelanjaan";
+                }
+                $jumlah_kategori = 0;
+
                 $cell_pembelanjaan++;
             }
             $cell_pembelanjaan++;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,'Total');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_pembelanjaan:G$cell_pembelanjaan");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan,'=H16');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,$jumlah_uang_keluar);
+            $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,"=H$cell_pembelanjaan-I$cell_pembelanjaan");
+            $spreadsheet->getActiveSheet()->getStyle('G16:J'.$cell_pembelanjaan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
             
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,'Jumlah - '.$jumlah_kategori);
-            $spreadsheet->getActiveSheet()->getStyle('C'.$cell_pembelanjaan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A14:J'.$cell_pembelanjaan)->applyFromArray($styleTable);
 
-            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=SUM(I$cell_awal:I$cell_pembelanjaan)");
-            if ($jumlah_uang_keluar == '') {
-                $jumlah_uang_keluar = "=I$cell_pembelanjaan";
-            }
-            else {
-                $jumlah_uang_keluar.="+I$cell_pembelanjaan";
-            }
-            $jumlah_kategori = 0;
-
-            $cell_pembelanjaan++;
-        }
-        $cell_pembelanjaan++;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,'Total');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_pembelanjaan:G$cell_pembelanjaan");
-        $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan,'=H16');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,$jumlah_uang_keluar);
-        $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,"=H$cell_pembelanjaan-I$cell_pembelanjaan");
-        $spreadsheet->getActiveSheet()->getStyle('G16:J'.$cell_pembelanjaan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A14:J'.$cell_pembelanjaan)->applyFromArray($styleTable);
-
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(7);
-        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(2);
-        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(2);
-        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
-
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:G$cell_pembelanjaan")->applyFromArray($styleArray);
-        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
-
-        $spreadsheet->setActiveSheetIndex(0);
-        $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
-        $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
-        $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
-        $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
-        $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
-        $spreadsheet->getActiveSheet()->setCellValue('B14','Tgl');
-        $spreadsheet->getActiveSheet()->setCellValue('C14','Uraian');
-        $spreadsheet->getActiveSheet()->setCellValue('D14','Biaya Satuan');
-        $spreadsheet->getActiveSheet()->setCellValue('D15','Volume');
-        $spreadsheet->getActiveSheet()->mergeCells('D15:E15');
-        $spreadsheet->getActiveSheet()->setCellValue('F15','Harga');
-        $spreadsheet->getActiveSheet()->mergeCells('F15:G15');
-        $spreadsheet->getActiveSheet()->mergeCells('D14:G14');
-        $spreadsheet->getActiveSheet()->setCellValue('H14','MASUK');
-        $spreadsheet->getActiveSheet()->setCellValue('I14','KELUAR');
-        $spreadsheet->getActiveSheet()->setCellValue('J14','Keterangan Saldo');
-        $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
-        $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
-        $spreadsheet->getActiveSheet()->mergeCells('C14:C15');
-        $spreadsheet->getActiveSheet()->mergeCells('H14:H15');
-        $spreadsheet->getActiveSheet()->mergeCells('I14:I15');
-        $spreadsheet->getActiveSheet()->mergeCells('J14:J15');
-        $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
-        $spreadsheet->getActiveSheet()->mergeCells('A10:J10');
-        $spreadsheet->getActiveSheet()->mergeCells('A11:J11');
-
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle('A9:J15')->applyFromArray($styleArray);
-
-        $kategori_pembelanjaan_uang_makan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                                    ->where('jenis_rincian_pembelanjaan','uang-makan')
-                                                    ->groupBy('kategori_rincian_pembelanjaan')
-                                                    ->get();
-        $tanggal_setor_dapur = RincianPengeluaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->tanggal_setor_dapur;
-
-        $spreadsheet->getActiveSheet()->setCellValue('B16',date_excel($tanggal_setor_dapur));
-        $spreadsheet->getActiveSheet()->setCellValue('C16','Pemasukan Uang Makan');
-        $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!G2');
-        $spreadsheet->getActiveSheet()->getStyle('B16')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $cell_pembelanjaan_uang_makan  = 17;
-        $cell_awal_uang_makan          = 0;
-        $jumlah_uang_keluar_uang_makan = '';
-
-        foreach ($kategori_pembelanjaan_uang_makan as $key => $value) {
-            $no = $key+1;
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,$no.'.');
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$value->kategori_rincian_pembelanjaan);
-            $pembelanjaan = RincianPembelanjaan::where('kategori_rincian_pembelanjaan',$value->kategori_rincian_pembelanjaan)
-                                                ->get();
-            $spreadsheet->getActiveSheet()->mergeCells("B$cell_pembelanjaan_uang_makan:C$cell_pembelanjaan_uang_makan");
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(7);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
 
             $styleArray = ['font'  => [
                         'bold'  => true,
@@ -1104,128 +1132,141 @@ class LaporanController extends Controller
                     ]
                 ];
 
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan")->applyFromArray($styleArray);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:B$cell_pembelanjaan_uang_makan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:B$cell_pembelanjaan_uang_makan")->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:G$cell_pembelanjaan")->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        }
+        // END SHEET RINCIAN PEMBELANJAAN //
 
-            $cell_pembelanjaan_uang_makan++;
-            $cell_awal_uang_makan       = $cell_pembelanjaan_uang_makan;
-            $jumlah_kategori = 0;
+        // SHEET PEMBELANJAAN UANG MAKAN //
+        $check_pembelanjaan_uang_makan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('jenis_rincian_pembelanjaan','operasional')->count();
+        if ($check_pembelanjaan_uang_makan != 0) {
+            $spreadsheet->setActiveSheetIndex(0);
+            $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
+            $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
+            $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
+            $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
+            $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
+            $spreadsheet->getActiveSheet()->setCellValue('B14','Tgl');
+            $spreadsheet->getActiveSheet()->setCellValue('C14','Uraian');
+            $spreadsheet->getActiveSheet()->setCellValue('D14','Biaya Satuan');
+            $spreadsheet->getActiveSheet()->setCellValue('D15','Volume');
+            $spreadsheet->getActiveSheet()->mergeCells('D15:E15');
+            $spreadsheet->getActiveSheet()->setCellValue('F15','Harga');
+            $spreadsheet->getActiveSheet()->mergeCells('F15:G15');
+            $spreadsheet->getActiveSheet()->mergeCells('D14:G14');
+            $spreadsheet->getActiveSheet()->setCellValue('H14','MASUK');
+            $spreadsheet->getActiveSheet()->setCellValue('I14','KELUAR');
+            $spreadsheet->getActiveSheet()->setCellValue('J14','Keterangan Saldo');
+            $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
+            $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
+            $spreadsheet->getActiveSheet()->mergeCells('C14:C15');
+            $spreadsheet->getActiveSheet()->mergeCells('H14:H15');
+            $spreadsheet->getActiveSheet()->mergeCells('I14:I15');
+            $spreadsheet->getActiveSheet()->mergeCells('J14:J15');
+            $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
+            $spreadsheet->getActiveSheet()->mergeCells('A10:J10');
+            $spreadsheet->getActiveSheet()->mergeCells('A11:J11');
 
-            foreach ($pembelanjaan as $j => $val) {
-                $no__ = $j+1;
-                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,$no__);
-                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan_uang_makan,'x');
-                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
-                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,"=D$cell_pembelanjaan_uang_makan*G$cell_pembelanjaan_uang_makan");
-                $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,$val->keterangan_pembelanjaan);
-                $jumlah_kategori = $jumlah_kategori+1;
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A9:J15')->applyFromArray($styleArray);
+
+            $kategori_pembelanjaan_uang_makan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                                        ->where('jenis_rincian_pembelanjaan','uang-makan')
+                                                        ->groupBy('kategori_rincian_pembelanjaan')
+                                                        ->get();
+            $tanggal_setor_dapur = RincianPengeluaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->tanggal_setor_dapur;
+
+            $spreadsheet->getActiveSheet()->setCellValue('B16',date_excel($tanggal_setor_dapur));
+            $spreadsheet->getActiveSheet()->setCellValue('C16','Pemasukan Uang Makan');
+            $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!G2');
+            $spreadsheet->getActiveSheet()->getStyle('B16')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $cell_pembelanjaan_uang_makan  = 17;
+            $cell_awal_uang_makan          = 0;
+            $jumlah_uang_keluar_uang_makan = '';
+
+            foreach ($kategori_pembelanjaan_uang_makan as $key => $value) {
+                $no = $key+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,$no.'.');
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$value->kategori_rincian_pembelanjaan);
+                $pembelanjaan = RincianPembelanjaan::where('kategori_rincian_pembelanjaan',$value->kategori_rincian_pembelanjaan)
+                                                    ->get();
+                $spreadsheet->getActiveSheet()->mergeCells("B$cell_pembelanjaan_uang_makan:C$cell_pembelanjaan_uang_makan");
+
+                $styleArray = ['font'  => [
+                            'bold'  => true,
+                        ],
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        ]
+                    ];
+
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan")->applyFromArray($styleArray);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:B$cell_pembelanjaan_uang_makan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:B$cell_pembelanjaan_uang_makan")->getFont()->setBold(true);
+
+                $cell_pembelanjaan_uang_makan++;
+                $cell_awal_uang_makan       = $cell_pembelanjaan_uang_makan;
+                $jumlah_kategori = 0;
+
+                foreach ($pembelanjaan as $j => $val) {
+                    $no__ = $j+1;
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,$no__);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan_uang_makan,'x');
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,"=D$cell_pembelanjaan_uang_makan*G$cell_pembelanjaan_uang_makan");
+                    $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,$val->keterangan_pembelanjaan);
+                    $jumlah_kategori = $jumlah_kategori+1;
+                    $cell_pembelanjaan_uang_makan++;
+                }
+                $cell_pembelanjaan_uang_makan++;
+                
+                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan_uang_makan,'Jumlah - '.$jumlah_kategori);
+                $spreadsheet->getActiveSheet()->getStyle('C'.$cell_pembelanjaan_uang_makan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,"=SUM(I$cell_awal_uang_makan:I$cell_pembelanjaan_uang_makan)");
+                if ($jumlah_uang_keluar_uang_makan == '') {
+                    $jumlah_uang_keluar_uang_makan = "=I$cell_pembelanjaan_uang_makan";
+                }
+                else {
+                    $jumlah_uang_keluar_uang_makan.="+I$cell_pembelanjaan_uang_makan";
+                }
+                $jumlah_kategori = 0;
+                
                 $cell_pembelanjaan_uang_makan++;
             }
             $cell_pembelanjaan_uang_makan++;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,'Total');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_pembelanjaan_uang_makan:G$cell_pembelanjaan_uang_makan");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan_uang_makan,'=H16');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,$jumlah_uang_keluar_uang_makan);
+            $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,"=H$cell_pembelanjaan_uang_makan-I$cell_pembelanjaan_uang_makan");
+            $spreadsheet->getActiveSheet()->getStyle('G16:J'.$cell_pembelanjaan_uang_makan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
             
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan_uang_makan,'Jumlah - '.$jumlah_kategori);
-            $spreadsheet->getActiveSheet()->getStyle('C'.$cell_pembelanjaan_uang_makan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A14:J'.$cell_pembelanjaan_uang_makan)->applyFromArray($styleTable);
 
-            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,"=SUM(I$cell_awal_uang_makan:I$cell_pembelanjaan_uang_makan)");
-            if ($jumlah_uang_keluar_uang_makan == '') {
-                $jumlah_uang_keluar_uang_makan = "=I$cell_pembelanjaan_uang_makan";
-            }
-            else {
-                $jumlah_uang_keluar_uang_makan.="+I$cell_pembelanjaan_uang_makan";
-            }
-            $jumlah_kategori = 0;
-            
-            $cell_pembelanjaan_uang_makan++;
-        }
-        $cell_pembelanjaan_uang_makan++;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,'Total');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_pembelanjaan_uang_makan:G$cell_pembelanjaan_uang_makan");
-        $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan_uang_makan,'=H16');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan_uang_makan,$jumlah_uang_keluar_uang_makan);
-        $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,"=H$cell_pembelanjaan_uang_makan-I$cell_pembelanjaan_uang_makan");
-        $spreadsheet->getActiveSheet()->getStyle('G16:J'.$cell_pembelanjaan_uang_makan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A14:J'.$cell_pembelanjaan_uang_makan)->applyFromArray($styleTable);
-
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(7);
-        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(2);
-        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(2);
-        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
-
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:G$cell_pembelanjaan_uang_makan")->applyFromArray($styleArray);
-        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
-
-        $spreadsheet->setActiveSheetIndex(4);
-        $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
-        $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
-        $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
-        $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
-        $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
-        $spreadsheet->getActiveSheet()->setCellValue('B14','Uraian');
-        $spreadsheet->getActiveSheet()->setCellValue('C14','Biaya Satuan');
-        $spreadsheet->getActiveSheet()->setCellValue('C15','Volume');
-        $spreadsheet->getActiveSheet()->setCellValue('D15','Harga');
-        $spreadsheet->getActiveSheet()->mergeCells('C14:D14');
-        $spreadsheet->getActiveSheet()->setCellValue('E14','Nominal');
-        $spreadsheet->getActiveSheet()->setCellValue('F14','Total');
-        $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
-        $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
-        $spreadsheet->getActiveSheet()->mergeCells('E14:E15');
-        $spreadsheet->getActiveSheet()->mergeCells('F14:F15');
-        $spreadsheet->getActiveSheet()->mergeCells('A9:F9');
-        $spreadsheet->getActiveSheet()->mergeCells('A10:F10');
-        $spreadsheet->getActiveSheet()->mergeCells('A11:F11');
-
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle('A9:F15')->applyFromArray($styleArray);
-
-        $kategori_pengajuan = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                                    ->groupBy('kategori_rincian_pengajuan')
-                                                    ->get();
-        $spreadsheet->getActiveSheet()->setCellValue('B16','BELANJA / PENGELUARAN');
-
-        // $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!E1');
-        $cell_pengajuan           = 17;
-        $cell_awal                = 0;
-        $jumlah_total_belanja     = '';
-        $rincian_pengajuan_data[] = [];
-
-        foreach ($kategori_pengajuan as $key => $value) {
-            $no = $key+1;
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengajuan,$no.'.');
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$value->kategori_rincian_pengajuan);
-            $rincian_pengajuan_data[$value->kategori_rincian_pengajuan ] = ['nama_kategori' => "='RINCIAN PENGAJUAN'!B$cell_pengajuan",'jumlah' => ''];
-            $pengajuan = RincianPengajuan::where('kategori_rincian_pengajuan',$value->kategori_rincian_pengajuan)
-                                                ->get();
-            // $spreadsheet->getActiveSheet()->mergeCells("B$cell_pengajuan:C$cell_pengajuan");
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(7);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
 
             $styleArray = ['font'  => [
                         'bold'  => true,
@@ -1236,449 +1277,536 @@ class LaporanController extends Controller
                     ]
                 ];
 
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan")->applyFromArray($styleArray);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:B$cell_pengajuan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
-            $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:B$cell_pengajuan")->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan_uang_makan:G$cell_pembelanjaan_uang_makan")->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        }
+        // END SHEET PEMBELANJAAN UANG MAKAN //
 
-            $cell_pengajuan++;
-            $cell_awal       = $cell_pengajuan;
-            $jumlah_kategori = 0;
+        // SHEET RINCIAN PENGAJUAN //
+        $check_pengajuan = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->count();
+        if ($check_pengajuan != 0) {
+            $spreadsheet->setActiveSheetIndex(4);
+            $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
+            $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
+            $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
+            $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
+            $spreadsheet->getActiveSheet()->setCellValue('A14','No.');
+            $spreadsheet->getActiveSheet()->setCellValue('B14','Uraian');
+            $spreadsheet->getActiveSheet()->setCellValue('C14','Biaya Satuan');
+            $spreadsheet->getActiveSheet()->setCellValue('C15','Volume');
+            $spreadsheet->getActiveSheet()->setCellValue('D15','Harga');
+            $spreadsheet->getActiveSheet()->mergeCells('C14:D14');
+            $spreadsheet->getActiveSheet()->setCellValue('E14','Nominal');
+            $spreadsheet->getActiveSheet()->setCellValue('F14','Total');
+            $spreadsheet->getActiveSheet()->mergeCells('A14:A15');
+            $spreadsheet->getActiveSheet()->mergeCells('B14:B15');
+            $spreadsheet->getActiveSheet()->mergeCells('E14:E15');
+            $spreadsheet->getActiveSheet()->mergeCells('F14:F15');
+            $spreadsheet->getActiveSheet()->mergeCells('A9:F9');
+            $spreadsheet->getActiveSheet()->mergeCells('A10:F10');
+            $spreadsheet->getActiveSheet()->mergeCells('A11:F11');
 
-            foreach ($pengajuan as $j => $val) {
-                $no__ = $j+1;
-                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengajuan,$no__);
-                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['uraian_rab']);
-                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['volume_rab']);
-                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['nominal_rab']);
-                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pengajuan,"=C$cell_pengajuan*D$cell_pengajuan");
-                $jumlah_kategori = $jumlah_kategori+1;
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A9:F15')->applyFromArray($styleArray);
+
+            $kategori_pengajuan = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                                        ->groupBy('kategori_rincian_pengajuan')
+                                                        ->get();
+            $spreadsheet->getActiveSheet()->setCellValue('B16','BELANJA / PENGELUARAN');
+
+            // $spreadsheet->getActiveSheet()->setCellValue('H16','=Sheet4!E1');
+            $cell_pengajuan           = 17;
+            $cell_awal                = 0;
+            $jumlah_total_belanja     = '';
+            $rincian_pengajuan_data[] = [];
+
+            foreach ($kategori_pengajuan as $key => $value) {
+                $no = $key+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengajuan,$no.'.');
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$value->kategori_rincian_pengajuan);
+                $rincian_pengajuan_data[$value->kategori_rincian_pengajuan ] = ['nama_kategori' => "='RINCIAN PENGAJUAN'!B$cell_pengajuan",'jumlah' => ''];
+                $pengajuan = RincianPengajuan::where('kategori_rincian_pengajuan',$value->kategori_rincian_pengajuan)
+                                                    ->get();
+                // $spreadsheet->getActiveSheet()->mergeCells("B$cell_pengajuan:C$cell_pengajuan");
+
+                $styleArray = ['font'  => [
+                            'bold'  => true,
+                        ],
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        ]
+                    ];
+
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan")->applyFromArray($styleArray);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:B$cell_pengajuan")->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE);
+                $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:B$cell_pengajuan")->getFont()->setBold(true);
+
+                $cell_pengajuan++;
+                $cell_awal       = $cell_pengajuan;
+                $jumlah_kategori = 0;
+
+                foreach ($pengajuan as $j => $val) {
+                    $no__ = $j+1;
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengajuan,$no__);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['uraian_rab']);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['volume_rab']);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['nominal_rab']);
+                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pengajuan,"=C$cell_pengajuan*D$cell_pengajuan");
+                    $jumlah_kategori = $jumlah_kategori+1;
+                    $cell_pengajuan++;
+                }
+                $cell_pengajuan++;
+                
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,'Jumlah '.$value->kategori_rincian_pengajuan.' : ');
+                $spreadsheet->getActiveSheet()->getStyle('B'.$cell_pengajuan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pengajuan,"=SUM(E$cell_awal:E$cell_pengajuan)");
+                $rincian_pengajuan_data[$value->kategori_rincian_pengajuan ]['jumlah'] = "='RINCIAN PENGAJUAN'!F$cell_pengajuan";
+                if ($jumlah_total_belanja == '') {
+                    $jumlah_total_belanja = "=F$cell_pengajuan";
+                }
+                else {
+                    $jumlah_total_belanja.="+F$cell_pengajuan";
+                }
+                $jumlah_kategori = 0;
+
+                $cell_pengajuan++;
                 $cell_pengajuan++;
             }
             $cell_pengajuan++;
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,'JUMLAH BELANJA');
+            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pengajuan,$jumlah_total_belanja);
+            $spreadsheet->getActiveSheet()->getStyle('D18:F'.$cell_pengajuan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
             
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,'Jumlah '.$value->kategori_rincian_pengajuan.' : ');
-            $spreadsheet->getActiveSheet()->getStyle('B'.$cell_pengajuan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A14:F'.$cell_pengajuan)->applyFromArray($styleTable);
 
-            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pengajuan,"=SUM(E$cell_awal:E$cell_pengajuan)");
-            $rincian_pengajuan_data[$value->kategori_rincian_pengajuan ]['jumlah'] = "='RINCIAN PENGAJUAN'!F$cell_pengajuan";
-            if ($jumlah_total_belanja == '') {
-                $jumlah_total_belanja = "=F$cell_pengajuan";
-            }
-            else {
-                $jumlah_total_belanja.="+F$cell_pengajuan";
-            }
-            $jumlah_kategori = 0;
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
 
-            $cell_pengajuan++;
-            $cell_pengajuan++;
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:G$cell_pengajuan")->applyFromArray($styleArray);
+
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+
         }
-        $cell_pengajuan++;
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,'JUMLAH BELANJA');
-        $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pengajuan,$jumlah_total_belanja);
-        $spreadsheet->getActiveSheet()->getStyle('D18:F'.$cell_pengajuan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A14:F'.$cell_pengajuan)->applyFromArray($styleTable);
+        // END SHEET RINCIAN PENGAJUAN //
 
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        // SHEET BON PENGAJUAN //
+        if ($check_pengajuan != 0) {
+            $spreadsheet->setActiveSheetIndex(5);
+            $spreadsheet->getDefaultStyle()->getFont()->setSize(14);
+            $spreadsheet->getActiveSheet()->setCellValue('A9','RINCIAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
+            $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
+            $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
+            $spreadsheet->getActiveSheet()->setCellValue('A13','NO');
+            $spreadsheet->getActiveSheet()->setCellValue('B13','BELANJA / PENGELUARAN');
+            $spreadsheet->getActiveSheet()->setCellValue('C13','JUMLAH');
+            $spreadsheet->getActiveSheet()->mergeCells('A9:C9');
+            $spreadsheet->getActiveSheet()->mergeCells('A10:C10');
+            $spreadsheet->getActiveSheet()->mergeCells('A11:C11');
 
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
 
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_pengajuan:G$cell_pengajuan")->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('A9:C13')->applyFromArray($styleArray);
 
-        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+            $kategori_pengajuan__ = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                                        ->groupBy('kategori_rincian_pengajuan')
+                                                        ->get();
 
-        $spreadsheet->setActiveSheetIndex(5);
-        $spreadsheet->getDefaultStyle()->getFont()->setSize(14);
-        $spreadsheet->getActiveSheet()->setCellValue('A9','RINCIAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
-        $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
-        $spreadsheet->getActiveSheet()->setCellValue('A11',month($bulan_laporan).' '.$tahun_laporan);
-        $spreadsheet->getActiveSheet()->setCellValue('A13','NO');
-        $spreadsheet->getActiveSheet()->setCellValue('B13','BELANJA / PENGELUARAN');
-        $spreadsheet->getActiveSheet()->setCellValue('C13','JUMLAH');
-        $spreadsheet->getActiveSheet()->mergeCells('A9:C9');
-        $spreadsheet->getActiveSheet()->mergeCells('A10:C10');
-        $spreadsheet->getActiveSheet()->mergeCells('A11:C11');
+            $cell_bon_pengajuan = 14;
+            foreach ($kategori_pengajuan__ as $key => $value) {
+                $no = $key+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_bon_pengajuan,$no);
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_bon_pengajuan,$rincian_pengajuan_data[$value->kategori_rincian_pengajuan]['nama_kategori']);
+                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_bon_pengajuan,$rincian_pengajuan_data[$value->kategori_rincian_pengajuan]['jumlah']);
 
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
+                $cell_bon_pengajuan++;
+            }
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_bon_pengajuan,'JUMLAH PENGAJUAN');
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_bon_pengajuan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->mergeCells('A'.$cell_bon_pengajuan.':B'.$cell_bon_pengajuan);
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_bon_pengajuan,"=SUM(C14:C$cell_bon_pengajuan)");
+            $spreadsheet->getActiveSheet()->getStyle('C14:C'.$cell_bon_pengajuan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
-        $spreadsheet->getActiveSheet()->getStyle('A9:C13')->applyFromArray($styleArray);
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A13:C'.$cell_bon_pengajuan)->applyFromArray($styleTable);
 
-        $kategori_pengajuan__ = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                                    ->groupBy('kategori_rincian_pengajuan')
-                                                    ->get();
-
-        $cell_bon_pengajuan = 14;
-        foreach ($kategori_pengajuan__ as $key => $value) {
-            $no = $key+1;
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_bon_pengajuan,$no);
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_bon_pengajuan,$rincian_pengajuan_data[$value->kategori_rincian_pengajuan]['nama_kategori']);
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_bon_pengajuan,$rincian_pengajuan_data[$value->kategori_rincian_pengajuan]['jumlah']);
-
-            $cell_bon_pengajuan++;
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
         }
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_bon_pengajuan,'JUMLAH PENGAJUAN');
-            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_bon_pengajuan)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $spreadsheet->getActiveSheet()->mergeCells('A'.$cell_bon_pengajuan.':B'.$cell_bon_pengajuan);
-        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_bon_pengajuan,"=SUM(C14:C$cell_bon_pengajuan)");
-        $spreadsheet->getActiveSheet()->getStyle('C14:C'.$cell_bon_pengajuan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        // END SHEET BON PENGAJUAN //
 
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A13:C'.$cell_bon_pengajuan)->applyFromArray($styleTable);
+        // SHEET SAPRAS //
+        $check_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->count();
+        if ($check_sapras != 0) {
+            $spreadsheet->setActiveSheetIndex(6);
+            $spreadsheet->getActiveSheet()->setCellValue('A1','NO.');
+            $spreadsheet->getActiveSheet()->setCellValue('B1','NAMA BARANG');
+            $spreadsheet->getActiveSheet()->setCellValue('C1','QTY');
+            $spreadsheet->getActiveSheet()->setCellValue('D1','KET');
+            $spreadsheet->getActiveSheet()->setCellValue('E1','HARGA BARANG');
+            $spreadsheet->getActiveSheet()->setCellValue('F1','JUMLAH');
+            $spreadsheet->getActiveSheet()->mergeCells('A1:A2');
+            $spreadsheet->getActiveSheet()->mergeCells('B1:B2');
+            $spreadsheet->getActiveSheet()->mergeCells('C1:C2');
+            $spreadsheet->getActiveSheet()->mergeCells('D1:D2');
+            $spreadsheet->getActiveSheet()->mergeCells('E1:E2');
+            $spreadsheet->getActiveSheet()->mergeCells('F1:F2');
 
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
 
-        $spreadsheet->setActiveSheetIndex(6);
-        $spreadsheet->getActiveSheet()->setCellValue('A1','NO.');
-        $spreadsheet->getActiveSheet()->setCellValue('B1','NAMA BARANG');
-        $spreadsheet->getActiveSheet()->setCellValue('C1','QTY');
-        $spreadsheet->getActiveSheet()->setCellValue('D1','KET');
-        $spreadsheet->getActiveSheet()->setCellValue('E1','HARGA BARANG');
-        $spreadsheet->getActiveSheet()->setCellValue('F1','JUMLAH');
-        $spreadsheet->getActiveSheet()->mergeCells('A1:A2');
-        $spreadsheet->getActiveSheet()->mergeCells('B1:B2');
-        $spreadsheet->getActiveSheet()->mergeCells('C1:C2');
-        $spreadsheet->getActiveSheet()->mergeCells('D1:D2');
-        $spreadsheet->getActiveSheet()->mergeCells('E1:E2');
-        $spreadsheet->getActiveSheet()->mergeCells('F1:F2');
+            $spreadsheet->getActiveSheet()->getStyle('A1:F2')->applyFromArray($styleArray);
 
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
-
-        $spreadsheet->getActiveSheet()->getStyle('A1:F2')->applyFromArray($styleArray);
-
-        $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                ->groupBy('kategori_sapras')
-                                ->get();
-
-        $cell_sapras = 3;
-        $cell_awal   = 0;
-        foreach ($kategori_sapras as $key => $value) {
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$value->kategori_sapras);
-            $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:F$cell_sapras");
-
-            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
-
-            $barang_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
-                                    ->where('kategori_sapras',$value->kategori_sapras)
+            $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                    ->groupBy('kategori_sapras')
                                     ->get();
 
-            $cell_sapras++;
-            $cell_awal = $cell_sapras;
+            $cell_sapras = 3;
+            $cell_awal   = 0;
+            foreach ($kategori_sapras as $key => $value) {
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$value->kategori_sapras);
+                $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:F$cell_sapras");
 
-            foreach ($barang_sapras as $no => $val) {
-                $no__ = $no+1;
-                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$no__);
-                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,$val->nama_barang);
-                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,$val->qty);
-                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,$val->ket);
-                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,$val->harga_barang);
-                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=C$cell_sapras*E$cell_sapras");
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
+
+                $barang_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                        ->where('kategori_sapras',$value->kategori_sapras)
+                                        ->get();
+
+                $cell_sapras++;
+                $cell_awal = $cell_sapras;
+
+                foreach ($barang_sapras as $no => $val) {
+                    $no__ = $no+1;
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$no__);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,$val->nama_barang);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,$val->qty);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,$val->ket);
+                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,$val->harga_barang);
+                    $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=C$cell_sapras*E$cell_sapras");
+                    $cell_sapras++;
+                }
+
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,'Total Keseluruhan');
+                $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:E$cell_sapras");
+                $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=SUM(F$cell_awal:F$cell_sapras)");
+                $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
+
                 $cell_sapras++;
             }
 
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,'Total Keseluruhan');
-            $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:E$cell_sapras");
-            $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=SUM(F$cell_awal:F$cell_sapras)");
-            $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
-
-            $cell_sapras++;
-        }
-
-        $cell_sapras--;
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-        $spreadsheet->getActiveSheet()->getStyle('E4:F'.$cell_sapras)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A1:F'.$cell_sapras)->applyFromArray($styleTable);
-
-        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
-
-        $spreadsheet->setActiveSheetIndex(3);
-        $tahun_ajaran_penerimaan = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->tahun_ajaran;
-
-        $spreadsheet->getActiveSheet()->setCellValue('A9','A. Rincian Penerimaan & Setoran Keuangan Th Pelajaran '.$tahun_ajaran_penerimaan);
-        $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
-
-        $spreadsheet->getActiveSheet()->setCellValue('A11','Bulan');
-        $spreadsheet->getActiveSheet()->setCellValue('C11','No');
-        $spreadsheet->getActiveSheet()->setCellValue('D11','Perincian');
-        $spreadsheet->getActiveSheet()->setCellValue('G11','Rencana');
-        $spreadsheet->getActiveSheet()->setCellValue('I11','Penerimaan');
-        $spreadsheet->getActiveSheet()->mergeCells('A11:B11');
-        $spreadsheet->getActiveSheet()->mergeCells('D11:F11');
-        $spreadsheet->getActiveSheet()->mergeCells('G11:H11');
-        $spreadsheet->getActiveSheet()->mergeCells('I11:J11');
-
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A11:J11')->applyFromArray($styleTable);
-
-        
-        // $spreadsheet->getActiveSheet()->setCellValue('A12',month($get_bulan));
-        $id_rincian_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->id_rincian_penerimaan;
-        $get_penerimaan_spp = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('perincian','like','%(SPP)%')->firstOrFail();
-        $spreadsheet->getActiveSheet()->setCellValue('C12','1');
-        $spreadsheet->getActiveSheet()->setCellValue('D12',$get_penerimaan_spp->perincian);
-        $spreadsheet->getActiveSheet()->setCellValue('G12',"=I12/H12");
-        $spreadsheet->getActiveSheet()->getStyle('G12')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
-
-        $spreadsheet->getActiveSheet()->setCellValue('H12',$get_penerimaan_spp->rencana);
-
-        $spreadsheet->getActiveSheet()->getStyle('H12')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->setCellValue('I12',$get_penerimaan_spp->penerimaan);
-
-        $spreadsheet->getActiveSheet()->getStyle('I12')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-
-        $spreadsheet->getActiveSheet()->mergeCells('D12:F12');
-        $spreadsheet->getActiveSheet()->mergeCells('I12:J12');
-
-        $get_penerimaan_detail = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('perincian','not like','%(SPP)%')->get();
-        $no   = 2;
-        $cell = 13;
-
-        foreach ($get_penerimaan_detail as $key => $value) {
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,$no);
-            $spreadsheet->getActiveSheet()->setCellValue('D'.$cell,$value->perincian);
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell,$value->rencana);
-
-            $spreadsheet->getActiveSheet()->getStyle('H'.$cell)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell,$value->penerimaan);
-
-            $spreadsheet->getActiveSheet()->getStyle('I'.$cell)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-
-                if ($value->rencana != '') {
-                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell,"=I$cell / H$cell");
-                    $spreadsheet->getActiveSheet()->getStyle('G'.$cell)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
-                }
-            $spreadsheet->getActiveSheet()->mergeCells("D$cell:F$cell");
-            $spreadsheet->getActiveSheet()->mergeCells("I$cell:J$cell");
+            $cell_sapras--;
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getStyle('E4:F'.$cell_sapras)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
             $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-            $spreadsheet->getActiveSheet()->getStyle('A12:J'.$cell)->applyFromArray($styleTable);
+            $spreadsheet->getActiveSheet()->getStyle('A1:F'.$cell_sapras)->applyFromArray($styleTable);
 
-            $no++;
-            $cell++;
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
         }
+        // END SHEET SAPRAS //
 
-        $cell_bulan  = $cell+1;
-        $cell_sum    = $cell-1;
-        $cell_jumlah = $cell_bulan+1;
+        // SHEET RINCIAN PENERIMAAN //
+        $check_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->count();
+        if ($check_penerimaan != 0) {
+            $spreadsheet->setActiveSheetIndex(3);
+            $tahun_ajaran_penerimaan = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->tahun_ajaran;
 
-        // $vertical_text = '<pre>'.vertical_text($get_bulan).'</pre>';
-        $get_bulan = RincianPengeluaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->bulan_laporan;
-        $spreadsheet->getActiveSheet()->setCellValue('A12',implode("\n", str_split(month($get_bulan))));
-        $spreadsheet->getActiveSheet()->getStyle('A12')->getAlignment()->setWrapText(true);
-        $spreadsheet->getActiveSheet()->mergeCells("A12:B$cell_bulan");
+            $spreadsheet->getActiveSheet()->setCellValue('A9','A. Rincian Penerimaan & Setoran Keuangan Th Pelajaran '.$tahun_ajaran_penerimaan);
+            $spreadsheet->getActiveSheet()->mergeCells('A9:J9');
 
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('A12:B'.$cell_bulan)->applyFromArray($styleTable);
+            $spreadsheet->getActiveSheet()->setCellValue('A11','Bulan');
+            $spreadsheet->getActiveSheet()->setCellValue('C11','No');
+            $spreadsheet->getActiveSheet()->setCellValue('D11','Perincian');
+            $spreadsheet->getActiveSheet()->setCellValue('G11','Rencana');
+            $spreadsheet->getActiveSheet()->setCellValue('I11','Penerimaan');
+            $spreadsheet->getActiveSheet()->mergeCells('A11:B11');
+            $spreadsheet->getActiveSheet()->mergeCells('D11:F11');
+            $spreadsheet->getActiveSheet()->mergeCells('G11:H11');
+            $spreadsheet->getActiveSheet()->mergeCells('I11:J11');
 
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_jumlah,'Jumlah');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_jumlah:F$cell_jumlah");
-        
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_jumlah,"=SUM(H12:H$cell_sum)");
-        $spreadsheet->getActiveSheet()->getStyle('G'.$cell_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A11:J11')->applyFromArray($styleTable);
 
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_jumlah,"=SUM(I12:I$cell_sum)");
-        $spreadsheet->getActiveSheet()->getStyle('I'.$cell_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            
+            // $spreadsheet->getActiveSheet()->setCellValue('A12',month($get_bulan));
+            $id_rincian_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->id_rincian_penerimaan;
+            $get_penerimaan_spp = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('perincian','like','%(SPP)%')->firstOrFail();
+            $spreadsheet->getActiveSheet()->setCellValue('C12','1');
+            $spreadsheet->getActiveSheet()->setCellValue('D12',$get_penerimaan_spp->perincian);
+            $spreadsheet->getActiveSheet()->setCellValue('G12',"=I12/H12");
+            $spreadsheet->getActiveSheet()->getStyle('G12')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
 
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_jumlah:H$cell_jumlah");
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_jumlah:J$cell_jumlah");
+            $spreadsheet->getActiveSheet()->setCellValue('H12',$get_penerimaan_spp->rencana);
 
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_jumlah:J$cell_jumlah")->applyFromArray($styleTable);
+            $spreadsheet->getActiveSheet()->getStyle('H12')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->setCellValue('I12',$get_penerimaan_spp->penerimaan);
 
-        $styleTable = ['borders'=>['right'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle("A$cell:J$cell_bulan")->applyFromArray($styleTable);
-        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getStyle('I12')->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
-        $styleArray = ['font'  => [
-                    'bold'  => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ]
-            ];
+            $spreadsheet->getActiveSheet()->mergeCells('D12:F12');
+            $spreadsheet->getActiveSheet()->mergeCells('I12:J12');
 
-        $spreadsheet->getActiveSheet()->getStyle('A12:B'.$cell_bulan)->applyFromArray($styleArray);
+            $get_penerimaan_detail = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('perincian','not like','%(SPP)%')->get();
+            $no   = 2;
+            $cell = 13;
 
-        $cell_rekap_penerimaan      = $cell_jumlah+2;
-        $cell_rekap_penerimaan_awal = $cell_jumlah+3;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan,'B. Rekapitulasi Setoran & Bon Keuangan');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_rekap_penerimaan:J$cell_rekap_penerimaan");
-        $cell_rekap_penerimaan_kolom = $cell_rekap_penerimaan+1;
+            foreach ($get_penerimaan_detail as $key => $value) {
+                $spreadsheet->getActiveSheet()->setCellValue('C'.$cell,$no);
+                $spreadsheet->getActiveSheet()->setCellValue('D'.$cell,$value->perincian);
+                $spreadsheet->getActiveSheet()->setCellValue('H'.$cell,$value->rencana);
 
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_kolom,'No.');
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_kolom,'Tanggal');
-        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_kolom,'Uraian');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_kolom,'Nominal');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_kolom,'Sisa');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_kolom,'Ket');
+                $spreadsheet->getActiveSheet()->getStyle('H'.$cell)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell,$value->penerimaan);
 
-        $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_kolom:D$cell_rekap_penerimaan_kolom");
+                $spreadsheet->getActiveSheet()->getStyle('I'.$cell)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_kolom:F$cell_rekap_penerimaan_kolom");
+                    if ($value->rencana != '') {
+                        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell,"=I$cell / H$cell");
+                        $spreadsheet->getActiveSheet()->getStyle('G'.$cell)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
+                    }
+                $spreadsheet->getActiveSheet()->mergeCells("D$cell:F$cell");
+                $spreadsheet->getActiveSheet()->mergeCells("I$cell:J$cell");
 
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_kolom:H$cell_rekap_penerimaan_kolom");
+                $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+                $spreadsheet->getActiveSheet()->getStyle('A12:J'.$cell)->applyFromArray($styleTable);
 
-
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_kolom:J$cell_rekap_penerimaan_kolom");
-        // $cell_rekap_penerimaan+1;
-
-        $cell_rekap_penerimaan_1 = $cell_rekap_penerimaan+2;
-        $rekap_penerimaan = RincianPenerimaanRekap::where('id_rincian_penerimaan',$id_rincian_penerimaan)->firstOrFail();
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_1,'1');
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_1,date_excel($rekap_penerimaan->tanggal_bon_pengajuan));
-        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_1,'Bon Pengajuan');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_1,$rekap_penerimaan->nominal_bon_pengajuan);
-        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_rekap_penerimaan_1)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_1,'');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_1,'');
-
-        $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_1:D$cell_rekap_penerimaan_1");
-
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_1:F$cell_rekap_penerimaan_1");
-
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_1:H$cell_rekap_penerimaan_1");
-
-
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_1:J$cell_rekap_penerimaan_1");
-
-        $cell_rekap_penerimaan_2 = $cell_rekap_penerimaan+3;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_2,'2');
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_2,date_excel($rekap_penerimaan->tanggal_realisasi_pengeluaran));
-        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_2,'Realisasi Pengeluaran');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_2,$rekap_penerimaan->nominal_realisasi_pengeluaran);
-        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_rekap_penerimaan_2)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_2,"=E$cell_rekap_penerimaan_1-E$cell_rekap_penerimaan_2");
-        $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_2)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_rekap_penerimaan_2,'');
-
-        $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_2:D$cell_rekap_penerimaan_2");
-
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_2:F$cell_rekap_penerimaan_2");
-
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_2:H$cell_rekap_penerimaan_2");
-
-
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_2:J$cell_rekap_penerimaan_2");
-
-        $cell_rekap_penerimaan_3 = $cell_rekap_penerimaan+4;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_3,'3');
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_3,date_excel($rekap_penerimaan->tanggal_penerimaan_bulan_ini));
-        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_3,'Penerimaan Bulan Ini');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_3,'');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_3,$rekap_penerimaan->sisa_penerimaan_bulan_ini);
-        $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_3)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_3,'');
-
-        $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_3:D$cell_rekap_penerimaan_3");
-
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_3:F$cell_rekap_penerimaan_3");
-
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_3:H$cell_rekap_penerimaan_3");
-
-
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_3:J$cell_rekap_penerimaan_3");
-
-        $cell_rekap_penerimaan_jumlah = $cell_rekap_penerimaan_3+1;
-
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_jumlah,'Jumlah');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_jumlah,"=SUM(G$cell_rekap_penerimaan_1:G$cell_rekap_penerimaan_3)");
-
-        $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_rekap_penerimaan_jumlah:F$cell_rekap_penerimaan_jumlah");
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_jumlah:H$cell_rekap_penerimaan_jumlah");
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_jumlah:J$cell_rekap_penerimaan_jumlah");
-
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_rekap_penerimaan_awal:J$cell_rekap_penerimaan_jumlah")->applyFromArray($styleTable);
-
-        $cell_penerimaan_tahun_ajaran = $cell_rekap_penerimaan_jumlah+2;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran,'C. Keadaan Keuangan di Yayasan Pembinaan dan Pemberdayaan Insani HUD');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran:J$cell_penerimaan_tahun_ajaran");
-        $cell_penerimaan_tahun_ajaran_tabel = $cell_penerimaan_tahun_ajaran+1;
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_tabel,'Bulan');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_tabel,'Pemasukan');
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_tabel,'Realisasi Pengeluaran');
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_tabel,'Sisa Akhir Bulan');
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran_tabel:D$cell_penerimaan_tahun_ajaran_tabel");
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_penerimaan_tahun_ajaran_tabel:F$cell_penerimaan_tahun_ajaran_tabel");
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_penerimaan_tahun_ajaran_tabel:H$cell_penerimaan_tahun_ajaran_tabel");
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_penerimaan_tahun_ajaran_tabel:J$cell_penerimaan_tahun_ajaran_tabel");
-
-        $tahun_ajaran_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->groupBy('tahun')->orderBy('tahun','ASC')->get();
-        $cell_penerimaan_tahun_ajaran_data = $cell_penerimaan_tahun_ajaran+2;
-        $cell_penerimaan_tahun_ajaran_data_awal = $cell_penerimaan_tahun_ajaran+2;
-        foreach ($tahun_ajaran_rekap as $key => $value) {
-            $bulan_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('tahun',$value->tahun)->orderBy('bulan','ASC')->get();
-            foreach ($bulan_rekap as $index => $val) {
-                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_data,month($val->bulan).' '.$val->tahun);
-                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_data,$val->pemasukan);
-                $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_data,$val->realisasi_pengeluaran);
-                $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_data,$val->sisa_akhir_bulan);
-                $spreadsheet->getActiveSheet()->mergeCells("A$$cell_penerimaan_tahun_ajaran_data:D$$cell_penerimaan_tahun_ajaran_data");
-                $spreadsheet->getActiveSheet()->mergeCells("E$$cell_penerimaan_tahun_ajaran_data:F$$cell_penerimaan_tahun_ajaran_data");
-                $spreadsheet->getActiveSheet()->mergeCells("G$$cell_penerimaan_tahun_ajaran_data:H$$cell_penerimaan_tahun_ajaran_data");
-                $spreadsheet->getActiveSheet()->mergeCells("I$$cell_penerimaan_tahun_ajaran_data:J$$cell_penerimaan_tahun_ajaran_data");
-                $cell_penerimaan_tahun_ajaran_data++;
+                $no++;
+                $cell++;
             }
+
+            $cell_bulan  = $cell+1;
+            $cell_sum    = $cell-1;
+            $cell_jumlah = $cell_bulan+1;
+
+            // $vertical_text = '<pre>'.vertical_text($get_bulan).'</pre>';
+            $get_bulan = RincianPengeluaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->bulan_laporan;
+            $spreadsheet->getActiveSheet()->setCellValue('A12',implode("\n", str_split(month($get_bulan))));
+            $spreadsheet->getActiveSheet()->getStyle('A12')->getAlignment()->setWrapText(true);
+            $spreadsheet->getActiveSheet()->mergeCells("A12:B$cell_bulan");
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle('A12:B'.$cell_bulan)->applyFromArray($styleTable);
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_jumlah,'Jumlah');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_jumlah:F$cell_jumlah");
+            
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_jumlah,"=SUM(H12:H$cell_sum)");
+            $spreadsheet->getActiveSheet()->getStyle('G'.$cell_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_jumlah,"=SUM(I12:I$cell_sum)");
+            $spreadsheet->getActiveSheet()->getStyle('I'.$cell_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_jumlah:H$cell_jumlah");
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_jumlah:J$cell_jumlah");
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_jumlah:J$cell_jumlah")->applyFromArray($styleTable);
+
+            $styleTable = ['borders'=>['right'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle("A$cell:J$cell_bulan")->applyFromArray($styleTable);
+            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+
+            $styleArray = ['font'  => [
+                        'bold'  => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]
+                ];
+
+            $spreadsheet->getActiveSheet()->getStyle('A12:B'.$cell_bulan)->applyFromArray($styleArray);
+
+            $cell_rekap_penerimaan      = $cell_jumlah+2;
+            $cell_rekap_penerimaan_awal = $cell_jumlah+3;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan,'B. Rekapitulasi Setoran & Bon Keuangan');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_rekap_penerimaan:J$cell_rekap_penerimaan");
+            $cell_rekap_penerimaan_kolom = $cell_rekap_penerimaan+1;
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_kolom,'No.');
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_kolom,'Tanggal');
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_kolom,'Uraian');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_kolom,'Nominal');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_kolom,'Sisa');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_kolom,'Ket');
+
+            $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_kolom:D$cell_rekap_penerimaan_kolom");
+
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_kolom:F$cell_rekap_penerimaan_kolom");
+
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_kolom:H$cell_rekap_penerimaan_kolom");
+
+
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_kolom:J$cell_rekap_penerimaan_kolom");
+            // $cell_rekap_penerimaan+1;
+
+            $cell_rekap_penerimaan_1 = $cell_rekap_penerimaan+2;
+            $rekap_penerimaan = RincianPenerimaanRekap::where('id_rincian_penerimaan',$id_rincian_penerimaan)->firstOrFail();
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_1,'1');
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_1,date_excel($rekap_penerimaan->tanggal_bon_pengajuan));
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_1,'Bon Pengajuan');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_1,$rekap_penerimaan->nominal_bon_pengajuan);
+            $spreadsheet->getActiveSheet()->getStyle('E'.$cell_rekap_penerimaan_1)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_1,'');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_1,'');
+
+            $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_1:D$cell_rekap_penerimaan_1");
+
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_1:F$cell_rekap_penerimaan_1");
+
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_1:H$cell_rekap_penerimaan_1");
+
+
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_1:J$cell_rekap_penerimaan_1");
+
+            $cell_rekap_penerimaan_2 = $cell_rekap_penerimaan+3;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_2,'2');
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_2,date_excel($rekap_penerimaan->tanggal_realisasi_pengeluaran));
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_2,'Realisasi Pengeluaran');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_2,$rekap_penerimaan->nominal_realisasi_pengeluaran);
+            $spreadsheet->getActiveSheet()->getStyle('E'.$cell_rekap_penerimaan_2)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_2,"=E$cell_rekap_penerimaan_1-E$cell_rekap_penerimaan_2");
+            $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_2)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_rekap_penerimaan_2,'');
+
+            $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_2:D$cell_rekap_penerimaan_2");
+
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_2:F$cell_rekap_penerimaan_2");
+
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_2:H$cell_rekap_penerimaan_2");
+
+
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_2:J$cell_rekap_penerimaan_2");
+
+            $cell_rekap_penerimaan_3 = $cell_rekap_penerimaan+4;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_3,'3');
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_3,date_excel($rekap_penerimaan->tanggal_penerimaan_bulan_ini));
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_3,'Penerimaan Bulan Ini');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_rekap_penerimaan_3,'');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_3,$rekap_penerimaan->sisa_penerimaan_bulan_ini);
+            $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_3)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_rekap_penerimaan_3,'');
+
+            $spreadsheet->getActiveSheet()->mergeCells("C$cell_rekap_penerimaan_3:D$cell_rekap_penerimaan_3");
+
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_rekap_penerimaan_3:F$cell_rekap_penerimaan_3");
+
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_3:H$cell_rekap_penerimaan_3");
+
+
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_3:J$cell_rekap_penerimaan_3");
+
+            $cell_rekap_penerimaan_jumlah = $cell_rekap_penerimaan_3+1;
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_jumlah,'Jumlah');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_rekap_penerimaan_jumlah,"=SUM(G$cell_rekap_penerimaan_1:G$cell_rekap_penerimaan_3)");
+
+            $spreadsheet->getActiveSheet()->getStyle('G'.$cell_rekap_penerimaan_jumlah)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_rekap_penerimaan_jumlah:F$cell_rekap_penerimaan_jumlah");
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_rekap_penerimaan_jumlah:H$cell_rekap_penerimaan_jumlah");
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_rekap_penerimaan_jumlah:J$cell_rekap_penerimaan_jumlah");
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_rekap_penerimaan_awal:J$cell_rekap_penerimaan_jumlah")->applyFromArray($styleTable);
+
+            $cell_penerimaan_tahun_ajaran = $cell_rekap_penerimaan_jumlah+2;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran,'C. Keadaan Keuangan di Yayasan Pembinaan dan Pemberdayaan Insani HUD');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran:J$cell_penerimaan_tahun_ajaran");
+            $cell_penerimaan_tahun_ajaran_tabel = $cell_penerimaan_tahun_ajaran+1;
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_tabel,'Bulan');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_tabel,'Pemasukan');
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_tabel,'Realisasi Pengeluaran');
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_tabel,'Sisa Akhir Bulan');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran_tabel:D$cell_penerimaan_tahun_ajaran_tabel");
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_penerimaan_tahun_ajaran_tabel:F$cell_penerimaan_tahun_ajaran_tabel");
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_penerimaan_tahun_ajaran_tabel:H$cell_penerimaan_tahun_ajaran_tabel");
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_penerimaan_tahun_ajaran_tabel:J$cell_penerimaan_tahun_ajaran_tabel");
+
+            $tahun_ajaran_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->groupBy('tahun')->orderBy('tahun','ASC')->get();
+            $cell_penerimaan_tahun_ajaran_data = $cell_penerimaan_tahun_ajaran+2;
+            $cell_penerimaan_tahun_ajaran_data_awal = $cell_penerimaan_tahun_ajaran+2;
+            foreach ($tahun_ajaran_rekap as $key => $value) {
+                $bulan_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('tahun',$value->tahun)->orderBy('bulan','ASC')->get();
+                foreach ($bulan_rekap as $index => $val) {
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_data,month($val->bulan).' '.$val->tahun);
+                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_data,$val->pemasukan);
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_data,$val->realisasi_pengeluaran);
+                    $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_data,$val->sisa_akhir_bulan);
+                    $spreadsheet->getActiveSheet()->mergeCells("A$$cell_penerimaan_tahun_ajaran_data:D$$cell_penerimaan_tahun_ajaran_data");
+                    $spreadsheet->getActiveSheet()->mergeCells("E$$cell_penerimaan_tahun_ajaran_data:F$$cell_penerimaan_tahun_ajaran_data");
+                    $spreadsheet->getActiveSheet()->mergeCells("G$$cell_penerimaan_tahun_ajaran_data:H$$cell_penerimaan_tahun_ajaran_data");
+                    $spreadsheet->getActiveSheet()->mergeCells("I$$cell_penerimaan_tahun_ajaran_data:J$$cell_penerimaan_tahun_ajaran_data");
+                    $cell_penerimaan_tahun_ajaran_data++;
+                }
+            }
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_data,'Jumlah');
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_data,"=SUM(E$cell_penerimaan_tahun_ajaran_data_awal:E$cell_penerimaan_tahun_ajaran_data)");
+            $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_data,"=SUM(G$cell_penerimaan_tahun_ajaran_data_awal:G$cell_penerimaan_tahun_ajaran_data)");
+            $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_data,"=SUM(I$cell_penerimaan_tahun_ajaran_data_awal:I$cell_penerimaan_tahun_ajaran_data)");
+
+            $spreadsheet->getActiveSheet()->getStyle("E$cell_penerimaan_tahun_ajaran_data_awal:I$cell_penerimaan_tahun_ajaran_data")->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran_data:D$cell_penerimaan_tahun_ajaran_data");
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_penerimaan_tahun_ajaran_data:F$cell_penerimaan_tahun_ajaran_data");
+            $spreadsheet->getActiveSheet()->mergeCells("G$cell_penerimaan_tahun_ajaran_data:H$cell_penerimaan_tahun_ajaran_data");
+            $spreadsheet->getActiveSheet()->mergeCells("I$cell_penerimaan_tahun_ajaran_data:J$cell_penerimaan_tahun_ajaran_data");
+
+            $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
+            $spreadsheet->getActiveSheet()->getStyle("A$cell_penerimaan_tahun_ajaran_tabel:J$cell_penerimaan_tahun_ajaran_data")->applyFromArray($styleTable);
+
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(6);
+
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+
         }
-
-        $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_data,'Jumlah');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_data,"=SUM(E$cell_penerimaan_tahun_ajaran_data_awal:E$cell_penerimaan_tahun_ajaran_data)");
-        $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_penerimaan_tahun_ajaran_data,"=SUM(G$cell_penerimaan_tahun_ajaran_data_awal:G$cell_penerimaan_tahun_ajaran_data)");
-        $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_penerimaan_tahun_ajaran_data,"=SUM(I$cell_penerimaan_tahun_ajaran_data_awal:I$cell_penerimaan_tahun_ajaran_data)");
-
-        $spreadsheet->getActiveSheet()->getStyle("E$cell_penerimaan_tahun_ajaran_data_awal:I$cell_penerimaan_tahun_ajaran_data")->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
-
-        $spreadsheet->getActiveSheet()->mergeCells("A$cell_penerimaan_tahun_ajaran_data:D$cell_penerimaan_tahun_ajaran_data");
-        $spreadsheet->getActiveSheet()->mergeCells("E$cell_penerimaan_tahun_ajaran_data:F$cell_penerimaan_tahun_ajaran_data");
-        $spreadsheet->getActiveSheet()->mergeCells("G$cell_penerimaan_tahun_ajaran_data:H$cell_penerimaan_tahun_ajaran_data");
-        $spreadsheet->getActiveSheet()->mergeCells("I$cell_penerimaan_tahun_ajaran_data:J$cell_penerimaan_tahun_ajaran_data");
-
-        $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle("A$cell_penerimaan_tahun_ajaran_tabel:J$cell_penerimaan_tahun_ajaran_data")->applyFromArray($styleTable);
-
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(4);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(6);
-
-        $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        // END SHEET RENCANA PENERIMAAN //
 
         $spreadsheet->setActiveSheetIndex(2);
         

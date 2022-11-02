@@ -133,6 +133,7 @@
                                                         <div>
                                                             <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="1">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
+                                                                <option value="SPP">SPP</option>
                                                                 @foreach ($kolom_spp as $element)
                                                                 <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
                                                                 @endforeach
@@ -197,7 +198,7 @@
                                         <button type="button" class="btn btn-info form-hide pilih-pendapatan" pilih-pendapatan-id="1">Pilih Pendapatan</button>
                                     </div>
                                     <hr>
-                                    <input type="hidden" name="jenis_rincian_pengeluaran[]" value="sekolah">
+                                    {{-- <input type="hidden" name="jenis_rincian_pengeluaran[]" value="sekolah"> --}}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -223,16 +224,37 @@
                             {{-- </div> --}}
                             <hr>
                             <div class="layout-input-uang-makan" id="layout-input-uang-makan">
+                                {{-- @foreach ($kantin as $element) --}}
                                 <div class="input-uang-makan" id="input-uang-makan" input-uang-makan-id="1">
                                     <div class="row">
                                         <div class="col-md-11">
                                             <div class="row">
-                                                @foreach ($kantin as $element)
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Tanggal Perincian Uang Makan</label>
                                                         <div>
-                                                            <input type="date" name="tanggal_perincian[]" class="form-control"  required="required">
+                                                            <input type="date" name="tanggal_perincian_uang_makan[]" class="form-control"  required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Kantin</label>
+                                                        <div>
+                                                            <select name="kantin[]" class="form-control selectize kantin" kantin-id="1">
+                                                                <option value="" selected disabled>=== Pilih Kantin ===</option>
+                                                                @foreach ($kantin as $element)
+                                                                <option value="{{ $element->id_kantin }}">{{ $element->nama_kantin }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Uraian Rincian</label>
+                                                        <div>
+                                                            <input type="text" name="uraian_rincian_uang_makan[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -241,19 +263,11 @@
                                                         <label class="col-form-label">Volume Rincian</label>
                                                         <div class="d-flex">
                                                             <div>
-                                                                <input type="number" name="volume_rincian[]" class="form-control" placeholder="Isi Volume Rincian" required="required">
+                                                                <input type="number" name="volume_rincian_uang_makan[]" class="form-control" placeholder="Isi Volume Rincian" required="required">
                                                             </div>
                                                             <div>
-                                                                <input type="text" name="ket_volume_rincian[]" class="form-control" placeholder="Ket Volume Rincian" required="required">
+                                                                <input type="text" name="ket_volume_rincian_uang_makan[]" class="form-control" placeholder="Ket Volume Rincian" required="required">
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Uraian Rincian</label>
-                                                        <div>
-                                                            <input type="text" name="uraian_rincian[]" class="form-control" placeholder="Isi Uraian Rincian; Ex: PDAM Bulan Mei 2022" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,21 +275,22 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Nominal Rincian</label>
                                                         <div>
-                                                            <input type="number" name="nominal_rincian[]" class="form-control nominal-rincian-uang-makan" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-uang-makan-id="1">
+                                                            <input type="number" name="nominal_rincian_uang_makan[]" class="form-control nominal-rincian-uang-makan" placeholder="Isi Nominal Rincian" required="required" nominal-rincian-uang-makan-id="1">
                                                             <label for="" class="nominal-rincian-uang-makan-label" nominal-rincian-uang-makan-id="1">Rp 0,00</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @endforeach
                                             </div>
+                                            <hr>
                                         </div>
                                         <div class="col-md-1">
-                                            <button class="btn btn-danger form-hide hapus-act-perincian-uang-makan" style="margin-top: 41%;" id="hapus-act-perincian-uang-makan" hapus-uang-makan-id="1">X</button>
+                                            <button class="btn btn-danger form-hide hapus-act-perincian-uang-makan" type="button" style="margin-top: 41%;" id="hapus-act-perincian-uang-makan" hapus-uang-makan-id="1">X</button>
                                         </div>
                                     </div>
                                     <hr>
-                                    <input type="hidden" name="jenis_rincian_pengeluaran[]" value="uang-makan">
+                                    {{-- <input type="hidden" name="jenis_rincian_pengeluaran[]" value="uang-makan"> --}}
                                 </div>
+                                {{-- @endforeach --}}
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-success" id="input-act-perincian-uang-makan">Tambah Input</button>
