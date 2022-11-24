@@ -64,9 +64,9 @@
                                                         <option value="" selected disabled>=== Pilih Pendapatan ===</option>
                                                         @foreach ($pendapatan as $element)
                                                         @if ($element->kolom_pendapatan != '')
-                                                        <option value="{{ $element->id_rincian_pengeluaran_detail }}">{{ $element->kolom_pendapatan }}</option>
+                                                        <option value="{{ $element->id_rincian_pengeluaran_sekolah }}">{{ $element->kolom_pendapatan }}</option>
                                                         @else
-                                                        <option value="{{ $element->id_rincian_pengeluaran_detail }}">{{ $element->nama_kolom_spp }}</option>
+                                                        <option value="{{ $element->id_rincian_pengeluaran_sekolah }}">{{ $element->nama_kolom_spp }}</option>
                                                         @endif
                                                         @endforeach
                                                     </select>

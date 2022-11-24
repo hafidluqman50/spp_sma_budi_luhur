@@ -53,6 +53,8 @@
                                 <th>Ket</th>
                                 <th>Harga Barang</th>
                                 <th>Jumlah</th>
+                                <th>Pemohon</th>
+                                <th>Keterangan Pemohon</th>
                                 <th>#</th>
                             </tr>
                             </thead>

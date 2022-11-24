@@ -24,12 +24,14 @@ class SaprasController extends Controller
 
     public function save(Request $request, $id)
     {
-        $kategori_rincian = $request->kategori_rincian;
-        $nama_barang      = $request->nama_barang;
-        $qty              = $request->qty;
-        $ket              = $request->ket;
-        $harga_barang     = $request->harga_barang;
-        $jumlah           = $request->jumlah;
+        $pemohon            = $request->pemohon;
+        $keterangan_pemohon = $request->keterangan_pemohon;
+        $kategori_rincian   = $request->kategori_rincian;
+        $nama_barang        = $request->nama_barang;
+        $qty                = $request->qty;
+        $ket                = $request->ket;
+        $harga_barang       = $request->harga_barang;
+        $jumlah             = $request->jumlah;
 
         foreach ($nama_barang as $key => $value) {
             $data_rincian_pengajuan = [
@@ -39,7 +41,9 @@ class SaprasController extends Controller
                 'qty'                    => $qty[$key],
                 'ket'                    => $ket[$key],
                 'harga_barang'           => $harga_barang[$key],
-                'jumlah'                 => $jumlah[$key]
+                'jumlah'                 => $jumlah[$key],
+                'pemohon'                => $pemohon[$key],
+                'keterangan_pemohon'     => $keterangan_pemohon[$key]
             ];
 
             Sapras::create($data_rincian_pengajuan);

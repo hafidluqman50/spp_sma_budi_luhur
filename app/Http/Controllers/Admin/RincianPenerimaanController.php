@@ -9,7 +9,7 @@ use App\Models\RincianPenerimaanRekap;
 use App\Models\RincianPenerimaanDetail;
 use App\Models\RincianPenerimaanTahunAjaran;
 use App\Models\RincianPengeluaran;
-use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPengeluaranSekolah;
 use App\Models\KolomSpp;
 use Illuminate\Support\Str;
 use App\Models\SppBayarData;
@@ -33,7 +33,7 @@ class RincianPenerimaanController extends Controller
     public function tambah($id)
     {
         $title        = 'Tambah Rincian Penerimaan';
-        $pendapatan   = RincianPengeluaranDetail::leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran',$id)->get();
+        $pendapatan   = RincianPengeluaranSekolah::leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran',$id)->get();
         $tahun_ajaran = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->where('id_rincian_pengeluaran',$id)->firstOrFail()->tahun_ajaran;
 
         $bulan_laporan = month(RincianPengeluaran::where('id_rincian_pengeluaran',$id)->firstOrFail()->bulan_laporan);
@@ -41,7 +41,7 @@ class RincianPenerimaanController extends Controller
 
         $bon_pengajuan = RincianPengeluaran::where('id_rincian_pengeluaran',$id)->firstOrFail()->saldo_awal;
 
-        $realisasi_pengeluaran = RincianPengeluaranDetail::selectRaw("*, SUM(volume_rincian * nominal_rincian) as sum_sub_total")->where('id_rincian_pengeluaran',$id)->get()[0]->sum_sub_total;
+        $realisasi_pengeluaran = RincianPengeluaranSekolah::selectRaw("*, SUM(volume_rincian * nominal_rincian) as sum_sub_total")->where('id_rincian_pengeluaran',$id)->get()[0]->sum_sub_total;
         // $
 
         return view('Admin.rincian-penerimaan.rincian-penerimaan-tambah',compact('title','id','pendapatan','tahun_ajaran','bulan_laporan','bulan','bon_pengajuan','realisasi_pengeluaran'));
@@ -87,14 +87,14 @@ class RincianPenerimaanController extends Controller
                                             ->whereYear('tanggal_bayar',$tahun_laporan)
                                             ->sum('total_biaya');
 
-        $data_rincian_penerimaan_detail = [
-            'id_rincian_penerimaan'         => $id_rincian_penerimaan,
-            'id_rincian_pengeluaran_detail' => null,
-            'perincian'                     => 'Sumbangan Pembiayaan Pendidikan (SPP)',
-            'rencana'                       => $get_total_tunggakan,
-            'penerimaan'                    => $get_total_penerimaan
-        ];
-        RincianPenerimaanDetail::create($data_rincian_penerimaan_detail);
+        // $data_rincian_penerimaan_detail = [
+        //     'id_rincian_penerimaan'         => $id_rincian_penerimaan,
+        //     'id_rincian_pengeluaran_detail' => null,
+        //     'perincian'                     => 'Sumbangan Pembiayaan Pendidikan (SPP)',
+        //     'rencana'                       => $get_total_tunggakan,
+        //     'penerimaan'                    => $get_total_penerimaan
+        // ];
+        // RincianPenerimaanDetail::create($data_rincian_penerimaan_detail);
 
         // if ($pendapatan != '') {
             for ($i=0; $i < count($pendapatan); $i++) { 

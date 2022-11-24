@@ -64,11 +64,12 @@
                     		<td><b>{{ $data_spp->bulan_tahun }}</b></td>
                     	</tr>
                     </table>
-                    <table class="table table-hover table-bordered data-pemasukan-kantin force-fullwidth">
+                    <table class="table table-hover table-bordered data-pemasukan-kantin force-fullwidth" id-spp-bulan-tahun="{{ $id_bulan_tahun }}">
                         <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Kantin</th>
+                                <th>Nominal Harus Bayar</th>
                                 <th>Nominal Pemasukan</th>
                                 <th>#</th>
                             </tr>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPengeluaranSekolah;
+use App\Models\RincianPengeluaranUangMakan;
 use App\Models\RincianPembelanjaan;
+use App\Models\RincianPembelanjaanTahunAjaran;
 use App\Models\RincianPengeluaran;
 
 class RincianPembelanjaanController extends Controller
@@ -27,7 +29,7 @@ class RincianPembelanjaanController extends Controller
     public function tambahRincianPembelanjaan($id)
     {
         $title                      = 'Form Rincian Pembelanjaan | Admin';
-        $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
+        $rincian_pengeluaran_detail = RincianPengeluaranSekolah::where('id_rincian_pengeluaran',$id)->get();
 
         return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-tambah',compact('title','id','rincian_pengeluaran_detail'));
     }
@@ -35,15 +37,21 @@ class RincianPembelanjaanController extends Controller
     public function tambahRincianPembelanjaanUangMakan($id)
     {
         $title                      = 'Form Rincian Pembelanjaan | Admin';
-        $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
+        $rincian_pengeluaran_detail = RincianPengeluaranUangMakan::where('id_rincian_pengeluaran',$id)->get();
 
-        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-uang-makan-tambah',compact('title','id','rincian_pengeluaran_detail'));
+        $tahun_ajaran = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->where('id_rincian_pengeluaran',$id)->firstOrFail()->tahun_ajaran;
+
+        $bulan_laporan = month(RincianPengeluaran::where('id_rincian_pengeluaran',$id)->firstOrFail()->bulan_laporan);
+        $bulan = [0 => [7,8,9,10,11,12], 1 => [1,2,3,4,5,6]];
+
+        return view('Admin.rincian-pembelanjaan.rincian-pembelanjaan-uang-makan-tambah',compact('title','id','rincian_pengeluaran_detail','tahun_ajaran','bulan_laporan','bulan'));
     }
 
     public function save(Request $request, $id)
     {
         $kategori_rincian        = $request->kategori_rincian;
-        $rincian                 = $request->rincian;
+        $rincian_sekolah         = $request->rincian_sekolah;
+        $rincian_uang_makan      = $request->rincian_uang_makan;
         $volume                  = $request->volume;
         $uang_masuk              = $request->uang_masuk;
         $uang_keluar             = $request->uang_keluar;
@@ -51,23 +59,58 @@ class RincianPembelanjaanController extends Controller
         $keterangan_pembelanjaan = $request->keterangan_pembelanjaan;
         $tanggal_setor_dapur     = $request->tanggal_setor_dapur;
 
-        foreach ($rincian as $key => $value) {
-            $data_rincian_pembelanjaan = [
-                'id_rincian_pengeluaran'        => $id,
-                'kategori_rincian_pembelanjaan' => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
-                'id_rincian_pengeluaran_detail' => $rincian[$key],
-                'jenis_rincian_pembelanjaan'    => $jenis_rincian,
-                'keterangan_pembelanjaan'       => $keterangan_pembelanjaan[$key]
-            ];
+        $bulan_rincian                 = $request->bulan_rincian;
+        $tahun_rincian                 = $request->tahun_rincian;
+        $pemasukan                     = $request->pemasukan;
+        $realisasi_pengeluaran_bulan   = $request->realisasi_pengeluaran_bulan;
+        $sisa_akhir_bulan              = $request->sisa_akhir_bulan;
 
-            RincianPembelanjaan::create($data_rincian_pembelanjaan);
+        if ($rincian_sekolah != '') {
+            foreach ($rincian_sekolah as $key => $value) {
+                $data_rincian_pembelanjaan = [
+                    'id_rincian_pengeluaran'         => $id,
+                    'kategori_rincian_pembelanjaan'  => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'id_rincian_pengeluaran_sekolah' => $rincian_sekolah[$key],
+                    'jenis_rincian_pembelanjaan'     => $jenis_rincian,
+                    'keterangan_pembelanjaan'        => $keterangan_pembelanjaan[$key]
+                ];
+
+                RincianPembelanjaan::create($data_rincian_pembelanjaan);
+            }
+        }
+
+        if ($rincian_uang_makan != '') {
+            foreach ($rincian_uang_makan as $key => $value) {
+                $data_rincian_pembelanjaan = [
+                    'id_rincian_pengeluaran'            => $id,
+                    'kategori_rincian_pembelanjaan'     => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'id_rincian_pengeluaran_uang_makan' => $rincian_uang_makan[$key],
+                    'jenis_rincian_pembelanjaan'        => $jenis_rincian,
+                    'keterangan_pembelanjaan'           => $keterangan_pembelanjaan[$key]
+                ];
+
+                RincianPembelanjaan::create($data_rincian_pembelanjaan);
+            }
+
+            foreach ($bulan_rincian as $key => $value) {
+                $data_rincian_pembelanjaan_tahun_ajaran = [
+                    'id_rincian_pengeluaran' => $id,
+                    'bulan'                  => $bulan_rincian[$key],
+                    'tahun'                  => $tahun_rincian[$key],
+                    'pemasukan'              => $pemasukan[$key],
+                    'realisasi_pengeluaran'  => $realisasi_pengeluaran_bulan[$key],
+                    'sisa_akhir_bulan'       => $sisa_akhir_bulan[$key]
+                ];
+
+                RincianPembelanjaanTahunAjaran::create($data_rincian_pembelanjaan_tahun_ajaran);
+            }
         }
 
         if ($jenis_rincian == 'operasional') {
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan/'.$id;
         }
         else if ($jenis_rincian == 'uang-makan') {
-            RincianPembelanjaan::where('id_rincian_pengeluaran',$id)->update(['tanggal_setor_dapur'=>$tanggal_setor_dapur]);
+            RincianPengeluaran::where('id_rincian_pengeluaran',$id)->update(['tanggal_setor_dapur'=>$tanggal_setor_dapur]);
             $url = '/admin/data-perincian-rab/rincian-pembelanjaan-uang-makan/'.$id;
         }
 

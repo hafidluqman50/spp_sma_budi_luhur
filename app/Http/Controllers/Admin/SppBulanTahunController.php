@@ -141,7 +141,7 @@ class SppBulanTahunController extends Controller
 
         SppBulanTahun::where('id_spp',$id)
                     ->where('id_spp_bulan_tahun',$id_bulan_tahun)
-                    ->delete();
+                    ->update(['status_delete' => 1]);
 
         return redirect('/admin/spp/tunggakan/'.$id)->with('message','Berhasil Hapus Data');
     }

@@ -14,7 +14,8 @@ use App\Models\SppBayarData;
 use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\RincianPengeluaran;
-use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPengeluaranSekolah;
+use App\Models\RincianPengeluaranUangMakan;
 use App\Models\PemasukanKantin;
 
 class AjaxController extends Controller
@@ -250,10 +251,17 @@ class AjaxController extends Controller
     public function getRincian(Request $request)
     {
         $id_rincian = $request->id_rincian;
+        if (RincianPengeluaranSekolah::where('id_rincian_pengeluaran_sekolah',$id_rincian)->count() != 0) {
+            $get_rincian_detail = RincianPengeluaranSekolah::leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran_sekolah',$id_rincian)->firstOrFail();
+            $uang_masuk = $get_rincian_detail->nominal_pendapatan_spp;
+        }
+        else if (RincianPengeluaranUangMakan::where('id_rincian_pengeluaran_uang_makan',$id_rincian)->count() != 0) {
+        // dd($id_rincian);
+            $get_rincian_detail = RincianPengeluaranUangMakan::where('id_rincian_pengeluaran_uang_makan',$id_rincian)->firstOrFail();
+            $uang_masuk = 0;
+        }
 
-        $get_rincian_detail = RincianPengeluaranDetail::leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran_detail',$id_rincian)->firstOrFail();
-
-        $data = ['volume' => $get_rincian_detail->volume_rincian, 'uang_keluar' => $get_rincian_detail->nominal_rincian, 'uang_masuk' => $get_rincian_detail->nominal_pendapatan_spp, 'spp'=>$get_rincian_detail->nama_kolom_spp];
+        $data = ['volume' => $get_rincian_detail->volume_rincian, 'uang_keluar' => $get_rincian_detail->nominal_rincian, 'uang_masuk' => $uang_masuk, 'spp'=>$get_rincian_detail->nama_kolom_spp];
         return response()->json($data);
     }
 
@@ -292,7 +300,7 @@ class AjaxController extends Controller
     {
         $id_rincian_pengeluaran_detail = $request->id_rincian_pengeluaran_detail;
 
-        $get = RincianPengeluaranDetail::where('id_rincian_pengeluaran_detail',$id_rincian_pengeluaran_detail)->firstOrFail();
+        $get = RincianPengeluaranSekolah::where('id_rincian_pengeluaran_sekolah',$id_rincian_pengeluaran_detail)->firstOrFail();
         if ($get->kolom_pendapatan != '') {
             $result = $get->nominal_pendapatan;
         }
@@ -310,7 +318,7 @@ class AjaxController extends Controller
 
         $sum = SppBayarDetail::join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
                             ->where('slug_kolom_spp','uang-makan')
-                            ->whereMonth('tanggal_bayar',$bulan_laporan)
+                            ->whereMonth('tanggal_bayar',zero_front_number($bulan_laporan))
                             ->whereYear('tanggal_bayar',$tahun_laporan)
                             ->sum('nominal_bayar');
 

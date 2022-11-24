@@ -272,7 +272,15 @@ function persentase_pendapatan($uang_sekarang,$uang_lalu) {
 }
 
 function persentase_penerimaan($oldPrice,$newPrice) {
-	$percentChange = (100 * $newPrice) / $oldPrice;
+	if ($oldPrice == 0 && $newPrice == 0) {
+		$percentChange = 0;
+	}
+	else if ($oldPrice == 0 && $newPrice != 0) {
+		$percentChange = 100;
+	}
+	else {
+		$percentChange = (100 * $newPrice) / $oldPrice;
+	}
 
 	return floor($percentChange);
 }

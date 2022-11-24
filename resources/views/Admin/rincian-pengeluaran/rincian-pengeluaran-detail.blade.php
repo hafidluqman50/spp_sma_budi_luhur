@@ -11,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard-rab') }}">Dashboard RAB</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ url('/admin/rincian-pengeluaran') }}">Rincian Pengeluaran Sekolah</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/rincian-pengeluaran') }}">Rincian Pengeluaran</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Rincian Pengeluaran Sekolah</h4>
+                        <h4 class="page-title">Rincian Pengeluaran</h4>
                     </div>
                 </div>
             </div>
@@ -53,6 +53,30 @@
                                 <th>Volume Rincian RAB</th>
                                 <th>Nominal Rincian RAB</th>
                                 <th>Total Nominal RAB</th>
+                                <th>Keterangan</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>RINCIAN PENGELUARAN UANG MAKAN</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-pengeluaran-uang-makan force-fullwidth" id-rincian-pengeluaran="{{ $id }}">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Tanggal Uraian</th>
+                                <th>Nama Uraian</th>
+                                <th>Nama Kantin</th>
+                                <th>Volume Uraian</th>
+                                <th>Nominal Uraian</th>
+                                <th>Total Nominal</th>
                                 <th>#</th>
                             </tr>
                             </thead>

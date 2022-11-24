@@ -34,70 +34,99 @@
                     </div>
                     <form action="{{ url('/admin/data-perincian-rab/sapras/'.$id.'/save') }}" method="POST">
                         @csrf
-                        <div id="input-kategori-rincian-layout">
-                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
-                                <div class="form-group">
-                                    <label class="col-form-label">Kategori Barang</label>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Barang; Ex: Obat" id-kategori-rincian="1">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="1">
-                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
-                                        <input type="hidden" name="kategori_rincian[]" value="">
-                                        <div class="col-md-10 row">
+                        <div id="input-pemohon-layout">
+                            <div class="input-pemohon-rincian-layout" id="input-pemohon-rincian-layout" id-pemohon-layout="1">
+                                <div class="card-box">
+                                    <div class="form-group">
+                                        <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Nama Barang</label>
-                                                    <input type="text" name="nama_barang[]" class="form-control nama-barang" id-nama-barang="1">
-                                                </div>  
+                                                <label class="col-form-label">Pemohon</label>
+                                                <input type="text" class="form-control pemohon" placeholder="Isi Pemohon" id-pemohon-rincian="1">
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Qty</label>
-                                                    <input type="text" name="qty[]" class="qty form-control" id-qty="1">
-                                                </div>
+                                                <label class="col-form-label">Keterangan Pemohon</label>
+                                                <input type="text" class="form-control keterangan-pemohon" placeholder="Isi Keterangan Pemohon; Ex: KEGIATAN PELAKSANAAN;" id-keterangan-pemohon-rincian="1">
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Ket</label>
-                                                    <input type="text" name="ket[]" class="ket form-control" id-ket="1">
-                                                </div>  
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Harga Barang</label>
-                                                    <input type="text" name="harga_barang[]" class="harga-barang form-control" id-harga-barang="1">
-                                                    <label for="" class="harga-barang-label" id="harga-barang-label" id-harga-barang-label="1">Rp. 0,00</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Jumlah</label>
-                                                    <input type="text" name="jumlah[]" class="jumlah form-control" id-jumlah="1" readonly>
-                                                    <label for="" class="jumlah-label" id="jumlah-label" id-jumlah-label="1">Rp. 0,00</label>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="1">X</button>
+                                                <button class="btn btn-danger form-hide btn-delete-pemohon-rincian" style="margin-top:9%;" type="button" id-delete-pemohon="1">X</button>
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="input-kategori-rincian-layout" id="input-kategori-rincian-layout" id-pemohon-layout="1">
+                                        <div class="input-kategori-rincian" id="input-kategori-rincian" id-kategori-layout="1" id-pemohon-layout="1">
+                                            <div class="container-fluid">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Kategori Barang</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Barang; Ex: Obat" id-kategori-rincian="1">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="input-rincian" id="input-rincian" id-kategori-layout="1">
+                                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-kategori-layout="1">
+                                                        <input type="hidden" id-kategori-input="1" name="kategori_rincian[]" value="">
+                                                        <input type="hidden" id-pemohon-input="1" name="pemohon[]" value="">
+                                                        <input type="hidden" id-keterangan-pemohon-input="1" name="keterangan_pemohon[]" value="">
+                                                        <div class="col-md-10 row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Nama Barang</label>
+                                                                    <input type="text" name="nama_barang[]" class="form-control nama-barang" id-nama-barang="1">
+                                                                </div>  
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Qty</label>
+                                                                    <input type="text" name="qty[]" class="qty form-control" id-qty="1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Ket</label>
+                                                                    <input type="text" name="ket[]" class="ket form-control" id-ket="1">
+                                                                </div>  
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Harga Barang</label>
+                                                                    <input type="text" name="harga_barang[]" class="harga-barang form-control" id-harga-barang="1">
+                                                                    <label for="" class="harga-barang-label" id="harga-barang-label" id-harga-barang-label="1">Rp. 0,00</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Jumlah</label>
+                                                                    <input type="text" name="jumlah[]" class="jumlah form-control" id-jumlah="1" readonly>
+                                                                    <label for="" class="jumlah-label" id="jumlah-label" id-jumlah-label="1">Rp. 0,00</label>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="1">X</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="1">Tambah Input Rincian</button>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary tambah-input-kategori-rincian" type="button" id-act-kategori="1">Tambah Input Kategori</button>
                                 </div>
-                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="1">Tambah Input Rincian</button>
-                                <hr>
                             </div>
                         </div>
+                        {{-- <div class="card-box">
+                        </div> --}}
                         <div class="card-box">
-                            <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
+                            <button class="btn btn-info tambah-input-pemohon" type="button">Tambah Input Pemohon</button>
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
@@ -118,6 +147,7 @@
         var input_kategori_rincian       = 2;
         var hapus_input_kategori_rincian = 1;
         var btn_delete_rincian           = 2;
+        var id_pemohon_layout            = 2;
 
         var id_layout_rincian     = 2;
         var id_nama_barang        = 2;
@@ -128,7 +158,52 @@
         var id_harga_barang_label = 2;
         var id_jumlah_label       = 2;
 
-        $('.tambah-input').click(() => {
+        $('.tambah-input-pemohon').click(() => {
+            $('#input-pemohon-rincian-layout').clone().appendTo('#input-pemohon-layout')
+            $('.input-pemohon-rincian-layout:last').attr('id-pemohon-layout',id_pemohon_layout++)
+            $('.input-kategori-rincian-layout:last').attr('id-pemohon-layout',id_pemohon_layout)
+            $('.input-kategori-rincian:last').attr('id-pemohon-layout',id_pemohon_layout)
+            $('.btn-delete-pemohon-rincian:last').attr('id-delete-pemohon',id_pemohon_layout)
+            $('.btn-delete-pemohon-rincian:last').removeClass('form-hide')
+            $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
+            $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
+            $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')
+            $('.input-rincian:last').attr('id-kategori-layout',input_kategori_rincian)
+            $('.input-rincian-layout:last').attr('id-kategori-layout',input_kategori_rincian)
+            $('.tambah-input-rincian:last').attr('id-act',input_kategori_rincian)
+            $('.tambah-input-kategori-rincian:last').attr('id-act-kategori',input_kategori_rincian)
+            $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
+            
+            $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
+
+            $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++);
+            $(`.input-rincian-layout[id-kategori-layout="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.qty:last').attr('id-qty',id_qty++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.qty:last').val('')
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.ket:last').attr('id-ket',id_ket++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.ket:last').val('')
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang:last').attr('id-harga-barang',id_harga_barang++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang:last').val('')
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label',id_harga_barang_label++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang-label:last').html(rupiah_format(0))
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah:last').attr('id-jumlah',id_jumlah++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah:last').val('')
+
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+            input_kategori_rincian++
+            hapus_input_kategori_rincian++
+        })
+
+        $(document).on('click','.tambah-input-kategori-rincian',() => {
             // $('.rincian').each(function(){
             //     if ($(this)[0].selectize) {
             //         var value = $(this).val();
@@ -140,9 +215,11 @@
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')
-            $('.input-rincian:last').attr('id-layout-input-rincian',input_kategori_rincian)
-            $('.input-rincian-layout:last').attr('id-layout-input-rincian',input_kategori_rincian)
+            $('.input-rincian:last').attr('id-kategori-layout',input_kategori_rincian)
+            $('.input-rincian-layout:last').attr('id-kategori-layout',input_kategori_rincian)
             $('.tambah-input-rincian:last').attr('id-act',input_kategori_rincian)
+            $('.tambah-input-kategori-rincian:last').attr('id-act-kategori',input_kategori_rincian)
+            
             // $('.rincian').selectize({
             //     create:true,
             //     sortField:'text'
@@ -150,7 +227,7 @@
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
             
-            $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
+            $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-kategori-layout="${hapus_input_kategori_rincian}"]`).remove();
 
             $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
 
@@ -158,28 +235,28 @@
                 $('.btn-delete-rincian:last').addClass('form-hide')
             }
             
-            $(`.input-rincian-layout[id-layout-input-rincian="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+            $(`.input-rincian-layout[id-kategori-layout="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.qty:last').attr('id-qty',id_qty++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.qty:last').val('')
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.qty:last').attr('id-qty',id_qty++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.qty:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.ket:last').attr('id-ket',id_ket++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.ket:last').val('')
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.ket:last').attr('id-ket',id_ket++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.ket:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.harga-barang:last').attr('id-harga-barang',id_harga_barang++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.harga-barang:last').val('')
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang:last').attr('id-harga-barang',id_harga_barang++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label',id_harga_barang_label++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.harga-barang-label:last').html(rupiah_format(0))
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label',id_harga_barang_label++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.harga-barang-label:last').html(rupiah_format(0))
             
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah:last').attr('id-jumlah',id_jumlah++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah:last').val('')
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah:last').attr('id-jumlah',id_jumlah++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah:last').val('')
 
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -193,41 +270,53 @@
             //         $(this).val(value);
             //     }
             // })
-            $(`.input-rincian-layout[id-layout-input-rincian="${attr}"]:last`).clone().appendTo(`.input-rincian[id-layout-input-rincian="${attr}"]`)
-            $(`.input-rincian-layout[id-layout-input-rincian="${attr}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+            $(`.input-rincian-layout[id-kategori-layout="${attr}"]:last`).clone().appendTo(`.input-rincian[id-kategori-layout="${attr}"]`)
+            $(`.input-rincian-layout[id-kategori-layout="${attr}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
             // $('.rincian').selectize({
             //     create:true,
             //     sortField:'text'
             // })
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').removeClass('form-hide')
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.btn-delete-rincian:last').removeClass('form-hide')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++)
 
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.nama-barang:last').val('')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.nama-barang:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.qty:last').attr('id-qty',id_qty++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.qty:last').val('')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.qty:last').attr('id-qty',id_qty++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.qty:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.ket:last').attr('id-ket',id_ket++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.ket:last').val('')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.ket:last').attr('id-ket',id_ket++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.ket:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.harga-barang:last').attr('id-harga-barang',id_harga_barang++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.harga-barang:last').val('')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.harga-barang:last').attr('id-harga-barang',id_harga_barang++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.harga-barang:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label',id_harga_barang_label++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.harga-barang-label:last').html(rupiah_format(0))
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.harga-barang-label:last').attr('id-harga-barang-label',id_harga_barang_label++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.harga-barang-label:last').html(rupiah_format(0))
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah:last').attr('id-jumlah',id_jumlah++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah:last').val('')
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.jumlah:last').attr('id-jumlah',id_jumlah++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.jumlah:last').val('')
 
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
+            $(`.input-rincian[id-kategori-layout="${attr}"]`).find('.jumlah-label:last').html(rupiah_format(0))
         })
 
         $(document).on('keyup','.kategori-rincian',function(){
             let val  = $(this).val()
             let attr = $(this).attr('id-kategori-rincian')
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="kategori_rincian[]"]').val(val)
+            $(`input[name="kategori_rincian[]"][id-kategori-input="${attr}"]`).val(val)
+        })
+
+        $(document).on('keyup','.pemohon',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-pemohon-rincian')
+            $(`input[name="pemohon[]"][id-pemohon-input="${attr}"]`).val(val)
+        })
+
+        $(document).on('keyup','.keterangan-pemohon',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-keterangan-pemohon-rincian')
+            $(`input[name="keterangan_pemohon[]"][id-keterangan-pemohon-input="${attr}"]`).val(val)
         })
 
         $(document).on('click','.btn-delete-kategori-rincian',function(){

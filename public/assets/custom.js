@@ -1027,6 +1027,7 @@ $(() => {
             {data:'volume_rab',name:'volume_rab'},
             {data:'nominal_rab',name:'nominal_rab'},
             {data:'total_nominal_rab',name:'total_nominal_rab'},
+            {data:'ket_rincian_pengeluaran_sekolah',name:'ket_rincian_pengeluaran_sekolah'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -1111,6 +1112,37 @@ $(() => {
         });
     }).draw();
 
+    var rincian_pembelanjaan_id__ = $('.data-rincian-pembelanjaan-tahun-ajaran').attr('id-rincian-pengeluaran')
+    var rincian_pembelanjaan_tahun_ajaran = $('.data-rincian-pembelanjaan-tahun-ajaran').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:`${base_url}/datatables/data-rincian-pembelanjaan-tahun-ajaran/${rincian_pembelanjaan_id__}`,
+        columns:[
+            {data:'id_rincian_pembelanjaan_tahun_ajaran',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'bulan_tahun',name:'bulan_tahun'},
+            {data:'pemasukan',name:'pemasukan'},
+            {data:'realisasi_pengeluaran',name:'realisasi_pengeluaran'},
+            {data:'sisa_akhir_bulan',name:'sisa_akhir_bulan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        // order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    rincian_pembelanjaan_tahun_ajaran.on( 'order.dt search.dt', function () {
+        rincian_pembelanjaan_tahun_ajaran.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
     var id_rincian_       = $('.data-rincian-pengajuan').attr('id-rincian-pengeluaran')
     var rincian_pengajuan = $('.data-rincian-pengajuan').DataTable({
         processing:true,
@@ -1158,6 +1190,8 @@ $(() => {
             {data:'ket',name:'ket'},
             {data:'harga_barang',name:'harga_barang'},
             {data:'jumlah',name:'jumlah'},
+            {data:'pemohon',name:'pemohon'},
+            {data:'keterangan_pemohon',name:'keterangan_pemohon'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
@@ -1294,6 +1328,7 @@ $(() => {
                 return meta.row + meta.settings._iDisplayStart+1;
             }},
             {data:'nama_kantin',name:'nama_kantin'},
+            {data:'nominal_harus_bayar',name:'nominal_harus_bayar'},
             {data:'nominal_pemasukan',name:'nominal_pemasukan'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],

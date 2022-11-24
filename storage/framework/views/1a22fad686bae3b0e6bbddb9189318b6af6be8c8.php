@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>RINCIAN PENGELUARAN</b></h4>
+                        <h4 class="m-t-0 header-title"><b>RINCIAN PENGELUARAN SEKOLAH</b></h4>
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
@@ -36,7 +36,7 @@
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered data-rincian-pengeluaran-detail force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered data-rincian-pengeluaran-sekolah force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -51,6 +51,30 @@
                                 <th>Volume Rincian RAB</th>
                                 <th>Nominal Rincian RAB</th>
                                 <th>Total Nominal RAB</th>
+                                <th>Keterangan</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>RINCIAN PENGELUARAN UANG MAKAN</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-pengeluaran-uang-makan force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Tanggal Uraian</th>
+                                <th>Nama Uraian</th>
+                                <th>Nama Kantin</th>
+                                <th>Volume Uraian</th>
+                                <th>Nominal Uraian</th>
+                                <th>Total Nominal</th>
                                 <th>#</th>
                             </tr>
                             </thead>

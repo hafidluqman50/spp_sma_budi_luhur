@@ -54,6 +54,48 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PENERIMAAN REKAP</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-penerimaan-rekap force-fullwidth" id-rincian-penerimaan="{{$id_rincian_penerimaan}}">
+                            <thead>
+                            <tr>
+                                <th>Tanggal Bon Pengajuan</th>
+                                <th>Nominal Bon Pengajuan</th>
+                                <th>Tanggal Realisasi Pengeluaran</th>
+                                <th>Nominal Realisasi Pengeluaran</th>
+                                <th>Sisa Realisasi Pengeluaran</th>
+                                <th>Tanggal Penerimaan Bulan Ini</th>
+                                <th>Sisa Penerimaan Bulan Ini</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PENERIMAAN REKAP TAHUN AJARAN</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-penerimaan-tahun-ajaran force-fullwidth" id-rincian-penerimaan="{{$id_rincian_penerimaan}}">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Bulan, Tahun</th>
+                                <th>Pemasukan</th>
+                                <th>Realisasi Pengeluaran</th>
+                                <th>Sisa Akhir Bulan</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div> <!-- end container -->
     </div>

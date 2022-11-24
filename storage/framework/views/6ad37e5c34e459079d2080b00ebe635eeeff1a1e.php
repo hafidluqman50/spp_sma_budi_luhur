@@ -131,7 +131,7 @@
                                                         <div>
                                                             <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="1">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
-                                                                <option value="SPP">SPP</option>
+                                                                
                                                                 <?php $__currentLoopData = $kolom_spp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                 <option value="<?php echo e($element->id_kolom_spp); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
                                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -183,6 +183,12 @@
                                                                 <input type="text" name="ket_volume_rab[]" class="form-control"  placeholder="Ket Volume RAB">
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Keterangan Rincian</label>
+                                                        <input type="text" name="keterangan_rincian[]" class="form-control"  placeholder="Keterangan Rincian; Ex: Rutin Tiap Bulan;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -282,7 +288,7 @@
                                             <hr>
                                         </div>
                                         <div class="col-md-1">
-                                            <button class="btn btn-danger form-hide hapus-act-perincian-uang-makan" style="margin-top: 41%;" id="hapus-act-perincian-uang-makan" hapus-uang-makan-id="1">X</button>
+                                            <button class="btn btn-danger form-hide hapus-act-perincian-uang-makan" type="button" style="margin-top: 41%;" id="hapus-act-perincian-uang-makan" hapus-uang-makan-id="1">X</button>
                                         </div>
                                     </div>
                                     <hr>

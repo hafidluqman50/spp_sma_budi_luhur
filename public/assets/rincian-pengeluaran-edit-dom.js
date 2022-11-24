@@ -7,6 +7,12 @@ $(() => {
         $('.selectize-control').eq(index).attr('pendapatan-id',attr)
     })
 
+    $('select.kantin').each(function(index,element){
+        console.log(index)
+        let attr = $(this).attr('kantin-id')
+        $('.selectize-control').eq(index).attr('kantin-id',attr)
+    })
+
     $('input[name="saldo_awal"]').keyup(function(){
         let val = $(this).val()
         if (val == 0) {
@@ -73,7 +79,7 @@ $(() => {
         $('.nominal-pendapatan-label:last').attr('nominal-pendapatan-label-id',nominal_pendapatan_label++)
         $('.nominal-rab-label:last').attr('nominal-rab-id',nominal_rab_label++)
 
-        $('.hapus-act-perincian:last').attr('hapus-id',hapus_id++)
+        $('.hapus-act-perincian-sekolah:last').attr('hapus-id',hapus_id++)
         $('.input-pendapatan:last').attr('input-pendapatan-id',btn_input_pendapatan++)
         $('.pilih-pendapatan:last').attr('pilih-pendapatan-id',btn_pilih_pendapatan++)
 
@@ -107,6 +113,43 @@ $(() => {
         $('input[name="id_rincian_pengeluaran_detail[]"]:last').val('')
 
         $('select.pendapatan:last')[0].selectize.clear()
+    })
+
+    var input_perincian_uang_makan_id    = parseInt($('.input-uang-makan:last').attr('input-uang-makan-id'))+1;
+    var nominal_rincian_uang_makan_input = parseInt($('.nominal-rincian-uang-makan:last').attr('nominal-rincian-id'))+1;
+    var nominal_rincian_uang_makan_label = parseInt($('.nominal-rincian-label:last').attr('nominal-rincian-id'))+1;
+    var kantin_id                        = parseInt($('select.kantin:last').attr('kantin-id'))+1;
+    var hapus_uang_makan_id              = parseInt($('.hapus-act-perincian-uang-makan:last').attr('hapus-uang-makan-id'))+1;
+
+    $('#input-act-perincian-uang-makan').click(() => {
+
+        $('.kantin').each(function(){
+            if ($(this)[0].selectize) { // requires [0] to select the proper object
+                var value = $(this).val(); // store the current value of the select/input
+                $(this)[0].selectize.destroy(); // destroys selectize()
+                $(this).val(value);  // set back the value of the select/input
+            }
+        })
+        $('#input-uang-makan').clone().appendTo('#layout-input-uang-makan')
+        $('.kantin').selectize({
+            create:true,
+            sortField:'text'
+        })
+
+        $('.input-uang-makan:last').attr('input-uang-makan-id',input_perincian_uang_makan_id++)
+
+        $('.nominal-rincian-uang-makan:last').attr('nominal-rincian-id',nominal_rincian_uang_makan_input++)
+
+        $('.nominal-rincian-label:last').attr('nominal-rincian-id',nominal_rincian_uang_makan_label++)
+
+        $('.hapus-act-perincian-uang-makan:last').attr('hapus-uang-makan-id',hapus_uang_makan_id++)
+
+        $('select.kantin:last').attr('kantin-id',kantin_id++)
+
+        $('.input-uang-makan:last').find('input').val('')
+
+        $('select.kantin:last')[0].selectize.clear()
+        $('.hapus-act-perincian-uang-makan:last').removeClass('form-hide')
     })
 
     $(document).on('keyup','.nominal-rincian',function() {
@@ -162,9 +205,17 @@ $(() => {
         
     })
 
-    $(document).on('click','.hapus-act-perincian',function() {
+    $(document).on('click','.hapus-act-perincian-sekolah',function() {
         let attr = $(this).attr('hapus-id')
         $(`.input-perincian[input-perincian-id="${attr}"]`).remove()
+        // $('.input-perincian').last().remove()
+        // if ($('.input-perincian').length == 1) {
+        //     $('#hapus-act-perincian').addClass('form-hide')
+        // }
+    })
+    $(document).on('click','.hapus-act-perincian-uang-makan',function() {
+        let attr = $(this).attr('hapus-uang-makan-id')
+        $(`.input-uang-makan[input-uang-makan-id="${attr}"]`).remove()
         // $('.input-perincian').last().remove()
         // if ($('.input-perincian').length == 1) {
         //     $('#hapus-act-perincian').addClass('form-hide')
@@ -219,6 +270,26 @@ $(() => {
         else {
             $(`.nominal-pendapatan-label[nominal-pendapatan-label-id="${attr}"]`).html(rupiah_format(0))   
         }
+    })
+
+    $(document).on('change','.kantin',function(){
+        let val           = $(this).val()
+        let attr          = $(this).attr('kantin-id')
+        let bulan_laporan = $('select[name="bulan_laporan"]').val()
+        let tahun_laporan = $('input[name="tahun_laporan"]').val()
+
+        $.ajax({
+            url: `${base_url}/ajax/get-pemasukan-kantin`,
+            data: {id_kantin: val, bulan_laporan: bulan_laporan, tahun_laporan: tahun_laporan},
+        })
+        .done(function(done) {
+            $(`.nominal-rincian-uang-makan[nominal-rincian-uang-makan-id="${attr}"]`).val(done)
+            $(`.nominal-rincian-uang-makan-label[nominal-rincian-uang-makan-id="${attr}"]`).html(rupiah_format(done))
+        })
+        .fail(function(error) {
+            console.log(error)
+        });
+        
     })
       
 })

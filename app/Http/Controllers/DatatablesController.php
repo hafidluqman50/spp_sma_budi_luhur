@@ -25,6 +25,7 @@ use App\Models\RincianPengeluaran;
 use App\Models\RincianPengeluaranSekolah;
 use App\Models\RincianPengeluaranUangMakan;
 use App\Models\RincianPembelanjaan;
+use App\Models\RincianPembelanjaanTahunAjaran;
 use App\Models\RincianPenerimaan;
 use App\Models\RincianPenerimaanDetail;
 use App\Models\RincianPenerimaanRekap;
@@ -688,11 +689,8 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($rincian_pengeluaran)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex" style="flex-direction:column;">
-                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran-sekolah/$action->id_rincian_pengeluaran").'">
-                              <button class="btn btn-success waves-light"> Rincian Pengeluaran Sekolah </button>
-                           </a>
-                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran-uang-makan/$action->id_rincian_pengeluaran").'">
-                              <button class="btn btn-success waves-light"> Rincian Pengeluaran Uang Makan </button>
+                            <a href="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran/$action->id_rincian_pengeluaran").'">
+                              <button class="btn btn-success waves-light"> Rincian Pengeluaran </button>
                            </a>
                             <a href="'.url("/$this->level/data-perincian-rab/rincian-pembelanjaan/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-success waves-light"> Rincian Pembelanjaan </button>
@@ -741,7 +739,7 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($rincian_pengeluaran_sekolah)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                           <form action="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran-sekolah/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_sekolah").'" method="POST">
+                           <form action="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_sekolah").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -809,7 +807,7 @@ class DatatablesController extends Controller
         $datatables = Datatables::of($rincian_pengeluaran_uang_makan)->addColumn('action',function($action){
             $column = '
                         <div class="d-flex">
-                           <form action="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran-uang-makan/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_uang_makan").'" method="POST">
+                           <form action="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran/$action->id_rincian_pengeluaran/delete/$action->id_rincian_pengeluaran_uang_makan").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
@@ -838,10 +836,18 @@ class DatatablesController extends Controller
 
     public function dataRincianPembelanjaan($id,$ket)
     {
-        $rincian_pembelanjaan = RincianPembelanjaan::join('rincian_pengeluaran_detail','rincian_pembelanjaan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
-            ->where('rincian_pembelanjaan.id_rincian_pengeluaran',$id)
-            ->where('jenis_rincian_pembelanjaan',$ket)
-            ->get();
+        if ($ket == 'operasional') {
+            $rincian_pembelanjaan = RincianPembelanjaan::join('rincian_pengeluaran_sekolah','rincian_pembelanjaan.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
+                ->where('rincian_pembelanjaan.id_rincian_pengeluaran',$id)
+                ->where('jenis_rincian_pembelanjaan',$ket)
+                ->get();
+        }
+        elseif ($ket == 'uang-makan') {
+            $rincian_pembelanjaan = RincianPembelanjaan::join('rincian_pengeluaran_uang_makan','rincian_pembelanjaan.id_rincian_pengeluaran_uang_makan','=','rincian_pengeluaran_uang_makan.id_rincian_pengeluaran_uang_makan')
+                ->where('rincian_pembelanjaan.id_rincian_pengeluaran',$id)
+                ->where('jenis_rincian_pembelanjaan',$ket)
+                ->get();
+        }
 
         $datatables = Datatables::of($rincian_pembelanjaan)->addColumn('action',function($action)use($ket){
                 $array_url = ['operasional' => 'rincian-pembelanjaan', 'uang-makan' => 'rincian-pembelanjaan-uang-makan'];
@@ -861,9 +867,37 @@ class DatatablesController extends Controller
         return $datatables;
     }
 
+    public function dataRincianPembelanjaanTahunAjaran($id)
+    {
+        $rincian_pembelanjaan_tahun_ajaran = RincianPembelanjaanTahunAjaran::where('id_rincian_pengeluaran',$id)
+                                                ->get();
+
+        $datatables = Datatables::of($rincian_pembelanjaan_tahun_ajaran)->addColumn('action',function($action)use($id){
+                $column = ' <div style="display:flex; flex-direction:column;">
+                               <form action="'.url("/$this->level/data-perincian-rab/rincian-penerimaan/$action->id_rincian_pengeluaran/lihat-rekap/$action->id_rincian_pengeluaran/delete/$action->id_rincian_penerimaan_detail").'" method="POST">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                               </form>
+                           </div>
+                        ';
+                return $column;
+            })->addColumn('bulan_tahun',function($add){
+                return month($add->bulan).', '.$add->tahun;
+            })->editColumn('pemasukan',function($edit){
+                return format_rupiah($edit->pemasukan);
+            })->editColumn('realisasi_pengeluaran',function($edit){
+                return format_rupiah($edit->realisasi_pengeluaran);
+            })->editColumn('sisa_akhir_bulan',function($edit){
+                return format_rupiah($edit->sisa_akhir_bulan);
+            })->make(true);
+
+        return $datatables;
+    }
+
     public function dataRincianPengajuan($id)
     {
-        $rincian_pengajuan = RincianPengajuan::join('rincian_pengeluaran_detail','rincian_pengajuan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
+        $rincian_pengajuan = RincianPengajuan::join('rincian_pengeluaran_sekolah','rincian_pengajuan.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
             ->where('rincian_pengajuan.id_rincian_pengeluaran',$id)
             ->get();
 
@@ -1042,8 +1076,7 @@ class DatatablesController extends Controller
 
     public function dataPemasukanKantin($id)
     {
-        $pemasukan_kantin = PemasukanKantin::join('spp_bulan_tahun','pemasukan_kantin.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                                ->join('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+        $pemasukan_kantin = PemasukanKantin::join('kantin','pemasukan_kantin.id_kantin','=','kantin.id_kantin')
                                                 ->where('pemasukan_kantin.id_spp_bulan_tahun',$id)
                                                 ->get();
 
@@ -1057,6 +1090,8 @@ class DatatablesController extends Controller
                            </div>
                         ';
                 return $column;
+            })->editColumn('nominal_harus_bayar',function($edit){
+                return format_rupiah($edit->nominal_harus_bayar);
             })->editColumn('nominal_pemasukan',function($edit){
                 return format_rupiah($edit->nominal_pemasukan);
             })->make(true);

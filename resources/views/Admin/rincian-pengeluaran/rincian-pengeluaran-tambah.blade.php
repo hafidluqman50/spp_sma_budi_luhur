@@ -133,7 +133,7 @@
                                                         <div>
                                                             <select name="id_kolom_spp[]" class="form-control selectize pendapatan" pendapatan-id="1">
                                                                 <option value="" selected disabled>=== Pilih Pendapatan ===</option>
-                                                                <option value="SPP">SPP</option>
+                                                                {{-- <option value="SPP">SPP</option> --}}
                                                                 @foreach ($kolom_spp as $element)
                                                                 <option value="{{ $element->id_kolom_spp }}">{{ $element->nama_kolom_spp }}</option>
                                                                 @endforeach
@@ -185,6 +185,12 @@
                                                                 <input type="text" name="ket_volume_rab[]" class="form-control"  placeholder="Ket Volume RAB">
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Keterangan Rincian</label>
+                                                        <input type="text" name="keterangan_rincian[]" class="form-control"  placeholder="Keterangan Rincian; Ex: Rutin Tiap Bulan;">
                                                     </div>
                                                 </div>
                                             </div>

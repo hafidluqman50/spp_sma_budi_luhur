@@ -89,12 +89,12 @@
                         <h4 class="text-dark font-18">Pendapatan SPP</h4>
                         <h2 class="text-primary text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_spp) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_spp_old) }} 
-                            @if (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0)
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @if ($pendapatan_spp >= $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp) }}%</span>
+                            {{-- @elseif ($pendapatan_spp == $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp,$pendapatan_spp_old) }}%</span> --}}
+                            @elseif ($pendapatan_spp < $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -106,12 +106,12 @@
                         <h4 class="text-dark font-18">Pendapatan Uang Makan</h4>
                         <h2 class="text-pink text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_uang_makan) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_uang_makan_old) }}
-                            @if (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @if ($pendapatan_uang_makan >= $pendapatan_uang_makan_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan) }}%</span>
+                            {{-- @elseif (persentase_penerimaan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span> --}}
+                            @elseif ($pendapatan_uang_makan < $pendapatan_uang_makan_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -123,12 +123,12 @@
                         <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
                         <h2 class="text-success text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_tab_tes) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_tab_tes_old) }} 
-                            @if (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @if ($pendapatan_tab_tes >= $pendapatan_tab_tes_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes) }}%</span>
+                            {{-- @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span> --}}
+                            @elseif ($pendapatan_tab_tes < $pendapatan_tab_tes_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -140,12 +140,12 @@
                         <h4 class="text-dark font-18">Pendapatan Asrama</h4>
                         <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_asrama) }}</span></h2>
                         <p class="text-muted">Dari: {{ money_receipt($pendapatan_asrama_old) }} 
-                            @if (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @if ($pendapatan_asrama >= $pendapatan_asrama_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama) }}%</span>
+                            {{-- @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span> --}}
+                            @elseif ($pendapatan_asrama < $pendapatan_asrama_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama) }}%</span>
                             @endif
                         </p>
                     </div>

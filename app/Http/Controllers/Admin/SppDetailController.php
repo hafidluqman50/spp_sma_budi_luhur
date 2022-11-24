@@ -13,6 +13,7 @@ use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\Petugas;
 use App\Models\HistoryProsesSpp;
+use App\Models\PemasukanKantin;
 use Auth;
 
 class SppDetailController extends Controller
@@ -77,7 +78,7 @@ class SppDetailController extends Controller
 
         if ($spp_detail->slug_kolom_spp == 'uang-makan') {
             $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                        ->firstOrFail()->id_kantin;
+                                        ->firstOrFail();
 
             $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                                       ->where('id_kantin',$get_kantin->id_kantin)
@@ -94,8 +95,8 @@ class SppDetailController extends Controller
             }
             else {
                 $data_pemasukan_kantin = [
-                    'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun;
-                    'id_kantin'          => $spp_detail->id_kantin;
+                    'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun,
+                    'id_kantin'          => $spp_detail->id_kantin,
                     'nominal_pemasukan'  => $bayar_spp
                 ];
 
@@ -237,8 +238,8 @@ class SppDetailController extends Controller
                     }
                     else {
                         $data_pemasukan_kantin = [
-                            'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun;
-                            'id_kantin'          => $spp_detail->id_kantin;
+                            'id_spp_bulan_tahun' => $spp_detail->id_spp_bulan_tahun,
+                            'id_kantin'          => $spp_detail->id_kantin,
                             'nominal_pemasukan'  => $bayar_spp
                         ];
 

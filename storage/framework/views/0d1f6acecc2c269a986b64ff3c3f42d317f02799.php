@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title"><b>DATA PERINCIAN RAB</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PEMBELANJAAN UANG MAKAN</b></h4>
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
@@ -60,6 +60,26 @@
                             </thead>
                             <tbody>
 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PEMBELANJAAN UANG MAKAN TAHUN AJARAN REKAP</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-pembelanjaan-tahun-ajaran force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Bulan, Tahun</th>
+                                <th>Pemasukan</th>
+                                <th>Realisasi Pengeluaran</th>
+                                <th>Sisa Akhir Bulan</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                
                             </tbody>
                         </table>
                     </div>

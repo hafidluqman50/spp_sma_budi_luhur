@@ -83,7 +83,7 @@
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}" {!!$val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
+                                                        <option value="{{ $data->id_rincian_pengeluaran_uang_makan }}" {!!$val->id_rincian_pengeluaran_uang_makan == $data->id_rincian_pengeluaran_uang_makan ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>  
@@ -137,6 +137,46 @@
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
+                        </div>
+                        <div class="card-box">
+                            @php
+                                $explode_tahun_ajaran = explode('/', $tahun_ajaran);
+                                $no = 0;
+                            @endphp
+                            @foreach ($explode_tahun_ajaran as $key => $value)
+                            @for ($i = 0; $i < count($bulan[$key]); $i++)
+                            @php
+                                $no = $no+1;
+                            @endphp
+                            <h5>{{ month($bulan[$key][$i]).' '.$value }}</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Pemasukan</label>
+                                        <input type="number" name="pemasukan[]" class="form-control pemasukan" required placeholder="Isi Pemasukan" id-pemasukan="{{ $no }}">
+                                        <label for="" class="pemasukan-label" id-pemasukan-label="{{ $no }}">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Realisasi Pengeluaran</label>
+                                        <input type="number" name="realisasi_pengeluaran_bulan[]" class="form-control realisasi-pengeluaran-bulan" required placeholder="Isi Realisasi Pengeluaran" id-realisasi-pengeluaran-bulan="{{ $no }}">
+                                        <label for="" class="realisasi-pengeluaran-bulan-label" id-realisasi-pengeluaran-bulan-label="{{ $no }}">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Sisa Akhir Bulan</label>
+                                        <input type="number" name="sisa_akhir_bulan[]" class="form-control sisa-akhir-bulan" required placeholder="Isi Sisa Akhir Bulan" id-sisa-akhir-bulan="{{ $no }}">
+                                        <label for="" class="sisa-akhir-bulan-label" id-sisa-akhir-bulan-label="{{ $no }}">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="bulan_rincian[]" value="{{ $bulan[$key][$i] }}">
+                                <input type="hidden" name="tahun_rincian[]" value="{{ $value }}">
+                            </div>
+                            <hr>
+                            @endfor
+                            @endforeach
                         </div>
                         <div class="card-box">
                             <button class="btn btn-warning">Edit Data</button>

@@ -17,6 +17,7 @@ use App\Models\SppBayarDetail;
 use App\Models\KelasSiswa;
 use App\Models\Kantin;
 use App\Models\HistoryProsesSpp;
+use App\Models\PemasukanKantin;
 use Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -119,6 +120,13 @@ class SppController extends Controller
 
         SppBulanTahun::create($data_spp_bulan_tahun);
 
+        $data_pemasukan_kantin = [
+            'id_spp_bulan_tahun'  => $id_spp_bulan_tahun,
+            'id_kantin'           => $kantin,
+            'nominal_harus_bayar' => 0,
+            'nominal_pemasukan'   => 0
+        ];
+
         foreach ($kolom_spp as $index => $element) {
             $id_spp_detail = (string)Str::uuid();
             $data_spp_detail = [
@@ -132,6 +140,12 @@ class SppController extends Controller
             ];
 
             SppDetail::create($data_spp_detail);
+            $get_kolom_spp = KolomSpp::where('id_kolom_spp',$kolom_spp[$index])->firstOrFail();
+            if ($get_kolom_spp->slug_kolom_spp == 'uang-makan') {
+                $data_pemasukan_kantin['nominal_harus_bayar'] = $nominal_spp[$index];
+
+                PemasukanKantin::create($data_pemasukan_kantin);
+            }
         }
 
         return redirect('/admin/spp')->with('message','Berhasil Input Data SPP');

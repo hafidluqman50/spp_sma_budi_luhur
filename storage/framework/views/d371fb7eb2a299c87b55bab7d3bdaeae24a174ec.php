@@ -62,9 +62,9 @@
                                                         <option value="" selected disabled>=== Pilih Pendapatan ===</option>
                                                         <?php $__currentLoopData = $pendapatan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <?php if($element->kolom_pendapatan != ''): ?>
-                                                        <option value="<?php echo e($element->id_rincian_pengeluaran_detail); ?>"><?php echo e($element->kolom_pendapatan); ?></option>
+                                                        <option value="<?php echo e($element->id_rincian_pengeluaran_sekolah); ?>"><?php echo e($element->kolom_pendapatan); ?></option>
                                                         <?php else: ?>
-                                                        <option value="<?php echo e($element->id_rincian_pengeluaran_detail); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
+                                                        <option value="<?php echo e($element->id_rincian_pengeluaran_sekolah); ?>"><?php echo e($element->nama_kolom_spp); ?></option>
                                                         <?php endif; ?>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>

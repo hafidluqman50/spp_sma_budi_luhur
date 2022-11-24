@@ -73,7 +73,7 @@
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}" {!!$val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
+                                                        <option value="{{ $data->id_rincian_pengeluaran_sekolah }}" {!!$val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>  

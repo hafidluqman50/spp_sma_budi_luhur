@@ -32,6 +32,16 @@
                     </div>
                     <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/save')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
+                        <div class="card-box">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Tanggal Setor Uang Makan</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="date" name="tanggal_setor_dapur" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="input-kategori-rincian-layout">
                             <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="1">
                                 <div class="form-group">
@@ -53,10 +63,10 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
+                                                    <select name="rincian_uang_makan[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>"><?php echo e($data->uraian_rincian); ?></option>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_uang_makan); ?>"><?php echo e($data->uraian_rincian); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
@@ -95,6 +105,47 @@
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
+                        </div>
+                        
+                        <div class="card-box">
+                            <?php
+                                $explode_tahun_ajaran = explode('/', $tahun_ajaran);
+                                $no = 0;
+                            ?>
+                            <?php $__currentLoopData = $explode_tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php for($i = 0; $i < count($bulan[$key]); $i++): ?>
+                            <?php
+                                $no = $no+1;
+                            ?>
+                            <h5><?php echo e(month($bulan[$key][$i]).' '.$value); ?></h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Pemasukan</label>
+                                        <input type="number" name="pemasukan[]" class="form-control pemasukan" required placeholder="Isi Pemasukan" id-pemasukan="<?php echo e($no); ?>">
+                                        <label for="" class="pemasukan-label" id-pemasukan-label="<?php echo e($no); ?>">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Realisasi Pengeluaran</label>
+                                        <input type="number" name="realisasi_pengeluaran_bulan[]" class="form-control realisasi-pengeluaran-bulan" required placeholder="Isi Realisasi Pengeluaran" id-realisasi-pengeluaran-bulan="<?php echo e($no); ?>">
+                                        <label for="" class="realisasi-pengeluaran-bulan-label" id-realisasi-pengeluaran-bulan-label="<?php echo e($no); ?>">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Sisa Akhir Bulan</label>
+                                        <input type="number" name="sisa_akhir_bulan[]" class="form-control sisa-akhir-bulan" required placeholder="Isi Sisa Akhir Bulan" id-sisa-akhir-bulan="<?php echo e($no); ?>">
+                                        <label for="" class="sisa-akhir-bulan-label" id-sisa-akhir-bulan-label="<?php echo e($no); ?>">Rp. 0,00</label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="bulan_rincian[]" value="<?php echo e($bulan[$key][$i]); ?>">
+                                <input type="hidden" name="tahun_rincian[]" value="<?php echo e($value); ?>">
+                            </div>
+                            <hr>
+                            <?php endfor; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary">Simpan Data</button>
@@ -228,7 +279,7 @@
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="kategori_rincian[]"]').val(val)
         })
 
-        $(document).on('change','select[name="rincian[]"]',function(){
+        $(document).on('change','select[name="rincian_uang_makan[]"]',function(){
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({
