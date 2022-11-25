@@ -53,7 +53,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
+                                                    <select name="rincian_sekolah[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <option value="<?php echo e($data->id_rincian_pengeluaran_sekolah); ?>"><?php echo e($data->uraian_rincian); ?></option>
@@ -231,7 +231,7 @@
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="kategori_rincian[]"]').val(val)
         })
 
-        $(document).on('change','select[name="rincian[]"]',function(){
+        $(document).on('change','select[name="rincian_sekolah[]"]',function(){
             let val  = $(this).val()
             let attr = $(this).attr('id-rincian')
             $.ajax({

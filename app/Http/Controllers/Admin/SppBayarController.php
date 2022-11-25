@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Spp;
 use App\Models\SppBayar;
+use App\Models\SppBayarDetail;
 
 class SppBayarController extends Controller
 {
@@ -19,7 +20,16 @@ class SppBayarController extends Controller
                             ->where('id_spp',$id)
                             ->firstOrFail();
 
-        return view('Admin.spp-bayar.spp-bayar',compact('title','id','id_spp_bayar_data','siswa'));
+        $tahun = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->where('spp_bayar.id_spp_bayar_data',$id)
+                            ->groupBy('tahun')
+                            ->orderBy('tahun','ASC')
+                            ->get();
+
+        $spp_bayar = new SppBayar;
+        $spp_bayar_detail = new SppBayarDetail;
+
+        return view('Admin.spp-bayar.spp-bayar',compact('title','id','id_spp_bayar_data','siswa','tahun','spp_bayar_detail','spp_bayar'));
     }
 
     public function delete($id,$id_spp_bayar_data,$id_spp_bayar)

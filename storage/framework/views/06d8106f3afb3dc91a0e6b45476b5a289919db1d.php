@@ -69,7 +69,28 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                                <?php $__currentLoopData = $tahun; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    $bulan = $spp_bayar->getBulan($id,$value->tahun);
+                                ?>
+                                <?php $__currentLoopData = $bulan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    $kalkulasi = format_rupiah(SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                                    ->sum('nominal_bayar'));
+                                ?>
+                                <tr>
+                                    <td><?php echo e($element->bulan_tahun); ?></td>
+                                    <td><?php echo e($kalkulasi); ?></td>
+                                    <td>    
+                                        <div class="d-flex">
+                                            <a href="<?php echo e(url("/admin/spp/pembayaran/$id/lihat-pembayaran/$element->id_spp_bayar_data/detail/$element->id_spp_bayar")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-info"> Lihat Detail Bayar </button>
+                                           </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>

@@ -71,7 +71,28 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($tahun as $key => $value)
+                                @php
+                                    $bulan = $spp_bayar->getBulan($id,$value->tahun);
+                                @endphp
+                                @foreach ($bulan as $element)
+                                @php
+                                    $kalkulasi = format_rupiah(SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                                    ->sum('nominal_bayar'));
+                                @endphp
+                                <tr>
+                                    <td>{{ $element->bulan_tahun }}</td>
+                                    <td>{{ $kalkulasi }}</td>
+                                    <td>    
+                                        <div class="d-flex">
+                                            <a href="{{url("/admin/spp/pembayaran/$id/lihat-pembayaran/$element->id_spp_bayar_data/detail/$element->id_spp_bayar")}}" style="margin-right:1%;">
+                                              <button class="btn btn-info"> Lihat Detail Bayar </button>
+                                           </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

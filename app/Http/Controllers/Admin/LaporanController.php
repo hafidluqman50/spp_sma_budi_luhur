@@ -822,12 +822,41 @@ class LaporanController extends Controller
         }
 
         $spreadsheet->setActiveSheetIndex(0)->setTitle('PEMBELANJAAN UM');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
         $spreadsheet->setActiveSheetIndex(1)->setTitle('PEMBELANJAAN');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
         $spreadsheet->setActiveSheetIndex(2)->setTitle('Sheet4');
         $spreadsheet->setActiveSheetIndex(3)->setTitle('PENERIMAAN');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
         $spreadsheet->setActiveSheetIndex(4)->setTitle('RINCIAN PENGAJUAN');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
         $spreadsheet->setActiveSheetIndex(5)->setTitle('BON PENGAJUAN');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
         $spreadsheet->setActiveSheetIndex(6)->setTitle('sapras');
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
 
         $spreadsheet->setActiveSheetIndex(2);
         $spreadsheet->getDefaultStyle()->getFont()->setName('Bookman Old Style');
@@ -1272,6 +1301,61 @@ class LaporanController extends Controller
                 ];
 
             $spreadsheet->getActiveSheet()->getStyle("A$cell_pembelanjaan:G$cell_pembelanjaan")->applyFromArray($styleArray);
+
+            $cell_mengetahui_pembelanjaan     = $cell_pembelanjaan+2;
+            $cell_kepala_sma_belanja          = $cell_mengetahui_pembelanjaan+1;
+            $cell_nama_kepsek_belanja         = $cell_kepala_sma_belanja+5;
+
+            $cell_menyetujui_pengurus_belanja = $cell_nama_kepsek_belanja+2;
+            $cell_pengurus_belanja            = $cell_menyetujui_pengurus_belanja+1;
+            $cell_nama_pengurus_belanja       = $cell_pengurus_belanja+5;
+
+            $cell_menyetujui_pembina_belanja = $cell_nama_pengurus_belanja+2;
+            $cell_pembina_belanja            = $cell_menyetujui_pembina_belanja+1;
+            $cell_nama_pembina_belanja       = $cell_pembina_belanja+5;
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_mengetahui_pembelanjaan,'Mengetahui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_mengetahui_pembelanjaan:C$cell_mengetahui_pembelanjaan");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_kepala_sma_belanja,'Kepala SMA Budi Luhur Samarinda ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_kepala_sma_belanja:C$cell_kepala_sma_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_kepsek_belanja,'Edi Purwanto, S.Pd.');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_kepsek_belanja:C$cell_nama_kepsek_belanja");
+
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_mengetahui_pembelanjaan,'Samarinda, 25 September 2022');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_kepala_sma_belanja,'Bendahara ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_kepsek_belanja,'Nur Dina Sari');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_kepsek_belanja:I$cell_nama_kepsek_belanja");
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_menyetujui_pengurus_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_menyetujui_pengurus_belanja:C$cell_menyetujui_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengurus_belanja,'Pengurus Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_pengurus_belanja:C$cell_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_pengurus_belanja,'Agus Bukhori ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_pengurus_belanja:C$cell_nama_pengurus_belanja");
+
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_menyetujui_pengurus_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_menyetujui_pengurus_belanja:I$cell_menyetujui_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pengurus_belanja,'Bendahara Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_pengurus_belanja:I$cell_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_pengurus_belanja,'Hartanto ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_pengurus_belanja:I$cell_nama_pengurus_belanja");
+
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_menyetujui_pembina_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_menyetujui_pembina_belanja:C$cell_menyetujui_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembina_belanja,'Pembina Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_pembina_belanja:C$cell_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_pembina_belanja,'Sudarisman ');
+            $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_pembina_belanja:C$cell_nama_pembina_belanja");
+
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_menyetujui_pembina_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_menyetujui_pembina_belanja:I$cell_menyetujui_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembina_belanja,'Wali Pembina Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_pembina_belanja:I$cell_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_pembina_belanja,' ');
+            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_pembina_belanja:I$cell_nama_pembina_belanja");
+
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
         }
         // END SHEET RINCIAN PEMBELANJAAN //

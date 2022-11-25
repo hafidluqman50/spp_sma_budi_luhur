@@ -15,6 +15,17 @@ class SppBayar extends Model
     protected $primaryKey = 'id_spp_bayar';
     protected $guarded    = [];
 
+    public static function getBulan($id,$tahun)
+    {
+        $bulan = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                            ->where('spp_bayar.id_spp_bayar_data',$id)
+                            ->wherer('tahun',$tahun)
+                            ->orderBy('bulan','ASC')
+                            ->get();
+
+        return $bulan;
+    }
+
     public function getTanggalBayar($id_siswa,$bulan,$tahun)
     {
         $db = self::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
