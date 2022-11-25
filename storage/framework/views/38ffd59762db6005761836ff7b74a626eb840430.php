@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA SPP BULAN TAHUN</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
                             <a href="<?php echo e(url('/admin/spp/')); ?>">
@@ -59,7 +59,7 @@
                                 <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
                             </tr>
                         </table>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered datatable force-fullwidth" id-spp="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -71,7 +71,53 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <?php $__currentLoopData = $tahun; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    $bulan = $spp_bulan_tahun->getBulan($id,$value->tahun);
+                                ?>
+                                <?php $__currentLoopData = $bulan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    $array = [
+                                        0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
+                                        1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
+                                    ];
+                                    $status_pelunasan = '<span class="'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['class'].'">'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['text'].'</span>';
 
+                                    if ($element->nama_kantin == NULL || $element->nama_kantin == '') {
+                                        $nama_kantin = '-';
+                                    }
+                                    else {
+                                        $nama_kantin = $element->nama_kantin;
+                                    }
+
+                                    $kalkulasi = format_rupiah($spp_detail->where('id_spp_bulan_tahun',$element->id_spp_bulan_tahun)->sum('sisa_bayar'));
+                                ?>
+                                <tr>
+                                    <td><?php echo e($element->bulan_tahun); ?></td>
+                                    <td><?php echo e($nama_kantin); ?></td>
+                                    <td><?php echo $status_pelunasan; ?></td>
+                                    <td><?php echo e($kalkulasi); ?></td>
+                                    <td>    
+                                        <div class="d-flex">
+                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/lihat-pemasukan-kantin/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-success"> Lihat Pemasukan Kantin </button>
+                                           </a>
+                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/lihat-spp/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-info"> Lihat SPP </button>
+                                           </a>
+                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/edit/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-warning"> Edit </button>
+                                           </a>
+                                           <form action="<?php echo e(url("/admin/spp/tunggakan/$id/delete/$element->id_spp_bulan_tahun")); ?>" method="POST" style="margin-right:1%;">
+                                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                                           </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>

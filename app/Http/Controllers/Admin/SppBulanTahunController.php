@@ -16,10 +16,17 @@ class SppBulanTahunController extends Controller
 {
     public function index($id)
     {
-        $title = 'SPP Bulan Tahun';
-        $siswa = Spp::getRowById($id);
+        $title           = 'SPP Bulan Tahun';
+        $siswa           = Spp::getRowById($id);
+        $spp_bulan_tahun = new SppBulanTahun;
+        $spp_detail      = new SppDetail;
+        $tahun           = SppBulanTahun::leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                                        ->where('id_spp',$id)
+                                        ->groupBy('tahun')
+                                        ->orderBy('tahun','ASC')
+                                        ->get();
 
-        return view('Admin.spp-bulan-tahun.main',compact('title','id','siswa'));
+        return view('Admin.spp-bulan-tahun.main',compact('title','id','siswa','spp_bulan_tahun','tahun','spp_detail'));
     }
 
     public function edit($id,$id_bulan_tahun)

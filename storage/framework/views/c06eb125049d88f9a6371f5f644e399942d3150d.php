@@ -30,31 +30,66 @@
                                     <i class="fa fa-arrow-left m-r-5"></i>Kembali
                                 </button>
                             </a>
-                            <?php if($check == 0): ?>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/tambah')); ?>">
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id)); ?>">
                                 <button class="btn btn-primary" style="cursor:pointer;">
-                                	<i class="fa fa-plus m-r-5"></i>Tambah
+                                    Tambah Data
                                 </button>
                             </a>
-                            <?php endif; ?>
-                            <?php if($check != 0): ?>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/edit')); ?>">
-                                <button class="btn btn-warning" style="cursor:pointer;">
-                                	<i class="fa fa-pencil m-r-5"></i>Edit
-                                </button>
-                            </a>
-                            <?php endif; ?>
                         </div>
                         <?php if(session()->has('message')): ?>
                         <div class="alert alert-success alert-dismissible">
                             <?php echo e(session('message')); ?> <button class="close">X</button>
                         </div>
                         <?php endif; ?>
-                        <table class="table table-hover table-bordered data-rincian-penerimaan force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered data-rincian-penerimaan-detail force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
                             <thead>
                             <tr>
-                                <th>Tahun Ajaran</th>
-                                <th>Bulan Perincian</th>
+                                <th>No.</th>
+                                <th>Perincian</th>
+                                <th>Rencana</th>
+                                <th>Penerimaan</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PENERIMAAN REKAP</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-penerimaan-rekap force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                            <thead>
+                            <tr>
+                                <th>Tanggal Bon Pengajuan</th>
+                                <th>Nominal Bon Pengajuan</th>
+                                <th>Tanggal Realisasi Pengeluaran</th>
+                                <th>Nominal Realisasi Pengeluaran</th>
+                                <th>Sisa Realisasi Pengeluaran</th>
+                                <th>Tanggal Penerimaan Bulan Ini</th>
+                                <th>Sisa Penerimaan Bulan Ini</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <h4 class="m-t-0 header-title"><b>DATA RINCIAN PENERIMAAN REKAP TAHUN AJARAN</b></h4>
+                        <table class="table table-hover table-bordered data-rincian-penerimaan-tahun-ajaran force-fullwidth" id-rincian-pengeluaran="<?php echo e($id); ?>">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Bulan, Tahun</th>
+                                <th>Pemasukan</th>
+                                <th>Realisasi Pengeluaran</th>
+                                <th>Sisa Akhir Bulan</th>
                                 <th>#</th>
                             </tr>
                             </thead>

@@ -1231,7 +1231,7 @@ $(() => {
         fixedColumns: true
     });
 
-    var rincian_penerimaan_id = $('.data-rincian-penerimaan-detail').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_id = $('.data-rincian-penerimaan-detail').attr('id-rincian-pengeluaran')
     var rincian_penerimaan_detail = $('.data-rincian-penerimaan-detail').DataTable({
         processing:true,
         serverSide:true,
@@ -1261,7 +1261,7 @@ $(() => {
         });
     }).draw();
 
-    var rincian_penerimaan_id_ = $('.data-rincian-penerimaan-rekap').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_id_ = $('.data-rincian-penerimaan-rekap').attr('id-rincian-pengeluaran')
     var rincian_penerimaan_rekap = $('.data-rincian-penerimaan-rekap').DataTable({
         processing:true,
         serverSide:true,
@@ -1287,7 +1287,7 @@ $(() => {
         fixedColumns: true
     });
 
-    var rincian_penerimaan_id__ = $('.data-rincian-penerimaan-tahun-ajaran').attr('id-rincian-penerimaan')
+    var rincian_penerimaan_id__ = $('.data-rincian-penerimaan-tahun-ajaran').attr('id-rincian-pengeluaran')
     var rincian_penerimaan_tahun_ajaran = $('.data-rincian-penerimaan-tahun-ajaran').DataTable({
         processing:true,
         serverSide:true,

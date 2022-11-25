@@ -260,7 +260,6 @@ class DatatablesController extends Controller
                     ';
             }
             else {
-
             $column = '
                         <div class="d-flex">
                             <a href="'.url("/$this->level/spp/tunggakan/$action->id_spp/lihat-pemasukan-kantin/$action->id_spp_bulan_tahun").'" style="margin-right:1%;">
@@ -982,9 +981,9 @@ class DatatablesController extends Controller
 
     public function dataRincianPenerimaanDetail($id)
     {
-        $rincian_penerimaan_detail = RincianPenerimaanDetail::leftJoin('rincian_pengeluaran_detail','rincian_penerimaan_detail.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
-                                                ->leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
-                                                ->where('id_rincian_penerimaan',$id)
+        $rincian_penerimaan_detail = RincianPenerimaanDetail::leftJoin('rincian_pengeluaran_sekolah','rincian_penerimaan_detail.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
+                                                ->leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                ->where('rincian_penerimaan_detail.id_rincian_pengeluaran',$id)
                                                 ->get();
 
         $datatables = Datatables::of($rincian_penerimaan_detail)->addColumn('action',function($action)use($id){
@@ -1014,7 +1013,7 @@ class DatatablesController extends Controller
 
     public function dataRincianPenerimaanRekap($id)
     {
-        $rincian_penerimaan_rekap = RincianPenerimaanRekap::where('id_rincian_penerimaan',$id)
+        $rincian_penerimaan_rekap = RincianPenerimaanRekap::where('id_rincian_pengeluaran',$id)
                                                 ->get();
 
         $datatables = Datatables::of($rincian_penerimaan_rekap)->addColumn('action',function($action)use($id){
@@ -1048,7 +1047,7 @@ class DatatablesController extends Controller
 
     public function dataRincianPenerimaanTahunAjaran($id)
     {
-        $rincian_penerimaan_tahun_ajaran = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id)
+        $rincian_penerimaan_tahun_ajaran = RincianPenerimaanTahunAjaran::where('id_rincian_pengeluaran',$id)
                                                 ->get();
 
         $datatables = Datatables::of($rincian_penerimaan_tahun_ajaran)->addColumn('action',function($action)use($id){

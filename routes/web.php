@@ -401,9 +401,9 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-perincian-rab/rincian-penerimaan/{id}/edit',[AdminRincianPenerimaanController::class,'edit']);
     Route::put('/data-perincian-rab/rincian-penerimaan/{id}/update',[AdminRincianPenerimaanController::class,'update']);
     Route::delete('/data-perincian-rab/rincian-penerimaan/{id}/delete',[AdminRincianPenerimaanController::class,'delete']);
-    Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-detail/{id_rincian_penerimaan}',[AdminRincianPenerimaanDetailController::class,'index']);
-    Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rekap/{id_rincian_penerimaan}',[AdminRincianPenerimaanRekapController::class,'index']);
-    Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rincian-tahun-ajaran/{id_rincian_penerimaan}',[AdminRincianPenerimaanTahunAjaranController::class,'index']);
+    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-detail/{id_rincian_penerimaan}',[AdminRincianPenerimaanDetailController::class,'index']);
+    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rekap/{id_rincian_penerimaan}',[AdminRincianPenerimaanRekapController::class,'index']);
+    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rincian-tahun-ajaran/{id_rincian_penerimaan}',[AdminRincianPenerimaanTahunAjaranController::class,'index']);
 
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[AdminRincianPengajuanController::class,'index']);
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}/tambah',[AdminRincianPengajuanController::class,'tambah']);

@@ -17,6 +17,18 @@ class SppBulanTahun extends Model
     protected $primaryKey = 'id_spp_bulan_tahun';
     protected $guarded    = [];
 
+    public static function getBulan($id,$tahun)
+    {
+        $spp_bulan_tahun = SppBulanTahun::leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
+                                        ->where('id_spp',$id)
+                                        ->where('tahun',$tahun)
+                                        ->orderBy('bulan','ASC')
+                                        // ->orderBy('tahun_numeric','ASC')
+                                        ->get();
+
+        return $spp_bulan_tahun;
+    }
+
     public static function checkStatus($id)
     {
         $count1 = SppDetail::where('id_spp_bulan_tahun',$id)->count();
