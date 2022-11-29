@@ -148,6 +148,7 @@
         var hapus_input_kategori_rincian = 1;
         var btn_delete_rincian           = 2;
         var id_pemohon_layout            = 2;
+        var hapus_input_pemohon_layout   = 1;
 
         var id_layout_rincian     = 2;
         var id_nama_barang        = 2;
@@ -160,7 +161,7 @@
 
         $('.tambah-input-pemohon').click(() => {
             $('#input-pemohon-rincian-layout').clone().appendTo('#input-pemohon-layout')
-            $('.input-pemohon-rincian-layout:last').attr('id-pemohon-layout',id_pemohon_layout++)
+            $('.input-pemohon-rincian-layout:last').attr('id-pemohon-layout',id_pemohon_layout)
             $('.input-kategori-rincian-layout:last').attr('id-pemohon-layout',id_pemohon_layout)
             $('.input-kategori-rincian:last').attr('id-pemohon-layout',id_pemohon_layout)
             $('.btn-delete-pemohon-rincian:last').attr('id-delete-pemohon',id_pemohon_layout)
@@ -173,11 +174,27 @@
             $('.tambah-input-rincian:last').attr('id-act',input_kategori_rincian)
             $('.tambah-input-kategori-rincian:last').attr('id-act-kategori',input_kategori_rincian)
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
+
+            $('.pemohon:last').attr('id-pemohon-rincian',id_pemohon_layout)
+            $('.kategori-pemohon:last').attr('id-kategori-pemohon-rincian',id_pemohon_layout)
+
+            $('input[name="pemohon[]"]:last').attr('id-pemohon-input',id_pemohon_layout)
+            $('input[name="kategori_pemohon[]"]:last').attr('id-kategori-pemohon-input',id_pemohon_layout)
+            
+            $(`.input-kategori-rincian-layout[id-pemohon-layout="${id_pemohon_layout}"]`).find(`.input-kategori-rincian[id-pemohon-layout="${hapus_input_pemohon_layout}"]`).remove();
             
             $(`.input-kategori-rincian[id-input-kategori="${input_kategori_rincian}"]`).find(`.input-rincian-layout[id-layout-input-rincian="${hapus_input_kategori_rincian}"]`).remove();
 
             $('.btn-delete-rincian:last').attr('id-delete-rincian',btn_delete_rincian++);
             $(`.input-rincian-layout[id-kategori-layout="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+
+            if (!$('.btn-delete-rincian:last').hasClass('form-hide')) {
+                $('.btn-delete-rincian:last').addClass('form-hide')
+            }
+
+            if (!$('.btn-delete-kategori-rincian:last').hasClass('form-hide')) {
+                $('.btn-delete-kategori-rincian:last').addClass('form-hide')
+            }
             
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
@@ -199,6 +216,8 @@
 
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+
+            id_pemohon_layout++
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -257,6 +276,7 @@
 
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').attr('id-jumlah-label',id_jumlah_label++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.jumlah-label:last').html(rupiah_format(0))
+            
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -317,6 +337,11 @@
             let val  = $(this).val()
             let attr = $(this).attr('id-keterangan-pemohon-rincian')
             $(`input[name="keterangan_pemohon[]"][id-keterangan-pemohon-input="${attr}"]`).val(val)
+        })
+
+        $(document).on('click','.btn-delete-pemohon-rincian',function(){
+            let attr = $(this).attr('id-delete-pemohon');
+            $(`.input-pemohon-rincian-layout[id-pemohon-layout="${attr}"]`).remove()
         })
 
         $(document).on('click','.btn-delete-kategori-rincian',function(){

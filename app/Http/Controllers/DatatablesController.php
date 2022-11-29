@@ -689,7 +689,7 @@ class DatatablesController extends Controller
             $column = '
                         <div class="d-flex" style="flex-direction:column;">
                             <a href="'.url("/$this->level/data-perincian-rab/rincian-pengeluaran/$action->id_rincian_pengeluaran").'">
-                              <button class="btn btn-success waves-light"> Rincian Pengeluaran </button>
+                              <button class="btn btn-info waves-light"> Detail Rincian </button>
                            </a>
                             <a href="'.url("/$this->level/data-perincian-rab/rincian-pembelanjaan/$action->id_rincian_pengeluaran").'">
                               <button class="btn btn-success waves-light"> Rincian Pembelanjaan </button>
