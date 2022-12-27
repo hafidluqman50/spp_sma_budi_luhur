@@ -37,11 +37,6 @@
                         <p class="text-muted font-14 m-b-20">
                             Import File excel sesuai dengan format yang telah tersedia!
                         </p>
-                        <div class="form-group row">
-                            <div class="col-8 offset-4">
-                                <a href="{{ url('/petugas/spp/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>
-                            </div>
-                        </div>
                         @if (session()->has('log'))
                         <div class="alert alert-danger">
                             {{ session('log') }} <button class="close">X</button>
@@ -51,22 +46,11 @@
                             <li style="color:black;">Mohon perhatikan nama siswa, kelas, tahun ajaran, nama kantin, serta kolom spp</li>
                             <li style="color:black;">Mohon cek kembali nisn, nama siswa, kelas, tahun ajaran, nama kantin, serta kolom spp. Pastikan data tersebut telah terdata di sistem!</li>
                         </div>
-                        <form method="POST" action="{{ url('/petugas/spp/kantin/import/save') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group row">
-                                <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
-                                <div class="col-7">
-                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-8 offset-4">
+                                <a href="{{ url('/petugas/spp/contoh-import') }}" class="text-danger">Silahkan Download Format Excel Disini!</a>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-8 offset-4">
-                                    <button class="btn btn-primary waves-effect waves-light">
-                                        Import SPP Kantin
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                         <form method="POST" action="{{ url('/petugas/spp/import/save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
@@ -83,6 +67,23 @@
                                 </div>
                             </div>
                         </form>
+                        <hr>
+                        {{-- <form method="POST" action="{{ url('/petugas/spp/kantin/import/save') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label">File<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="file" name="file_import[]" class="form-control" required="required" multiple>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <button class="btn btn-primary waves-effect waves-light">
+                                        Import SPP Kantin
+                                    </button>
+                                </div>
+                            </div>
+                        </form> --}}
                         <div class="visible-lg" style="height: 79px;"></div>
                     </div>
                 </div>

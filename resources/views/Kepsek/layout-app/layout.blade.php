@@ -1,4 +1,4 @@
-@include('Kepsek.layout-app.header')
+@include('Admin.layout-app.header')
 @yield('content')
-@include('Kepsek.layout-app.footer')
+@include('Admin.layout-app.footer')
 @yield('js')

@@ -21,7 +21,7 @@ class SppBayarController extends Controller
                             ->firstOrFail();
 
         $tahun = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                            ->where('spp_bayar.id_spp_bayar_data',$id)
+                            ->where('spp_bayar.id_spp_bayar_data',$id_spp_bayar_data)
                             ->groupBy('tahun')
                             ->orderBy('tahun','ASC')
                             ->get();

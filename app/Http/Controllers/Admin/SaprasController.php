@@ -55,24 +55,30 @@ class SaprasController extends Controller
     public function edit($id)
     {
         $title = 'Admin | Form Sapras';
-        $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id)
-                                ->groupBy('kategori_sapras')
-                                ->get();
+        // $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id)
+        //                         ->groupBy('kategori_sapras')
+        //                         ->get();
+
+        $pemohon = Sapras::where('id_rincian_pengeluaran',$id)
+                          ->groupBy('pemohon')
+                          ->get();
 
         $sapras = new Sapras;
 
-        return view('Admin.sapras.sapras-edit',compact('title','kategori_sapras','sapras','id'));
+        return view('Admin.sapras.sapras-edit',compact('title','pemohon','sapras','id'));
     }
 
     public function update(Request $request,$id)
     {
-        $kategori_rincian = $request->kategori_rincian;
-        $nama_barang      = $request->nama_barang;
-        $qty              = $request->qty;
-        $ket              = $request->ket;
-        $harga_barang     = $request->harga_barang;
-        $jumlah           = $request->jumlah;
-        $id_sapras        = $request->id_sapras;
+        $pemohon            = $request->pemohon;
+        $keterangan_pemohon = $request->keterangan_pemohon;
+        $kategori_rincian   = $request->kategori_rincian;
+        $nama_barang        = $request->nama_barang;
+        $qty                = $request->qty;
+        $ket                = $request->ket;
+        $harga_barang       = $request->harga_barang;
+        $jumlah             = $request->jumlah;
+        $id_sapras          = $request->id_sapras;
 
         foreach ($nama_barang as $key => $value) {
             if ($id_sapras[$key] != '') {
@@ -82,7 +88,9 @@ class SaprasController extends Controller
                     'qty'                    => $qty[$key],
                     'ket'                    => $ket[$key],
                     'harga_barang'           => $harga_barang[$key],
-                    'jumlah'                 => $jumlah[$key]
+                    'jumlah'                 => $jumlah[$key],
+                    'pemohon'                => $pemohon[$key],
+                    'keterangan_pemohon'     => $keterangan_pemohon[$key]
                 ];
 
                 Sapras::where('id_sapras',$id_sapras[$key])->update($data_rincian_pengajuan);
@@ -95,14 +103,16 @@ class SaprasController extends Controller
                     'qty'                    => $qty[$key],
                     'ket'                    => $ket[$key],
                     'harga_barang'           => $harga_barang[$key],
-                    'jumlah'                 => $jumlah[$key]
+                    'jumlah'                 => $jumlah[$key],
+                    'pemohon'                => $pemohon[$key],
+                    'keterangan_pemohon'     => $keterangan_pemohon[$key]
                 ];
 
                 Sapras::create($data_rincian_pengajuan);
             }
         }
 
-        return redirect('/admin/data-perincian-rab/sapras/'.$id)->with('message','Berhasil Input Data');
+        return redirect('/admin/data-perincian-rab/sapras/'.$id)->with('message','Berhasil Update Data');
     }
 
     public function delete($id,$id_sapras)

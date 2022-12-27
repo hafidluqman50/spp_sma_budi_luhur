@@ -58,7 +58,7 @@
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_detail }}">{{ $data->uraian_rab }}</option>
+                                                        <option value="{{ $data->id_rincian_pengeluaran_sekolah }}">{{ $data->uraian_rab }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>  
@@ -147,7 +147,7 @@
                     $(this).val(value);
                 }
             })
-            $('#input-kategori-rincian').clone().appendTo('#input-kategori-rincian-layout')
+            $('.input-kategori-rincian:last').clone().appendTo('#input-kategori-rincian-layout')
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')

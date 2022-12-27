@@ -11,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data SPP</h4>
+                        <h4 class="page-title">Data Pembayaran SPP</h4>
                     </div>
                 </div>
             </div>
@@ -23,20 +23,52 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
+                        
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/ortu/dashboard')); ?>">
-                                <button class="btn btn-default" type="button">Kembali</button>
+                            <a href="<?php echo e(url('/ortu/dashboard/')); ?>">
+                                <button class="btn btn-default">
+                                    <i class="fa fa-arrow-left"></i> Kembali
+                                </button>
                             </a>
                         </div>
-                        <table class="table table-hover table-bordered spp-ortu force-fullwidth" id-siswa="<?php echo e($id); ?>">
+                        <?php if(session()->has('message')): ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
+                        </div>
+                        <?php endif; ?>
+                        <table>
+                            <tr>
+                                <td><b>NISN</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->nisn); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nama Siswa</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->nama_siswa); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelas</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->kelas); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
+                            </tr>
+                        </table>
+                        <table class="table table-hover table-bordered data-spp-bayar-ortu force-fullwidth" id-spp="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Nama Kantin</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>Tanggal Bayar</th>
+                                <th>Keterangan Bayar</th>
+                                <th>Nominal Bayar</th>
+                                <th>Total Bayar</th>
+                                <th>Kembalian</th>
+                                <th>Input By</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -52,4 +84,44 @@
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('js'); ?>
+<script>
+    $(() => {
+
+
+    var id_spp_bulan_tahun_ortu = $('.data-spp-bayar-ortu').attr('id-spp')
+    var spp_bayar_ortu = $('.data-spp-bayar-ortu').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-spp/bayar/'+id_spp_bulan_tahun_ortu,
+        columns:[
+            {data:'id_spp_bayar',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'keterangan_bayar_spp',name:'keterangan_bayar_spp'},
+            {data:'total_biaya',name:'total_biaya'},
+            {data:'nominal_bayar',name:'nominal_bayar'},
+            {data:'kembalian',name:'kembalian'},
+            {data:'name',name:'name'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    spp_bayar_ortu.on( 'order.dt search.dt', function () {
+        spp_bayar_ortu.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+    })
+</script>
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('Ortu.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Ortu/spp.blade.php ENDPATH**/ ?>

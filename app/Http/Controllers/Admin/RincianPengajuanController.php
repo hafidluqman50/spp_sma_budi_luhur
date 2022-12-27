@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RincianPengeluaranDetail;
+use App\Models\RincianPengeluaranSekolah;
 use App\Models\RincianPengajuan;
 
 class RincianPengajuanController extends Controller
@@ -19,7 +19,7 @@ class RincianPengajuanController extends Controller
     public function tambah($id)
     {
         $title   = 'Admin | Tambah Rincian Pengajuan';
-        $rincian = RincianPengeluaranDetail::where('uraian_rab','!=','')->get();
+        $rincian = RincianPengeluaranSekolah::where('uraian_rab','!=','')->get();
 
         return view('Admin.rincian-pengajuan.rincian-pengajuan-tambah',compact('title','rincian','id'));
     }
@@ -34,12 +34,12 @@ class RincianPengajuanController extends Controller
         // $uang_keluar      = $request->uang_keluar;
         // $jenis_rincian    = $request->jenis_rincian;
 
-        foreach ($rincian as $key => $value) {
+        foreach ($kategori_rincian as $key => $value) {
             $data_rincian_pengajuan = [
-                'id_rincian_pengeluaran'        => $id,
-                'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
-                'id_rincian_pengeluaran_detail' => $rincian[$key],
-                'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
+                'id_rincian_pengeluaran'         => $id,
+                'kategori_rincian_pengajuan'     => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                'id_rincian_pengeluaran_sekolah' => $rincian[$key],
+                'keterangan_pengajuan'           => $keterangan_pengajuan[$key]
                 // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
             ];
 
@@ -55,7 +55,7 @@ class RincianPengajuanController extends Controller
         $kategori_group = RincianPengajuan::where('id_rincian_pengeluaran',$id)
                                                 ->groupBy('kategori_rincian_pengajuan')
                                                 ->get();
-        $rincian_pengeluaran_detail = RincianPengeluaranDetail::where('id_rincian_pengeluaran',$id)->get();
+        $rincian_pengeluaran_detail = RincianPengeluaranSekolah::where('id_rincian_pengeluaran',$id)->get();
         $rincian_pengajuan = new RincianPengajuan;
 
         return view('Admin.rincian-pengajuan.rincian-pengajuan-edit',compact('title','kategori_group','id','rincian_pengajuan','rincian_pengeluaran_detail'));

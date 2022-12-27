@@ -43,7 +43,7 @@
                                             <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="1">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
+                                            <button class="btn btn-danger btn-delete-kategori-rincian" type="button" id-delete-kategori="1">X</button>
                                         </div>
                                     </div>
                                 </div>

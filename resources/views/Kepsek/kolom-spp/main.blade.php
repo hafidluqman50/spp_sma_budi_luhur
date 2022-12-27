@@ -28,7 +28,6 @@
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
-
                         <table class="table table-hover table-bordered data-kolom-spp-kepsek force-fullwidth">
                             <thead>
                             <tr>

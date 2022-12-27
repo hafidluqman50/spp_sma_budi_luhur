@@ -29,7 +29,7 @@
                         <h4 class="m-t-0 header-title"><b>DATA SPP PEMBAYARAN DETAIl</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/petugas/spp/bulan-tahun/'.$id.'/lihat-pembayaran/'.$id_bulan_tahun) }}">
+                            <a href="{{ url('/petugas/spp/pembayaran/'.$id.'/lihat-pembayaran/'.$id_spp_bayar_data) }}">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
@@ -40,10 +40,33 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
+                        <table>
+                            <tr>
+                                <td><b>NISN</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nisn }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nama Siswa</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nama_siswa }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelas</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->kelas }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->tahun_ajaran }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Bulan, Tahun</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->bulan_tahun }}</b></td>
+                            </tr>
+                        </table>
                         <table class="table table-hover table-bordered data-spp-bayar-detail force-fullwidth" id-spp-bayar="{{$id_spp_bayar}}">
                             <thead>
                             <tr>
@@ -51,7 +74,6 @@
                                 <th>Pembayaran SPP</th>
                                 <th>Nominal Bayar</th>
                                 <th>Tanggal Bayar</th>
-                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>

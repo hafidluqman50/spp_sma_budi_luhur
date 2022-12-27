@@ -70,7 +70,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
+                                                    <select name="rincian_sekolah[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian_pengeluaran_detail as $data)
                                                         <option value="{{ $data->id_rincian_pengeluaran_sekolah }}" {!!$val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
@@ -113,7 +113,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
+                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
                                             </div>
                                         </div>
                                     </div>
@@ -188,6 +188,12 @@
                 create:true,
                 sortField:'text'
             })
+
+            $('select.rincian').each(function(index,element){
+                console.log(index)
+                let attr = $(this).attr('id-rincian')
+                $('.selectize-control').eq(index).attr('id-rincian',attr)
+            })
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
             
@@ -223,6 +229,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.keterangan-pembelanjaan:last').val('')
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
+
+            $('select.rincian:last')[0].selectize.clear()
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })

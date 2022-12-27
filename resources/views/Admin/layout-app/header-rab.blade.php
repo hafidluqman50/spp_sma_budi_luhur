@@ -80,7 +80,7 @@
                                 </a>
                                 <!-- End mobile menu toggle-->
                             </li>
-                            <li class="list-inline-item dropdown notification-list">
+                            {{-- <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <i class="dripicons-document noti-icon"></i>
@@ -106,27 +106,17 @@
                                     </a>
 
                                 </div>
-                            </li>
+                            </li> --}}
 
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle">
+                                    <img src="{{asset('assets/sma.png')}}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
-                                    </a>
 
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{{ url('/admin/settings') }}" class="dropdown-item notify-item">
                                         <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
                                     </a>
 
                                     <!-- item-->

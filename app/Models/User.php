@@ -11,8 +11,7 @@ use App\Models\Traits\UuidInsert;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    use UuidInsert;
+    use HasApiTokens, HasFactory, Notifiable, UuidInsert;
 
     protected $table      = 'users';
     protected $primaryKey = 'id_users';

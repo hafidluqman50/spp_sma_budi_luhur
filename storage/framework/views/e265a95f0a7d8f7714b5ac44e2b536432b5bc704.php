@@ -193,6 +193,9 @@
                 $('.btn-delete-kategori-rincian:last').addClass('form-hide')
             }
             
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').attr('id-kategori-input',input_kategori_rincian)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').val('')
+            
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
             
@@ -252,6 +255,9 @@
             }
             
             $(`.input-rincian-layout[id-kategori-layout="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').attr('id-kategori-input',input_kategori_rincian)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').val('')
             
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')

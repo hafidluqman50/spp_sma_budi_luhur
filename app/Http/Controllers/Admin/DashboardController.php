@@ -14,6 +14,8 @@ use App\Models\SppBulanTahun;
 use App\Models\Petugas;
 use App\Models\SppBayarDetail;
 use App\Models\SppBayarData;
+use App\Models\ProfileInstansi;
+use App\Models\User;
 use Auth;
 use DB;
 
@@ -52,7 +54,8 @@ class DashboardController extends Controller
                                         ->orderBy('tanggal_bayar','DESC')
                                         ->get();
 
-        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        // $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $bendahara = ProfileInstansi::firstOrFail()->nama_bendahara;
 
         $get_backwards_date = backwards_date('-1 month',date('Y-m-d'));
 
@@ -138,7 +141,7 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
+        return view('Admin.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','bendahara','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
     }
 
     // public function bayarSppDashboard()
@@ -329,9 +332,67 @@ class DashboardController extends Controller
                 }   
             }
 
-            $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+            $profile_instansi = ProfileInstansi::firstOrFail();
 
-            return view('Admin.struk',compact('data_master','petugas'));
+            return view('Admin.struk',compact('data_master','profile_instansi'));
         }
+    }
+
+    public function settings()
+    {
+        $title = 'Settings';
+        $profile_instansi = ProfileInstansi::firstOrFail();
+        return view('Admin.settings',compact('title','profile_instansi'));
+    }
+
+    public function saveSettings(Request $request)
+    {
+        $nama                   = $request->nama;
+        $username               = $request->username;
+        $password               = $request->password;
+        $nama_kepsek            = $request->nama_kepsek;
+        $nama_pengurus_yayasan  = $request->nama_pengurus_yayasan;
+        $nama_pembina_yayasan   = $request->nama_pembina_yayasan;
+        $nama_bendahara         = $request->nama_bendahara;
+        $nama_bendahara_yayasan = $request->nama_bendahara_yayasan;
+        $nama_wali_pembina      = $request->nama_wali_pembina;
+
+        if (User::where('username',$username)->count()>0) {
+            return redirect()->back()->withErrors(['log'=>'Username Sudah Ada'])->withInput();
+        }
+
+        $data_user = [
+            'name'          => $nama,
+            'username'      => $username,
+            'password'      => bcrypt($password)
+        ];
+
+        $data_profile_instansi = [
+            'nama_kepsek'            => $nama_kepsek,
+            'nama_pengurus_yayasan'  => $nama_pengurus_yayasan,
+            'nama_pembina_yayasan'   => $nama_pembina_yayasan,
+            'nama_bendahara'         => $nama_bendahara,
+            'nama_bendahara_yayasan' => $nama_bendahara_yayasan,
+            'nama_wali_pembina'      => $nama_wali_pembina
+        ];
+
+        if ($username == '' && $password == '') {
+            unset($data_user['username']);
+            unset($data_user['password']);
+        }
+        elseif($username == '') {
+            unset($data_user['username']);
+        }
+        elseif ($password == '') {
+            unset($data_user['password']);
+        }
+
+        $id_profile_instansi = ProfileInstansi::firstOrFail()->id_profile_instansi;
+
+        User::where('id_users',auth()->user()->id_users)->update($data_user);
+        ProfileInstansi::where('id_profile_instansi',$id_profile_instansi)->update($data_profile_instansi);
+        // ProfileInstansi::create($data_profile_instansi);
+
+        return redirect('/admin/settings')->with('message','Berhasil Update');
     }
 }

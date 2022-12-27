@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA SPP PEMBAYARAN DETAIl</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA SPP PEMBAYARAN DETAIL</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
                             <a href="<?php echo e(url('/admin/spp/pembayaran/'.$id.'/lihat-pembayaran/'.$id_spp_bayar_data)); ?>">

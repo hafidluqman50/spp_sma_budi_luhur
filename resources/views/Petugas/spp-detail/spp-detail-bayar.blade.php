@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form id="form-spp-bayar" action="{{ url('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
+            <form id="form-spp-bayar" action="{{ url('/petugas/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -80,6 +80,13 @@
                                         <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-8 offset-4">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light spp-submit">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </div>
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
@@ -104,13 +111,6 @@
                                         <div class="col-7">
                                             <input type="number" name="bayar_spp" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" required="required" autofocus>
                                             <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-8 offset-4">
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light spp-submit">
-                                                Simpan
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

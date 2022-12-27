@@ -95,6 +95,7 @@
                                     $kalkulasi = format_rupiah($spp_detail->where('id_spp_bulan_tahun',$element->id_spp_bulan_tahun)->sum('sisa_bayar'));
                                 @endphp
                                 <tr>
+                                    <td>{{ $key+1 }}</td>
                                     <td>{{ $element->bulan_tahun }}</td>
                                     <td>{{ $nama_kantin }}</td>
                                     <td>{!! $status_pelunasan !!}</td>

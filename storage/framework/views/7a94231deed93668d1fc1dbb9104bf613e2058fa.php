@@ -68,10 +68,10 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
+                                                    <select name="rincian_sekolah[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>" <?php echo $val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rincian); ?></option>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_sekolah); ?>" <?php echo $val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rincian); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  

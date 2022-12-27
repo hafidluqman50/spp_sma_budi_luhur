@@ -19,7 +19,7 @@ class SppBayar extends Model
     {
         $bulan = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                             ->where('spp_bayar.id_spp_bayar_data',$id)
-                            ->wherer('tahun',$tahun)
+                            ->where('tahun',$tahun)
                             ->orderBy('bulan','ASC')
                             ->get();
 

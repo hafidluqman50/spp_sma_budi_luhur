@@ -19,13 +19,8 @@ use App\Http\Controllers\Admin\SppDetailController as AdminSppDetailController;
 use App\Http\Controllers\Admin\SppBayarDataController as AdminSppBayarDataController;
 use App\Http\Controllers\Admin\SppBayarController as AdminSppBayarController;
 use App\Http\Controllers\Admin\SppBayarDetailController as AdminSppBayarDetailController;
-use App\Http\Controllers\Admin\PetugasController as AdminPetugasController;
-use App\Http\Controllers\Admin\KepsekController as AdminKepsekController;
 use App\Http\Controllers\Admin\HistorySppController as AdminHistorySppController;
 use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
-use App\Http\Controllers\Admin\DashboardRABController as AdminDashboardRABController;
-// use App\Http\Controllers\Admin\KategoriRABController as AdminKategoriRABController;
-// use App\Http\Controllers\Admin\BarangRABController as AdminBarangRABController;
 use App\Http\Controllers\Admin\RincianPengeluaranController as AdminRincianPengeluaranController;
 use App\Http\Controllers\Admin\RincianPengeluaranDetailController as AdminRincianPengeluaranDetailController;
 use App\Http\Controllers\Admin\RincianPembelanjaanController as AdminRincianPembelanjaanController;
@@ -34,17 +29,36 @@ use App\Http\Controllers\Admin\RincianPenerimaanController as AdminRincianPeneri
 use App\Http\Controllers\Admin\RincianPenerimaanDetailController as AdminRincianPenerimaanDetailController;
 use App\Http\Controllers\Admin\RincianPenerimaanRekapController as AdminRincianPenerimaanRekapController;
 use App\Http\Controllers\Admin\RincianPenerimaanTahunAjaranController as AdminRincianPenerimaanTahunAjaranController;
-// use App\Http\Controllers\Admin\BonPengajuanController as AdminBonPengajuanController;
 use App\Http\Controllers\Admin\SaprasController as AdminSaprasController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboardController;
+use App\Http\Controllers\Petugas\SiswaController as PetugasSiswaController;
+use App\Http\Controllers\Petugas\KelasController as PetugasKelasController;
+use App\Http\Controllers\Petugas\TahunAjaranController as PetugasTahunAjaranController;
+use App\Http\Controllers\Petugas\KelasSiswaController as PetugasKelasSiswaController;
+use App\Http\Controllers\Petugas\KantinController as PetugasKantinController;
 use App\Http\Controllers\Petugas\KolomSppController as PetugasKolomSppController;
 use App\Http\Controllers\Petugas\SppController as PetugasSppController;
 use App\Http\Controllers\Petugas\SppBulanTahunController as PetugasSppBulanTahunController;
 use App\Http\Controllers\Petugas\SppDetailController as PetugasSppDetailController;
+use App\Http\Controllers\Petugas\SppBayarDataController as PetugasSppBayarDataController;
+use App\Http\Controllers\Petugas\SppBayarController as PetugasSppBayarController;
+use App\Http\Controllers\Petugas\SppBayarDetailController as PetugasSppBayarDetailController;
 use App\Http\Controllers\Petugas\HistorySppController as PetugasHistorySppController;
+use App\Http\Controllers\Petugas\LaporanController as PetugasLaporanController;
+use App\Http\Controllers\Petugas\DashboardRABController as PetugasDashboardRABController;
+use App\Http\Controllers\Petugas\RincianPengeluaranController as PetugasRincianPengeluaranController;
+use App\Http\Controllers\Petugas\RincianPengeluaranDetailController as PetugasRincianPengeluaranDetailController;
+use App\Http\Controllers\Petugas\RincianPembelanjaanController as PetugasRincianPembelanjaanController;
+use App\Http\Controllers\Petugas\RincianPengajuanController as PetugasRincianPengajuanController;
+use App\Http\Controllers\Petugas\RincianPenerimaanController as PetugasRincianPenerimaanController;
+use App\Http\Controllers\Petugas\RincianPenerimaanDetailController as PetugasRincianPenerimaanDetailController;
+use App\Http\Controllers\Petugas\RincianPenerimaanRekapController as PetugasRincianPenerimaanRekapController;
+use App\Http\Controllers\Petugas\RincianPenerimaanTahunAjaranController as PetugasRincianPenerimaanTahunAjaranController;
+use App\Http\Controllers\Petugas\SaprasController as PetugasSaprasController;
 // END CONTROLLER PETUGAS //
 
 // CONTROLLER KEPSEK //
@@ -58,14 +72,31 @@ use App\Http\Controllers\Kepsek\KolomSppController as KepsekKolomSppController;
 use App\Http\Controllers\Kepsek\SppController as KepsekSppController;
 use App\Http\Controllers\Kepsek\SppBulanTahunController as KepsekSppBulanTahunController;
 use App\Http\Controllers\Kepsek\SppDetailController as KepsekSppDetailController;
+use App\Http\Controllers\Kepsek\SppBayarDataController as KepsekSppBayarDataController;
+use App\Http\Controllers\Kepsek\SppBayarController as KepsekSppBayarController;
+use App\Http\Controllers\Kepsek\SppBayarDetailController as KepsekSppBayarDetailController;
+use App\Http\Controllers\Kepsek\HistorySppController as KepsekHistorySppController;
 use App\Http\Controllers\Kepsek\LaporanController as KepsekLaporanController;
-use App\Http\Controllers\Kepsek\PetugasController as KepsekPetugasController;
+use App\Http\Controllers\Kepsek\DashboardRABController as KepsekDashboardRABController;
+use App\Http\Controllers\Kepsek\RincianPengeluaranController as KepsekRincianPengeluaranController;
+use App\Http\Controllers\Kepsek\RincianPengeluaranDetailController as KepsekRincianPengeluaranDetailController;
+use App\Http\Controllers\Kepsek\RincianPembelanjaanController as KepsekRincianPembelanjaanController;
+use App\Http\Controllers\Kepsek\RincianPengajuanController as KepsekRincianPengajuanController;
+use App\Http\Controllers\Kepsek\RincianPenerimaanController as KepsekRincianPenerimaanController;
+use App\Http\Controllers\Kepsek\RincianPenerimaanDetailController as KepsekRincianPenerimaanDetailController;
+use App\Http\Controllers\Kepsek\RincianPenerimaanRekapController as KepsekRincianPenerimaanRekapController;
+use App\Http\Controllers\Kepsek\RincianPenerimaanTahunAjaranController as KepsekRincianPenerimaanTahunAjaranController;
+use App\Http\Controllers\Kepsek\SaprasController as KepsekSaprasController;
 
 // END CONTROLLER KEPSEK //
 
 // CONTROLLER ORTU //
 use App\Http\Controllers\Ortu\DashboardController as OrtuDashboardController;
+use App\Http\Controllers\Ortu\SppBulanTahunController as OrtuSppBulanTahunController;
+use App\Http\Controllers\Ortu\SppBayarDataController as OrtuSppBayarDataController;
+use App\Http\Controllers\Ortu\SppBayarController as OrtuSppBayarController;
 // END CONTROLLER ORTU //
+
 use Twilio\Rest\Client; 
 
 /*
@@ -91,8 +122,6 @@ use Twilio\Rest\Client;
 
 //     App\Models\User::create($data_user);
 // });
-
-
 Route::get('/test-replace',function(){
     // echo find_replace_strip('Januari, 2021 - Maret, 2021','Februari, 2022');
 });
@@ -175,7 +204,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-siswa-ortu',[DatatablesController::class, 'dataSiswaOrtu']);
     Route::get('/data-spp/spp-ortu/{id}',[DatatablesController::class, 'dataSppOrtu']);
     Route::get('/data-spp/spp-ortu/detail/{id}',[DatatablesController::class, 'dataSppOrtuDetail']);
-    Route::get('/data-petugas',[DatatablesController::class, 'dataPetugas']);
+    Route::get('/data-users',[DatatablesController::class, 'dataUsers']);
     Route::get('/data-kepsek',[DatatablesController::class, 'dataKepsek']);
     Route::get('/data-history-spp',[DatatablesController::class, 'dataHistorySpp']);
     Route::get('/laporan-kantin',[DatatablesController::class, 'laporanKantin']);
@@ -205,6 +234,8 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/dashboard',[AdminDashboardController::class, 'index']);
     Route::post('/dashboard/bayar-tunggakan',[AdminDashboardController::class, 'bayarTunggakan']);
     Route::get('/dashboard/bayar-spp',[AdminDashboardController::class, 'bayarSppDashboard']);
+    Route::get('/settings',[AdminDashboardController::class, 'settings']);
+    Route::post('/settings/save',[AdminDashboardController::class, 'saveSettings']);
 
     // ROUTE SISWA //
     Route::get('/siswa',[AdminSiswaController::class, 'index']);
@@ -318,26 +349,6 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/history-spp/{id}',[AdminHistorySppController::class, 'detail']);
     // END ROUTE SPP HISTORY //
 
-    // ROUTE DATA PETUGAS //
-    Route::get('/data-petugas',[AdminPetugasController::class, 'index']);
-    Route::get('/data-petugas/tambah',[AdminPetugasController::class, 'tambah']);
-    Route::post('/data-petugas/save',[AdminPetugasController::class, 'save']);
-    Route::get('/data-petugas/edit/{id}',[AdminPetugasController::class, 'edit']);
-    Route::put('/data-petugas/update/{id}',[AdminPetugasController::class, 'update']);
-    Route::delete('/data-petugas/delete/{id}',[AdminPetugasController::class, 'delete']);
-    Route::get('/data-petugas/status-petugas/{id}',[AdminPetugasController::class, 'statusPetugas']);
-    // END ROUTE DATA PETUGAS //
-
-    // ROUTE DATA KEPSEK //
-    Route::get('/data-kepsek',[AdminKepsekController::class, 'index']);
-    Route::get('/data-kepsek/tambah',[AdminKepsekController::class, 'tambah']);
-    Route::post('/data-kepsek/save',[AdminKepsekController::class, 'save']);
-    Route::get('/data-kepsek/edit/{id}',[AdminKepsekController::class, 'edit']);
-    Route::put('/data-kepsek/update/{id}',[AdminKepsekController::class, 'update']);
-    Route::delete('/data-kepsek/delete/{id}',[AdminKepsekController::class, 'delete']);
-    Route::get('/data-kepsek/status-kepsek/{id}',[AdminKepsekController::class, 'statusPetugas']);
-    // END ROUTE DATA KEPSEK //
-
     // ROUTE LAPORAN //
     Route::get('/laporan-kantin',[AdminLaporanController::class, 'laporanKantinView']);
     Route::get('/laporan-kantin/lihat-data',[AdminLaporanController::class, 'laporanKantinLihatData']);
@@ -352,22 +363,6 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // END ROUTE LAPORAN //
 
     // ROUTE RAB //
-    Route::get('/data-rab',[AdminDashboardRABController::class, 'index']);
-
-    Route::get('/kategori-rab',[AdminKategoriRABController::class,'index']);
-    Route::get('/kategori-rab/tambah',[AdminKategoriRABController::class,'tambah']);
-    Route::post('/kategori-rab/save',[AdminKategoriRABController::class, 'save']);
-    Route::get('/kategori-rab/edit/{id}',[AdminKategoriRABController::class, 'edit']);
-    Route::put('/kategori-rab/update/{id}',[AdminKategoriRABController::class, 'update']);
-    Route::delete('/kategori-rab/delete/{id}',[AdminKategoriRABController::class, 'delete']);
-
-    Route::get('/barang-rab',[AdminBarangRABController::class,'index']);
-    Route::get('/barang-rab/tambah',[AdminBarangRABController::class,'tambah']);
-    Route::post('/barang-rab/save',[AdminBarangRABController::class, 'save']);
-    Route::get('/barang-rab/edit/{id}',[AdminBarangRABController::class, 'edit']);
-    Route::put('/barang-rab/update/{id}',[AdminBarangRABController::class, 'update']);
-    Route::delete('/barang-rab/delete/{id}',[AdminBarangRABController::class, 'delete']);
-
     Route::get('/data-perincian-rab',[AdminRincianPengeluaranController::class,'index']);
     Route::get('/data-perincian-rab/tambah',[AdminRincianPengeluaranController::class,'tambah']);
     Route::post('/data-perincian-rab/save',[AdminRincianPengeluaranController::class,'save']);
@@ -418,11 +413,74 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-perincian-rab/sapras/{id}/edit',[AdminSaprasController::class,'edit']);
     Route::put('/data-perincian-rab/sapras/{id}/update',[AdminSaprasController::class,'update']);
     Route::delete('/data-perincian-rab/sapras/{id}/delete/{id_detail}',[AdminSaprasController::class,'delete']);
+
+    Route::get('/data-users',[AdminUsersController::class, 'index']);
+    Route::get('/data-users/tambah',[AdminUsersController::class, 'tambah']);
+    Route::post('/data-users/save',[AdminUsersController::class, 'save']);
+    Route::get('/data-users/edit/{id}',[AdminUsersController::class, 'edit']);
+    Route::put('/data-users/update/{id}',[AdminUsersController::class, 'update']);
+    Route::delete('/data-users/delete',[AdminUsersController::class, 'delete']);
+    Route::get('/data-users/status-users/{id}',[AdminUsersController::class, 'statusPetugas']);
 });
 
-Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
+
+
+Route::group(['prefix' => 'petugas','middleware'=>'is.petugas'],function() {
     Route::get('/dashboard',[PetugasDashboardController::class, 'index']);
+    Route::post('/dashboard/bayar-tunggakan',[PetugasDashboardController::class, 'bayarTunggakan']);
     Route::get('/dashboard/bayar-spp',[PetugasDashboardController::class, 'bayarSppDashboard']);
+    Route::get('/settings',[PetugasDashboardController::class, 'settings']);
+    Route::post('/settings/save',[PetugasDashboardController::class, 'saveSettings']);
+
+    // ROUTE SISWA //
+    Route::get('/siswa',[PetugasSiswaController::class, 'index']);
+    Route::get('/siswa/tambah',[PetugasSiswaController::class, 'tambah']);
+    Route::get('/siswa/edit/{id}',[PetugasSiswaController::class, 'edit']);
+    Route::post('/siswa/save',[PetugasSiswaController::class, 'save']);
+    Route::put('/siswa/update/{id}',[PetugasSiswaController::class, 'update']);
+    Route::delete('/siswa/delete/{id}',[PetugasSiswaController::class, 'delete']);
+    Route::get('/siswa/import',[PetugasSiswaController::class, 'formImport']);
+    Route::get('/siswa/contoh-import',[PetugasSiswaController::class, 'contohImport']);
+    Route::post('/siswa/import/save',[PetugasSiswaController::class, 'import']);
+    // ROUTE SISWA END //
+
+    // ROUTE KELAS //
+    Route::get('/kelas',[PetugasKelasController::class, 'index']);
+    Route::get('/kelas/tambah',[PetugasKelasController::class, 'tambah']);
+    Route::get('/kelas/edit/{id}',[PetugasKelasController::class, 'edit']);
+    Route::post('/kelas/save',[PetugasKelasController::class, 'save']);
+    Route::put('/kelas/update/{id}',[PetugasKelasController::class, 'update']);
+    Route::delete('/kelas/delete/{id}',[PetugasKelasController::class, 'delete']);
+    Route::get('/kelas/naik-kelas',[PetugasKelasController::class, 'naikKelasForm']);
+    Route::post('/kelas/naik-kelas/save',[PetugasKelasController::class, 'naikKelasSave']);
+    // ROUTE KELAS END //
+
+    // ROUTE TAHUN AJARAN //
+    Route::get('/tahun-ajaran',[PetugasTahunAjaranController::class, 'index']);
+    Route::get('/tahun-ajaran/tambah',[PetugasTahunAjaranController::class, 'tambah']);
+    Route::get('/tahun-ajaran/edit/{id}',[PetugasTahunAjaranController::class, 'edit']);
+    Route::post('/tahun-ajaran/save',[PetugasTahunAjaranController::class, 'save']);
+    Route::put('/tahun-ajaran/update/{id}',[PetugasTahunAjaranController::class, 'update']);
+    Route::delete('/tahun-ajaran/delete/{id}',[PetugasTahunAjaranController::class, 'delete']);
+    // ROUTE TAHUN AJARAN END //
+
+    // ROUTE KELAS SISWA //
+    Route::get('/kelas/siswa/{id}',[PetugasKelasSiswaController::class, 'index']);
+    Route::get('/kelas/siswa/{id}/tambah',[PetugasKelasSiswaController::class, 'tambah']);
+    Route::post('/kelas/siswa/{id}/save',[PetugasKelasSiswaController::class, 'save']);
+    Route::get('/kelas/siswa/{id}/edit/{id_detail}',[PetugasKelasSiswaController::class, 'edit']);
+    Route::put('/kelas/siswa/{id}/update/{id_detail}',[PetugasKelasSiswaController::class, 'update']);
+    Route::delete('/kelas/siswa/{id}/delete/{id_detail}',[PetugasKelasSiswaController::class, 'delete']);
+    // ROUTE KELAS SISWA END //
+
+    // ROUTE KANTIN //
+    Route::get('/kantin',[PetugasKantinController::class, 'index']);
+    Route::get('/kantin/tambah',[PetugasKantinController::class, 'tambah']);
+    Route::post('/kantin/save',[PetugasKantinController::class, 'save']);
+    Route::get('/kantin/edit/{id}',[PetugasKantinController::class, 'edit']);
+    Route::put('/kantin/update/{id}',[PetugasKantinController::class, 'update']);
+    Route::delete('/kantin/delete/{id}',[PetugasKantinController::class, 'delete']);
+    // ROUTE KANTIN END //
 
     // ROUTE KOLOM SPP //
     Route::get('/kolom-spp',[PetugasKolomSppController::class, 'index']);
@@ -442,29 +500,38 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
     Route::get('/spp/contoh-import',[PetugasSppController::class, 'contohImport']);
     Route::post('/spp/import/save',[PetugasSppController::class, 'import']);
     Route::post('/spp/kantin/import/save',[PetugasSppController::class, 'importSPPKantin']);
+    Route::get('/spp/kalkulasi-ulang',[PetugasSppController::class, 'kalkulasiUlang']);
+    Route::get('/spp/bulan-tahun-numeric',[PetugasSppController::class, 'bulanTahunNumeric']);
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //
-    Route::get('/spp/bulan-tahun/{id}',[PetugasSppBulanTahunController::class, 'index']);
-    Route::get('/spp/bulan-tahun/{id}/edit/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'edit']);
-    Route::put('/spp/bulan-tahun/{id}/update/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'update']);
-    Route::delete('/spp/bulan-tahun/{id}/delete/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'delete']);
+    Route::get('/spp/tunggakan/{id}',[PetugasSppBulanTahunController::class, 'index']);
+    Route::get('/spp/tunggakan/{id}/edit/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'edit']);
+    Route::put('/spp/tunggakan/{id}/update/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'update']);
     // END ROUTE SPP BULAN TAHUN //
 
     // ROUTE SPP LIHAT PEMBAYARAN //
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[PetugasSppDetailController::class, 'lihatPembayaran']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[PetugasSppDetailController::class, 'lihatPembayaranDetail']);
-    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDelete']);
-    Route::delete('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[PetugasSppDetailController::class, 'lihatPembayaranDetailDelete']);
+    Route::get('/spp/pembayaran/{id}',[PetugasSppBayarDataController::class, 'index']);
+    Route::get('/spp/pembayaran/{id}/cetak-struk/{id_spp_bayar_data}',[PetugasSppBayarDataController::class, 'cetakStruk']);
+    Route::get('/spp/pembayaran/{id}/retur-bayar/{id_spp_bayar_data}',[PetugasSppBayarDataController::class, 'returBayar']);
+
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[PetugasSppBayarController::class, 'index']);
+
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}',[PetugasSppBayarDetailController::class, 'index']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
+    // ROUTE SPP LIHAT PEMASUKAN KANTIN //
+    Route::get('/spp/tunggakan/{id}/lihat-pemasukan-kantin/{id_bulan_tahun}',[PetugasSppBulanTahunController::class, 'lihatPemasukanKantin']);
+    // END ROUTE SPP LIHAT PEMASUKAN KANTIN //
+
     // ROUTE SPP LIHAT SPP //
-    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[PetugasSppDetailController::class, 'index']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua',[PetugasSppDetailController::class, 'formBayarSemua']);
-    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua/save',[PetugasSppDetailController::class, 'bayarSemua']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}',[PetugasSppDetailController::class, 'formBayar']);
-    Route::post('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[PetugasSppDetailController::class, 'bayar']);
-    Route::delete('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}/delete/{id_detail}',[PetugasSppDetailController::class, 'delete']);
+    Route::get('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}',[PetugasSppDetailController::class, 'index']);
+    
+    Route::get('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua',[PetugasSppDetailController::class, 'formBayarSemua']);
+    Route::post('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}/bayar-semua/save',[PetugasSppDetailController::class, 'bayarSemua']);
+
+    Route::get('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}',[PetugasSppDetailController::class, 'formBayar']);
+    Route::post('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}/bayar/{id_detail}/save',[PetugasSppDetailController::class, 'bayar']);
     // END ROUTE SPP LIHAT SPP //
 
     // ROUTE SPP HISTORY //
@@ -474,17 +541,74 @@ Route::group(['prefix' => 'petugas', 'middleware' => 'is.petugas'],function(){
 
     // ROUTE LAPORAN //
     Route::get('/laporan-kantin',[PetugasLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan-kantin/lihat-data',[PetugasLaporanController::class, 'laporanKantinLihatData']);
     Route::get('/laporan-data-siswa',[PetugasLaporanController::class, 'laporanDataSiswaView']);
+    Route::get('/laporan-data-siswa/lihat-data',[PetugasLaporanController::class, 'laporanDataSiswaLihatData']);
     Route::get('/laporan-tunggakan',[PetugasLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-tunggakan/lihat-data',[PetugasLaporanController::class, 'laporanTunggakanLihatData']);
     Route::get('/laporan-rab',[PetugasLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[PetugasLaporanController::class, 'laporanCetak']);
+    Route::get('/laporan-pembukuan',[PetugasLaporanController::class, 'laporanPembukuanView']);
+    Route::get('/laporan-pembukuan/lihat-data',[PetugasLaporanController::class, 'laporanPembukuanLihatData']);
     // END ROUTE LAPORAN //
+
+    // ROUTE RAB //
+
+    Route::get('/data-perincian-rab',[PetugasRincianPengeluaranController::class,'index']);
+    Route::get('/data-perincian-rab/tambah',[PetugasRincianPengeluaranController::class,'tambah']);
+    Route::post('/data-perincian-rab/save',[PetugasRincianPengeluaranController::class,'save']);
+    Route::get('/data-perincian-rab/edit/{id}',[PetugasRincianPengeluaranController::class,'edit']);
+    Route::put('/data-perincian-rab/update/{id}',[PetugasRincianPengeluaranController::class,'update']);
+    Route::delete('/data-perincian-rab/delete/{id}',[PetugasRincianPengeluaranController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-pengeluaran/{id}',[PetugasRincianPengeluaranDetailController::class,'index']);
+    Route::get('/data-perincian-rab/rincian-pengeluaran/{id}/delete/{id_detail}',[PetugasRincianPengeluaranDetailController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-pengeluaran-uang-makan/{id}',[PetugasRincianPengeluaranController::class,'lihatRincianPengeluaranUangMakan']);
+    Route::get('/data-perincian-rab/rincian-pengeluaran-uang-makan/{id}/delete/{id_detail}',[PetugasRincianPengeluaranController::class,'deleteRincianPengeluaranUangMakan']);
+
+    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}',[PetugasRincianPembelanjaanController::class,'rincianPembelanjaan']);
+    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}/tambah',[PetugasRincianPembelanjaanController::class,'tambahRincianPembelanjaan']);
+    Route::post('/data-perincian-rab/rincian-pembelanjaan/{id}/save',[PetugasRincianPembelanjaanController::class,'save']);
+    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}/edit',[PetugasRincianPembelanjaanController::class,'editRincianPembelanjaan']);
+    Route::put('/data-perincian-rab/rincian-pembelanjaan/{id}/update',[PetugasRincianPembelanjaanController::class,'update']);
+    Route::delete('/data-perincian-rab/rincian-pembelanjaan/{id}/delete/{id_detail}',[PetugasRincianPembelanjaanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}',[PetugasRincianPembelanjaanController::class,'rincianPembelanjaanUangMakan']);
+    Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/tambah',[PetugasRincianPembelanjaanController::class,'tambahRincianPembelanjaanUangMakan']);
+    Route::post('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/save',[PetugasRincianPembelanjaanController::class,'save']);
+    Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/edit',[PetugasRincianPembelanjaanController::class,'editRincianPembelanjaanUangMakan']);
+    Route::put('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/update',[PetugasRincianPembelanjaanController::class,'update']);
+    Route::delete('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}/delete/{id_detail}',[PetugasRincianPembelanjaanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-penerimaan/{id}',[PetugasRincianPenerimaanController::class,'index']);
+    Route::get('/data-perincian-rab/rincian-penerimaan/{id}/tambah',[PetugasRincianPenerimaanController::class,'tambah']);
+    Route::post('/data-perincian-rab/rincian-penerimaan/{id}/save',[PetugasRincianPenerimaanController::class,'save']);
+    Route::get('/data-perincian-rab/rincian-penerimaan/{id}/edit',[PetugasRincianPenerimaanController::class,'edit']);
+    Route::put('/data-perincian-rab/rincian-penerimaan/{id}/update',[PetugasRincianPenerimaanController::class,'update']);
+    Route::delete('/data-perincian-rab/rincian-penerimaan/{id}/delete',[PetugasRincianPenerimaanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[PetugasRincianPengajuanController::class,'index']);
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/tambah',[PetugasRincianPengajuanController::class,'tambah']);
+    Route::post('/data-perincian-rab/rincian-pengajuan/{id}/save',[PetugasRincianPengajuanController::class,'save']);
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}/edit',[PetugasRincianPengajuanController::class,'edit']);
+    Route::put('/data-perincian-rab/rincian-pengajuan/{id}/update',[PetugasRincianPengajuanController::class,'update']);
+    Route::delete('/data-perincian-rab/rincian-pengajuan/{id}/delete/{id_detail}',[PetugasRincianPengajuanController::class,'delete']);
+
+    Route::get('/data-perincian-rab/sapras/{id}',[PetugasSaprasController::class,'index']);
+    Route::get('/data-perincian-rab/sapras/{id}/tambah',[PetugasSaprasController::class,'tambah']);
+    Route::post('/data-perincian-rab/sapras/{id}/save',[PetugasSaprasController::class,'save']);
+    Route::get('/data-perincian-rab/sapras/{id}/edit',[PetugasSaprasController::class,'edit']);
+    Route::put('/data-perincian-rab/sapras/{id}/update',[PetugasSaprasController::class,'update']);
+    Route::delete('/data-perincian-rab/sapras/{id}/delete/{id_detail}',[PetugasSaprasController::class,'delete']);
 });
 
 Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
-    Route::get('/dashboard',[KepsekDashboardController::class,'index']);
+    Route::get('/dashboard',[KepsekDashboardController::class, 'index']);
+    Route::get('/settings',[KepsekDashboardController::class, 'settings']);
+    Route::post('/settings/save',[KepsekDashboardController::class, 'saveSettings']);
 
-     // ROUTE SISWA //
+    // ROUTE SISWA //
     Route::get('/siswa',[KepsekSiswaController::class, 'index']);
     // ROUTE SISWA END //
 
@@ -513,127 +637,85 @@ Route::group(['prefix' => 'kepsek', 'middleware' => 'is.kepsek'],function(){
     // ROUTE SPP END //
 
     // ROUTE SPP BULAN TAHUN //
-    Route::get('/spp/bulan-tahun/{id}',[KepsekSppBulanTahunController::class, 'index']);
+    Route::get('/spp/tunggakan/{id}',[KepsekSppBulanTahunController::class, 'index']);
     // END ROUTE SPP BULAN TAHUN //
 
     // ROUTE SPP LIHAT PEMBAYARAN //
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}',[KepsekSppDetailController::class, 'lihatPembayaran']);
-    Route::get('/spp/bulan-tahun/{id}/lihat-pembayaran/{id_bulan_tahun}/detail/{id_spp_bayar}',[KepsekSppDetailController::class, 'lihatPembayaranDetail']);
+    Route::get('/spp/pembayaran/{id}',[KepsekSppBayarDataController::class, 'index']);
+
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[KepsekSppBayarController::class, 'index']);
+
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}',[KepsekSppBayarDetailController::class, 'index']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
+    // ROUTE SPP LIHAT PEMASUKAN KANTIN //
+    Route::get('/spp/tunggakan/{id}/lihat-pemasukan-kantin/{id_bulan_tahun}',[KepsekSppBulanTahunController::class, 'lihatPemasukanKantin']);
+    // END ROUTE SPP LIHAT PEMASUKAN KANTIN //
+
     // ROUTE SPP LIHAT SPP //
-    Route::get('/spp/bulan-tahun/{id}/lihat-spp/{id_bulan_tahun}',[KepsekSppDetailController::class, 'index']);
+    Route::get('/spp/tunggakan/{id}/lihat-spp/{id_bulan_tahun}',[KepsekSppDetailController::class, 'index']);
     // END ROUTE SPP LIHAT SPP //
+
+    // ROUTE SPP HISTORY //
+    Route::get('/spp/history-spp',[KepsekHistorySppController::class, 'index']);
+    Route::get('/spp/history-spp/{id}',[KepsekHistorySppController::class, 'detail']);
+    // END ROUTE SPP HISTORY //
 
     // ROUTE LAPORAN //
     Route::get('/laporan-kantin',[KepsekLaporanController::class, 'laporanKantinView']);
+    Route::get('/laporan-kantin/lihat-data',[KepsekLaporanController::class, 'laporanKantinLihatData']);
     Route::get('/laporan-data-siswa',[KepsekLaporanController::class, 'laporanDataSiswaView']);
+    Route::get('/laporan-data-siswa/lihat-data',[KepsekLaporanController::class, 'laporanDataSiswaLihatData']);
     Route::get('/laporan-tunggakan',[KepsekLaporanController::class, 'laporanTunggakanView']);
+    Route::get('/laporan-tunggakan/lihat-data',[KepsekLaporanController::class, 'laporanTunggakanLihatData']);
     Route::get('/laporan-rab',[KepsekLaporanController::class, 'laporanRabView']);
     Route::get('/laporan/cetak',[KepsekLaporanController::class, 'laporanCetak']);
+    Route::get('/laporan-pembukuan',[KepsekLaporanController::class, 'laporanPembukuanView']);
+    Route::get('/laporan-pembukuan/lihat-data',[KepsekLaporanController::class, 'laporanPembukuanLihatData']);
     // END ROUTE LAPORAN //
 
-    // ROUTE DATA PETUGAS //
-    Route::get('/data-petugas',[KepsekPetugasController::class, 'index']);
-    // END ROUTE DATA PETUGAS //
+    // ROUTE RAB //
+
+    Route::get('/data-perincian-rab',[KepsekRincianPengeluaranController::class,'index']);
+
+    Route::get('/data-perincian-rab/rincian-pengeluaran/{id}',[KepsekRincianPengeluaranDetailController::class,'index']);
+
+    Route::get('/data-perincian-rab/rincian-pembelanjaan/{id}',[KepsekRincianPembelanjaanController::class,'rincianPembelanjaan']);
+
+    Route::get('/data-perincian-rab/rincian-pembelanjaan-uang-makan/{id}',[KepsekRincianPembelanjaanController::class,'rincianPembelanjaanUangMakan']);
+
+    Route::get('/data-perincian-rab/rincian-penerimaan/{id}',[KepsekRincianPenerimaanController::class,'index']);
+
+    Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[KepsekRincianPengajuanController::class,'index']);
+
+    Route::get('/data-perincian-rab/sapras/{id}',[KepsekSaprasController::class,'index']);
 });
 
 Route::group(['prefix' => 'ortu','middleware' => 'is.ortu'],function(){
     Route::get('/dashboard',[OrtuDashboardController::class, 'index']);
-    Route::get('/spp/{id}',[OrtuDashboardController::class, 'spp']);
-    Route::get('/spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
+    // Route::get('/spp/{id}',[OrtuDashboardController::class, 'spp']);
+    // Route::get('/spp/{id}/detail/{id_detail}',[OrtuDashboardController::class, 'detailSpp']);
+
+    // ROUTE SPP BULAN TAHUN //
+    Route::get('/spp/tunggakan/{id}',[OrtuSppBulanTahunController::class, 'index']);
+    // END ROUTE SPP BULAN TAHUN //
+
+    // ROUTE SPP LIHAT PEMBAYARAN //
+    Route::get('/spp/pembayaran/{id}',[OrtuSppBayarDataController::class, 'index']);
+
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[OrtuSppBayarController::class, 'index']);
 });
 
 Route::get('/urai-bulan-tahun',function(){
-$spp_bulan_tahun = App\Models\SppBulanTahun::all();
-foreach ($spp_bulan_tahun as $key => $value) {
-    $explode_bulan_tahun = explode(',',$value->bulan_tahun);
-    $update = [
-        'bulan' => describe_month($explode_bulan_tahun[0]),
-        'tahun' => $explode_bulan_tahun[1]
-    ];
-    App\Models\SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
-                ->update($update);
-}
-echo 'oke';
-});
-
-Route::get('/dashboard1', function () {
-    return view('layout-app/layout');
-});
-
-Route::get('/persentase', function () {
-    return view('dashboard-persentase');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/siswa', function () {
-    return view('Admin.siswa.main');
-});
-
-Route::get('/kantin', function () {
-    return view('kantin');
-});
-
-Route::get('/tambahsiswa', function () {
-    return view('siswa-tambah');
-});
-
-Route::get('/importsiswa', function () {
-    return view('siswa-import');
-});
-
-Route::get('/tambahkantin', function () {
-    return view('kantin-tambah');
-});
-
-Route::get('/editkantin', function () {
-    return view('kantin-edit');
-});
-
-Route::get('/tunggakansiswa', function () {
-    return view('tunggakan');
-});
-
-Route::get('/tambahtunggakan', function () {
-    return view('tunggakan-tambah');
-});
-
-Route::get('/edittunggakan', function () {
-    return view('tunggakan-edit');
-});
-
-Route::get('/detailtunggakan', function () {
-    return view('tunggakan-detail');
-});
-
-Route::get('/datatunggal', function () {
-    return view('data-tunggal');
-});
-
-Route::get('/datatahunajar', function () {
-    return view('Admin.tahun-ajaran.main');
-});
-
-Route::get('/tambahtahunajar', function () {
-    return view('data-tunggal-tahun-ajar-tambah');
-});
-
-Route::get('/edittahunajar', function () {
-    return view('data-tunggal-tahun-ajar-edit');
-});
-
-Route::get('/datakelas', function () {
-    return view('data-tunggal-kelas');
-});
-
-Route::get('/detailkelas', function () {
-    return view('data-tunggal-kelas-detail');
-});
-
-Route::get('/struk', function () {
-    return view('Admin/struk');
+    $spp_bulan_tahun = App\Models\SppBulanTahun::all();
+    foreach ($spp_bulan_tahun as $key => $value) {
+        $explode_bulan_tahun = explode(',',$value->bulan_tahun);
+        $update = [
+            'bulan' => describe_month($explode_bulan_tahun[0]),
+            'tahun' => $explode_bulan_tahun[1]
+        ];
+        App\Models\SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
+                    ->update($update);
+    }
+    echo 'oke';
 });

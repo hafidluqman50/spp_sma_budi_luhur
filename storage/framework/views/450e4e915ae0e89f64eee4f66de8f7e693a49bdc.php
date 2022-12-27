@@ -26,25 +26,49 @@
                         <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/kepsek/spp/bulan-tahun/'.$id)); ?>">
+                            <a href="<?php echo e(url('/kepsek/spp/')); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
                             </a>
                         </div>
-                        <h5>NISN : <?php echo e($siswa->nisn); ?></h5>
-                        <h5>Nama Siswa : <?php echo e($siswa->nama_siswa); ?></h5>
-                        <h5>Kelas : <?php echo e($siswa->kelas); ?></h5>
-                        <h5>Tahun Ajaran : <?php echo e($siswa->tahun_ajaran); ?></h5>
-                        <table class="table table-hover table-bordered data-spp-bayar-kepsek force-fullwidth" id-bulan-tahun="<?php echo e($id_bulan_tahun); ?>">
+                        <?php if(session()->has('message')): ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
+                        </div>
+                        <?php endif; ?>
+                        <table>
+                        	<tr>
+                        		<td><b>NISN</b></td>
+                        		<td><b>:</b></td>
+                        		<td><b><?php echo e($siswa->nisn); ?></b></td>
+                        	</tr>
+                        	<tr>
+                        		<td><b>Nama Siswa</b></td>
+                        		<td><b>:</b></td>
+                        		<td><b><?php echo e($siswa->nama_siswa); ?></b></td>
+                        	</tr>
+                        	<tr>
+                        		<td><b>Kelas</b></td>
+                        		<td><b>:</b></td>
+                        		<td><b><?php echo e($siswa->kelas); ?></b></td>
+                        	</tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
+                            </tr>
+                        </table>
+                        <table class="table table-hover table-bordered data-spp-bayar-data force-fullwidth" id-spp="<?php echo e($id); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Tanggal Pembayaran</th>
-                                <th>Total Biaya</th>
+                                <th>Tanggal Bayar</th>
+                                <th>Keterangan Bayar</th>
                                 <th>Nominal Bayar</th>
+                                <th>Total Bayar</th>
                                 <th>Kembalian</th>
-                                <th>Keterangan</th>
+                                <th>Input By</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -59,5 +83,4 @@
     </div>
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('Kepsek.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan/resources/views/Kepsek/spp-bayar/main.blade.php ENDPATH**/ ?>

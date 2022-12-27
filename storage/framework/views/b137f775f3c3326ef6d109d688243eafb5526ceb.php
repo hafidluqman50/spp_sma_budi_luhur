@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Out</title>
     <style>
+        @page  {
+            size: A5 landscape;
+        }
         @media  print {
             a {
                 display: none;

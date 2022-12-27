@@ -49,7 +49,7 @@
             </table>
             <p class="text-right">Samarinda, <?php echo e(human_date($spp_bayar->tanggal_bayar)); ?></p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b><?php echo e($petugas->nama_petugas); ?></b></p>
+            <p class="text-right"><b><?php echo e($profile_instansi->nama_bendahara); ?></b></p>
         </div>
     </div>
 </section>

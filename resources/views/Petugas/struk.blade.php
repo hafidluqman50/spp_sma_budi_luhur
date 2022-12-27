@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Out</title>
     <style>
+        @page {
+            size: A5 landscape;
+        }
         @media print {
             a {
                 display: none;
@@ -46,7 +49,7 @@
             </table>
             <p class="text-right">Samarinda, {{ $data_master['tanggal_spp_convert'] }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
+            <p class="text-right"><b>{{ $profile_instansi->nama_bendahara }}</b></p>
         </div>
     </div>
 </section>

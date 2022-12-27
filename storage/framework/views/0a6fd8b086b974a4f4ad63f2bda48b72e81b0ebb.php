@@ -26,11 +26,17 @@
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
-                        <table class="table table-hover table-bordered data-kelas-kepsek force-fullwidth">
+                        <?php if(session()->has('message')): ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <?php echo e(session('message')); ?> <button class="close">X</button>
+                        </div>
+                        <?php endif; ?>
+                        <table class="table table-hover table-bordered data-kelas force-fullwidth">
                             <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Kelas</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -11,8 +11,10 @@ use App\Models\Spp;
 use App\Models\SppBayar;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
-use App\Models\Petugas;
 use App\Models\SppBayarDetail;
+use App\Models\SppBayarData;
+use App\Models\ProfileInstansi;
+use App\Models\User;
 use Auth;
 use DB;
 
@@ -36,21 +38,23 @@ class DashboardController extends Controller
                                         ->where('slug_kolom_spp','like','%uang-makan%')
                                         ->sum('sisa_bayar');
 
-        $total_tunggakan = SppDetail::where('status_bayar',0)->sum('sisa_bayar');
+        $total_tunggakan = SppDetail::join('kolom_spp','spp_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                    ->where('status_bayar',0)
+                                    ->whereNotIn('slug_kolom_spp',['uang-makan'])
+                                    ->sum('sisa_bayar');
 
         $kelas        = Kelas::where('status_delete',0)->get();
         $tahun_ajaran = TahunAjaran::where('status_delete',0)->get();
 
-        $transaksi_terakhir = SppBayar::join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
-                                    ->join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                    ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
-                                    // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
-                                    ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
-                                    // ->join('tahun_ajaran','kelas_siswa.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')
-                                    ->orderBy('tanggal_bayar','DESC')
-                                    ->get();
+        $transaksi_terakhir = SppBayarData::join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
+                                        ->join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        // ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                                        ->join('siswa','kelas_siswa.id_siswa','=','siswa.id_siswa')
+                                        ->orderBy('tanggal_bayar','DESC')
+                                        ->get();
 
-        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        // $petugas = Kepsek::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $bendahara = ProfileInstansi::firstOrFail()->nama_bendahara;
 
         $get_backwards_date = backwards_date('-1 month',date('Y-m-d'));
 
@@ -120,13 +124,13 @@ class DashboardController extends Controller
             ];
         }
 
-        $tahun_pendapatan = SppBayar::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->orderBy('tahun_pendapatan','ASC')->get();
+        $tahun_pendapatan = SppBayarData::select(DB::raw('DISTINCT YEAR(tanggal_bayar) as tahun_pendapatan'))->orderBy('tahun_pendapatan','ASC')->get();
         $grafik_pendapatan[] = [];
 
         foreach ($tahun_pendapatan as $key => $value) {
-            $pendapatan_komplek    = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'komplek');
-            $pendapatan_dalam_kota = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'dalam-kota');
-            $pendapatan_luar_kota  = SppBayar::getTotalPendapatan($value->tahun_pendapatan,'luar-kota');
+            $pendapatan_komplek    = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'komplek');
+            $pendapatan_dalam_kota = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'dalam-kota');
+            $pendapatan_luar_kota  = SppBayarData::getTotalPendapatan($value->tahun_pendapatan,'luar-kota');
 
             $grafik_pendapatan[$key] = [
                 'y' => (string)$value->tahun_pendapatan,
@@ -136,6 +140,48 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('Kepsek.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','petugas','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
+        return view('Kepsek.dashboard',compact('title','page','transaksi_hari_ini','transaksi_bulan_ini','total_uang_kantin','total_tunggakan','kelas','tahun_ajaran','transaksi_terakhir','bendahara','pendapatan_spp','pendapatan_spp_old','pendapatan_uang_makan','pendapatan_uang_makan_old','pendapatan_tab_tes','pendapatan_tab_tes_old','pendapatan_asrama','pendapatan_asrama_old','grafik_tunggakan','grafik_pendapatan'));
+    }
+
+    public function settings()
+    {
+        $title = 'Settings';
+        $profile_instansi = ProfileInstansi::firstOrFail();
+        return view('Kepsek.settings',compact('title','profile_instansi'));
+    }
+
+    public function saveSettings(Request $request)
+    {
+        $nama                   = $request->nama;
+        $username               = $request->username;
+        $password               = $request->password;
+
+        if (User::where('username',$username)->count()>0) {
+            return redirect()->back()->withErrors(['log'=>'Username Sudah Ada'])->withInput();
+        }
+
+        $data_user = [
+            'name'          => $nama,
+            'username'      => $username,
+            'password'      => bcrypt($password)
+        ];
+
+        if ($username == '' && $password == '') {
+            unset($data_user['username']);
+            unset($data_user['password']);
+        }
+        elseif($username == '') {
+            unset($data_user['username']);
+        }
+        elseif ($password == '') {
+            unset($data_user['password']);
+        }
+
+        $id_profile_instansi = ProfileInstansi::firstOrFail()->id_profile_instansi;
+
+        User::where('id_users',auth()->user()->id_users)->update($data_user);
+        // ProfileInstansi::create($data_profile_instansi);
+
+        return redirect('/kepsek/settings')->with('message','Berhasil Update');
     }
 }

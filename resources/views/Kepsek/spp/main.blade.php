@@ -28,8 +28,7 @@
                         <p class="text-muted font-13">
                             Data sesuai yang diinputkan oleh bendahara.
                         </p>
-
-                        <table class="table table-hover table-bordered data-spp-kepsek force-fullwidth">
+                        <table class="table table-hover table-bordered data-spp force-fullwidth">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -39,6 +38,7 @@
                                 <th>Tahun Ajaran</th>
                                 <th>Wilayah</th>
                                 <th>Total Harus Bayar</th>
+                                <th>Input By</th>
                                 <th>#</th>
                             </tr>
                             </thead>

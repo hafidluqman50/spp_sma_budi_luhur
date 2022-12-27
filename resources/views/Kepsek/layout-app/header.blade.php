@@ -83,35 +83,27 @@
                             {{-- <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <i class="dripicons-bell noti-icon"></i>
-                                    <span class="badge badge-pink noti-icon-badge">4</span>
+                                    <i class="dripicons-document noti-icon"></i>
+                                    @if (count_history_unread_navbar() > 0) 
+                                    <span class="badge badge-pink noti-icon-badge"></span>
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
                                     <!-- item-->
                                     <div class="dropdown-item noti-title">
-                                        <h5><span class="badge badge-danger float-right">5</span>Notification</h5>
+                                        <h5>History SPP</h5>
                                     </div>
 
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-success"><i class="icon-bubble"></i></div>
-                                        <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
+                                    @foreach (get_history_navbar() as $element)
+                                    <a href="{{ url('/kepsek/spp/history-spp/'.$element->id_history_proses_spp) }}" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-info"><i class="icon-docs"></i></div>
+                                        <p class="notify-details">{{ Str::limit($element->text,20) }}<small class="text-muted">{{ time_elapsed_string($element->created_at) }}</small></p>
                                     </a>
-
+                                    @endforeach
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-info"><i class="icon-user"></i></div>
-                                        <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-danger"><i class="icon-like"></i></div>
-                                        <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
-                                    </a>
 
                                     <!-- All-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
+                                    <a href="{{ url('/kepsek/spp/history-spp') }}" class="dropdown-item notify-item notify-all">
                                         View All
                                     </a>
 
@@ -121,22 +113,12 @@
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle">
+                                    <img src="{{asset('assets/sma.png')}}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
+                                    <a href="{{ url('/kepsek/settings') }}" class="dropdown-item notify-item">
+                                        <i class="zmdi zmdi-account-circle"></i> <span>Settings</span>
                                     </a>
 
                                     <!-- item-->
@@ -200,15 +182,26 @@
                                     </li>
                                     <li>
                                         <a href="{{ url('/kepsek/laporan-tunggakan') }}">Laporan Tunggakan</a>
+                                        {{-- <ul class="submenu">
+                                            <li><a href="#">Kelas X</a></li>
+                                            <li><a href="#">Kelas XI</a></li>
+                                            <li><a href="#">Kelas XII</a></li>
+                                        </ul> --}}
                                     </li>
                                     <li>
-                                        <a href="{{ url('/kepsek/laporan-rab') }}">Laporan RAB</a>
+                                        <a href="{{ url('/kepsek/laporan-pembukuan') }}">Laporan Pembukuan</a>
                                     </li>
+                                    {{-- <li>
+                                        <a href="{{ url('/kepsek/laporan-rab') }}">Laporan RAB</a>
+                                    </li> --}}
                                 </ul>
                             </li>
                             {{-- <li class="has-submenu">
-                                <a href="{{ url('/kepsek/data-petugas') }}"><i class="fa fa-users"></i>Data Petugas</a>
+                                <a href="{{ url('/kepsek/data-kepsek') }}"><i class="fa fa-users"></i>Data Kepsek</a>
                             </li> --}}
+                            <li class="has-submenu">
+                                <a href="{{ url('/kepsek/data-perincian-rab') }}"><i class="fa fa-book"></i>Data RAB</a>
+                            </li>
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->

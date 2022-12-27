@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Out</title>
     <style>
+        @page {
+            size: A5 landscape;
+        }
         @media print {
             a {
                 display: none;
@@ -16,7 +19,7 @@
 </head>
 <body>
 <section>
-    <a href="{{ url('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
+    <a href="{{ url('/petugas/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun) }}">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -46,7 +49,7 @@
             </table>
             <p class="text-right">Samarinda, {{ human_date($tanggal_bayar) }}</p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
+            <p class="text-right"><b>{{ $profile_instansi->nama_bendahara }}</b></p>
         </div>
     </div>
 </section>

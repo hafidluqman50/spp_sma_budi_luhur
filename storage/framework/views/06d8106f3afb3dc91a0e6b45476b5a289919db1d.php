@@ -59,7 +59,7 @@
                                 <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
                             </tr>
                         </table>
-                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="<?php echo e($id_spp_bayar_data); ?>">
+                        <table class="table table-hover table-bordered datatable force-fullwidth" id-bulan-tahun="<?php echo e($id_spp_bayar_data); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -71,14 +71,15 @@
                             <tbody>
                                 <?php $__currentLoopData = $tahun; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
-                                    $bulan = $spp_bayar->getBulan($id,$value->tahun);
+                                    $bulan = $spp_bayar->getBulan($id_spp_bayar_data,$value->tahun);
                                 ?>
                                 <?php $__currentLoopData = $bulan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
-                                    $kalkulasi = format_rupiah(SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                    $kalkulasi = format_rupiah($spp_bayar_detail->where('id_spp_bayar',$element->id_spp_bayar)
                                                     ->sum('nominal_bayar'));
                                 ?>
                                 <tr>
+                                    <td><?php echo e($key+1); ?></td>
                                     <td><?php echo e($element->bulan_tahun); ?></td>
                                     <td><?php echo e($kalkulasi); ?></td>
                                     <td>    

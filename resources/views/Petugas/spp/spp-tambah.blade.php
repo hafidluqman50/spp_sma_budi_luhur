@@ -60,6 +60,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="" class="col-4 col-form-label">Keluarga Siswa</label>
+                                    <div class="col-7" id="keluarga-siswa">
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-4 col-form-label">Bulan<span class="text-danger">*</span></label>
                                     <div class="col-7">
                                         <select name="bulan_spp" class="form-control select2" required="required">
@@ -148,6 +154,25 @@
 @section('js')
 <script>
     $(() => {
+        $('body').on('keydown','input,select,textarea',function(e){
+            var self = $(this),
+                form = self.parents('form:eq(0)'),
+                focusable,
+                next
+                ;
+            if (e.keyCode == 13) {
+                focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                console.log(focusable);
+                next = focusable.eq(focusable.index(this)+1);
+                if (next.length) {
+                    next.focus();
+                }
+                else {
+                    next.submit();
+                }
+                return false;
+            }
+        });
 
         var kolom_attr    = 2;
         var nominal_attr  = 2;
@@ -203,6 +228,19 @@
             .done(function(done) {
                 $('select[name="siswa"]').removeAttr('disabled')
                 $('select[name="siswa"]').html(done)
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        })
+
+        $('select[name="siswa"]').change(function(){
+            let val = $(this).val()
+            $.ajax({
+                url: "{{ url('/ajax/get-keluarga-siswa') }}"+`/${val}`
+            })
+            .done(function(done) {
+                $('#keluarga-siswa').html(done)
             })
             .fail(function() {
                 console.log("error");

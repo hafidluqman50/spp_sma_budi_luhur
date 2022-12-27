@@ -50,29 +50,35 @@
                                     <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="1" id-layout-input-rincian="1">
                                         <input type="hidden" name="kategori_rincian[]" value="">
                                         <div class="col-md-10 row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="1">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>"><?php echo e($data->uraian_rab); ?></option>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_sekolah); ?>"><?php echo e($data->uraian_rab); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
                                                     <input type="text" class="volume form-control" id-volume="1" readonly>
                                                 </div>  
                                             </div>
                                             
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Nominal Rincian</label>
                                                     <input type="text" class="uang-keluar form-control" id-uang-keluar="1" readonly>
                                                     <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="1">Rp. 0,00</label>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keterangan</label>
+                                                    <input type="text" name="keterangan_pengajuan[]" class="form-control keterangan-pengajuan">
                                                 </div> 
                                             </div>
                                         </div>
@@ -127,7 +133,7 @@
                     $(this).val(value);
                 }
             })
-            $('#input-kategori-rincian').clone().appendTo('#input-kategori-rincian-layout')
+            $('.input-kategori-rincian:last').clone().appendTo('#input-kategori-rincian-layout')
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')
@@ -169,6 +175,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pengajuan:last').val('')
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -209,6 +217,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.uang-keluar-label:last').attr('id-uang-keluar-label',id_uang_keluar_label++)
             $(`.uang-keluar-label:last`).html(rupiah_format(0))
+
+            $('.keterangan-pengajuan:last').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){

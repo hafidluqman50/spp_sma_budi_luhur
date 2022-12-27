@@ -61,7 +61,7 @@
                                 <td><b>{{ $siswa->tahun_ajaran }}</b></td>
                             </tr>
                         </table>
-                        <table class="table table-hover table-bordered data-spp-bayar force-fullwidth" id-bulan-tahun="{{$id_spp_bayar_data}}">
+                        <table class="table table-hover table-bordered datatable force-fullwidth" id-bulan-tahun="{{$id_spp_bayar_data}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -73,14 +73,15 @@
                             <tbody>
                                 @foreach ($tahun as $key => $value)
                                 @php
-                                    $bulan = $spp_bayar->getBulan($id,$value->tahun);
+                                    $bulan = $spp_bayar->getBulan($id_spp_bayar_data,$value->tahun);
                                 @endphp
                                 @foreach ($bulan as $element)
                                 @php
-                                    $kalkulasi = format_rupiah(SppBayarDetail::where('id_spp_bayar',$edit->id_spp_bayar)
+                                    $kalkulasi = format_rupiah($spp_bayar_detail->where('id_spp_bayar',$element->id_spp_bayar)
                                                     ->sum('nominal_bayar'));
                                 @endphp
                                 <tr>
+                                    <td>{{ $key+1 }}</td>
                                     <td>{{ $element->bulan_tahun }}</td>
                                     <td>{{ $kalkulasi }}</td>
                                     <td>    

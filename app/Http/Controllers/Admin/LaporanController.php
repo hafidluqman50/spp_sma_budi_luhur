@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
@@ -891,7 +892,7 @@ class LaporanController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('L4',$get_rincian_pendapatan_spp->nominal_rab);
         $spreadsheet->getActiveSheet()->setCellValue('M4',$get_rincian_pendapatan_spp->volume_rab * $get_rincian_pendapatan_spp->nominal_rab);
 
-        $sheet_4_data[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_detail] = [
+        $sheet_4_data[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_sekolah] = [
             'tanggal_rincian'    => '=Sheet4!A4',
             'uraian_rincian'     => '=Sheet4!B4',
             'volume_rincian'     => '=Sheet4!C4',
@@ -899,7 +900,7 @@ class LaporanController extends Controller
             'nominal_rincian'    => '=Sheet4!E4'
         ];
         if ($get_rincian_pendapatan_spp->uraian_rab != '') {
-            $sheet_4_pengajuan[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_detail] = [
+            $sheet_4_pengajuan[$get_rincian_pendapatan_spp->id_rincian_pengeluaran_sekolah] = [
                 'tanggal_rincian' => '=Sheet4!A4',
                 'uraian_rab'      => '=Sheet4!I4',
                 'volume_rab'      => '=Sheet4!J4',
@@ -930,7 +931,7 @@ class LaporanController extends Controller
                 $spreadsheet->getActiveSheet()->setCellValue('L'.$cell_no,$value->nominal_rab);
                 $spreadsheet->getActiveSheet()->setCellValue('M'.$cell_no,$value->volume_rab * $value->nominal_rab);
 
-                $sheet_4_data[$value->id_rincian_pengeluaran_detail] = [
+                $sheet_4_data[$value->id_rincian_pengeluaran_sekolah] = [
                     'tanggal_rincian'    => '=Sheet4!A'.$cell_no,
                     'uraian_rincian'     => '=Sheet4!B'.$cell_no,
                     'volume_rincian'     => '=Sheet4!C'.$cell_no,
@@ -938,17 +939,18 @@ class LaporanController extends Controller
                     'nominal_rincian'    => '=Sheet4!E'.$cell_no
                 ];
                 if ($value->uraian_rab != '') {
-                    $sheet_4_pengajuan[$value->id_rincian_pengeluaran_detail] = [
-                        'tanggal_rincian' => '=Sheet4!A4'.$cell_no,
-                        'uraian_rab'      => '=Sheet4!I4'.$cell_no,
-                        'volume_rab'      => '=Sheet4!J4'.$cell_no,
-                        'ket_volume_rab'  => '=Sheet4!K4'.$cell_no,
-                        'nominal_rab'     => '=Sheet4!L4'.$cell_no
+                    $sheet_4_pengajuan[$value->id_rincian_pengeluaran_sekolah] = [
+                        'tanggal_rincian' => '=Sheet4!A'.$cell_no,
+                        'uraian_rab'      => '=Sheet4!I'.$cell_no,
+                        'volume_rab'      => '=Sheet4!J'.$cell_no,
+                        'ket_volume_rab'  => '=Sheet4!K'.$cell_no,
+                        'nominal_rab'     => '=Sheet4!L'.$cell_no
                     ];
                 }
                 $cell_no++;
             }
         }
+        // dd($sheet_4_data);
         $cell_total       = $cell_no;
         $cell_grand_total = $cell_total+1;
 
@@ -999,7 +1001,7 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_setor_uang_makan,$val->nominal_rincian);
             $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_setor_uang_makan,$val->volume_rincian * $val->nominal_rincian);
 
-            $sheet_4_data[$val->id_rincian_pengeluaran_detail] = [
+            $sheet_4_data[$val->id_rincian_pengeluaran_uang_makan] = [
                 'tanggal_rincian'    => '=Sheet4!A'.$cell_setor_uang_makan,
                 'uraian_rincian'     => '=Sheet4!B'.$cell_setor_uang_makan,
                 'volume_rincian'     => '=Sheet4!C'.$cell_setor_uang_makan,
@@ -1080,26 +1082,83 @@ class LaporanController extends Controller
                                               ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                               ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
                                               ->whereYear('tanggal_bayar','=',$tahun_laporan)
-                                              ->where('bulan','==','06')
-                                              ->where('tahun','==',$tahun_laporan)
+                                              ->where('bulan','=','06')
+                                              ->where('tahun','=',$tahun_laporan)
                                               ->where('slug_kolom_spp','asrama')
                                               ->sum('nominal_bayar');
 
             $uang_asrama_spp = $uang_asrama_spp1 + $uang_asrama_spp2;
         }
 
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_asrama,'Pemasukan Uang Asrama SPP');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama,$uang_asrama_spp);
-        $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_asrama:D$cell_uang_asrama");
-        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_asrama)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $cell_uang_asrama_awal = $cell_uang_asrama;
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_asrama_awal,'Pemasukan Uang Asrama SPP');
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama_awal,$uang_asrama_spp);
+        $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_asrama_awal:D$cell_uang_asrama_awal");
+        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_asrama_awal)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+
+        if ($bulan_laporan != '06') {
+            // hitung nominal cicilan pendaftaran
+            $uang_asrama_spp_loop = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                              ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                              ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                              ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                              ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                              ->where('bulan','=','06')
+                                              ->where('slug_kolom_spp','asrama')
+                                              ->groupBy('tahun')
+                                              ->get();
+            foreach ($uang_asrama_spp_loop as $i => $v) {
+                $uang_asrama_spp_cicil = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                                  ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                  ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                  ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                                  ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                                  ->where('bulan','=','06')
+                                                  ->where('tahun','=',$v->tahun)
+                                                  ->where('slug_kolom_spp','asrama')
+                                                  ->sum('nominal_bayar');
+                $cell_uang_asrama++;
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_asrama,'Asrama '.$v->tahun);
+                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama,$uang_asrama_spp_cicil);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_asrama)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            }
+        }
+        else {
+            // hitung nominal cicilan pendaftaran
+            $uang_asrama_spp_loop = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                              ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                              ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                              ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                              ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                              ->where('bulan','=','06')
+                                              ->where('tahun','!=',$tahun_laporan)
+                                              ->where('slug_kolom_spp','asrama')
+                                              ->groupBy('tahun')
+                                              ->get();
+            foreach ($uang_asrama_spp_loop as $i => $v) {
+                $uang_asrama_spp_cicil = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                                  ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                  ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                  ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                                  ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                                  ->where('bulan','=','06')
+                                                  ->where('tahun','=',$v->tahun)
+                                                  ->where('slug_kolom_spp','asrama')
+                                                  ->sum('nominal_bayar');
+                $cell_uang_asrama++;
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_asrama,'Tab. Tes '.$v->tahun);
+                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama,$uang_asrama_spp_cicil);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_asrama)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            }
+        }
 
         $cell_uang_asrama_total = $cell_uang_asrama+1;
         $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_asrama_total,'Total');
         $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_asrama_total:D$cell_uang_asrama_total");
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama_total,"=SUM(E$cell_uang_asrama:E$cell_uang_asrama_total)");
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_asrama_total,"=SUM(E$cell_uang_asrama_awal:E$cell_uang_asrama_total)");
         $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_asrama_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
         // $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
-        $spreadsheet->getActiveSheet()->getStyle('B'.$cell_uang_asrama.':E'.$cell_uang_asrama_total)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('B'.$cell_uang_asrama_awal.':E'.$cell_uang_asrama_total)->applyFromArray($styleTable);
 
         $cell_uang_tab_tes = $cell_uang_asrama_total+2;
         if ($bulan_laporan != '06') {
@@ -1127,7 +1186,7 @@ class LaporanController extends Controller
                                               ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                               ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
                                               ->whereYear('tanggal_bayar','=',$tahun_laporan)
-                                              ->where('bulan','==','06')
+                                              ->where('bulan','=','06')
                                               ->where('tahun','==',$tahun_laporan)
                                               ->where('slug_kolom_spp','tab-tes')
                                               ->sum('nominal_bayar');
@@ -1135,18 +1194,81 @@ class LaporanController extends Controller
             $uang_tab_tes_spp = $uang_tab_tes_spp1 + $uang_tab_tes_spp2;
         }
 
-        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_tab_tes,'Pemasukan Uang Asrama SPP');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes,$uang_tab_tes_spp);
+        //simpan cell awal
+        $cell_uang_tab_tes_awal = $cell_uang_tab_tes;
+        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_tab_tes_awal,'Pemasukan Tab. Tes SPP');
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes_awal,$uang_tab_tes_spp);
+        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_tab_tes_awal)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+        $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_tab_tes_awal:D$cell_uang_tab_tes_awal");
+
+        if ($bulan_laporan != '06') {
+            // hitung nominal cicilan pendaftaran
+            $uang_tab_tes_spp_loop = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                              ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                              ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                              ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                              ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                              ->where('bulan','=','06')
+                                              ->where('slug_kolom_spp','tab-tes')
+                                              ->groupBy('tahun')
+                                              ->get();
+                                              
+            foreach ($uang_tab_tes_spp_loop as $i => $v) {
+                $uang_tab_tes_spp_cicil = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                                  ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                  ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                  ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                                  ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                                  ->where('bulan','=','06')
+                                                  ->where('tahun','=',$v->tahun)
+                                                  ->where('slug_kolom_spp','tab-tes')
+                                                  ->sum('nominal_bayar');
+                $cell_uang_tab_tes++;
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_tab_tes,'Tab. Tes '.$v->tahun);
+                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes,$uang_tab_tes_spp_cicil);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_tab_tes)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            }
+        }
+        else {
+            // hitung nominal cicilan pendaftaran
+            $uang_tab_tes_spp_loop = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                              ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                              ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                              ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                              ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                              ->where('bulan','=','06')
+                                              ->where('tahun','!=',$tahun_laporan)
+                                              ->where('slug_kolom_spp','tab-tes')
+                                              ->groupBy('tahun')
+                                              ->get();
+
+            foreach ($uang_tab_tes_spp_loop as $i => $v) {
+                $uang_tab_tes_spp_cicil = SppBayarDetail::join('spp_bayar','spp_bayar_detail.id_spp_bayar','=','spp_bayar.id_spp_bayar')
+                                                  ->join('kolom_spp','spp_bayar_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                  ->join('spp_bulan_tahun','spp_bayar.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
+                                                  ->whereMonth('tanggal_bayar','=',zero_front_number($bulan_laporan))
+                                                  ->whereYear('tanggal_bayar','=',$tahun_laporan)
+                                                  ->where('bulan','=','06')
+                                                  ->where('tahun','=',$v->tahun)
+                                                  ->where('slug_kolom_spp','tab-tes')
+                                                  ->sum('nominal_bayar');
+                $cell_uang_tab_tes++;
+                $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_tab_tes,'Tab. Tes '.$v->tahun);
+                $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes,$uang_tab_tes_spp_cicil);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_tab_tes)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+            }
+        }
+
         $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_tab_tes:D$cell_uang_tab_tes");
         $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_tab_tes)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
         $cell_uang_tab_tes_total = $cell_uang_tab_tes+1;
         $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_uang_tab_tes_total,'Total');
-        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes_total,"=SUM(E$cell_uang_tab_tes:E$cell_uang_tab_tes_total)");
+        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_uang_tab_tes_total,"=SUM(E$cell_uang_tab_tes_awal:E$cell_uang_tab_tes_total)");
         $spreadsheet->getActiveSheet()->mergeCells("B$cell_uang_tab_tes_total:D$cell_uang_tab_tes_total");
         $spreadsheet->getActiveSheet()->getStyle('E'.$cell_uang_tab_tes_total)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
 
-        $spreadsheet->getActiveSheet()->getStyle('B'.$cell_uang_tab_tes.':E'.$cell_uang_tab_tes_total)->applyFromArray($styleTable);
+        $spreadsheet->getActiveSheet()->getStyle('B'.$cell_uang_tab_tes_awal.':E'.$cell_uang_tab_tes_total)->applyFromArray($styleTable);
 
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -1168,6 +1290,16 @@ class LaporanController extends Controller
         $check_pembelanjaan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('jenis_rincian_pembelanjaan','operasional')->count();
         if ($check_pembelanjaan != 0) {
             $spreadsheet->setActiveSheetIndex(1);
+            
+            $drawing = new Drawing();
+            $drawing->setName('Logo SMA');
+            $drawing->setDescription('Logo SMA');
+            $drawing->setPath('assets/kop_laporan.png');
+            $drawing->setWidth(157);
+            $drawing->setHeight(157);
+            $drawing->setCoordinates('A1');
+            $drawing->setWorksheet($spreadsheet->getActiveSheet());
+
             $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
             $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
             $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
@@ -1243,11 +1375,11 @@ class LaporanController extends Controller
                 foreach ($pembelanjaan as $j => $val) {
                     $no__ = $j+1;
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan,$no__);
-                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
-                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
-                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_sekolah]['tanggal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_sekolah]['uraian_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_sekolah]['volume_rincian']);
                     $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_pembelanjaan,'x');
-                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan,$sheet_4_data[$val->id_rincian_pengeluaran_sekolah]['nominal_rincian']);
                     $spreadsheet->getActiveSheet()->setCellValue('I'.$cell_pembelanjaan,"=D$cell_pembelanjaan*G$cell_pembelanjaan");
                     $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan,$val->keterangan_pembelanjaan);
                     $jumlah_kategori = $jumlah_kategori+1;
@@ -1364,6 +1496,17 @@ class LaporanController extends Controller
         $check_pembelanjaan_uang_makan = RincianPembelanjaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('jenis_rincian_pembelanjaan','uang-makan')->count();
         if ($check_pembelanjaan_uang_makan != 0) {
             $spreadsheet->setActiveSheetIndex(0);
+
+            $drawing = new Drawing();
+            $drawing->setName('Logo SMA');
+            $drawing->setDescription('Logo SMA');
+            $drawing->setPath('assets/kop_laporan.png');
+            $drawing->setWidth(157);
+            $drawing->setHeight(157);
+            $drawing->setCoordinates('A1');
+            $drawing->setWorksheet($spreadsheet->getActiveSheet());
+            // $drawing->setOffsetX(45);
+
             $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
             $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PEMBELANJAAN SMA BUDI LUHUR SAMARINDA');
             $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
@@ -1453,12 +1596,12 @@ class LaporanController extends Controller
                 foreach ($pembelanjaan as $j => $val) {
                     $no__ = $j+1;
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pembelanjaan_uang_makan,$no__);
-                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['tanggal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_uang_makan]['tanggal_rincian']);
                     $spreadsheet->getActiveSheet()->mergeCells("B$cell_pembelanjaan_uang_makan:C$cell_pembelanjaan_uang_makan");
-                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['uraian_rincian']);
-                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['volume_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_uang_makan]['uraian_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_uang_makan]['volume_rincian']);
                     $spreadsheet->getActiveSheet()->setCellValue('G'.$cell_pembelanjaan_uang_makan,'x');
-                    $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_detail]['nominal_rincian']);
+                    $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembelanjaan_uang_makan,$sheet_4_data[$val->id_rincian_pengeluaran_uang_makan]['nominal_rincian']);
                     $spreadsheet->getActiveSheet()->getStyle('H'.$cell_pembelanjaan_uang_makan)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
                     $spreadsheet->getActiveSheet()->setCellValue('J'.$cell_pembelanjaan_uang_makan,"=E$cell_pembelanjaan_uang_makan*H$cell_pembelanjaan_uang_makan");
                     $spreadsheet->getActiveSheet()->mergeCells("J$cell_pembelanjaan_uang_makan:K$cell_pembelanjaan_uang_makan");
@@ -1630,6 +1773,16 @@ class LaporanController extends Controller
         $check_pengajuan = RincianPengajuan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->count();
         if ($check_pengajuan != 0) {
             $spreadsheet->setActiveSheetIndex(4);
+
+            $drawing = new Drawing();
+            $drawing->setName('Logo SMA');
+            $drawing->setDescription('Logo SMA');
+            $drawing->setPath('assets/kop_laporan.png');
+            $drawing->setWidth(120);
+            $drawing->setHeight(100);
+            $drawing->setCoordinates('A1');
+            $drawing->setWorksheet($spreadsheet->getActiveSheet());
+            
             $spreadsheet->getDefaultStyle()->getFont()->setSize(13);
             $spreadsheet->getActiveSheet()->setCellValue('A9','LAPORAN PENGAJUAN SMA BUDI LUHUR SAMARINDA');
             $spreadsheet->getActiveSheet()->setCellValue('A10','TAHUN PELAJARAN '.$rincian_pengeluaran_row->tahun_ajaran);
@@ -1701,9 +1854,11 @@ class LaporanController extends Controller
                 foreach ($pengajuan as $j => $val) {
                     $no__ = $j+1;
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_pengajuan,$no__);
-                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['uraian_rab']);
-                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['volume_rab']);
-                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_detail]['nominal_rab']);
+                    if (isset($sheet_4_pengajuan[$val->id_rincian_pengeluaran_sekolah])) {
+                        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_sekolah]['uraian_rab']);
+                        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_sekolah]['volume_rab']);
+                        $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_pengajuan,$sheet_4_pengajuan[$val->id_rincian_pengeluaran_sekolah]['nominal_rab']);
+                    }
                     $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pengajuan,"=C$cell_pengajuan*D$cell_pengajuan");
                     $jumlah_kategori = $jumlah_kategori+1;
                     $cell_pengajuan++;
@@ -1771,12 +1926,12 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_kepsek_belanja,'Edi Purwanto, S.Pd.');
             $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_kepsek_belanja:C$cell_nama_kepsek_belanja");
 
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_mengetahui_pembelanjaan,'Samarinda, 25 September 2022');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_kepala_sma_belanja,'Bendahara ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_kepsek_belanja,'Nur Dina Sari');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_kepsek_belanja:I$cell_nama_kepsek_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_mengetahui_pembelanjaan,'Samarinda, 25 September 2022');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_kepala_sma_belanja,'Bendahara ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_kepala_sma_belanja:I$cell_kepala_sma_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_nama_kepsek_belanja,'Nur Dina Sari');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_nama_kepsek_belanja:I$cell_nama_kepsek_belanja");
 
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_menyetujui_pengurus_belanja,'Menyetujui, ');
             $spreadsheet->getActiveSheet()->mergeCells("A$cell_menyetujui_pengurus_belanja:C$cell_menyetujui_pengurus_belanja");
@@ -1785,12 +1940,12 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_pengurus_belanja,'Agus Bukhori ');
             $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_pengurus_belanja:C$cell_nama_pengurus_belanja");
 
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_menyetujui_pengurus_belanja,'Menyetujui, ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_menyetujui_pengurus_belanja:I$cell_menyetujui_pengurus_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pengurus_belanja,'Bendahara Yayasan Insani HUD ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_pengurus_belanja:I$cell_pengurus_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_pengurus_belanja,'Hartanto ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_pengurus_belanja:I$cell_nama_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_menyetujui_pengurus_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_menyetujui_pengurus_belanja:I$cell_menyetujui_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pengurus_belanja,'Bendahara Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_pengurus_belanja:I$cell_pengurus_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_nama_pengurus_belanja,'Hartanto ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_nama_pengurus_belanja:I$cell_nama_pengurus_belanja");
 
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_menyetujui_pembina_belanja,'Menyetujui, ');
             $spreadsheet->getActiveSheet()->mergeCells("A$cell_menyetujui_pembina_belanja:C$cell_menyetujui_pembina_belanja");
@@ -1799,12 +1954,12 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_nama_pembina_belanja,'Sudarisman ');
             $spreadsheet->getActiveSheet()->mergeCells("A$cell_nama_pembina_belanja:C$cell_nama_pembina_belanja");
 
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_menyetujui_pembina_belanja,'Menyetujui, ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_menyetujui_pembina_belanja:I$cell_menyetujui_pembina_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_pembina_belanja,'Wali Pembina Yayasan Insani HUD ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_pembina_belanja:I$cell_pembina_belanja");
-            $spreadsheet->getActiveSheet()->setCellValue('H'.$cell_nama_pembina_belanja,' ');
-            $spreadsheet->getActiveSheet()->mergeCells("H$cell_nama_pembina_belanja:I$cell_nama_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_menyetujui_pembina_belanja,'Menyetujui, ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_menyetujui_pembina_belanja:I$cell_menyetujui_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_pembina_belanja,'Wali Pembina Yayasan Insani HUD ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_pembina_belanja:I$cell_pembina_belanja");
+            $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_nama_pembina_belanja,' ');
+            $spreadsheet->getActiveSheet()->mergeCells("E$cell_nama_pembina_belanja:I$cell_nama_pembina_belanja");
 
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToPage(true);
 
@@ -1879,16 +2034,16 @@ class LaporanController extends Controller
             $pemohon_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
                                   ->groupBy('pemohon')
                                   ->get();
+
+            $cell_sapras = 1;
+            $cell_awal   = 0;
             foreach ($pemohon_sapras as $key => $value) {
                 $kategori_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
                                         ->where('pemohon',$value->pemohon)
                                         ->groupBy('kategori_sapras')
                                         ->get();
-
-                $cell_sapras = 1;
-                $cell_awal   = 0;
                 foreach ($kategori_sapras as $index => $val) {
-                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$value->kategori_sapras);
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$val->kategori_sapras);
                     $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:F$cell_sapras");
 
                     $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
@@ -1896,12 +2051,12 @@ class LaporanController extends Controller
                     $cell_sapras = $cell_sapras+1;
 
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,'NO.');
-                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,'NAMA BARANG');
-                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,'QTY');
-                    $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,'KET');
-                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,'HARGA BARANG');
-                    $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,'JUMLAH');
-                    // $spreadsheet->getActiveSheet()->mergeCells('A1:A2');
+                    $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,'RINCIAN');
+                    $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,'VOLUME');
+                    // $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,'KET');
+                    $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,'SATUAN');
+                    $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,'TOTAL');
+                    $spreadsheet->getActiveSheet()->mergeCells("C$cell_sapras:D$cell_sapras");
                     // $spreadsheet->getActiveSheet()->mergeCells('B1:B2');
                     // $spreadsheet->getActiveSheet()->mergeCells('C1:C2');
                     // $spreadsheet->getActiveSheet()->mergeCells('D1:D2');
@@ -1909,23 +2064,23 @@ class LaporanController extends Controller
                     // $spreadsheet->getActiveSheet()->mergeCells('F1:F2');
 
                     $barang_sapras = Sapras::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)
+                                            ->where('pemohon',$value->pemohon)
                                             ->where('kategori_sapras',$value->kategori_sapras)
                                             ->get();
 
                     $cell_sapras++;
 
-                    foreach ($barang_sapras as $no => $val) {
-                        $no__ = $no+1;
+                    foreach ($barang_sapras as $i => $v) {
+                        $no__ = $i+1;
                         $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$no__);
-                        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,$val->nama_barang);
-                        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,$val->qty);
-                        $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,$val->ket);
-                        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,$val->harga_barang);
+                        $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_sapras,$v->nama_barang);
+                        $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_sapras,$v->qty);
+                        $spreadsheet->getActiveSheet()->setCellValue('D'.$cell_sapras,$v->ket);
+                        $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_sapras,$v->harga_barang);
                         $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=C$cell_sapras*E$cell_sapras");
-                        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_sapra.':F'.$cell_sapras)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
+                        $spreadsheet->getActiveSheet()->getStyle('E'.$cell_sapras.':F'.$cell_sapras)->getNumberFormat()->setFormatCode('"Rp "#,##0.00_-');
                         $cell_sapras++;
                     }
-
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,'Total Keseluruhan');
                     $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:E$cell_sapras");
                     $spreadsheet->getActiveSheet()->setCellValue('F'.$cell_sapras,"=SUM(F$cell_awal:F$cell_sapras)");
@@ -1933,18 +2088,23 @@ class LaporanController extends Controller
                     $spreadsheet->getActiveSheet()->getStyle('A'.$cell_sapras)->applyFromArray($styleArray);
                     $styleTable = ['borders'=>['allBorders'=>['borderStyle'=>\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
                     $spreadsheet->getActiveSheet()->getStyle('A'.$cell_awal.':F'.$cell_sapras)->applyFromArray($styleTable);
-
-                    $cell_sapras = $cell_sapras+1;
-                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,'PEMOHON :'.$value->pemohon);
-                    $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:B$cell_sapras");
-                    $cell_sapras = $cell_sapras+1;
-                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras,$value->keterangan_pemohon);
-                    $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras:B$cell_sapras");
-                    $cell_sapras = $cell_sapras+1;
-
                     $cell_sapras++;
                 }
 
+                $cell_sapras_pemohon = $cell_sapras+1;
+                $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras_pemohon,'PEMOHON :'.$value->pemohon);
+                $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras_pemohon:F$cell_sapras_pemohon");
+                if ($value->keterangan_pemohon != '' || $value->keterangan_pemohon == '-') {
+                    $cell_sapras_keterangan_pemohon = $cell_sapras_pemohon+1;
+                    $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_sapras_keterangan_pemohon,$value->keterangan_pemohon);
+                    $spreadsheet->getActiveSheet()->mergeCells("A$cell_sapras_keterangan_pemohon:F$cell_sapras_keterangan_pemohon");
+                    $cell_sapras = $cell_sapras_keterangan_pemohon+1;
+                }
+                else {
+                    $cell_sapras = $cell_sapras_pemohon+1;
+                }
+
+                $cell_sapras++;
             }
 
             // $spreadsheet->getActiveSheet()->getStyle('A1:F2')->applyFromArray($styleArray);
@@ -1967,6 +2127,16 @@ class LaporanController extends Controller
         $check_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->count();
         if ($check_penerimaan != 0) {
             $spreadsheet->setActiveSheetIndex(3);
+
+            $drawing = new Drawing();
+            $drawing->setName('Logo SMA');
+            $drawing->setDescription('Logo SMA');
+            $drawing->setPath('assets/kop_laporan.png');
+            $drawing->setWidth(157);
+            $drawing->setHeight(157);
+            $drawing->setCoordinates('A1');
+            $drawing->setWorksheet($spreadsheet->getActiveSheet());
+
             $tahun_ajaran_penerimaan = RincianPengeluaran::join('tahun_ajaran','rincian_pengeluaran.id_tahun_ajaran','=','tahun_ajaran.id_tahun_ajaran')->where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->tahun_ajaran;
 
             $spreadsheet->getActiveSheet()->setCellValue('A9','A. Rincian Penerimaan & Setoran Keuangan Th Pelajaran '.$tahun_ajaran_penerimaan);
@@ -1988,9 +2158,9 @@ class LaporanController extends Controller
             
             // $spreadsheet->getActiveSheet()->setCellValue('A12',month($get_bulan));
             $id_rincian_penerimaan = RincianPenerimaan::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail()->id_rincian_penerimaan;
-            $get_penerimaan_spp = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)
-                                                        ->join('rincian_pengeluaran_sekolah','rincian_penerimaan_detail.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
+            $get_penerimaan_spp = RincianPenerimaanDetail::join('rincian_pengeluaran_sekolah','rincian_penerimaan_detail.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
                                                         ->join('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')
+                                                        ->where('rincian_penerimaan_detail.id_rincian_pengeluaran',$id_rincian_pengeluaran__)
                                                         ->where('slug_kolom_spp','like','%spp%')->firstOrFail();
 
             $spreadsheet->getActiveSheet()->setCellValue('C12','1');
@@ -2008,7 +2178,7 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->mergeCells('D12:F12');
             $spreadsheet->getActiveSheet()->mergeCells('I12:J12');
 
-            $get_penerimaan_detail = RincianPenerimaanDetail::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('perincian','not like','%(SPP)%')->get();
+            $get_penerimaan_detail = RincianPenerimaanDetail::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('perincian','not like','%(SPP)%')->get();
             $no   = 2;
             $cell = 13;
 
@@ -2103,7 +2273,7 @@ class LaporanController extends Controller
             // $cell_rekap_penerimaan+1;
 
             $cell_rekap_penerimaan_1 = $cell_rekap_penerimaan+2;
-            $rekap_penerimaan = RincianPenerimaanRekap::where('id_rincian_penerimaan',$id_rincian_penerimaan)->firstOrFail();
+            $rekap_penerimaan = RincianPenerimaanRekap::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->firstOrFail();
             $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_rekap_penerimaan_1,'1');
             $spreadsheet->getActiveSheet()->setCellValue('B'.$cell_rekap_penerimaan_1,date_excel($rekap_penerimaan->tanggal_bon_pengajuan));
             $spreadsheet->getActiveSheet()->setCellValue('C'.$cell_rekap_penerimaan_1,'Bon Pengajuan');
@@ -2184,11 +2354,11 @@ class LaporanController extends Controller
             $spreadsheet->getActiveSheet()->mergeCells("G$cell_penerimaan_tahun_ajaran_tabel:H$cell_penerimaan_tahun_ajaran_tabel");
             $spreadsheet->getActiveSheet()->mergeCells("I$cell_penerimaan_tahun_ajaran_tabel:J$cell_penerimaan_tahun_ajaran_tabel");
 
-            $tahun_ajaran_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->groupBy('tahun')->orderBy('tahun','ASC')->get();
+            $tahun_ajaran_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->groupBy('tahun')->orderBy('tahun','ASC')->get();
             $cell_penerimaan_tahun_ajaran_data = $cell_penerimaan_tahun_ajaran+2;
             $cell_penerimaan_tahun_ajaran_data_awal = $cell_penerimaan_tahun_ajaran+2;
             foreach ($tahun_ajaran_rekap as $key => $value) {
-                $bulan_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_penerimaan',$id_rincian_penerimaan)->where('tahun',$value->tahun)->orderBy('bulan','ASC')->get();
+                $bulan_rekap = RincianPenerimaanTahunAjaran::where('id_rincian_pengeluaran',$id_rincian_pengeluaran__)->where('tahun',$value->tahun)->orderBy('bulan','ASC')->get();
                 foreach ($bulan_rekap as $index => $val) {
                     $spreadsheet->getActiveSheet()->setCellValue('A'.$cell_penerimaan_tahun_ajaran_data,month($val->bulan).' '.$val->tahun);
                     $spreadsheet->getActiveSheet()->setCellValue('E'.$cell_penerimaan_tahun_ajaran_data,$val->pemasukan);

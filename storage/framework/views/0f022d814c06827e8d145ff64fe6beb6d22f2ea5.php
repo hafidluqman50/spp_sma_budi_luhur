@@ -59,7 +59,7 @@
                                             <input type="text" class="form-control kategori-rincian" value="<?php echo e($value->kategori_rincian_pembelanjaan); ?>" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="<?php echo e($no); ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="<?php echo e($no); ?>">X</button>
+                                            <button class="btn btn-danger btn-delete-kategori-rincian" type="button" id-delete-kategori="<?php echo e($no); ?>">X</button>
                                         </div>
                                     </div>
                                 </div>
@@ -78,10 +78,10 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
+                                                    <select name="rincian_uang_makan[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>" <?php echo $val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rincian); ?></option>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_uang_makan); ?>" <?php echo $val->id_rincian_pengeluaran_uang_makan == $data->id_rincian_pengeluaran_uang_makan ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rincian); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="<?php echo e($no__); ?>">X</button>
+                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="<?php echo e($no__); ?>">X</button>
                                             </div>
                                         </div>
                                     </div>
@@ -123,6 +123,48 @@
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
+                        </div>
+                        <div class="card-box">
+                            <?php
+                                $explode_tahun_ajaran = explode('/', $tahun_ajaran);
+                                $no = 0;
+                            ?>
+                            <?php $__currentLoopData = $explode_tahun_ajaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php for($i = 0; $i < count($bulan[$key]); $i++): ?>
+                            <?php
+                                $no = $no+1;
+                                $get_rincian_tahun_ajaran = $rincian_tahun_ajaran->getRincian($id,$bulan[$key][$i],$value);
+                            ?>
+                            <h5><?php echo e(month($bulan[$key][$i]).' '.$value); ?></h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Pemasukan</label>
+                                        <input type="number" name="pemasukan[]" class="form-control pemasukan" value="<?php echo e($get_rincian_tahun_ajaran->pemasukan); ?>" required placeholder="Isi Pemasukan" id-pemasukan="<?php echo e($no); ?>">
+                                        <label for="" class="pemasukan-label" id-pemasukan-label="<?php echo e($no); ?>"><?php echo e(format_rupiah($get_rincian_tahun_ajaran->pemasukan)); ?></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Realisasi Pengeluaran</label>
+                                        <input type="number" name="realisasi_pengeluaran_bulan[]" class="form-control realisasi-pengeluaran-bulan" value="<?php echo e($get_rincian_tahun_ajaran->realisasi_pengeluaran); ?>" required placeholder="Isi Realisasi Pengeluaran" id-realisasi-pengeluaran-bulan="<?php echo e($no); ?>">
+                                        <label for="" class="realisasi-pengeluaran-bulan-label" id-realisasi-pengeluaran-bulan-label="<?php echo e($no); ?>"><?php echo e(format_rupiah($get_rincian_tahun_ajaran->realisasi_pengeluaran)); ?></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Sisa Akhir Bulan</label>
+                                        <input type="number" name="sisa_akhir_bulan[]" value="<?php echo e($get_rincian_tahun_ajaran->sisa_akhir_bulan); ?>" class="form-control sisa-akhir-bulan" required placeholder="Isi Sisa Akhir Bulan" id-sisa-akhir-bulan="<?php echo e($no); ?>">
+                                        <label for="" class="sisa-akhir-bulan-label" id-sisa-akhir-bulan-label="<?php echo e($no); ?>"><?php echo e(format_rupiah($get_rincian_tahun_ajaran->sisa_akhir_bulan)); ?></label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="bulan_rincian[]" value="<?php echo e($bulan[$key][$i]); ?>">
+                                <input type="hidden" name="tahun_rincian[]" value="<?php echo e($value); ?>">
+                                <input type="hidden" name="id_rincian_pembelanjaan_tahun_ajaran[]" value="<?php echo e($get_rincian_tahun_ajaran->id_rincian_pembelanjaan_tahun_ajaran); ?>">
+                            </div>
+                            <hr>
+                            <?php endfor; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                         <div class="card-box">
                             <button class="btn btn-warning">Edit Data</button>
@@ -291,6 +333,53 @@
                 .fail(function(fail) {
 
                 });
+            }
+        })
+
+        $(document).on('keyup','.pemasukan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-pemasukan')
+
+            if (val == '') {
+                $(`.pemasukan-label[id-pemasukan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.pemasukan-label[id-pemasukan-label="${attr}"]`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.penerimaan-bulan-ini',function(){
+            let val  = $(this).val()
+
+            if (val == '') {
+                $(`.penerimaan-bulan-ini-label`).html(rupiah_format(0))
+            }
+            else {
+                $(`.penerimaan-bulan-ini-label`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.realisasi-pengeluaran-bulan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-realisasi-pengeluaran-bulan')
+
+            if (val == '') {
+                $(`.realisasi-pengeluaran-bulan-label[id-realisasi-pengeluaran-bulan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.realisasi-pengeluaran-bulan-label[id-realisasi-pengeluaran-bulan-label="${attr}"]`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.sisa-akhir-bulan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-sisa-akhir-bulan')
+
+            if (val == '') {
+                $(`.sisa-akhir-bulan-label[id-sisa-akhir-bulan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.sisa-akhir-bulan-label[id-sisa-akhir-bulan-label="${attr}"]`).html(rupiah_format(val))   
             }
         })
 

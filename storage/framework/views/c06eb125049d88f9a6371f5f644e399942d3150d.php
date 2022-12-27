@@ -30,9 +30,14 @@
                                     <i class="fa fa-arrow-left m-r-5"></i>Kembali
                                 </button>
                             </a>
-                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id)); ?>">
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/tambah')); ?>">
                                 <button class="btn btn-primary" style="cursor:pointer;">
-                                    Tambah Data
+                                    Tambah
+                                </button>
+                            </a>
+                            <a href="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/edit')); ?>">
+                                <button class="btn btn-warning" style="cursor:pointer;">
+                                    Edit
                                 </button>
                             </a>
                         </div>

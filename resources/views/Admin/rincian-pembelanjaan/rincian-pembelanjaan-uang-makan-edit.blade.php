@@ -61,7 +61,7 @@
                                             <input type="text" class="form-control kategori-rincian" value="{{ $value->kategori_rincian_pembelanjaan }}" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="{{ $no }}">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="{{ $no }}">X</button>
+                                            <button class="btn btn-danger btn-delete-kategori-rincian" type="button" id-delete-kategori="{{ $no }}">X</button>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
+                                                    <select name="rincian_uang_makan[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         @foreach ($rincian_pengeluaran_detail as $data)
                                                         <option value="{{ $data->id_rincian_pengeluaran_uang_makan }}" {!!$val->id_rincian_pengeluaran_uang_makan == $data->id_rincian_pengeluaran_uang_makan ? 'selected="selected"' : ''!!}>{{ $data->uraian_rincian }}</option>
@@ -123,7 +123,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger form-hide btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
+                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
                                             </div>
                                         </div>
                                     </div>
@@ -147,32 +147,34 @@
                             @for ($i = 0; $i < count($bulan[$key]); $i++)
                             @php
                                 $no = $no+1;
+                                $get_rincian_tahun_ajaran = $rincian_tahun_ajaran->getRincian($id,$bulan[$key][$i],$value);
                             @endphp
                             <h5>{{ month($bulan[$key][$i]).' '.$value }}</h5>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Pemasukan</label>
-                                        <input type="number" name="pemasukan[]" class="form-control pemasukan" required placeholder="Isi Pemasukan" id-pemasukan="{{ $no }}">
-                                        <label for="" class="pemasukan-label" id-pemasukan-label="{{ $no }}">Rp. 0,00</label>
+                                        <input type="number" name="pemasukan[]" class="form-control pemasukan" value="{{ $get_rincian_tahun_ajaran->pemasukan }}" required placeholder="Isi Pemasukan" id-pemasukan="{{ $no }}">
+                                        <label for="" class="pemasukan-label" id-pemasukan-label="{{ $no }}">{{ format_rupiah($get_rincian_tahun_ajaran->pemasukan) }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Realisasi Pengeluaran</label>
-                                        <input type="number" name="realisasi_pengeluaran_bulan[]" class="form-control realisasi-pengeluaran-bulan" required placeholder="Isi Realisasi Pengeluaran" id-realisasi-pengeluaran-bulan="{{ $no }}">
-                                        <label for="" class="realisasi-pengeluaran-bulan-label" id-realisasi-pengeluaran-bulan-label="{{ $no }}">Rp. 0,00</label>
+                                        <input type="number" name="realisasi_pengeluaran_bulan[]" class="form-control realisasi-pengeluaran-bulan" value="{{ $get_rincian_tahun_ajaran->realisasi_pengeluaran }}" required placeholder="Isi Realisasi Pengeluaran" id-realisasi-pengeluaran-bulan="{{ $no }}">
+                                        <label for="" class="realisasi-pengeluaran-bulan-label" id-realisasi-pengeluaran-bulan-label="{{ $no }}">{{ format_rupiah($get_rincian_tahun_ajaran->realisasi_pengeluaran) }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Sisa Akhir Bulan</label>
-                                        <input type="number" name="sisa_akhir_bulan[]" class="form-control sisa-akhir-bulan" required placeholder="Isi Sisa Akhir Bulan" id-sisa-akhir-bulan="{{ $no }}">
-                                        <label for="" class="sisa-akhir-bulan-label" id-sisa-akhir-bulan-label="{{ $no }}">Rp. 0,00</label>
+                                        <input type="number" name="sisa_akhir_bulan[]" value="{{ $get_rincian_tahun_ajaran->sisa_akhir_bulan }}" class="form-control sisa-akhir-bulan" required placeholder="Isi Sisa Akhir Bulan" id-sisa-akhir-bulan="{{ $no }}">
+                                        <label for="" class="sisa-akhir-bulan-label" id-sisa-akhir-bulan-label="{{ $no }}">{{ format_rupiah($get_rincian_tahun_ajaran->sisa_akhir_bulan) }}</label>
                                     </div>
                                 </div>
                                 <input type="hidden" name="bulan_rincian[]" value="{{ $bulan[$key][$i] }}">
                                 <input type="hidden" name="tahun_rincian[]" value="{{ $value }}">
+                                <input type="hidden" name="id_rincian_pembelanjaan_tahun_ajaran[]" value="{{ $get_rincian_tahun_ajaran->id_rincian_pembelanjaan_tahun_ajaran }}">
                             </div>
                             <hr>
                             @endfor
@@ -238,6 +240,13 @@
                 create:true,
                 sortField:'text'
             })
+
+            $('select.rincian').each(function(index,element){
+                console.log(index)
+                let attr = $(this).attr('id-rincian')
+                $('.selectize-control').eq(index).attr('id-rincian',attr)
+            })
+
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
             
@@ -273,6 +282,8 @@
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.keterangan-pembelanjaan:last').val('')
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
+
+            $('select.rincian:last')[0].selectize.clear()
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -345,6 +356,53 @@
                 .fail(function(fail) {
 
                 });
+            }
+        })
+
+        $(document).on('keyup','.pemasukan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-pemasukan')
+
+            if (val == '') {
+                $(`.pemasukan-label[id-pemasukan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.pemasukan-label[id-pemasukan-label="${attr}"]`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.penerimaan-bulan-ini',function(){
+            let val  = $(this).val()
+
+            if (val == '') {
+                $(`.penerimaan-bulan-ini-label`).html(rupiah_format(0))
+            }
+            else {
+                $(`.penerimaan-bulan-ini-label`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.realisasi-pengeluaran-bulan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-realisasi-pengeluaran-bulan')
+
+            if (val == '') {
+                $(`.realisasi-pengeluaran-bulan-label[id-realisasi-pengeluaran-bulan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.realisasi-pengeluaran-bulan-label[id-realisasi-pengeluaran-bulan-label="${attr}"]`).html(rupiah_format(val))   
+            }
+        })
+
+        $(document).on('keyup','.sisa-akhir-bulan',function(){
+            let val  = $(this).val()
+            let attr = $(this).attr('id-sisa-akhir-bulan')
+
+            if (val == '') {
+                $(`.sisa-akhir-bulan-label[id-sisa-akhir-bulan-label="${attr}"]`).html(rupiah_format(0))
+            }
+            else {
+                $(`.sisa-akhir-bulan-label[id-sisa-akhir-bulan-label="${attr}"]`).html(rupiah_format(val))   
             }
         })
 

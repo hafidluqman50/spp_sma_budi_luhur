@@ -57,7 +57,7 @@
                                         <div class="input-kategori-rincian" id="input-kategori-rincian" id-kategori-layout="1" id-pemohon-layout="1">
                                             <div class="container-fluid">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Kategori Barang</label>
+                                                    <label class="col-form-label">Kategori</label>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <input type="text" class="form-control kategori-rincian" placeholder="Isi Kategori Barang; Ex: Obat" id-kategori-rincian="1">
@@ -76,13 +76,13 @@
                                                         <div class="col-md-10 row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="col-form-label">Nama Barang</label>
+                                                                    <label class="col-form-label">Rincian</label>
                                                                     <input type="text" name="nama_barang[]" class="form-control nama-barang" id-nama-barang="1">
                                                                 </div>  
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="col-form-label">Qty</label>
+                                                                    <label class="col-form-label">Volume</label>
                                                                     <input type="text" name="qty[]" class="qty form-control" id-qty="1">
                                                                 </div>
                                                             </div>
@@ -94,14 +94,14 @@
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="col-form-label">Harga Barang</label>
+                                                                    <label class="col-form-label">Satuan</label>
                                                                     <input type="text" name="harga_barang[]" class="harga-barang form-control" id-harga-barang="1">
                                                                     <label for="" class="harga-barang-label" id="harga-barang-label" id-harga-barang-label="1">Rp. 0,00</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="col-form-label">Jumlah</label>
+                                                                    <label class="col-form-label">Total</label>
                                                                     <input type="text" name="jumlah[]" class="jumlah form-control" id-jumlah="1" readonly>
                                                                     <label for="" class="jumlah-label" id="jumlah-label" id-jumlah-label="1">Rp. 0,00</label>
                                                                 </div> 
@@ -177,9 +177,13 @@
 
             $('.pemohon:last').attr('id-pemohon-rincian',id_pemohon_layout)
             $('.kategori-pemohon:last').attr('id-kategori-pemohon-rincian',id_pemohon_layout)
+            $('.pemohon:last').val('')
+            $('.kategori-pemohon:last').val('')
 
             $('input[name="pemohon[]"]:last').attr('id-pemohon-input',id_pemohon_layout)
             $('input[name="kategori_pemohon[]"]:last').attr('id-kategori-pemohon-input',id_pemohon_layout)
+            $('input[name="pemohon[]"]:last').val('')
+            $('input[name="kategori_pemohon[]"]:last').val('')
             
             $(`.input-kategori-rincian-layout[id-pemohon-layout="${id_pemohon_layout}"]`).find(`.input-kategori-rincian[id-pemohon-layout="${hapus_input_pemohon_layout}"]`).remove();
             
@@ -195,6 +199,9 @@
             if (!$('.btn-delete-kategori-rincian:last').hasClass('form-hide')) {
                 $('.btn-delete-kategori-rincian:last').addClass('form-hide')
             }
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').attr('id-kategori-input',input_kategori_rincian)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').val('')
             
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')
@@ -255,6 +262,9 @@
             }
             
             $(`.input-rincian-layout[id-kategori-layout="${input_kategori_rincian}"]:last`).attr('id-layout-rincian',id_layout_rincian++)
+            
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').attr('id-kategori-input',input_kategori_rincian)
+            $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('input[name="kategori_rincian[]"]:last').val('')
             
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').attr('id-nama-barang',id_nama_barang++)
             $(`.input-rincian[id-kategori-layout="${input_kategori_rincian}"]`).find('.nama-barang:last').val('')

@@ -28,7 +28,7 @@
                     <p class="text-muted font-13">
                         Data sesuai yang diinputkan oleh bendahara.
                     </p>
-                    <table class="table table-hover table-bordered data-tahun-ajaran-kepsek force-fullwidth">
+                    <table class="table table-hover table-bordered data-tahun-ajaran force-fullwidth">
                         <thead>
                             <tr>
                                 <th>No.</th>

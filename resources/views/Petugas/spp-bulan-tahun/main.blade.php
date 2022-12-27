@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA DETAIL SPP</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA SPP BULAN TAHUN</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
                             <a href="{{ url('/petugas/spp/') }}">
@@ -39,11 +39,29 @@
                             {{ session('message') }} <button class="close">X</button>
                         </div>
                         @endif
-                        <h5>NISN : {{ $siswa->nisn }}</h5>
-                        <h5>Nama Siswa : {{ $siswa->nama_siswa }}</h5>
-                        <h5>Kelas : {{ $siswa->kelas }}</h5>
-                        <h5>Tahun Ajaran : {{ $siswa->tahun_ajaran }}</h5>
-                        <table class="table table-hover table-bordered data-spp-bulan-tahun force-fullwidth" id-spp="{{$id}}">
+                        <table>
+                            <tr>
+                                <td><b>NISN</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nisn }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Nama Siswa</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->nama_siswa }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kelas</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->kelas }}</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tahun Ajaran</b></td>
+                                <td><b>:</b></td>
+                                <td><b>{{ $siswa->tahun_ajaran }}</b></td>
+                            </tr>
+                        </table>
+                        <table class="table table-hover table-bordered datatable force-fullwidth" id-spp="{{$id}}">
                             <thead>
                             <tr>
                                 <th>No.</th>
@@ -55,7 +73,49 @@
                             </tr>
                             </thead>
                             <tbody>
+                                @foreach ($tahun as $key => $value)
+                                @php
+                                    $bulan = $spp_bulan_tahun->getBulan($id,$value->tahun);
+                                @endphp
+                                @foreach ($bulan as $element)
+                                @php
+                                    $array = [
+                                        0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
+                                        1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
+                                    ];
+                                    $status_pelunasan = '<span class="'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['class'].'">'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['text'].'</span>';
 
+                                    if ($element->nama_kantin == NULL || $element->nama_kantin == '') {
+                                        $nama_kantin = '-';
+                                    }
+                                    else {
+                                        $nama_kantin = $element->nama_kantin;
+                                    }
+
+                                    $kalkulasi = format_rupiah($spp_detail->where('id_spp_bulan_tahun',$element->id_spp_bulan_tahun)->sum('sisa_bayar'));
+                                @endphp
+                                <tr>
+                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $element->bulan_tahun }}</td>
+                                    <td>{{ $nama_kantin }}</td>
+                                    <td>{!! $status_pelunasan !!}</td>
+                                    <td>{{ $kalkulasi }}</td>
+                                    <td>    
+                                        <div class="d-flex">
+                                            <a href="{{url("/petugas/spp/tunggakan/$id/lihat-pemasukan-kantin/$element->id_spp_bulan_tahun")}}" style="margin-right:1%;">
+                                              <button class="btn btn-success"> Lihat Pemasukan Kantin </button>
+                                           </a>
+                                            <a href="{{url("/petugas/spp/tunggakan/$id/lihat-spp/$element->id_spp_bulan_tahun")}}" style="margin-right:1%;">
+                                              <button class="btn btn-info"> Lihat SPP </button>
+                                           </a>
+                                            <a href="{{url("/petugas/spp/tunggakan/$id/edit/$element->id_spp_bulan_tahun")}}" style="margin-right:1%;">
+                                              <button class="btn btn-warning"> Edit </button>
+                                           </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

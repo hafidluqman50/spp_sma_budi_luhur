@@ -11,6 +11,7 @@ use App\Models\SppBayarDetail;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
 use App\Models\Petugas;
+use App\Models\ProfileInstansi;
 
 class SppBayarDataController extends Controller
 {
@@ -48,9 +49,10 @@ class SppBayarDataController extends Controller
                                 ->firstOrFail();
 
         $untuk_pembayaran = SppBayar::bulanPembayaran($id,$id_spp_bayar_data);
-        $petugas          = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        // $petugas          = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $profile_instansi = ProfileInstansi::firstOrFail();
 
-        return view('Admin.spp-bayar.struk',compact('id','id_spp_bayar_data','spp_bayar','untuk_pembayaran','petugas'));
+        return view('Admin.spp-bayar.struk',compact('id','id_spp_bayar_data','spp_bayar','untuk_pembayaran','profile_instansi'));
     }
 
     public function returBayar($id,$id_spp_bayar_data)

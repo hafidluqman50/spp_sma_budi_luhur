@@ -14,6 +14,7 @@ use App\Models\SppBayarDetail;
 use App\Models\Petugas;
 use App\Models\HistoryProsesSpp;
 use App\Models\PemasukanKantin;
+use App\Models\ProfileInstansi;
 use Auth;
 
 class SppDetailController extends Controller
@@ -134,7 +135,8 @@ class SppDetailController extends Controller
         // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
-        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        // $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $profile_instansi = ProfileInstansi::firstOrFail();
 
         $spp_row = SppDetail::getBayarById($id_detail);
 
@@ -144,7 +146,7 @@ class SppDetailController extends Controller
         HistoryProsesSpp::create($history);
 
         // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','profile_instansi'));
     }
 
     public function formBayarSemua($id,$id_bulan_tahun)
@@ -281,10 +283,11 @@ class SppDetailController extends Controller
 
         $spp_detail_row = SppDetail::getBayarById($id_detail);
 
-        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        // $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $profile_instansi = ProfileInstansi::firstOrFail();
 
         // return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Bayar SPP');
-        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','petugas'));
+        return view('Admin.spp-detail.struk',compact('total_biaya','spp_detail_row','tanggal_bayar','id','id_bulan_tahun','profile_instansi'));
     }
 
     public function delete($id,$id_bulan_tahun,$id_detail)
@@ -392,7 +395,8 @@ class SppDetailController extends Controller
 
         $spp_detail_row = SppBayar::getStruk($id,$id_bulan_tahun,$id_spp_bayar);
 
-        $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
-        return view('Admin.spp-bayar.struk',compact('spp_detail_row','id','id_bulan_tahun','petugas'));
+        // $petugas = Petugas::where('jabatan_petugas','bendahara-internal')->firstOrFail();
+        $profile_instansi = ProfileInstansi::firstOrFail();
+        return view('Admin.spp-bayar.struk',compact('spp_detail_row','id','id_bulan_tahun','profile_instansi'));
     }
 }

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form id="form-spp-bayar" action="{{ url('/petugas/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
+            <form id="form-spp-bayar" action="{{ url('/petugas/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -80,6 +80,15 @@
                                         <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
+                                {{-- @if ($no != 0) --}}
+                                <div class="form-group row">
+                                    <div class="col-8 offset-4">
+                                        <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </div>
+                                {{-- @endif --}}
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
@@ -87,7 +96,13 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
-                                    @foreach ($spp_bayar as $key => $value)
+                                    @php
+                                        $no = 0;
+                                    @endphp
+                                    @forelse ($spp_bayar as $key => $value)
+                                    @php
+                                        $no = $key+1;
+                                    @endphp
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
@@ -103,21 +118,18 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}" bayar-spp-attr="{{ $key+1 }}">
+                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}" bayar-spp-attr="{{ $key+1 }}" {{$key==0 ? 'autofocus' : ''}}>
                                             <input type="hidden" class="old-nominal" value="0" id-kolom-spp="{{ $value->id_kolom_spp }}">
                                             <label for="" class="label-bayar-kolom-spp" id-kolom-spp="{{ $value->id_kolom_spp }}"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
                                     <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">
                                     <hr>
-                                    @endforeach
+                                    @empty
                                     <div class="form-group row">
-                                        <div class="col-8 offset-4">
-                                            <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
-                                                Simpan
-                                            </button>
-                                        </div>
+                                        <label class="col-form-label">Data Kolom SPP Tidak ada</label>
                                     </div>
+                                    @endforelse
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>

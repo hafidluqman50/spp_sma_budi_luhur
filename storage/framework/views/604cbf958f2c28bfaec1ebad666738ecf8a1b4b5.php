@@ -23,11 +23,6 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Data SPP</b></h4>
-                        <?php if(session()->has('message')): ?>
-                        <div class="alert alert-success alert-dismissible">
-                            <?php echo e(session('message')); ?> <button class="close">X</button>
-                        </div>
-                        <?php endif; ?>
                         <table class="table table-hover table-bordered siswa-ortu force-fullwidth">
                             <thead>
                             <tr>

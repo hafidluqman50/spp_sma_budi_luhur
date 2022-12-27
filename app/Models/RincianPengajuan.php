@@ -16,7 +16,7 @@ class RincianPengajuan extends Model
 
     public static function getRincianByKategori($kategori)
     {
-        $get = self::join('rincian_pengeluaran_detail','rincian_pengajuan.id_rincian_pengeluaran_detail','=','rincian_pengeluaran_detail.id_rincian_pengeluaran_detail')
+        $get = self::join('rincian_pengeluaran_sekolah','rincian_pengajuan.id_rincian_pengeluaran_sekolah','=','rincian_pengeluaran_sekolah.id_rincian_pengeluaran_sekolah')
                     ->where('kategori_rincian_pengajuan',$kategori)
                     ->get();
 

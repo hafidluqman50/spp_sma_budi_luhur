@@ -75,6 +75,16 @@
         let attr = $(this).attr('id-kantin')
         $(`input[name="kantin_nama"]`).val(attr)
     })
+
+    $(document).on('click','.info-kantin',function(){
+        // alert('sip')
+        let attr  = $(this).attr('id-kantin')
+        let bulan = $('select[name="bulan_laporan"]').val()
+        let tahun = $('input[name="tahun_laporan"]').val()
+        let url   = `${base_url}/kepsek/laporan-kantin/lihat-data?id_kantin=${attr}&bulan=${bulan}&tahun=${tahun}`
+
+        window.open(url,'_blank')
+    })
 </script>
 <?php $__env->stopSection(); ?>
 

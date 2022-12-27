@@ -117,6 +117,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-4 col-form-label">Nomor VA</label>
+                                <div class="col-7">
+                                    <input type="text" name="nomor_va" class="form-control" value="<?php echo e($row->nomor_va); ?>" required placeholder="Isi Nomor VA">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-8 offset-4">
                                     <button type="submit" class="btn btn-warning waves-effect waves-light">
                                         Edit

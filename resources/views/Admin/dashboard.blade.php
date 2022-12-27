@@ -328,7 +328,7 @@
                                         </table>
                                         <p class="text-right" id="tanggal_spp">-</p>
                                         <p class="text-right"><b>Bendahara</b></p><br><br>
-                                        <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
+                                        <p class="text-right"><b>{{ $bendahara }}</b></p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-6">

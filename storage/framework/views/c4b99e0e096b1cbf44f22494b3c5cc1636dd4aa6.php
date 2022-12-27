@@ -7,8 +7,8 @@
                     <div class="page-title-box">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item"><a href="<?php echo e(url('/kepsek/dashboard')); ?>">Dashboard</a></li>
-                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/kepsek/siswa')); ?>">Data Siswa</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo e(url('/petugas/dashboard')); ?>">Dashboard</a></li>
+                                <li class="breadcrumb-item active"><a href="<?php echo e(url('/petugas/siswa')); ?>">Data Siswa</a></li>
                             </ol>
                         </div>
                         <h4 class="page-title">Data Siswa</h4>

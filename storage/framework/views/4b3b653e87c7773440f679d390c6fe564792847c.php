@@ -80,53 +80,17 @@
                                 </a>
                                 <!-- End mobile menu toggle-->
                             </li>
-                            <li class="list-inline-item dropdown notification-list">
-                                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="false" aria-expanded="false">
-                                    <i class="dripicons-document noti-icon"></i>
-                                    <span class="badge badge-pink noti-icon-badge"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
-                                    <!-- item-->
-                                    <div class="dropdown-item noti-title">
-                                        <h5>History SPP</h5>
-                                    </div>
-
-                                    <?php $__currentLoopData = get_history_navbar(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(url('/admin/spp/history-spp/'.$element->id_history_proses_spp)); ?>" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-info"><i class="icon-docs"></i></div>
-                                        <p class="notify-details"><?php echo e(Str::limit($element->text,20)); ?><small class="text-muted"><?php echo e(time_elapsed_string($element->created_at)); ?></small></p>
-                                    </a>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    <!-- item-->
-
-                                    <!-- All-->
-                                    <a href="<?php echo e(url('/admin/spp/history-spp')); ?>" class="dropdown-item notify-item notify-all">
-                                        View All
-                                    </a>
-
-                                </div>
-                            </li>
+                            
 
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="<?php echo e(asset('assets/images/users/avatar-1.jpg')); ?>" alt="user" class="rounded-circle">
+                                    <img src="<?php echo e(asset('assets/sma.png')); ?>" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
-                                    </a>
 
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="<?php echo e(url('/admin/settings')); ?>" class="dropdown-item notify-item">
                                         <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
                                     </a>
 
                                     <!-- item-->

@@ -32,24 +32,7 @@
                     </div>
                     <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/save')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
-                        <div class="card-box">
-                        	<div class="form-group">
-                        		<div class="row">
-                        			<label for="" class="col-2 col-form-label">Tahun Ajaran</label>
-                        			<div class="col-md-7">
-                        				<input type="text" class="form-control" name="tahun_ajaran" value="<?php echo e($tahun_ajaran); ?>" readonly>
-                        			</div>
-                        		</div>
-                        	</div>
-                        	<div class="form-group">
-                        		<div class="row">
-                        			<label for="" class="col-2 col-form-label">Bulan</label>
-                        			<div class="col-md-7">
-                        				<input type="text" class="form-control" name="bulan_laporan" value="<?php echo e($bulan_laporan); ?>" readonly>
-                        			</div>
-                        		</div>
-                        	</div>
-                        </div>
+                        
                         <div class="card-box">
                             <div class="input-rincian-layout" id="input-rincian-layout">
                                 <div class="input-rincian" id="input-rincian" id-input-rincian="1">

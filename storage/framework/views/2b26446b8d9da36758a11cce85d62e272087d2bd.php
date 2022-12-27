@@ -87,12 +87,11 @@
                         <h4 class="text-dark font-18">Pendapatan SPP</h4>
                         <h2 class="text-primary text-center">Rp.<span data-plugin="counterup"><?php echo e(money_receipt($pendapatan_spp)); ?></span></h2>
                         <p class="text-muted">Dari: Rp.<?php echo e(money_receipt($pendapatan_spp_old)); ?> 
-                            <?php if(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0): ?>
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old)); ?>%</span>
+                            <?php if($pendapatan_spp >= $pendapatan_spp_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp)); ?>%</span>
+                            
+                            <?php elseif($pendapatan_spp < $pendapatan_spp_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp)); ?>%</span>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -105,12 +104,11 @@
                         <h2 class="text-pink text-center">Rp.<span data-plugin="counterup"><?php echo e(money_receipt($pendapatan_uang_makan)); ?></span></h2>
                         <p class="text-muted">Dari: Rp.<?php echo e(money_receipt($pendapatan_uang_makan_old)); ?>
 
-                            <?php if(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0): ?>
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old)); ?>%</span>
+                            <?php if($pendapatan_uang_makan >= $pendapatan_uang_makan_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan)); ?>%</span>
+                            
+                            <?php elseif($pendapatan_uang_makan < $pendapatan_uang_makan_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan)); ?>%</span>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -122,12 +120,11 @@
                         <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
                         <h2 class="text-success text-center">Rp.<span data-plugin="counterup"><?php echo e(money_receipt($pendapatan_tab_tes)); ?></span></h2>
                         <p class="text-muted">Dari: Rp.<?php echo e(money_receipt($pendapatan_tab_tes_old)); ?> 
-                            <?php if(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0): ?>
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old)); ?>%</span>
+                            <?php if($pendapatan_tab_tes >= $pendapatan_tab_tes_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes)); ?>%</span>
+                            
+                            <?php elseif($pendapatan_tab_tes < $pendapatan_tab_tes_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes)); ?>%</span>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -139,12 +136,11 @@
                         <h4 class="text-dark font-18">Pendapatan Asrama</h4>
                         <h2 class="text-warning text-center">Rp.<span data-plugin="counterup"><?php echo e(money_receipt($pendapatan_asrama)); ?></span></h2>
                         <p class="text-muted">Dari: <?php echo e(money_receipt($pendapatan_asrama_old)); ?> 
-                            <?php if(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0): ?>
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old)); ?>%</span>
-                            <?php elseif(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0): ?>
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i><?php echo e(persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old)); ?>%</span>
+                            <?php if($pendapatan_asrama >= $pendapatan_asrama_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama)); ?>%</span>
+                            
+                            <?php elseif($pendapatan_asrama < $pendapatan_asrama_old): ?>
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i><?php echo e(persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama)); ?>%</span>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -227,7 +223,6 @@
                 </div>
                 <!-- col -->
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
@@ -238,7 +233,7 @@
                                 <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
-                                <th>Wilayah</th>
+                                <th>Bulan, Tahun</th>
                                 <th>Total Pembayaran</th>
                                 <th>Action</th>
                             </tr>
@@ -347,6 +342,251 @@ function($) {
     "use strict";
     $.Dashboard4.init();
 }(window.jQuery);
+    </script>
+    <script>
+        $(() => {
+            $('select[name="kelas"]').change(function() {
+                let kelas        = $(this).val()
+                let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+
+                if (tahun_ajaran != '' && kelas != '') {
+                    $.ajax({
+                        url: "<?php echo e(url('/ajax/get-siswa-dashboard/')); ?>/"+kelas+'/'+tahun_ajaran
+                    })
+                    .done(function(done) {
+                        $('select[name="siswa"]').removeAttr('disabled')
+                        $('select[name="siswa"]').html(done)
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                }
+                
+            })
+
+            $('select[name="tahun_ajaran"]').change(function() {
+                let tahun_ajaran = $(this).val()
+                let kelas        = $('select[name="kelas"]').val()
+
+                if (tahun_ajaran != '' && kelas != '') {
+                    $.ajax({
+                        url: "<?php echo e(url('/ajax/get-siswa-dashboard/')); ?>/"+kelas+'/'+tahun_ajaran
+                    })
+                    .done(function(done) {
+                        $('select[name="siswa"]').removeAttr('disabled')
+                        $('select[name="siswa"]').html(done)
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                }
+
+            })
+
+            $('a[href="#next"]').click(function() {
+                if ($(this).attr('keterangan') == null || $(this).attr('keterangan') == '') {
+                    $('a[href="#previous"]').attr('keterangan','previous-spp')
+                    $(this).attr('keterangan','bayar-spp')
+                    let kelas        = $('select[name="kelas"]').val()
+                    let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
+                    let siswa        = $('select[name="siswa"]').val()
+
+                    $('#tunggakan-table').html('<tr><td colspan="3">Loading...</td></tr>')
+                    $.ajax({
+                        url: "<?php echo e(url('/ajax/get-tunggakan/')); ?>/"+siswa+'/'+kelas+'/'+tahun_ajaran
+                    })
+                    .done(function(done) {
+                        console.log(done)
+                        $('input[name="id_spp"]').val(done.id_spp)
+                        $('#tunggakan-table').html(done.table)
+                        $('#tunggakan_an').html(`Tunggakan an. ${done.siswa['nama_siswa']}`)
+                        $('#info_siswa').html(done.siswa['wilayah'])
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                }
+                else if ($(this).attr('keterangan') == 'bayar-spp') {
+                    // $(this).removeAttr('keterangan')
+                    // $.ajax({
+                    //     url: "<?php echo e(url('/ajax/get-bayar/')); ?>"
+                    // })
+                    // .done(function(done) {
+
+                    // })
+                    // .fail(function() {
+                    //     console.log("error");
+                    // })
+                    // .always(function() {
+                    //     console.log("complete");
+                    // });
+                    $('a[href="#previous"]').attr('keterangan','previous-finish')
+                }
+                
+            })
+
+            $('a[href="#previous"]').click(function(){
+                console.log($(this).attr('keterangan'))
+                if ($(this).attr('keterangan') == 'previous-finish') {
+                    $(this).attr('keterangan','previous-spp')
+                }
+                else if ($(this).attr('keterangan') == 'previous-spp') {
+                    $('a[href="#next"]').attr('keterangan','')
+                    $(this).attr('keterangan','')
+                }
+            })
+
+            $(document).on('click','a[href="#finish"]',function(){
+                let bayar_total = $('#bayar-total').val()
+                if (bayar_total != '') {
+                    $('#form-dashboard').submit();
+                }
+                else {
+                    alert('Isi Input Bayar Total !');
+                    $('#bayar-total').focus();
+                }
+            })
+
+            $(document).on('click','.tombol-bayar',function(){
+                let attr = $(this).attr('id-spp-bulan-tahun')
+                $(this).html('Loading...')
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/get-tunggakan-detail/')); ?>/"+attr
+                })
+                .done(function(done) {
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${attr}"]`).html('Bayar')
+                    $('#full-width-modal').modal('show')
+                    $('#bayar-spp').html(done.kolom_spp)
+                    $('input[name="id_spp_bulan_tahun"]').val(done.id_spp_bulan_tahun)
+                    $('input[name="nama_siswa"]').val(done.data_siswa.nama_siswa)
+                    $('input[name="kelas"]').val(done.data_siswa.kelas)
+                    $('input[name="bulan_tahun"]').val(done.data_siswa.bulan_tahun)
+
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+            })
+
+            $('#close-bayar').click(function(){
+                $('#form-spp').find('input').val('')
+                // $('#form-spp').find('label').html(rupiah_format(0))
+                // $('#total-biaya-juga').html(rupiah_format(0))
+                // $('#bayar-total-label').html(rupiah_format(0))
+                // $('#kembalian-label').html(rupiah_format(0))
+
+                $('input[name="total_biaya_hidden"]').val(0)
+                $('#bayar-spp').html('')
+                $('#full-width-modal').modal('hide')
+            })
+
+            $('#form-spp').submit(function(e){
+                e.preventDefault()
+                let val = $(this).serialize()
+                $('#act-simpan').html('Loading...')
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: "<?php echo e(url('/ajax/get-bayar/')); ?>",
+                    type: 'POST',
+                    data: val,
+                })
+                .done(function(done) {
+                    console.log(done)
+                    $('#act-simpan').html('Simpan')
+
+                    $('#form-spp').find('input').val('')
+                    $('#total-biaya').val(parseInt(done.total_bayar))
+                    $("#total-biaya-juga").html(rupiah_format(done.total_bayar))
+                    // $('#total-biaya-juga').html(rupiah_format(0))
+                    // $('#bayar-total-label').html(rupiah_format(0))
+                    // $('#kembalian-label').html(rupiah_format(0))
+
+                    $('input[name="total_biaya_hidden"]').val(0)
+                    $('#bayar-spp').html('')
+                    $('#full-width-modal').modal('hide')
+
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).html('Sudah Bayar')
+                    $(`.tombol-bayar[id-spp-bulan-tahun="${done.id_spp_bulan_tahun}"]`).attr('disabled','disabled')
+
+                    $('#nama_siswa').html(done.nama_siswa)
+                    $('#total').html(done.total_bayar_rupiah)
+                    $('#range_pembayaran').html(done.untuk_pembayaran)
+                    $('#terbilang').html(done.terbilang)
+                    $('#tanggal_spp').html(`Samarinda, ${done.tanggal_spp_convert}`)
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            })
+
+            $(document).on('keyup','input[name="bayar_spp[]"]',function(){
+                var val  = $(this).val()
+                var attr = $(this).attr('id-kolom-spp')
+                if (val == '') {
+                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+                }
+                else {
+                    $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+                }
+            })
+
+            $(document).on('change','input[name="bayar_spp[]"]',function(){
+                var val         = parseInt($(this).val())
+                var total_biaya = parseInt($('input[name="total_biaya_hidden"]').val())
+                if (val == '') {
+                    val = 0
+                }
+
+                let kalkulasi  = total_biaya + val
+                // $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
+                $('input[name="total_biaya_hidden"]').val(kalkulasi)
+            })
+
+            $('#bayar-total').keyup(function(){
+                let val         = $(this).val()
+                let total_biaya = $('#total-biaya').val()
+                
+                $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+                if (parseInt(val) > parseInt(total_biaya)) {
+                    $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
+                    $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
+                }
+                if (parseInt(val) == parseInt(total_biaya)) {
+                    $('#kembalian').val(0)
+                    $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
+                }
+
+                $('input[name="total_biaya"]').val(total_biaya)
+                $('input[name="bayar_total"]').val(val)
+                $('input[name="kembalian"]').val($('#kembalian').val())
+            })
+
+            $('#keterangan-spp').keyup(function(){
+                $('input[name="keterangan_spp"]').val($(this).val())
+            })
+        })
     </script>
 <?php $__env->stopSection(); ?>
 

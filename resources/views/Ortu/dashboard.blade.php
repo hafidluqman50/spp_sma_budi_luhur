@@ -25,11 +25,6 @@
                 <div class="col-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Data SPP</b></h4>
-                        @if (session()->has('message'))
-                        <div class="alert alert-success alert-dismissible">
-                            {{ session('message') }} <button class="close">X</button>
-                        </div>
-                        @endif
                         <table class="table table-hover table-bordered siswa-ortu force-fullwidth">
                             <thead>
                             <tr>

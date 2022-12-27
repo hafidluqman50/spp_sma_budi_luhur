@@ -71,7 +71,7 @@
                                                     <select name="rincian[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
                                                         <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_detail); ?>" <?php echo $val->id_rincian_pengeluaran_detail == $data->id_rincian_pengeluaran_detail ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rab); ?></option>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_sekolah); ?>" <?php echo $val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rab); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
@@ -162,7 +162,7 @@
                     $(this).val(value);
                 }
             })
-            $('#input-kategori-rincian').clone().appendTo('#input-kategori-rincian-layout')
+            $('.input-kategori-rincian:last').clone().appendTo('#input-kategori-rincian-layout')
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')

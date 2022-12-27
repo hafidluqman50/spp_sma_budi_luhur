@@ -34,7 +34,7 @@
                     </div>
                     <form action="{{ url('/admin/data-perincian-rab/rincian-penerimaan/'.$id.'/save') }}" method="POST">
                         @csrf
-                        <div class="card-box">
+                        {{-- <div class="card-box">
                         	<div class="form-group">
                         		<div class="row">
                         			<label for="" class="col-2 col-form-label">Tahun Ajaran</label>
@@ -51,7 +51,7 @@
                         			</div>
                         		</div>
                         	</div>
-                        </div>
+                        </div> --}}
                         <div class="card-box">
                             <div class="input-rincian-layout" id="input-rincian-layout">
                                 <div class="input-rincian" id="input-rincian" id-input-rincian="1">

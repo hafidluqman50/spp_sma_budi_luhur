@@ -89,12 +89,12 @@
                         <h4 class="text-dark font-18">Pendapatan SPP</h4>
                         <h2 class="text-primary text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_spp) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_spp_old) }} 
-                            @if (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) == 0)
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_spp,$pendapatan_spp_old) }}%</span>
+                            @if ($pendapatan_spp >= $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp) }}%</span>
+                            {{-- @elseif ($pendapatan_spp == $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp,$pendapatan_spp_old) }}%</span> --}}
+                            @elseif ($pendapatan_spp < $pendapatan_spp_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_spp_old,$pendapatan_spp) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -106,12 +106,12 @@
                         <h4 class="text-dark font-18">Pendapatan Uang Makan</h4>
                         <h2 class="text-pink text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_uang_makan) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_uang_makan_old) }}
-                            @if (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span>
+                            @if ($pendapatan_uang_makan >= $pendapatan_uang_makan_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan) }}%</span>
+                            {{-- @elseif (persentase_penerimaan($pendapatan_uang_makan,$pendapatan_uang_makan_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan,$pendapatan_uang_makan_old) }}%</span> --}}
+                            @elseif ($pendapatan_uang_makan < $pendapatan_uang_makan_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_uang_makan_old,$pendapatan_uang_makan) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -123,12 +123,12 @@
                         <h4 class="text-dark font-18">Pendapatan Tabungan Tes</h4>
                         <h2 class="text-success text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_tab_tes) }}</span></h2>
                         <p class="text-muted">Dari: Rp.{{ money_receipt($pendapatan_tab_tes_old) }} 
-                            @if (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
-                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span>
+                            @if ($pendapatan_tab_tes >= $pendapatan_tab_tes_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes) }}%</span>
+                            {{-- @elseif (persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) == 0)
+                            <span class="pull-right"><i class="fa text-primary m-r-5"></i>{{ persentase_pendapatan($pendapatan_tab_tes,$pendapatan_tab_tes_old) }}%</span> --}}
+                            @elseif ($pendapatan_tab_tes < $pendapatan_tab_tes_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-primary m-r-5"></i>{{ persentase_penerimaan($pendapatan_tab_tes_old,$pendapatan_tab_tes) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -140,12 +140,12 @@
                         <h4 class="text-dark font-18">Pendapatan Asrama</h4>
                         <h2 class="text-warning text-center">Rp.<span data-plugin="counterup">{{ money_receipt($pendapatan_asrama) }}</span></h2>
                         <p class="text-muted">Dari: {{ money_receipt($pendapatan_asrama_old) }} 
-                            @if (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) > 0)
-                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
-                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
-                            @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) < 0)
-                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span>
+                            @if ($pendapatan_asrama >= $pendapatan_asrama_old)
+                            <span class="pull-right"><i class="fa fa-caret-up text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama) }}%</span>
+                            {{-- @elseif (persentase_pendapatan($pendapatan_asrama,$pendapatan_asrama_old) == 0)
+                            <span class="pull-right"><i class="fa text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama,$pendapatan_asrama_old) }}%</span> --}}
+                            @elseif ($pendapatan_asrama < $pendapatan_asrama_old)
+                            <span class="pull-right"><i class="fa fa-caret-down text-danger m-r-5"></i>{{ persentase_penerimaan($pendapatan_asrama_old,$pendapatan_asrama) }}%</span>
                             @endif
                         </p>
                     </div>
@@ -300,7 +300,7 @@
                             </section>
                             <h3>Print Out</h3>
                             <section>
-                                <div class="form-group clearfix">
+                                <div class="form-group">
                                     {{-- <a href="{{url('/struk')}}" class="btn btn-success">Cetak</a> --}}
                                     <h5 class="text-center"> KWITANSI PEMBAYARAN SPP</h4>
                                     <div class="col-lg-12">
@@ -328,7 +328,41 @@
                                         </table>
                                         <p class="text-right" id="tanggal_spp">-</p>
                                         <p class="text-right"><b>Bendahara</b></p><br><br>
-                                        <p class="text-right"><b>{{ $petugas->nama_petugas }}</b></p>
+                                        <p class="text-right"><b>{{ $bendahara }}</b></p>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Total Biaya : </label>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control" id="total-biaya" readonly="readonly">
+                                                        <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Kembalian : </label>
+                                                    <div class="col-7">
+                                                        <input type="number" id="kembalian" class="form-control" readonly="readonly">
+                                                        <label for="" id="kembalian-label">Rp. 0,00</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Bayar Total : </label>
+                                                    <div class="col-7">
+                                                        <input type="number" id="bayar-total" class="form-control">
+                                                        <label for="" id="bayar-total-label">Rp. 0,00</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-4 col-form-label">Keterangan : </label>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control" required="" id="keterangan-spp" placeholder="Isi Keterangan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </section>
@@ -337,7 +371,14 @@
                     </div>
                 </div>
             </div><!-- End row -->
-
+            <form action="{{ url('/petugas/dashboard/bayar-tunggakan') }}" method="POST" id="form-dashboard">
+                @csrf
+                <input type="hidden" name="id_spp">
+                <input type="hidden" name="total_biaya">
+                <input type="hidden" name="bayar_total">
+                <input type="hidden" name="kembalian">
+                <input type="hidden" name="keterangan_spp">
+            </form>
             <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -366,33 +407,7 @@
                                                 <input type="text" name="bulan_tahun" class="form-control" readonly="readonly">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Total Biaya</label>
-                                            <div class="col-7">
-                                                <input type="text" name="total_biaya" class="form-control" id="total-biaya" value="0" readonly="readonly">
-                                                <label for="" id="total-biaya-juga"><b>Rp. 0,00</b></label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Bayar Total</label>
-                                            <div class="col-7">
-                                                <input type="number" name="bayar_total" id="bayar-total" class="form-control">
-                                                <label for="" id="bayar-total-label">Rp. 0,00</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Kembalian</label>
-                                            <div class="col-7">
-                                                <input type="number" name="kembalian" id="kembalian" class="form-control" readonly="readonly">
-                                                <label for="" id="kembalian-label">Rp. 0,00</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">Keterangan</label>
-                                            <div class="col-7">
-                                                <input type="text" name="keterangan_spp" class="form-control" required="" placeholder="Isi Keterangan">
-                                            </div>
-                                        </div>
+                                        <input type="hidden" name="total_biaya_hidden" value="0">
                                         <input type="hidden" name="id_spp_bulan_tahun">
                                         <div class="visible-lg" style="height: 79px;"></div>
                                     </div>
@@ -416,7 +431,6 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
@@ -427,7 +441,7 @@
                                 <th>No.</th>
                                 <th>Tanggal</th>
                                 <th>Nama</th>
-                                <th>Wilayah</th>
+                                <th>Bulan, Tahun</th>
                                 <th>Total Pembayaran</th>
                                 <th>Action</th>
                             </tr>
@@ -537,8 +551,6 @@ function($) {
     </script>
     <script>
         $(() => {
-
-            $('table#datatable').DataTable();
             $('select[name="kelas"]').change(function() {
                 let kelas        = $(this).val()
                 let tahun_ajaran = $('select[name="tahun_ajaran"]').val()
@@ -596,6 +608,8 @@ function($) {
                         url: "{{ url('/ajax/get-tunggakan/') }}/"+siswa+'/'+kelas+'/'+tahun_ajaran
                     })
                     .done(function(done) {
+                        console.log(done)
+                        $('input[name="id_spp"]').val(done.id_spp)
                         $('#tunggakan-table').html(done.table)
                         $('#tunggakan_an').html(`Tunggakan an. ${done.siswa['nama_siswa']}`)
                         $('#info_siswa').html(done.siswa['wilayah'])
@@ -637,8 +651,15 @@ function($) {
                 }
             })
 
-            $('a[href="#finish"]').click(function(){
-                window.location.href="{{ url('/petugas/dashboard/bayar-spp') }}"
+            $(document).on('click','a[href="#finish"]',function(){
+                let bayar_total = $('#bayar-total').val()
+                if (bayar_total != '') {
+                    $('#form-dashboard').submit();
+                }
+                else {
+                    alert('Isi Input Bayar Total !');
+                    $('#bayar-total').focus();
+                }
             })
 
             $(document).on('click','.tombol-bayar',function(){
@@ -668,11 +689,11 @@ function($) {
             $('#close-bayar').click(function(){
                 $('#form-spp').find('input').val('')
                 // $('#form-spp').find('label').html(rupiah_format(0))
-                $('#total-biaya-juga').html(rupiah_format(0))
-                $('#bayar-total-label').html(rupiah_format(0))
-                $('#kembalian-label').html(rupiah_format(0))
+                // $('#total-biaya-juga').html(rupiah_format(0))
+                // $('#bayar-total-label').html(rupiah_format(0))
+                // $('#kembalian-label').html(rupiah_format(0))
 
-                $('#total-biaya').val(0)
+                $('input[name="total_biaya_hidden"]').val(0)
                 $('#bayar-spp').html('')
                 $('#full-width-modal').modal('hide')
             })
@@ -694,14 +715,17 @@ function($) {
                     data: val,
                 })
                 .done(function(done) {
+                    console.log(done)
                     $('#act-simpan').html('Simpan')
 
                     $('#form-spp').find('input').val('')
-                    $('#total-biaya-juga').html(rupiah_format(0))
-                    $('#bayar-total-label').html(rupiah_format(0))
-                    $('#kembalian-label').html(rupiah_format(0))
+                    $('#total-biaya').val(parseInt(done.total_bayar))
+                    $("#total-biaya-juga").html(rupiah_format(done.total_bayar))
+                    // $('#total-biaya-juga').html(rupiah_format(0))
+                    // $('#bayar-total-label').html(rupiah_format(0))
+                    // $('#kembalian-label').html(rupiah_format(0))
 
-                    $('#total-biaya').val(0)
+                    $('input[name="total_biaya_hidden"]').val(0)
                     $('#bayar-spp').html('')
                     $('#full-width-modal').modal('hide')
 
@@ -736,14 +760,14 @@ function($) {
 
             $(document).on('change','input[name="bayar_spp[]"]',function(){
                 var val         = parseInt($(this).val())
-                var total_biaya = parseInt($('#total-biaya').val())
+                var total_biaya = parseInt($('input[name="total_biaya_hidden"]').val())
                 if (val == '') {
                     val = 0
                 }
 
                 let kalkulasi  = total_biaya + val
-                $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
-                $('#total-biaya').val(kalkulasi)
+                // $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
+                $('input[name="total_biaya_hidden"]').val(kalkulasi)
             })
 
             $('#bayar-total').keyup(function(){
@@ -758,7 +782,15 @@ function($) {
                 if (parseInt(val) == parseInt(total_biaya)) {
                     $('#kembalian').val(0)
                     $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
-                } 
+                }
+
+                $('input[name="total_biaya"]').val(total_biaya)
+                $('input[name="bayar_total"]').val(val)
+                $('input[name="kembalian"]').val($('#kembalian').val())
+            })
+
+            $('#keterangan-spp').keyup(function(){
+                $('input[name="keterangan_spp"]').val($(this).val())
             })
         })
     </script>

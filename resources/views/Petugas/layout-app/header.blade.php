@@ -34,10 +34,12 @@
         <!-- App css -->
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
+        {{-- <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.bootstrap4.css')}}"> --}}
         <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.css')}}">
         <link rel="stylesheet" href="{{asset('assets/selectize/dist/css/selectize.bootstrap4.css')}}">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{asset('assets/Bootstrap-Datepicker/dist/css/bootstrap-datepicker.min.css')}}">
 
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
@@ -78,11 +80,13 @@
                                 </a>
                                 <!-- End mobile menu toggle-->
                             </li>
-                            <li class="list-inline-item dropdown notification-list">
+                            {{-- <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <i class="dripicons-document noti-icon"></i>
-                                    <span class="badge badge-pink noti-icon-badge">{{ count_history_unread_navbar() }}</span>
+                                    @if (count_history_unread_navbar() > 0) 
+                                    <span class="badge badge-pink noti-icon-badge"></span>
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
                                     <!-- item-->
@@ -104,27 +108,17 @@
                                     </a>
 
                                 </div>
-                            </li>
+                            </li> --}}
 
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle">
+                                    <img src="{{asset('assets/sma.png')}}" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
+                                    <a href="{{ url('/petugas/settings') }}" class="dropdown-item notify-item">
+                                        <i class="zmdi zmdi-account-circle"></i> <span>Settings</span>
                                     </a>
 
                                     <!-- item-->
@@ -155,9 +149,18 @@
                                 <a href="{{ url('/petugas/dashboard') }}"><i class="md md-dashboard"></i>Dashboard</a>
                             </li>
 
-                            {{-- <li class="has-submenu">
+                            <li class="has-submenu">
+                                <a href="#"><i class="md md-account-circle"></i>Data Siswa</a>
+                                <ul class="submenu">
+                                    <li><a href="{{ url('/petugas/siswa') }}">Data Siswa</a></li>
+                                    <li><a href="{{ url('/petugas/kelas') }}">Data Kelas</a></li>
+                                    <li><a href="{{ url('/petugas/tahun-ajaran') }}">Data Tahun Ajaran</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-submenu">
                                 <a href="{{ url('/petugas/kantin') }}"><i class="fa fa-pencil-square-o"></i>Data Kantin</a>
-                            </li> --}}
+                            </li>
 
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-money"></i>Data SPP</a>
@@ -171,29 +174,33 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="fa fa-file-excel-o"></i>Laporan</a>
                                 <ul class="submenu">
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Data Siswa</a>
-                                        <ul class="submenu">
+                                    <li>
+                                        <a href="{{ url('/petugas/laporan-data-siswa') }}">Laporan Data Siswa</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/petugas/laporan-kantin') }}">Laporan Kantin</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/petugas/laporan-tunggakan') }}">Laporan Tunggakan</a>
+                                        {{-- <ul class="submenu">
                                             <li><a href="#">Kelas X</a></li>
                                             <li><a href="#">Kelas XI</a></li>
                                             <li><a href="#">Kelas XII</a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li>
-                                        <a href="#">Laporan Kantin</a>
+                                        <a href="{{ url('/petugas/laporan-pembukuan') }}">Laporan Pembukuan</a>
                                     </li>
-                                    <li class="has-submenu">
-                                        <a href="#">Laporan Tunggakan</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Kelas X</a></li>
-                                            <li><a href="#">Kelas XI</a></li>
-                                            <li><a href="#">Kelas XII</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Laporan RAB</a>
-                                    </li>
+                                    {{-- <li>
+                                        <a href="{{ url('/petugas/laporan-rab') }}">Laporan RAB</a>
+                                    </li> --}}
                                 </ul>
+                            </li>
+                            {{-- <li class="has-submenu">
+                                <a href="{{ url('/petugas/data-kepsek') }}"><i class="fa fa-users"></i>Data Kepsek</a>
+                            </li> --}}
+                            <li class="has-submenu">
+                                <a href="{{ url('/petugas/data-perincian-rab') }}"><i class="fa fa-book"></i>Data RAB</a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->

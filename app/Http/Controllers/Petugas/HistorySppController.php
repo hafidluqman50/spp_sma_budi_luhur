@@ -11,6 +11,7 @@ class HistorySppController extends Controller
     public function index()
     {
         $title = 'History SPP | Petugas';
+        HistoryProsesSpp::query()->update(['status_terbaca' => 1]);
 
         return view('Petugas.history-spp.main',compact('title'));
     }

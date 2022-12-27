@@ -47,12 +47,12 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Kategori Barang</th>
-                                <th>Nama Barang</th>
-                                <th>Qty</th>
+                                <th>Kategori</th>
+                                <th>Rincian</th>
+                                <th>Volume</th>
                                 <th>Ket</th>
-                                <th>Harga Barang</th>
-                                <th>Jumlah</th>
+                                <th>Satuan</th>
+                                <th>Total</th>
                                 <th>Pemohon</th>
                                 <th>Keterangan Pemohon</th>
                                 <th>#</th>

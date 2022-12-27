@@ -18,6 +18,8 @@
         <script src="{{asset('assets/js/waves.js')}}"></script>
         <script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
         <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/waypoints/lib/jquery.waypoints.js')}}"></script>
+        <script src="{{asset('assets/plugins/counterup/jquery.counterup.min.js')}}"></script>
         
 
         <!-- jQuery  -->
@@ -37,6 +39,7 @@
         <script src="{{asset('assets/select2-4.1.0-rc.0/dist/js/select2.min.js')}}"></script>
         <script src="{{asset('assets/selectize/dist/js/standalone/selectize.min.js')}}"></script>
         <script src="{{ asset('assets/custom.js') }}"></script>
+        <script src="{{asset('assets/Bootstrap-Datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 
         {{-- <script src="{{asset('assets/plugins/bootstrap-table/js/bootstrap-table.js')}}"></script> --}}
         {{-- <script src="{{asset('assets/pages/jquery.bs-table.js')}}"></script> --}}

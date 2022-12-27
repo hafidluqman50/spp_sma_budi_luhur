@@ -269,7 +269,7 @@ class AjaxController extends Controller
     {
         $id_rincian = $request->id_rincian;
 
-        $get_rincian_detail = RincianPengeluaranDetail::leftJoin('kolom_spp','rincian_pengeluaran_detail.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran_detail',$id_rincian)->firstOrFail();
+        $get_rincian_detail = RincianPengeluaranSekolah::leftJoin('kolom_spp','rincian_pengeluaran_sekolah.id_kolom_spp','=','kolom_spp.id_kolom_spp')->where('id_rincian_pengeluaran_sekolah',$id_rincian)->firstOrFail();
 
         $data = ['volume' => $get_rincian_detail->volume_rab, 'uang_keluar' => $get_rincian_detail->nominal_rab, 'uang_masuk' => $get_rincian_detail->nominal_pendapatan_spp, 'spp'=>$get_rincian_detail->nama_kolom_spp];
         return response()->json($data);
