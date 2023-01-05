@@ -18,10 +18,12 @@ use App\Models\KelasSiswa;
 use App\Models\Kantin;
 use App\Models\HistoryProsesSpp;
 use App\Models\PemasukanKantin;
-use Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Longman\TelegramBot\Telegram;
+use Longman\TelegramBot\Exception\TelegramException;
+use Auth;
 
 class SppController extends Controller
 {
@@ -974,6 +976,27 @@ class SppController extends Controller
         foreach ($spp_bulan_tahun as $key => $value) {
             $explode = explode(', ',$value->bulan_tahun);
             dd($explode);
+        }
+    }
+
+    public function testingBotTelegram()
+    {
+        $bot_api_key  = env('TELEGRAM_BOT_API_KEY');
+        $bot_username = env('TELEGRAM_BOT_USERNAME');
+        $hook_url     = 'http://project_work.web';
+
+        try {
+            // Create Telegram API object
+            $telegram = new Telegram($bot_api_key, $bot_username);
+
+            // Set webhook
+            $result = $telegram->setWebhook($hook_url);
+            if ($result->isOk()) {
+                echo $result->getDescription();
+            }
+        } catch (TelegramException $e) {
+            // log telegram errors
+            echo $e->getMessage();
         }
     }
 }

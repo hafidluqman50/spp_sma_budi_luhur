@@ -719,3 +719,5 @@ Route::get('/urai-bulan-tahun',function(){
     }
     echo 'oke';
 });
+
+Route::get('/test-telegram',[AdminSppController::class, 'testingBotTelegram']);
