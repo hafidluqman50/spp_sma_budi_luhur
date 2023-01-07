@@ -1011,12 +1011,13 @@ class SppController extends Controller
 
     public function testChatId()
     {
-        $token = env('TELEGRAM_BOT_API_KEY');
-        $ch = curl_init();
+        $token  = env('TELEGRAM_BOT_TOKEN');
+        $ch     = curl_init();
         $apiURL = "https://api.telegram.org/bot$token/getUpdates";
         curl_setopt($ch, CURLOPT_URL, $apiURL); 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
         $update = json_decode(curl_exec($ch), TRUE);
+        dd($update);
         dd(array_map("unserialize", array_unique(array_map("serialize", $update['result']))));
         $chatID  = $update["message"]["chat"]["id"];
         $message = $update["message"]["text"];
@@ -1034,11 +1035,11 @@ class SppController extends Controller
         $chat_id  = $update->getChat()->getId();
         $username = $update->getChat()->getFirstName();
 
-        if ($update->getMessage()->getText() == '/start') {
+        // if ($update->getMessage()->getText() == '/start') {
             Telegram::sendMessage([
                 'chat_id' => $chat_id,
                 'text'    => 'Masukkan Nomor HP Orang Tua'
             ]);
-        }
+        // }
     }
 }
