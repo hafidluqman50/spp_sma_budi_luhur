@@ -24,6 +24,7 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 // use Longman\TelegramBot\Telegram;
 // use Longman\TelegramBot\Exception\TelegramException;
 use Telegram\Bot\Api;
+use Telegram;
 use Auth;
 
 class SppController extends Controller
@@ -1021,19 +1022,23 @@ class SppController extends Controller
         $message = $update["message"]["text"];
     }
 
-    public function testChatTele()
+    public function setWebhook()
     {
-        Telegram::setWebhook(['url' => env('TELEGRAM_URL_WEBHOOK')]);
+        $response = Telegram::setWebhook(['url' => env('TELEGRAM_WEBHOOK_URL')]);
+        dd($response);
     }
 
     public function commandHandleWebHook()
     {
-        $update = Telegram::commandsHandler(true);
-        $chat_id = $update->getChat()->getId();
+        $update   = Telegram::commandsHandler(true);
+        $chat_id  = $update->getChat()->getId();
         $username = $update->getChat()->getFirstName();
 
-        if ($update->getMessage()->getCommand() == '') {
-            // code...
+        if ($update->getMessage()->getText() == '/start') {
+            Telegram::sendMessage([
+                'chat_id' => $chat_id,
+                'text'    => 'Masukkan Nomor HP Orang Tua'
+            ]);
         }
     }
 }
