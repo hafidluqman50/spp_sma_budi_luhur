@@ -21,12 +21,20 @@ use App\Models\PemasukanKantin;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
-use Longman\TelegramBot\Telegram;
-use Longman\TelegramBot\Exception\TelegramException;
+// use Longman\TelegramBot\Telegram;
+// use Longman\TelegramBot\Exception\TelegramException;
+use Telegram\Bot\Api;
 use Auth;
 
 class SppController extends Controller
 {
+    public $telegram_api;
+
+    public function __construct()
+    {
+        $this->telegram_api = new Api(env('TELEGRAM_BOT_API_KEY'));
+    }
+
     public function index()
     {
         $title = 'SPP | Admin';
@@ -997,6 +1005,35 @@ class SppController extends Controller
         } catch (TelegramException $e) {
             // log telegram errors
             echo $e->getMessage();
+        }
+    }
+
+    public function testChatId()
+    {
+        $token = env('TELEGRAM_BOT_API_KEY');
+        $ch = curl_init();
+        $apiURL = "https://api.telegram.org/bot$token/getUpdates";
+        curl_setopt($ch, CURLOPT_URL, $apiURL); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        $update = json_decode(curl_exec($ch), TRUE);
+        dd(array_map("unserialize", array_unique(array_map("serialize", $update['result']))));
+        $chatID  = $update["message"]["chat"]["id"];
+        $message = $update["message"]["text"];
+    }
+
+    public function testChatTele()
+    {
+        $this->telegram_api->setWebhook(['url' => env('TELEGRAM_URL_WEBHOOK')]);
+    }
+
+    public function commandHandleWebHook()
+    {
+        $update = $this->telegram_api->commandsHandler(true);
+        $chat_id = $update->getChat()->getId();
+        $username = $update->getChat()->getFirstName();
+
+        if ($update->getMessage()->getCommand()) {
+            // code...
         }
     }
 }

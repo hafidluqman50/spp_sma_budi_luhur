@@ -721,3 +721,5 @@ Route::get('/urai-bulan-tahun',function(){
 });
 
 Route::get('/test-telegram',[AdminSppController::class, 'testingBotTelegram']);
+
+Route::get('/bot-tele',[AdminSppController::class, 'testChatId']);
