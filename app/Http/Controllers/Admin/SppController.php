@@ -1023,16 +1023,16 @@ class SppController extends Controller
 
     public function testChatTele()
     {
-        $this->telegram_api->setWebhook(['url' => env('TELEGRAM_URL_WEBHOOK')]);
+        Telegram::setWebhook(['url' => env('TELEGRAM_URL_WEBHOOK')]);
     }
 
     public function commandHandleWebHook()
     {
-        $update = $this->telegram_api->commandsHandler(true);
+        $update = Telegram::commandsHandler(true);
         $chat_id = $update->getChat()->getId();
         $username = $update->getChat()->getFirstName();
 
-        if ($update->getMessage()->getCommand()) {
+        if ($update->getMessage()->getCommand() == '') {
             // code...
         }
     }
