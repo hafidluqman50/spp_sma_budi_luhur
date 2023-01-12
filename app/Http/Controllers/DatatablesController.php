@@ -1164,6 +1164,7 @@ class DatatablesController extends Controller
     public function dataPemasukanKantin($id)
     {
         $pemasukan_kantin = PemasukanKantin::join('kantin','pemasukan_kantin.id_kantin','=','kantin.id_kantin')
+                                                ->join('spp_bulan_tahun','pemasukan_kantin.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                                 ->where('pemasukan_kantin.id_spp_bulan_tahun',$id)
                                                 ->get();
 

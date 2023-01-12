@@ -1,6 +1,4 @@
-@extends('Admin.layout-app.layout-rab')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="wrapper">
         <div class="container">
 
@@ -12,8 +10,8 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item active"><a href="#">Data Rincian Pengeluaran</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan Uang Makan</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Edit Rincian Pembelanjaan Uang Makan</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Rincian Pembelanjaan</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Edit Rincian Pembelanjaan</a></li>
                             </ol>
                         </div>
                     </div>
@@ -26,159 +24,92 @@
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url()->previous() }}">
+                            <a href="<?php echo e(url()->previous()); ?>">
                                 <button class="btn btn-default">Kembali</button>
                             </a>
                         </div>
                         <h4 class="header-title m-t-0">Edit Data</h4>
                     </div>
-                    <form action="{{ url('/admin/data-perincian-rab/rincian-pengajuan/'.$id.'/update') }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                    <form action="<?php echo e(url('/admin/data-perincian-rab/rincian-pembelanjaan/'.$id.'/update')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         <div id="input-kategori-rincian-layout">
-                            @php
+                            <?php
                                 $no__ = 0;
-                            @endphp
-                            @foreach ($kategori_group as $key => $value)
-                            @php
+                            ?>
+                            <?php $__currentLoopData = $kategori_group; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $no = $key+1;
-                            @endphp
-                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="{{ $no }}">
+                            ?>
+                            <div class="card-box input-kategori-rincian" id="input-kategori-rincian" id-input-kategori="<?php echo e($no); ?>">
                                 <div class="form-group">
                                     <label class="col-form-label">Kategori Rincian</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control kategori-rincian" value="{{ $value->kategori_rincian_pengajuan }}" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="{{ $no }}">
+                                            <input type="text" class="form-control kategori-rincian" value="<?php echo e($value->kategori_rincian_pembelanjaan); ?>" placeholder="Isi Kategori Rincian; Ex: Belanja Pegawai" id-kategori-rincian="<?php echo e($no); ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-danger btn-delete-kategori-rincian" type="button" id-delete-kategori="{{ $no }}">X</button>
+                                            <button class="btn btn-danger form-hide btn-delete-kategori-rincian" type="button" id-delete-kategori="<?php echo e($no); ?>">X</button>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="{{ $no }}">
-                                    @php
-                                        $get_rincian_pengajuan = $rincian_pengajuan->getRincianByKategori($value->kategori_rincian_pengajuan);
-                                    @endphp
-                                    @forelse ($get_rincian_pengajuan as $index => $val)
-                                    @php
+                                <div class="input-rincian" id="input-rincian" id-layout-input-rincian="<?php echo e($no); ?>">
+                                    <?php
+                                        $get_rincian_pembelanjaan = $rincian_pembelanjaan->getRincianByKategori($value->kategori_rincian_pembelanjaan,'operasional');
+                                    ?>
+                                    <?php $__currentLoopData = $get_rincian_pembelanjaan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php
                                         $no__ = $no__+1;
-                                    @endphp
-                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="{{ $no__ }}" id-layout-input-rincian="{{ $no }}">
-                                        <input type="hidden" name="kategori_rincian[]" value="{{ $value->kategori_rincian_pengajuan }}">
+                                    ?>
+                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="<?php echo e($no__); ?>" id-layout-input-rincian="<?php echo e($no); ?>">
+                                        <input type="hidden" name="kategori_rincian[]" value="<?php echo e($value->kategori_rincian_pembelanjaan); ?>">
                                         <div class="col-md-10 row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
+                                                    <select name="rincian_sekolah[]" class="form-control rincian selectize" id-rincian="<?php echo e($no__); ?>">
                                                         <option value="" selected disabled>=== Pilih Rincian ===</option>
-                                                        @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_sekolah }}" {!!$val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''!!}>{{ $data->uraian_rab }}</option>
-                                                        @endforeach
+                                                        <?php $__currentLoopData = $rincian_pengeluaran_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($data->id_rincian_pengeluaran_sekolah); ?>" <?php echo $val->id_rincian_pengeluaran_sekolah == $data->id_rincian_pengeluaran_sekolah ? 'selected="selected"' : ''; ?>><?php echo e($data->uraian_rincian); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </select>
                                                 </div>  
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Volume</label>
-                                                    <input type="text" class="volume form-control" value="{{ $val->volume_rab }}" id-volume="{{ $no__ }}" readonly>
+                                                    <input type="text" class="volume form-control" value="<?php echo e($val->volume_rincian); ?>" id-volume="<?php echo e($no__); ?>" readonly>
                                                 </div>  
                                             </div>
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">SPP</label>
-                                                    <input type="text" class="spp form-control" id-spp="1" readonly>
-                                                </div>  
-                                            </div>
+                                            
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Uang Masuk</label>
-                                                    <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
-                                                    <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
-                                                </div>
-                                            </div> --}}
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Nominal RAB</label>
-                                                    <input type="text" class="uang-keluar form-control" value="{{ $val->nominal_rab }}" id-uang-keluar="{{ $no__ }}" readonly>
-                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="{{ $no__ }}">{{ format_rupiah($val->nominal_rab) }}</label>
+                                                    <label class="col-form-label">Nominal Rincian</label>
+                                                    <input type="text" class="uang-keluar form-control" value="<?php echo e($val->nominal_rincian); ?>" id-uang-keluar="<?php echo e($no__); ?>" readonly>
+                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="<?php echo e($no__); ?>"><?php echo e(format_rupiah($val->nominal_rincian)); ?></label>
                                                 </div> 
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label">Keterangan</label>
-                                                    <input type="text" name="keterangan_pengajuan[]" value="{{ $val->keterangan_pengajuan }}" class="form-control keterangan-pembelanjaan">
+                                                    <input type="text" name="keterangan_pembelanjaan[]" value="<?php echo e($val->keterangan_pembelanjaan); ?>" class="form-control keterangan-pembelanjaan">
                                                 </div> 
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
+                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="<?php echo e($no__); ?>">X</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="id_rincian_pengajuan[]" value="{{ $val->id_rincian_pengajuan }}">
-                                    @empty
-                                    <div class="input-rincian-layout row" id="input-rincian-layout" id-layout-rincian="{{ $no__ }}" id-layout-input-rincian="{{ $no }}">
-                                        <input type="hidden" name="kategori_rincian[]" value="{{ $value->kategori_rincian_pengajuan }}">
-                                        <div class="col-md-10 row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Rincian</label>
-                                                    <select name="rincian[]" class="form-control rincian selectize" id-rincian="{{ $no__ }}">
-                                                        <option value="" selected disabled>=== Pilih Rincian ===</option>
-                                                        @foreach ($rincian_pengeluaran_detail as $data)
-                                                        <option value="{{ $data->id_rincian_pengeluaran_sekolah }}">{{ $data->uraian_rab }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>  
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Volume</label>
-                                                    <input type="text" class="volume form-control" value="" id-volume="{{ $no__ }}" readonly>
-                                                </div>  
-                                            </div>
-                                            {{-- <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">SPP</label>
-                                                    <input type="text" class="spp form-control" id-spp="1" readonly>
-                                                </div>  
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Uang Masuk</label>
-                                                    <input type="text" class="uang-masuk form-control" id-uang-masuk="1" readonly>
-                                                    <label for="" class="uang-masuk-label" id="uang-masuk-label" id-uang-masuk-label="1">Rp. 0,00</label>
-                                                </div>
-                                            </div> --}}
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Nominal RAB</label>
-                                                    <input type="text" class="uang-keluar form-control" value="" id-uang-keluar="{{ $no__ }}" readonly>
-                                                    <label for="" class="uang-keluar-label" id="uang-keluar-label" id-uang-keluar-label="{{ $no__ }}">{{ format_rupiah(0) }}</label>
-                                                </div> 
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Keterangan</label>
-                                                    <input type="text" name="keterangan_pengajuan[]" value="" class="form-control keterangan-pembelanjaan">
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <button class="btn btn-danger btn-delete-rincian" type="button" style="margin-top:19%;" id-delete-rincian="{{ $no__ }}">X</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="id_rincian_pengajuan[]" value="">
-                                    @endforelse
+                                    <input type="hidden" name="id_rincian_pembelanjaan[]" value="<?php echo e($val->id_rincian_pembelanjaan); ?>">
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
-                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="{{ $no }}">Tambah Input Rincian</button>
+                                <button class="btn btn-success tambah-input-rincian" type="button" id-act="<?php echo e($no); ?>">Tambah Input Rincian</button>
                                 <hr>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                         <div class="card-box">
                             <button class="btn btn-primary tambah-input" type="button">Tambah Input</button>
@@ -186,6 +117,7 @@
                         <div class="card-box">
                             <button class="btn btn-warning">Edit Data</button>
                         </div>
+                        <input type="hidden" name="jenis_rincian" value="operasional">
                     </form>
                 </div>
             </div>
@@ -194,9 +126,9 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
     $(() => {
         var get_id_input_kategori_rincian = parseInt($('.input-kategori-rincian:last').attr('id-input-kategori'));
@@ -231,7 +163,7 @@
                     $(this).val(value);
                 }
             })
-            $('.input-kategori-rincian:last').clone().appendTo('#input-kategori-rincian-layout')
+            $('#input-kategori-rincian').clone().appendTo('#input-kategori-rincian-layout')
             $('.input-kategori-rincian:last').attr('id-input-kategori',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').attr('id-kategori-rincian',input_kategori_rincian)
             $('.input-kategori-rincian:last').find('.kategori-rincian:last').val('')
@@ -241,6 +173,12 @@
             $('.rincian').selectize({
                 create:true,
                 sortField:'text'
+            })
+
+            $('select.rincian').each(function(index,element){
+                console.log(index)
+                let attr = $(this).attr('id-rincian')
+                $('.selectize-control').eq(index).attr('id-rincian',attr)
             })
             $('.btn-delete-kategori-rincian:last').removeClass('form-hide')
             $('.btn-delete-kategori-rincian:last').attr('id-delete-kategori',input_kategori_rincian)
@@ -276,7 +214,9 @@
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.uang-keluar-label:last').html(rupiah_format(0))
 
             $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('.keterangan-pembelanjaan:last').val('')
-            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pengajuan[]"]').val('')
+            $(`.input-rincian[id-layout-input-rincian="${input_kategori_rincian}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
+
+            $('select.rincian:last')[0].selectize.clear()
             input_kategori_rincian++
             hapus_input_kategori_rincian++
         })
@@ -321,7 +261,7 @@
 
             $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('.keterangan-pembelanjaan:last').val('')
             
-            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="id_rincian_pengajuan[]"]').val('')
+            $(`.input-rincian[id-layout-input-rincian="${attr}"]`).find('input[name="id_rincian_pembelanjaan[]"]').val('')
         })
 
         $(document).on('keyup','.kategori-rincian',function(){
@@ -335,7 +275,7 @@
             let attr = $(this).attr('id-rincian')
             if (val != '') {
                 $.ajax({
-                    url: "{{ url('/ajax/get-rab') }}",
+                    url: "<?php echo e(url('/ajax/get-rincian')); ?>",
                     data: {id_rincian: val},
                 })
                 .done(function(done) {
@@ -363,4 +303,5 @@
         })
     })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Admin.layout-app.layout-rab', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/rincian-pembelanjaan/rincian-pembelanjaan-edit.blade.php ENDPATH**/ ?>

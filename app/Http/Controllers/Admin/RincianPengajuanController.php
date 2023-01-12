@@ -75,9 +75,9 @@ class RincianPengajuanController extends Controller
         foreach ($rincian as $key => $value) {
             if ($id_rincian_pengajuan[$key] != '') {
                 $data_rincian_pengajuan = [
-                    'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
-                    'id_rincian_pengeluaran_detail' => $rincian[$key],
-                    'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
+                    'kategori_rincian_pengajuan'     => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
+                    'id_rincian_pengeluaran_sekolah' => $rincian[$key],
+                    'keterangan_pengajuan'           => $keterangan_pengajuan[$key]
                     // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
                 ];
 
@@ -87,7 +87,7 @@ class RincianPengajuanController extends Controller
                 $data_rincian_pengajuan = [
                     'id_rincian_pengeluaran'        => $id,
                     'kategori_rincian_pengajuan'    => isset($kategori_rincian[$key]) ? $kategori_rincian[$key] : '-',
-                    'id_rincian_pengeluaran_detail' => $rincian[$key],
+                    'id_rincian_pengeluaran_sekolah' => $rincian[$key],
                     'keterangan_pengajuan'          => $keterangan_pengajuan[$key]
                     // 'jenis_rincian_pembelanjaan'    => $jenis_rincian
                 ];

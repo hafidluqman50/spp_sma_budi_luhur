@@ -10,6 +10,7 @@ use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\HistoryProsesSpp;
 use App\Models\Kantin;
+use App\Models\PemasukanKantin;
 use Auth;
 
 class SppBulanTahunController extends Controller
@@ -65,11 +66,29 @@ class SppBulanTahunController extends Controller
         $nominal_spp      = $request->nominal_spp;
         $kolom_spp_hide   = $request->kolom_spp_hide;
         $nominal_spp_hide = $request->nominal_spp_hide;
+        $id_spp_detail    = $request->id_spp_detail;
 
         SppBulanTahun::where('id_spp_bulan_tahun',$id_bulan_tahun)->update(['id_kantin' => $kantin]);
 
-        if (count($kolom_spp_hide) != 0) {
+        if ($kolom_spp_hide != '') {
             foreach ($kolom_spp_hide as $key => $value) {
+                $get_kolom_spp = KolomSpp::where('id_kolom_spp',$kolom_spp_hide[$index])->firstOrFail();
+                if ($get_kolom_spp->slug_kolom_spp == 'uang-makan') {
+                    
+                    $check_pemasukan_kantin = PemasukanKantin::where('id_kantin',$kantin)->where('id_spp_bulan_tahun',$id_bulan_tahun)->count();
+                    
+                    if ($check_pemasukan_kantin == 0) {
+                        $data_pemasukan_kantin = [
+                            'id_spp_bulan_tahun'  => $id_bulan_tahun,
+                            'id_kantin'           => $kantin,
+                            'nominal_harus_bayar' => $nominal_spp_hide[$key],
+                            'nominal_pemasukan'   => 0
+                        ];
+
+                        PemasukanKantin::create($data_pemasukan_kantin);
+                    }
+                }
+
                 $data_kolom_spp = [
                     'id_spp_bulan_tahun' => $id_bulan_tahun,
                     'id_kolom_spp'       => $kolom_spp_hide[$key],
@@ -83,6 +102,23 @@ class SppBulanTahunController extends Controller
             }
 
             foreach ($kolom_spp as $index => $val) {
+                $get_kolom_spp = KolomSpp::where('id_kolom_spp',$kolom_spp[$index])->firstOrFail();
+                if ($get_kolom_spp->slug_kolom_spp == 'uang-makan') {
+
+                    $check_pemasukan_kantin = PemasukanKantin::where('id_kantin',$kantin)->where('id_spp_bulan_tahun',$id_bulan_tahun)->count();
+
+                    if ($check_pemasukan_kantin == 0) {                   
+                        $data_pemasukan_kantin = [
+                            'id_spp_bulan_tahun'  => $id_bulan_tahun,
+                            'id_kantin'           => $kantin,
+                            'nominal_harus_bayar' => $nominal_spp[$key],
+                            'nominal_pemasukan'   => 0
+                        ];
+
+                        PemasukanKantin::create($data_pemasukan_kantin);
+                    }
+                }
+
                 $data_kolom_spp = [
                     'id_spp_bulan_tahun' => $id_bulan_tahun,
                     'id_kolom_spp'       => $kolom_spp[$index],
@@ -109,6 +145,23 @@ class SppBulanTahunController extends Controller
             // SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)->where('status_bayar',0)->delete();
 
             foreach ($kolom_spp as $index => $val) {
+                $get_kolom_spp = KolomSpp::where('id_kolom_spp',$kolom_spp[$index])->firstOrFail();
+                if ($get_kolom_spp->slug_kolom_spp == 'uang-makan') {
+
+                    $check_pemasukan_kantin = PemasukanKantin::where('id_kantin',$kantin)->where('id_spp_bulan_tahun',$id_bulan_tahun)->count();
+
+                    if ($check_pemasukan_kantin == 0) {
+                        $data_pemasukan_kantin = [
+                            'id_spp_bulan_tahun'  => $id_bulan_tahun,
+                            'id_kantin'           => $kantin,
+                            'nominal_harus_bayar' => $nominal_spp[$index],
+                            'nominal_pemasukan'   => 0
+                        ];
+
+                        PemasukanKantin::create($data_pemasukan_kantin);
+                    }
+                }
+
                 $data_kolom_spp = [
                     'id_spp_bulan_tahun' => $id_bulan_tahun,
                     'id_kolom_spp'       => $kolom_spp[$index],
@@ -166,5 +219,12 @@ class SppBulanTahunController extends Controller
                                 ->firstOrFail();
 
         return view('Admin.pemasukan-kantin.main',compact('title','id','id_bulan_tahun','data_spp'));
+    }
+
+    public function deletePemasukanKantin($id,$id_bulan_tahun,$id_pemasukan_kantin)
+    {
+        PemasukanKantin::where('id_pemasukan_kantin',$id_pemasukan_kantin)->delete();
+
+        return redirect('/admin/spp/tunggakan/'.$id.'/lihat-pemasukan-kantin/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
     }
 }

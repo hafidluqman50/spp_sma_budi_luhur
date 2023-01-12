@@ -331,6 +331,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
 
     // ROUTE SPP LIHAT PEMASUKAN KANTIN //
     Route::get('/spp/tunggakan/{id}/lihat-pemasukan-kantin/{id_bulan_tahun}',[AdminSppBulanTahunController::class, 'lihatPemasukanKantin']);
+    Route::delete('/spp/tunggakan/{id}/lihat-pemasukan-kantin/{id_bulan_tahun}/delete/{id_pemasukan_kantin}',[AdminSppBulanTahunController::class, 'deletePemasukanKantin']);
     // END ROUTE SPP LIHAT PEMASUKAN KANTIN //
 
     // ROUTE SPP LIHAT SPP //
