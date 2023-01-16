@@ -14,6 +14,12 @@
                 display: none;
             }
         }
+        td  {
+            font-size:20px;
+        }
+        p {
+            font-size:20px;
+        }
     </style>
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 </head>
@@ -23,7 +29,7 @@
         Kembali
     </a>
     <div class="form-group clearfix">
-        <h5 class="text-center"> KWITANSI PEMBAYARAN SPP <br> SMA BUDI LUHUR SAMARINDA</h4>
+        <h4 class="text-center"> KWITANSI PEMBAYARAN SPP <br> SMA BUDI LUHUR SAMARINDA</h4>
         <div class="col-lg-12">
             <table>
                 <tr>

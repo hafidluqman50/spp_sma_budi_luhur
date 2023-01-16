@@ -22,6 +22,7 @@ class SppBulanTahun extends Model
         $spp_bulan_tahun = SppBulanTahun::leftJoin('kantin','spp_bulan_tahun.id_kantin','=','kantin.id_kantin')
                                         ->where('id_spp',$id)
                                         ->where('tahun',$tahun)
+                                        ->where('spp_bulan_tahun.status_delete',0)
                                         ->orderBy('bulan','ASC')
                                         // ->orderBy('tahun_numeric','ASC')
                                         ->get();

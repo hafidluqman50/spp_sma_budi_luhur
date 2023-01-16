@@ -7,12 +7,17 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<style>
 		td {
-			font-size: 12px;
+			font-size: 16px;
 		}
 	</style>
 </head>
 <body>
-	<h6 align="center"><b>LAPORAN KANTIN {{ strtoupper($kantin_nama) }}</b></h6>
+	<a href="{{ url()->previous() }}">
+		<button class="btn btn-primary">
+			Kembali
+		</button>
+	</a>
+	<h5 align="center"><b>LAPORAN KANTIN {{ strtoupper($kantin_nama) }}</b></h5>
 	@for ($i = 1; $i <= $bulan; $i++)
 	@php
 		$laporan_kantin = $kantin->getLaporanKantin(month(zero_front_number($i)),$tahun,$kantin_nama);

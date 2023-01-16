@@ -7,12 +7,17 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 	<style>
 		td {
-			font-size: 12px;
+			font-size: 16px;
 		}
 	</style>
 </head>
 <body>
-	<h6 align="center"><b>{{ $title }}</b></h6>
+	<a href="{{ url()->previous() }}">
+		<button class="btn btn-primary">
+			Kembali
+		</button>
+	</a>
+	<h5 align="center"><b>{{ $title }}</b></h5>
 	@foreach ($explode_tahun_ajaran as $key => $value)
 	@php
 		if ($bulan_awal != '') {

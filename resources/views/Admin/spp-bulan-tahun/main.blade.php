@@ -112,9 +112,9 @@
                                               <button class="btn btn-warning"> Edit </button>
                                            </a>
                                            <form action="{{url("/admin/spp/tunggakan/$id/delete/$element->id_spp_bulan_tahun")}}" method="POST" style="margin-right:1%;">
-                                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                                                <button class="btn btn-danger" onclick="return confirm('Delete ?');"> Delete </button>
                                            </form>
                                         </div>
                                     </td>

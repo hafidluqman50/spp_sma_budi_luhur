@@ -294,16 +294,16 @@ class SppDetailController extends Controller
     {
         $spp_row = SppDetail::getBayarById($id_detail);
 
-        $text_history = Auth::user()->name.' telah menghapus SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom.'</b>';
+        // $text_history = Auth::user()->name.' telah menghapus SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom.'</b>';
 
-        $history = ['text' => $text_history,'status_terbaca' => 0];
-        HistoryProsesSpp::create($history);
+        // $history = ['text' => $text_history,'status_terbaca' => 0];
+        // HistoryProsesSpp::create($history);
 
         SppDetail::where('id_spp_bulan_tahun',$id_bulan_tahun)
                     ->where('id_spp_detail',$id_detail)
                     ->delete();
 
-        return redirect('/admin/spp/bulan-tahun/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
+        return redirect('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun)->with('message','Berhasil Hapus Data');
     }
 
     public function lihatPembayaran($id,$id_bulan_tahun)

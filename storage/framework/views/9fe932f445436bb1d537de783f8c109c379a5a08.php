@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Print Out</title>
     <style>
-        @page {
+        @page  {
             size: A5 landscape;
         }
-        @media print {
+        @media  print {
             a {
                 display: none;
             }
@@ -21,11 +21,11 @@
             font-size:20px;
         }
     </style>
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <section>
-    <a href="{{ url('/admin/dashboard') }}">
+    <a href="<?php echo e(url()->previous()); ?>">
         Kembali
     </a>
     <div class="form-group clearfix">
@@ -35,27 +35,27 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>{{ $data_master['nama_siswa'] }}</td>
+                    <td><?php echo e($spp_bayar->nama_siswa); ?></td>
                 </tr>
                 <tr>
                     <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td>{{ format_rupiah($data_master['total_bayar']) }}</td>
+                    <td><?php echo e(format_rupiah($spp_bayar->total_biaya)); ?></td>
                 </tr>
                 <tr>
                     <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td>SPP Bulan {{ $data_master['untuk_pembayaran'] }}</td>
+                    <td>SPP Bulan <?php echo e($untuk_pembayaran); ?></td>
                 </tr>
                 <tr>
                     <td>Terbilang Rp.</td>
                     <td>:</td>
-                    <td>{{ $data_master['terbilang'] }}</td>
+                    <td><?php echo e(ucwords(terbilang($spp_bayar->total_biaya))); ?></td>
                 </tr>
             </table>
-            <p class="text-right">Samarinda, {{ $data_master['tanggal_spp_convert'] }}</p>
+            <p class="text-right">Samarinda, <?php echo e(human_date($spp_bayar->tanggal_bayar)); ?></p>
             <p class="text-right"><b>Bendahara</b></p><br><br>
-            <p class="text-right"><b>{{ $profile_instansi->nama_bendahara }}</b></p>
+            <p class="text-right"><b><?php echo e($profile_instansi->nama_bendahara); ?></b></p>
         </div>
     </div>
 </section>
@@ -64,4 +64,4 @@
     window.print();
 </script>
 </body>
-</html>
+</html><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/spp-bayar/struk.blade.php ENDPATH**/ ?>

@@ -187,7 +187,6 @@ class SppBulanTahunController extends Controller
 
     public function delete($id,$id_bulan_tahun)
     {
-
         $spp_row = SppBulanTahun::getRowById($id_bulan_tahun);
         $text_history = Auth::user()->name.' telah menghapus data SPP <b>'.$spp_row->nama_siswa.' '.$spp_row->kelas.' '.$spp_row->tahun_ajaran.'</b> Bulan Tahun : <b>'.$spp_row->bulan_tahun.'</b>';
 

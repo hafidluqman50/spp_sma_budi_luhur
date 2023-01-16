@@ -319,7 +319,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     // ROUTE SPP LIHAT PEMBAYARAN //
     Route::get('/spp/pembayaran/{id}',[AdminSppBayarDataController::class, 'index']);
     Route::get('/spp/pembayaran/{id}/cetak-struk/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'cetakStruk']);
-    Route::get('/spp/pembayaran/{id}/delete/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'delete']);
+    Route::delete('/spp/pembayaran/{id}/delete/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'delete']);
     Route::get('/spp/pembayaran/{id}/retur-bayar/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'returBayar']);
 
     Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[AdminSppBayarController::class, 'index']);

@@ -11,10 +11,10 @@
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#">Keuangan</a></li>
                                 <li class="breadcrumb-item"><a href="#">Data SPP</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Data Bulan Tahun SPP</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Pembayaran SPP Bulan Tahun</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Data Bulan Tahun SPP</h4>
+                        <h4 class="page-title">Data Pembayaran SPP Bulan Tahun</h4>
                     </div>
                 </div>
             </div>
@@ -23,10 +23,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>DATA SPP BULAN TAHUN</b></h4>
+                        <h4 class="m-t-0 header-title"><b>DATA PEMBAYARAN SPP BULAN TAHUN</b></h4>
                         
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="<?php echo e(url('/admin/spp/')); ?>">
+                            <a href="<?php echo e(url('/admin/spp/pembayaran/'.$id)); ?>">
                                 <button class="btn btn-default">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </button>
@@ -59,61 +59,34 @@
                                 <td><b><?php echo e($siswa->tahun_ajaran); ?></b></td>
                             </tr>
                         </table>
-                        <table class="table table-hover table-bordered datatable force-fullwidth" id-spp="<?php echo e($id); ?>">
+                        <table class="table table-hover table-bordered datatable force-fullwidth" id-bulan-tahun="<?php echo e($id_spp_bayar_data); ?>">
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Bulan Tahun</th>
-                                <th>Kantin</th>
-                                <th>Status Pelunasan</th>
-                                <th>Sisa Bayar</th>
+                                <th>Bulan, Tahun</th>
+                                <th>Total Nominal</th>
                                 <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $tahun; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
-                                    $bulan = $spp_bulan_tahun->getBulan($id,$value->tahun);
+                                    $bulan = $spp_bayar->getBulan($id_spp_bayar_data,$value->tahun);
                                 ?>
                                 <?php $__currentLoopData = $bulan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
-                                    $array = [
-                                        0 => ['class'=>'badge badge-danger','text'=>'Belum Lunas'],
-                                        1 => ['class'=>'badge badge-success','text'=>'Sudah Lunas']
-                                    ];
-                                    $status_pelunasan = '<span class="'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['class'].'">'.$array[$spp_bulan_tahun->checkStatus($element->id_spp_bulan_tahun)]['text'].'</span>';
-
-                                    if ($element->nama_kantin == NULL || $element->nama_kantin == '') {
-                                        $nama_kantin = '-';
-                                    }
-                                    else {
-                                        $nama_kantin = $element->nama_kantin;
-                                    }
-
-                                    $kalkulasi = format_rupiah($spp_detail->where('id_spp_bulan_tahun',$element->id_spp_bulan_tahun)->sum('sisa_bayar'));
+                                    $kalkulasi = format_rupiah($spp_bayar_detail->where('id_spp_bayar',$element->id_spp_bayar)
+                                                    ->sum('nominal_bayar'));
                                 ?>
                                 <tr>
                                     <td><?php echo e($key+1); ?></td>
                                     <td><?php echo e($element->bulan_tahun); ?></td>
-                                    <td><?php echo e($nama_kantin); ?></td>
-                                    <td><?php echo $status_pelunasan; ?></td>
                                     <td><?php echo e($kalkulasi); ?></td>
                                     <td>    
                                         <div class="d-flex">
-                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/lihat-pemasukan-kantin/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
-                                              <button class="btn btn-success"> Lihat Pemasukan Kantin </button>
+                                            <a href="<?php echo e(url("/admin/spp/pembayaran/$id/lihat-pembayaran/$element->id_spp_bayar_data/detail/$element->id_spp_bayar")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-info"> Lihat Detail Bayar </button>
                                            </a>
-                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/lihat-spp/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
-                                              <button class="btn btn-info"> Lihat SPP </button>
-                                           </a>
-                                            <a href="<?php echo e(url("/admin/spp/tunggakan/$id/edit/$element->id_spp_bulan_tahun")); ?>" style="margin-right:1%;">
-                                              <button class="btn btn-warning"> Edit </button>
-                                           </a>
-                                           <form action="<?php echo e(url("/admin/spp/tunggakan/$id/delete/$element->id_spp_bulan_tahun")); ?>" method="POST" style="margin-right:1%;">
-                                                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button class="btn btn-danger" onclick="return confirm('Delete ?');"> Delete </button>
-                                           </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -129,4 +102,4 @@
     <!-- end wrapper -->
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/spp-bulan-tahun/main.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/spp-bayar/spp-bayar.blade.php ENDPATH**/ ?>
