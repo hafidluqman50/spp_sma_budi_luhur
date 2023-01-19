@@ -80,6 +80,17 @@
                                         <input type="text" name="keterangan_spp" class="form-control keterangan-spp" required="" placeholder="Isi Keterangan">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Jenis Bayar</label>
+                                    <div class="col-7">
+                                        <select name="jenis_bayar" class="form-control select2 jenis-bayar" required>
+                                            <option value disabled selected>=== Pilih Jenis Bayar ===</option>
+                                            <option value="cash">Cash</option>
+                                            <option value="alumni">Alumni</option>
+                                            <option value="transfer">Transfer</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 {{-- @if ($no != 0) --}}
                                 <div class="form-group row">
                                     <div class="col-8 offset-4">
@@ -188,8 +199,16 @@
 
         $('.keterangan-spp').keydown((e) => {
             if (e.key === 'Enter') {
-                $('#spp-submit').focus()
+                $('.jenis-bayar').focus()
             }
+        })
+
+        $('.jenis-bayar').change((e) => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                $('#spp-submit').focus()
+            }, 1);
         })
 
         $(document).on('keyup','input[name="bayar_spp[]"]',function(){
@@ -232,11 +251,15 @@
             let val         = $(this).val()
             let total_biaya = $('#total-biaya').val()
             
-            $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            if (val != '') {
+                $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            }
+
             if (parseInt(val) > parseInt(total_biaya)) {
                 $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
                 $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
             }
+            
             if (parseInt(val) == parseInt(total_biaya)) {
                 $('#kembalian').val(0)
                 $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)

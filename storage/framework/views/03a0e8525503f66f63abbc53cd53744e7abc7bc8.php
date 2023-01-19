@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form action="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/update/'.$id_bulan_tahun)); ?>" method="POST">
+            <form action="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/update/'.$id_bulan_tahun)); ?>" id="form" method="POST">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('PUT'); ?>
                 <div class="row">
@@ -163,25 +163,24 @@
 <?php $__env->startSection('js'); ?>
 <script>
     $(() => {
-        $('body').on('keydown','input,select,textarea',function(e){
-            var self = $(this),
-                form = self.parents('form:eq(0)'),
-                focusable,
-                next
-                ;
-            if (e.keyCode == 13) {
-                focusable = form.find('input,a,select,button,textarea').filter(':visible');
-                console.log(focusable);
-                next = focusable.eq(focusable.index(this)+1);
-                if (next.length) {
-                    next.focus();
-                }
-                else {
-                    next.submit();
-                }
-                return false;
-            }
-        });
+        // $('body').on('keydown','select,textarea',function(e){
+        //     var self = $(this),
+        //         form = self.parents('form:eq(0)'),
+        //         focusable,
+        //         next
+        //         ;
+        //     if (e.keyCode == 13) {
+        //         focusable = form.find('input,a,select,button,textarea').filter(':visible');
+        //         next = focusable.eq(focusable.index(this)+1);
+        //         if (next.length) {
+        //             // next.focus();
+        //         }
+        //         else {
+        //             next.submit();
+        //         }
+        //         return false;
+        //     }
+        // });
         $('#tambah-input').click(() => {
             if ($('.bayar-spp').length != 0) {
                 var kolom_attr    = parseInt($('.bayar-spp:last').find('select[name="kolom_spp[]"]').attr('kolom-id')) + 1;
@@ -218,6 +217,9 @@
                 if ($('.hapus-input:last').hasClass('form-hide')) {
                     $('.hapus-input:last').removeClass('form-hide')
                 }
+                let selectized = $(`.kolom-spp[kolom-id="${kolom_attr-1}"]`).selectize()
+                selectized[0].selectize.focus()
+
             }
             else {
                 var kolom_attr    = parseInt($('.bayar-spp-hide:last').find('.kolom-spp-hide').attr('kolom-id')) + 1;
@@ -274,24 +276,58 @@
             }
 
             $('select.kolom-spp:last')[0].selectize.clear()
+            let selectized = $(`.kolom-spp[kolom-id="${kolom_attr-1}"]`).selectize()
+            selectized[0].selectize.focus()
         })
 
         // $('#hapus-input').click(function() {
         //     $('.bayar-spp').last().remove()
         // })
 
-        $(document).on('keyup','input[name="nominal_spp[]"]',function(){
+        $('select[name="kantin"]').change(() => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                let selectized = $('.kolom-spp:first').selectize()
+                selectized[0].selectize.focus()
+            }, 1);
+        })
+
+        $(document).on('keydown','input[name="nominal_spp[]"]',function(e){
             var val  = $(this).val()
-            var attr = $(this).attr('nominal-id')
+            var attr = parseInt($(this).attr('nominal-id'))
             if (val == '') {
                 $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
             }
             else {
                 $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+                if (e.key === 'Enter') {
+                    if ($(`.kolom-spp[kolom-id="${attr+1}"]`).length == 1) {
+                        // $('form').preventDefault();
+                        e.preventDefault()
+                        let selectized = $(`.kolom-spp[kolom-id="${attr+1}"]`).selectize()
+                        selectized[0].selectize.focus()
+                    }
+                    else {
+                        $('#tambah-input').focus()
+                    }
+                }
             }
         })
 
-        $(document).on('keyup','input[name="nominal_spp_hide[]"]',function(){
+        $(document).on('change','.kolom-spp',function(){
+            let attr = $(this).attr('kolom-id')
+
+            $(`.nominal-spp[nominal-id="${attr}"]`).focus()
+        })
+
+        $(document).on('change','.kolom-spp-hide',function(){
+            let attr = $(this).attr('kolom-id')
+
+            $(`.nominal-spp-hide[nominal-id="${attr}"]`).focus()
+        })
+
+        $(document).on('keydown','input[name="nominal_spp_hide[]"]',function(e){
             var val  = $(this).val()
             var attr = $(this).attr('nominal-id')
             if (val == '') {
@@ -299,6 +335,16 @@
             }
             else {
                 $(`.label-nominal-spp-hide[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+                if (e.key === 'Enter') {
+                    if ($(`.kolom-spp-hide[kolom-id="${attr+1}"]`).length == 1) {
+                        // $('form').preventDefault();
+                        let selectized = $(`.kolom-spp-hide[kolom-id="${attr+1}"]`).selectize()
+                        selectized[0].selectize.focus()
+                    }
+                    else {
+                        $('#tambah-input').focus()
+                    }
+                }
             }
         })
 
@@ -314,15 +360,21 @@
             $(`.bayar-spp-hide[id-spp="${attr}"]`).remove()
         })
 
-        // $(document).on('change','.kolom-spp',function(){
-        //     let attr = $(this).attr('kolom-id')
-        //     let val = $('option:selected',this).attr('keterangan')
-        //     console.log(val)
-        //     if (val != '') {
-        //         $(`.nominal-spp[nominal-id="${attr}"]`).val(val)
-        //         $(`.nominal-spp[nominal-id="${attr}"]`).attr('readonly','readonly')
-        //     }
-        // })
+        var submit = 'not-clicked';
+        $('button[type="submit"]').click(() => {
+            submit = 'clicked'
+            $('form').submit();
+        })
+
+        $('form').submit(function(e){
+                alert(submit)
+            if (submit == 'clicked') {
+                return true
+            }
+            else {
+                return false
+            }
+        })
     })
 </script>
 <?php $__env->stopSection(); ?>

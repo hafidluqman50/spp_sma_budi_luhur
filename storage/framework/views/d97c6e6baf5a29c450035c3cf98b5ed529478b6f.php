@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
-            <form id="form-spp-bayar" action="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar/'.$id_detail.'/save')); ?>" method="POST">
+            <form id="form-spp-bayar" action="<?php echo e(url('/admin/spp/tunggakan/'.$id.'/lihat-spp/'.$id_bulan_tahun.'/bayar-semua/save')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -89,13 +89,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                
                                 <div class="form-group row">
                                     <div class="col-8 offset-4">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light spp-submit">
+                                        <button type="submit" id="spp-submit" class="btn btn-primary waves-effect waves-light">
                                             Simpan
                                         </button>
                                     </div>
                                 </div>
+                                
                             <div class="visible-lg" style="height: 79px;"></div>
                         </div>
                     </div>
@@ -103,25 +105,40 @@
                         <div class="card-box">
                             <div id="layout-bayar-spp">
                                 <div id="bayar-spp">
+                                    <?php
+                                        $no = 0;
+                                    ?>
+                                    <?php $__empty_1 = true; $__currentLoopData = $spp_bayar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                    <?php
+                                        $no = $key+1;
+                                    ?>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Kolom Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e($spp->nama_kolom_spp); ?>" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e($value->nama_kolom_spp); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Nominal Spp</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($spp->sisa_bayar)); ?>" readonly="readonly">
+                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->sisa_bayar)); ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Bayar</label>
                                         <div class="col-7">
-                                            <input type="number" name="bayar_spp" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" required="required" autofocus>
-                                            <label for="" class="label-bayar-kolom-spp"><b>Rp. 0,00</b></label>
+                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>" bayar-spp-attr="<?php echo e($key+1); ?>" <?php echo e($key==0 ? 'autofocus' : ''); ?>>
+                                            <input type="hidden" class="old-nominal" value="0" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
+                                            <label for="" class="label-bayar-kolom-spp" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>"><b>Rp. 0,00</b></label>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
+                                    <hr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                    <div class="form-group row">
+                                        <label class="col-form-label">Data Kolom SPP Tidak ada</label>
+                                    </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="visible-lg" style="height: 79px;"></div>
@@ -145,53 +162,87 @@
             //     next
             //     ;
             if (e.keyCode == 13) {
-            //     focusable = form.find('input,a,select,textarea').filter(':visible');
-            //     // console.log(focusable);
-            //     next = focusable.eq(focusable.index(this)+1);
-            //     if (next.length) {
-            //         next.focus();
-            //     }
-            //     else {
-            //         next.submit();
-            //     }
-            //     return false;
+                // focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                // console.log(focusable);
+                // next = focusable.eq(focusable.index(this)+1);
+                // if (next.length) {
+                //     next.focus();
+                // }
+                // else {
+                //     next.submit();
+                // }
+                // return false;
                 e.preventDefault()
             }
-            // e.preventDefault();
         });
 
-        $('input[name="bayar_spp"]').keyup(function(){
-            var val  = $(this).val()
-            if (val == '') {
-                $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(0)}</b>`)
-            }
-            else {
-                $(`.label-bayar-kolom-spp`).html(`<b>${rupiah_format(val)}</b>`)   
-            }
-        })
-
+        var bayar_spp_attr = 1;
         $('.bayar-spp').keydown((e) => {
             if (e.key === 'Enter') {
-                $('#bayar-total').focus();
+                bayar_spp_attr = bayar_spp_attr+1;
+                if ($(`.bayar-spp[bayar-spp-attr="${bayar_spp_attr}"]`).length) {
+                    $(`.bayar-spp[bayar-spp-attr="${bayar_spp_attr}"]`).focus()
+                }
+                else {
+                    $('#bayar-total').focus()
+                }
             }
-        })
-
-        $('input[name="bayar_spp"]').change(function(){
-            var val         = parseInt($(this).val())
-            var total_biaya = parseInt($('#total-biaya').val())
-            if (val == '') {
-                val = 0
-            }
-
-            let kalkulasi  = total_biaya + val
-            $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}<b>`)
-            $('#total-biaya').val(kalkulasi)
         })
 
         $('#bayar-total').keydown((e) => {
             if (e.key === 'Enter') {
                 $('.keterangan-spp').focus()
             }
+        })
+
+        $('.keterangan-spp').keydown((e) => {
+            if (e.key === 'Enter') {
+                $('.jenis-bayar').focus()
+            }
+        })
+
+        $('.jenis-bayar').change((e) => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                $('#spp-submit').focus()
+            }, 1);
+        })
+
+        $(document).on('keyup','input[name="bayar_spp[]"]',function(){
+            var val  = $(this).val()
+            var attr = $(this).attr('id-kolom-spp')
+            if (val == '') {
+                $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
+            }
+            else {
+                $(`.label-bayar-kolom-spp[id-kolom-spp="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+            }
+        })
+
+        $(document).on('change','input[name="bayar_spp[]"]',function(){
+            var val         = $(this).val()
+            var total_biaya = parseInt($('#total-biaya').val())
+            var attr        = $(this).attr('id-kolom-spp')
+            var old_bayar   = parseInt($(`.old-nominal[id-kolom-spp="${attr}"]`).val())
+
+            if (val == '') {
+                val = 0
+                total_biaya = total_biaya - old_bayar
+                $(`.old-nominal[id-kolom-spp="${attr}"]`).val(val)
+            }
+            else {
+                if (old_bayar == 0) {
+                    $(`.old-nominal[id-kolom-spp="${attr}"]`).val(parseInt(val))
+                }
+                else {
+                    total_biaya = total_biaya - old_bayar
+                }
+            }
+
+            let kalkulasi  = total_biaya + parseInt(val)
+            $('#total-biaya-juga').html(`<b>${rupiah_format(kalkulasi)}</b>`)
+            $('#total-biaya').val(kalkulasi)
         })
 
         $('#bayar-total').keyup(function(){
@@ -206,26 +257,10 @@
             if (parseInt(val) == parseInt(total_biaya)) {
                 $('#kembalian').val(0)
                 $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)
-            }
-        })
-
-        $('.keterangan-spp').keydown((e) => {
-            if (e.key === 'Enter') {
-                $('.jenis-bayar').focus()
-            }
-        })
-
-        $('.jenis-bayar').change((e) => {
-            alert(e)
-            setTimeout(() => {
-                $('.select2-container-active').removeClass('select2-container-active');
-                $(':focus').blur();
-                $('.spp-submit').submit()
-            }, 1);
-            // }
+            } 
         })
     })
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/spp-detail/spp-detail-bayar.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Admin.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Admin/spp-detail/spp-detail-bayar-semua.blade.php ENDPATH**/ ?>

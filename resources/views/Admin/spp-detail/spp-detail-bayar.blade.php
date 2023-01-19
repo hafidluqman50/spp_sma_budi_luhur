@@ -81,6 +81,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-4 col-form-label">Jenis Bayar</label>
+                                    <div class="col-7">
+                                        <select name="jenis_bayar" class="form-control select2 jenis-bayar" required>
+                                            <option value disabled selected>=== Pilih Jenis Bayar ===</option>
+                                            <option value="cash">Cash</option>
+                                            <option value="alumni">Alumni</option>
+                                            <option value="transfer">Transfer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-8 offset-4">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light spp-submit">
                                             Simpan
@@ -202,8 +213,16 @@
 
         $('.keterangan-spp').keydown((e) => {
             if (e.key === 'Enter') {
-                $('.spp-submit').focus()
+                $('.jenis-bayar').focus()
             }
+        })
+
+        $('.jenis-bayar').change((e) => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                $('.spp-submit').submit()
+            }, 1);
         })
     })
 </script>

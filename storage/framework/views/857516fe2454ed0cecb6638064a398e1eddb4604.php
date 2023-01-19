@@ -152,7 +152,8 @@
 <?php $__env->startSection('js'); ?>
 <script>
     $(() => {
-        $('body').on('keydown','input,select,textarea',function(e){
+
+        $('body').on('keyup','input,select,textarea',function(e){
             var self = $(this),
                 form = self.parents('form:eq(0)'),
                 focusable,
@@ -163,7 +164,7 @@
                 console.log(focusable);
                 next = focusable.eq(focusable.index(this)+1);
                 if (next.length) {
-                    next.focus();
+                    // next.focus();
                 }
                 else {
                     next.submit();
@@ -171,6 +172,14 @@
                 return false;
             }
         });
+
+        $('select[name="tahun_ajaran"]').change(() => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                $('select[name="kelas"]').focus()
+            }, 1);
+        })
 
         var kolom_attr    = 2;
         var nominal_attr  = 2;
@@ -203,6 +212,8 @@
                 create:true,
                 sortField:'text'
             })
+            let selectized = $(`.kolom-spp[kolom-id="${kolom_attr-2}"]`).selectize()
+            selectized[0].selectize.focus()
         })
 
         $(document).on('click','.hapus-input',function() {
@@ -226,6 +237,11 @@
             .done(function(done) {
                 $('select[name="siswa"]').removeAttr('disabled')
                 $('select[name="siswa"]').html(done)
+                setTimeout(() => {
+                    $('.select2-container-active').removeClass('select2-container-active');
+                    $(':focus').blur();
+                    $('select[name="siswa"]').focus()
+                }, 1);
             })
             .fail(function() {
                 console.log("error");
@@ -238,6 +254,11 @@
                 url: "<?php echo e(url('/ajax/get-keluarga-siswa')); ?>"+`/${val}`
             })
             .done(function(done) {
+                setTimeout(() => {
+                    $('.select2-container-active').removeClass('select2-container-active');
+                    $(':focus').blur();
+                    $('select[name="bulan_spp"]').focus()
+                }, 1);
                 $('#keluarga-siswa').html(done)
             })
             .fail(function() {
@@ -245,14 +266,71 @@
             });
         })
 
-        $(document).on('keyup','input[name="nominal_spp[]"]',function(){
+        $('select[name="bulan_spp"]').change(() => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                $('input[name="tahun_spp"]').focus()
+            }, 1);
+        })
+
+        $('input[name="tahun_spp"]').keydown(function(e) {
+            if ($(this).val() != '') {
+                if (e.key === 'Enter') {
+                    // alert(e.key)
+                    $('select[name="kantin"]').focus()
+                }
+            }
+        })
+
+        $('select[name="kantin"]').change(() => {
+            setTimeout(() => {
+                $('.select2-container-active').removeClass('select2-container-active');
+                $(':focus').blur();
+                let selectized = $('.kolom-spp[kolom-id="1"]').selectize()
+                selectized[0].selectize.focus()
+            }, 1);
+        })
+
+        $(document).on('change','.kolom-spp',function(){
+            let attr = $(this).attr('kolom-id')
+
+            $(`.nominal-spp[nominal-id="${attr}"]`).focus()
+        })
+
+        $(document).on('keydown','input[name="nominal_spp[]"]',function(e){
             var val  = $(this).val()
             var attr = $(this).attr('nominal-id')
             if (val == '') {
                 $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(0)}</b>`)
             }
             else {
-                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
+                $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)
+                if (e.key === 'Enter') {
+                    if ($(`.kolom-spp[kolom-id="${attr+1}"]`).length == 1) {
+                        e.preventDefault()
+                        let selectized = $(`.kolom-spp[kolom-id="${attr+1}"]`).selectize()
+                        selectized[0].selectize.focus()
+                    }
+                    else {
+                        $('#tambah-input').focus()
+                    }
+                }
+            }
+        })
+
+        var submit = 'not-clicked'
+        $('button[type="submit"]').click(() => {
+            submit = 'clicked'
+            $('form').submit()
+        })
+
+        $('form').submit((e) => {
+            if (submit == 'clicked') {
+                return true;
+            }
+            else {
+                return false;
             }
         })
 
