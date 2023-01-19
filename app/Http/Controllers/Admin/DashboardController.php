@@ -223,6 +223,7 @@ class DashboardController extends Controller
         $bayar_total    = $request->bayar_total;
         $kembalian      = $request->kembalian;
         $keterangan_spp = $request->keterangan_spp;
+        $jenis_bayar    = $request->jenis_bayar;
         $id_spp         = $request->id_spp;
         // dd($id_spp);
 
@@ -273,6 +274,7 @@ class DashboardController extends Controller
                 'total_biaya'          => $total_biaya,
                 'nominal_bayar'        => $bayar_total,
                 'kembalian'            => $kembalian,
+                'jenis_bayar'          => $jenis_bayar,
                 'keterangan_bayar_spp' => $keterangan_spp,
                 'id_users'             => auth()->user()->id_users
             ];

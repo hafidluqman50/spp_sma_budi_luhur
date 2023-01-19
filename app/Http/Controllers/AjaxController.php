@@ -74,6 +74,7 @@ class AjaxController extends Controller
             $get_bulan_tunggakan = SppDetail::selectRaw("*,SUBSTRING(bulan_tahun,-4) AS tahun_numeric,SUBSTRING_INDEX(bulan_tahun, ', ', 1) as bulan_numeric")->join('spp_bulan_tahun','spp_detail.id_spp_bulan_tahun','=','spp_bulan_tahun.id_spp_bulan_tahun')
                                             ->where('id_spp',$id_spp)
                                             ->where('sisa_bayar','!=',0)
+                                            ->where('spp_bulan_tahun.status_delete',0)
                                             // ->select('spp_bulan_tahun.id_spp_bulan_tahun')
                                             ->orderByRaw("CAST('tahun' as signed) ASC, FIELD(bulan_numeric,'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ASC")
                                             ->groupBy('spp_bulan_tahun.id_spp_bulan_tahun')
@@ -151,9 +152,10 @@ class AjaxController extends Controller
         $tanggal_spp        = date('Y-m-d');
         $total_biaya        = $request->total_biaya_hidden;
         // dd($total_biaya);
-        // $bayar_total        = $request->bayar_total;
-        // $kembalian          = $request->kembalian;
+        // $bayar_total     = $request->bayar_total;
+        // $kembalian       = $request->kembalian;
         $keterangan_spp     = $request->keterangan_spp;
+        $jenis_bayar        = $request->jenis_bayar;
         $id_spp_detail      = $request->id_detail;
         $bayar_spp          = $request->bayar_spp;
 
@@ -182,6 +184,7 @@ class AjaxController extends Controller
             'untuk_pembayaran_raw' => $get_spp_bulan_tahun->bulan_tahun,
             'tanggal_spp'          => $tanggal_spp,
             'tanggal_spp_convert'  => human_date($tanggal_spp),
+            'jenis_bayar'          => $jenis_bayar,
             'bulan_awal'           => $get_spp_bulan_tahun->bulan_tahun,
             'bulan_akhir'          => '',
             'id_spp_bulan_tahun'   => $id_spp_bulan_tahun

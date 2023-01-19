@@ -272,6 +272,7 @@ $(() => {
             {data:'total_biaya',name:'total_biaya'},
             {data:'nominal_bayar',name:'nominal_bayar'},
             {data:'kembalian',name:'kembalian'},
+            {data:'jenis_bayar',name:'jenis_bayar'},
             {data:'name',name:'name'},
             {data:'action',name:'action',searchable:false,orderable:false}
         ],

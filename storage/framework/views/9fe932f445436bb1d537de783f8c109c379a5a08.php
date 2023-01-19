@@ -20,6 +20,11 @@
         p {
             font-size:20px;
         }
+        img{
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
     </style>
     <link href="<?php echo e(asset('assets/css/bootstrap.min.css')); ?>" rel="stylesheet" type="text/css" />
 </head>
@@ -29,7 +34,9 @@
         Kembali
     </a>
     <div class="form-group clearfix">
-        <h4 class="text-center"> KWITANSI PEMBAYARAN SPP <br> SMA BUDI LUHUR SAMARINDA</h4>
+        <img src="<?php echo e(asset('assets/kop_laporan.png')); ?>" width="1200" alt="">
+        <hr>
+        <h4 class="text-center" style="margin-bottom:5%;"> KWITANSI PEMBAYARAN SPP <br> SMA BUDI LUHUR SAMARINDA</h4>
         <div class="col-lg-12">
             <table>
                 <tr>
