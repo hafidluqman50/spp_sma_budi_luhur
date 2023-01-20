@@ -10,8 +10,8 @@ use App\Models\SppBayar;
 use App\Models\SppBayarDetail;
 use App\Models\SppDetail;
 use App\Models\SppBulanTahun;
-use App\Models\Petugas;
 use App\Models\ProfileInstansi;
+use App\Models\PemasukanKantin;
 
 class SppBayarDataController extends Controller
 {
@@ -62,9 +62,33 @@ class SppBayarDataController extends Controller
         foreach ($get_spp_bayar as $key => $value) {
             $get_spp_bayar_detail = SppBayarDetail::where('id_spp_bayar',$value->id_spp_bayar)->get();
             foreach ($get_spp_bayar_detail as $index => $val) {
+                $check_kolom_spp = KolomSpp::where('id_kolom_spp',$val->id_kolom_spp)->firstOrFail()->slug_kolom_spp;
+
                 $get_spp_detail = SppDetail::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
                                             ->where('id_kolom_spp',$val->id_kolom_spp)
                                             ->firstOrFail();
+                
+                if ($check_kolom_spp == 'uang-makan') {
+                    if ($val->id_kantin == '') {
+                        $get_kantin_spp = SppBulanTahun::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)->firstOrFail();
+                        $get_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
+                                                                ->where('id_kantin',$get_kantin_spp->id_kantin)
+                                                                ->firstOrFail();
+                    }
+                    else {
+                        $get_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
+                                                                ->where('id_kantin',$val->id_kantin)
+                                                                ->firstOrFail();
+                    }
+
+                    $new_nominal_pemasukan = $val->nominal_bayar - $get_pemasukan_kantin->nominal_pemasukan;
+
+                    $pemasukan_retur = [
+                        'nominal_pemasukan' => $new_nominal_pemasukan
+                    ];
+                    PemasukanKantin::where('id_pemasukan_kantin',$get_pemasukan_kantin->id_pemasukan_kantin)
+                                    ->update($pemasukan_retur);
+                }
 
                 $nominal_spp = $get_spp_detail->bayar_spp - $val->nominal_bayar;
                 $sisa_bayar  = $get_spp_detail->sisa_bayar + $val->nominal_bayar;
@@ -79,7 +103,7 @@ class SppBayarDataController extends Controller
 
         SppBayarData::where('id_spp',$id)
                     ->where('id_spp_bayar_data',$id_spp_bayar_data)
-                    ->delete();
+                    ->update(['total_biaya' => 0]);
 
         return redirect('/admin/spp/pembayaran/'.$id)->with('message','Berhasil Retur Bayar');
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 27, 2022 at 04:13 PM
+-- Generation Time: Jan 20, 2023 at 06:18 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -41,44 +41,60 @@ CREATE TABLE `history_proses_spp` (
 --
 
 INSERT INTO `history_proses_spp` (`id_history_proses_spp`, `text`, `created_at`, `updated_at`, `status_terbaca`) VALUES
+('062ce5bf-9966-4b38-9998-a204d4ac6d6e', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2022/2023</b> Bulan Tahun : <b>Januari, 2017</b>', '2023-01-19 19:01:36', '2023-01-19 19:01:36', 0),
 ('072cf91f-35f0-4081-b112-f0069a056869', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Agustus, 2021</b>, <b>Pembayaran Akademik</b> Sebesar <b>Rp. 500.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 500.000,00</b>', '2022-01-08 01:20:25', '2022-08-19 15:13:23', 1),
+('0754afc1-76d4-4a82-b002-1786f3168870', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2022/2023</b>', '2023-01-20 23:28:31', '2023-01-20 23:28:31', 0),
 ('0fa8fb64-82be-4c00-a573-bb9398ab382b', 'Administrator telah import data SPP', '2022-02-26 15:30:38', '2022-08-19 15:13:23', 1),
 ('1234a49a-a077-464a-ad68-8eb5071b574d', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2022</b>', '2022-08-23 14:02:52', '2022-08-23 14:02:52', 0),
 ('14781bf8-e42f-4a7e-9075-783c85443a38', 'Administrator telah import data SPP', '2022-08-14 00:32:36', '2022-08-19 15:13:23', 1),
+('1490b203-9701-4d54-a370-aef46e782f83', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2022/2023</b>', '2023-01-20 23:33:43', '2023-01-20 23:33:43', 0),
+('1c62a79c-37b5-4b42-b8c7-47448ecf5998', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2022/2023</b>', '2023-01-20 23:33:00', '2023-01-20 23:33:00', 0),
 ('2071d3f5-ea5e-4281-89bb-59b6ec904cec', 'Administrator telah import data SPP', '2022-02-26 15:52:41', '2022-08-19 15:13:23', 1),
 ('20a77d4e-9ee8-4d82-b21c-08a56a9d6717', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Februari, 2022</b>, <b>Uang Makan</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-11-05 20:38:48', '2022-11-05 20:38:48', 0),
+('22a1a56f-9a16-4c6f-8804-8a54bc46a502', 'Administrator telah membayar SPP : <b> Uchiha Sukirman Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Januari, 2023</b>, <b>Uang Makan</b> Sebesar <b>Rp. 200.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 200.000,00</b>', '2023-01-12 18:29:41', '2023-01-12 18:29:41', 0),
 ('25700fd0-3655-452d-83ff-f055d5be785a', 'Administrator telah membayar SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Januari, 2022</b>, <b>Uang Makan</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-08-31 14:18:09', '2022-08-31 14:18:09', 0),
 ('26edc2fc-b417-417b-925d-7f83974b7f02', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:26:38', '2022-08-19 15:13:23', 1),
 ('271d5f7d-3277-4838-a4b0-dd754ebfabb9', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:25:51', '2022-08-19 15:13:23', 1),
 ('27a4ea2c-18c7-4b0f-a3f8-679220d9ebde', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:26:37', '2022-08-19 15:13:23', 1),
+('27b1f181-369a-4854-92a9-c7308e3436f3', 'Administrator telah membayar SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>September, 2021</b>, <b>Pembayaran Gedung</b> Sebesar <b>Rp. 20.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 520.000,00</b>', '2023-01-19 18:58:16', '2023-01-19 18:58:16', 0),
 ('27c3c600-45d3-43ce-b6ad-e7ebc7efe76c', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:53:33', '2022-08-19 15:13:23', 1),
 ('292f0dbd-17b5-478c-b92a-37e6c84c33c4', 'Administrator telah menghapus Pembayaran : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 10.000,00</b>, Nominal Bayar : <b>Rp. 10.000,00</b>, dan Kembalian : <b>Rp. 0,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-05 01:51:46', '2022-08-19 15:13:23', 1),
 ('2ba45d4f-ec15-4d3d-b10b-fa08d78f548d', 'Administrator telah import data SPP', '2022-08-14 00:29:37', '2022-08-19 15:13:23', 1),
 ('2c488a9b-7f5b-4b47-bd34-67c659e324dd', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:51:57', '2022-08-19 15:13:23', 1),
 ('3897570a-6945-42d5-bedd-a2f18e6da8b4', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2022/2023</b> Bulan Tahun : <b>Februari, 2022</b>', '2022-11-05 20:29:17', '2022-11-05 20:29:17', 0),
+('3ad3bdab-027b-405e-aeb0-2f463ba9a2e5', 'Administrator telah membayar SPP : <b> Uchiha Sukirman Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Januari, 2023</b>, <b>Uang Makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2023-01-12 18:27:04', '2023-01-12 18:27:04', 0),
 ('4586e463-836f-44fe-a85c-24e968b8682b', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:30:24', '2022-08-19 15:13:23', 1),
 ('4ec50d31-d572-4832-952e-3bae49d005f4', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-08-13 01:39:45', '2022-08-19 15:13:23', 1),
 ('56104592-7644-43f3-ba87-680f5109bab8', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Agustus, 2021</b>, <b></b> Sebesar Rp. 500.000,00 dan dengan total nominal bayar sebesar Rp. 1.000.000,00', '2022-01-04 22:42:47', '2022-08-19 15:13:23', 1),
+('6183ea0b-e821-43ec-b5e1-548c09ea1f76', 'Administrator telah menghapus data SPP <b>Uchiha Sukirman XII RPL 1 2022/2023</b> Bulan Tahun : <b>Januari, 2023</b>', '2023-01-16 22:24:19', '2023-01-16 22:24:19', 0),
+('630f435a-9957-4297-aef8-c84c18d467b6', 'Administrator telah menghapus SPP : <b> Uchiha Sukirman Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Januari, 2023</b>, <b></b>', '2023-01-16 22:18:54', '2023-01-16 22:18:54', 0),
 ('6424c37a-69b3-4f3f-8d98-ab93b7c9ca72', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:52:00', '2022-08-19 15:13:23', 1),
 ('6800b2f6-1892-46eb-94fc-6a98beb4ce90', 'Administrator telah menghapus SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Oktober, 2021</b>, <b></b>', '2022-02-26 15:59:17', '2022-08-19 15:13:23', 1),
 ('6dc01db4-2fb4-459b-8256-bde8197ee23e', 'Administrator telah menghapus Pembayaran : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 1.000.000,00</b>, Nominal Bayar : <b>Rp. 2.000.000,00</b>, dan Kembalian : <b>Rp. 1.000.000,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-04 23:04:58', '2022-08-19 15:13:23', 1),
 ('6dcb9c2f-98ed-4e35-94c7-bd7bc1633022', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:53:32', '2022-08-19 15:13:23', 1),
 ('754ab493-cf8e-42eb-be50-a8d468fdff18', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-08-14 00:32:30', '2022-08-19 15:13:23', 1),
 ('75d679cb-7a41-463a-8488-224089c0fdf9', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:30:25', '2022-08-19 15:13:23', 1),
+('7716d833-d5f6-4382-a535-58f8f6c8e6e1', 'Administrator telah membayar SPP : <b> Uchiha Sukirman Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Januari, 2023</b>, <b>Pembayaran Gedung</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2023-01-16 22:18:49', '2023-01-16 22:18:49', 0),
 ('7f8aa87d-438e-429a-8900-e6202b6da805', 'Administrator telah import data SPP', '2022-01-05 02:04:35', '2022-08-19 15:13:23', 1),
+('8110f2c2-7aa7-47db-b8fd-1b7956bb4f71', 'Administrator telah menghapus SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Maret, 2022</b>, <b></b>', '2023-01-16 22:16:00', '2023-01-16 22:16:00', 0),
 ('85cd50bf-4f49-42f3-92d1-4302c7d1dcb0', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-08-14 00:32:28', '2022-08-19 15:13:23', 1),
+('8a800b4f-a53e-4af8-825a-e1bac1eb55e7', 'Administrator telah menghapus SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Maret, 2022</b>, <b></b>', '2023-01-16 22:14:55', '2023-01-16 22:14:55', 0),
+('8e9adde1-c975-4b29-aa4e-4032511d4596', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2022/2023</b>', '2023-01-20 23:28:33', '2023-01-20 23:28:33', 0),
+('92bdf60c-7bf8-4f76-bf83-951e01746b9e', 'Administrator telah menghapus data SPP <b>Uchiha Sukirman XII RPL 1 2022/2023</b>', '2023-01-16 22:25:17', '2023-01-16 22:25:17', 0),
 ('959cd4ed-ccd0-4a28-8289-83c41dd966f0', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>Januari, 2022</b>, <b>Kantin Pak Mamat</b> Sebesar <b>Rp. 0,00</b> dan dengan total nominal bayar sebesar <b>Rp. 2.000.000,00</b>', '2022-08-10 00:53:02', '2022-08-19 15:13:23', 1),
 ('9a1cc8af-d5a8-4d5e-a39c-3ad0877c11b4', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-02-26 15:57:46', '2022-08-19 15:13:23', 1),
 ('ae75016a-fa10-49dd-821b-d94a6aff088d', 'Administrator telah import data SPP', '2022-02-26 15:57:43', '2022-08-19 15:13:23', 1),
 ('b673824f-1533-42bf-8706-50823f13bad8', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-08-11 13:43:19', '2022-08-19 15:13:23', 1),
 ('b6ad5c2f-9a54-433c-a59e-e6aab75de685', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-02-26 15:59:06', '2022-08-19 15:13:23', 1),
 ('bf4def14-b2a1-4c84-85ab-bd3bb14964d1', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:25:52', '2022-08-19 15:13:23', 1),
+('c1baaa0f-0bd7-4248-a542-6b3ea32a4683', 'Administrator telah membayar SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>September, 2021</b>, <b>Pembayaran Fasilitas</b> Sebesar <b>Rp. 50.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 520.000,00</b>', '2023-01-19 18:58:16', '2023-01-19 18:58:16', 0),
 ('c2186f49-016d-443a-a87a-0555df8fa097', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-01-05 02:02:42', '2022-08-19 15:13:23', 1),
 ('c2e6e41d-904d-4392-977b-110066105a71', 'Administrator telah menghapus Pembayaran : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Dengan jumlah Total Biaya : <b>Rp. 1.000.000,00</b>, Nominal Bayar : <b>Rp. 2.000.000,00</b>, dan Kembalian : <b>Rp. 1.000.000,00</b> dengan Keterangan : <b></b> yang telah diinput oleh <b>Administrator</b>', '2022-01-04 23:07:34', '2022-08-19 15:13:23', 1),
 ('c4d1a834-b746-4ff5-a099-72e327ab07a5', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Februari, 2022</b>, <b>Uang Makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-11-05 20:51:46', '2022-11-05 20:51:46', 0),
 ('c51a9adf-a3b5-42d7-8568-6cb576e9fa59', 'Administrator telah import data SPP', '2022-02-26 15:26:42', '2022-08-19 15:13:23', 1),
 ('c63f905b-30af-422f-ae2d-5d2b8e6eafde', 'Administrator telah membayar SPP : <b> Uchiha Bayu Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Februari, 2022</b>, <b>Uang Makan</b> Sebesar <b>Rp. 100.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 100.000,00</b>', '2022-11-05 20:51:11', '2022-11-05 20:51:11', 0),
 ('c8886984-6224-4235-89b4-bff9f6f8ac24', 'Administrator telah menghapus data SPP <b>Uchiha Bayu XII RPL 1 2021/2022</b>', '2022-02-26 15:57:33', '2022-08-19 15:13:23', 1),
+('cfd82c14-7f4a-4ef7-a513-98a25137e7d3', 'Administrator telah menghapus SPP : <b> Uchiha Sukirman Kelas XII RPL 1 Tahun Ajaran 2022/2023</b>. Bulan, Tahun : <b>Januari, 2023</b>, <b></b>', '2023-01-16 22:18:25', '2023-01-16 22:18:25', 0),
 ('d304bfe8-5bcb-4c7a-8a85-03cb670d8f51', 'Administrator telah membayar SPP : <b> Uchiha Tiara Kelas XII RPL 1 Tahun Ajaran 2021/2022</b>. Bulan, Tahun : <b>September, 2021</b>, <b>Pembayaran Gedung</b> Sebesar <b>Rp. 10.000,00</b> dan dengan total nominal bayar sebesar <b>Rp. 10.000,00</b>', '2022-08-10 01:10:46', '2022-08-19 15:13:23', 1),
 ('d6f98e1b-2fd9-4f51-815a-9ecc6d821952', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b>', '2022-02-26 15:57:37', '2022-08-19 15:13:23', 1),
 ('d9c4356d-62f8-472e-ae36-b19ce62c443e', 'Administrator telah menghapus data SPP <b>Uchiha Tiara XII RPL 1 2021/2022</b> Bulan Tahun : <b>Agustus, 2021</b>', '2022-08-31 14:13:17', '2022-08-31 14:13:17', 0),
@@ -113,7 +129,8 @@ CREATE TABLE `kantin` (
 
 INSERT INTO `kantin` (`id_kantin`, `nama_kantin`, `slug_nama_kantin`, `lokasi_kantin`, `biaya_perbulan`, `status_delete`) VALUES
 ('3630bc38-3357-453b-99c7-4470f7582b73', 'Dapur', 'dapur', '-', 0, 0),
-('6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 'Kantin Pak Mamat', 'kantin-pak-mamat', 'Disamping Rumah Pak Mamat', 100000, 0);
+('6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 'Kantin Pak Mamat', 'kantin-pak-mamat', 'Disamping Rumah Pak Mamat', 100000, 0),
+('841ac61a-ea64-4dfd-8a31-9b8b300a8f70', 'Kantin Pak Agus', 'kantin-pak-agus', '-', 100000, 0);
 
 -- --------------------------------------------------------
 
@@ -227,8 +244,7 @@ CREATE TABLE `pemasukan_kantin` (
 --
 
 INSERT INTO `pemasukan_kantin` (`id_pemasukan_kantin`, `id_spp_bulan_tahun`, `id_kantin`, `nominal_harus_bayar`, `nominal_pemasukan`, `created_at`, `updated_at`) VALUES
-('3b2e4056-5dfb-46f2-8d0e-f534debea03d', '89a58572-748f-4478-8ef1-4e4767cbf34b', '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 100000, 100000, '2022-11-05 20:29:09', '2022-11-05 20:51:46'),
-('de21cb98-6678-4c4b-9fd8-3a26953a7833', 'de21cb98-6678-4c4b-9fd8-3a26953a7833', '3630bc38-3357-453b-99c7-4470f7582b73', 1000000, 1000000, '2022-11-02 00:56:31', '2022-11-02 00:56:31');
+('1d88f7ee-2bd1-4faf-a296-4fecfd233f4e', '61d268f9-ea75-43fd-9f98-c82a17ee5c47', '3630bc38-3357-453b-99c7-4470f7582b73', 100000, 100000, '2023-01-20 23:34:29', '2023-01-21 02:03:48');
 
 -- --------------------------------------------------------
 
@@ -277,10 +293,10 @@ CREATE TABLE `rincian_pembelanjaan` (
 
 INSERT INTO `rincian_pembelanjaan` (`id_rincian_pembelanjaan`, `id_rincian_pengeluaran`, `kategori_rincian_pembelanjaan`, `id_rincian_pengeluaran_sekolah`, `id_rincian_pengeluaran_uang_makan`, `jenis_rincian_pembelanjaan`, `keterangan_pembelanjaan`, `created_at`, `updated_at`) VALUES
 ('315e97cb-b422-4e3e-bc40-566482f83284', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Setor Uang Makan', NULL, '062f720d-679e-4ec3-90f3-32017c5ea23a', 'uang-makan', 'Belom Disetor', '2022-11-15 22:26:01', '2022-12-16 00:43:15'),
-('394e34bf-46ec-477d-ab6c-a5a779e0b040', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', 'b8c106af-3bdc-49c9-ab11-1938e12253de', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2022-12-16 00:35:48'),
-('5d7ee953-ab6d-459c-bf81-16eab47ee4a1', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Fasilitas Sekolah', 'e90ea836-7707-4fcf-99b7-2e3150a62038', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2022-12-16 00:35:48'),
+('394e34bf-46ec-477d-ab6c-a5a779e0b040', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', 'b8c106af-3bdc-49c9-ab11-1938e12253de', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2023-01-12 18:41:17'),
+('5d7ee953-ab6d-459c-bf81-16eab47ee4a1', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Fasilitas Sekolah', 'e90ea836-7707-4fcf-99b7-2e3150a62038', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2023-01-12 18:41:17'),
 ('c0f3e172-ee53-43a0-ab06-b706ab79b48d', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Setor Uang Makan', NULL, 'ff129433-3702-484c-b53d-b58391bfbc29', 'uang-makan', 'Belum Disetor', '2022-11-15 22:26:01', '2022-12-16 00:43:15'),
-('e01ac403-adba-4692-86b9-3b8f46d69868', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', '9a95611f-efa1-46e4-a609-a1154ce007c9', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2022-12-16 00:35:48');
+('e01ac403-adba-4692-86b9-3b8f46d69868', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', '9a95611f-efa1-46e4-a609-a1154ce007c9', NULL, 'operasional', 'Sudah Setor', '2022-11-25 23:17:11', '2023-01-12 18:41:17');
 
 -- --------------------------------------------------------
 
@@ -447,10 +463,11 @@ CREATE TABLE `rincian_pengajuan` (
 --
 
 INSERT INTO `rincian_pengajuan` (`id_rincian_pengajuan`, `id_rincian_pengeluaran`, `kategori_rincian_pengajuan`, `id_rincian_pengeluaran_sekolah`, `keterangan_pengajuan`, `created_at`, `updated_at`) VALUES
-('a8cb066b-be46-493e-a527-1bc8bb74a4e6', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', 'b8c106af-3bdc-49c9-ab11-1938e12253de', 'Mantap', '2022-12-19 15:35:42', '2022-12-19 15:35:42'),
-('ca3cafae-ffa0-4d1f-9d14-145378c01c47', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', '9a95611f-efa1-46e4-a609-a1154ce007c9', 'Mantap Lagi', '2022-12-19 15:35:42', '2022-12-19 15:35:42'),
-('e081b78b-ba11-4cfc-a57b-dd8ba864ae61', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Biaya Pembangunan', NULL, NULL, '2022-12-20 13:24:35', '2022-12-20 13:24:35'),
-('e7722bfc-5d5b-4fb3-b975-10d78b413a75', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Bayar Fasilitas', 'e90ea836-7707-4fcf-99b7-2e3150a62038', 'mantap jua', '2022-12-19 15:35:42', '2022-12-19 15:35:42');
+('2168179b-190e-426c-875a-3678e06b9de2', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Biaya Asrama', NULL, NULL, '2023-01-12 18:40:33', '2023-01-12 18:40:33'),
+('a8cb066b-be46-493e-a527-1bc8bb74a4e6', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', 'b8c106af-3bdc-49c9-ab11-1938e12253de', 'Mantap', '2022-12-19 15:35:42', '2023-01-12 18:40:33'),
+('ca3cafae-ffa0-4d1f-9d14-145378c01c47', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Belanja Pegawai', '9a95611f-efa1-46e4-a609-a1154ce007c9', 'Mantap Lagi', '2022-12-19 15:35:42', '2023-01-12 18:40:33'),
+('e7722bfc-5d5b-4fb3-b975-10d78b413a75', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Bayar Fasilitas', 'e90ea836-7707-4fcf-99b7-2e3150a62038', 'mantap jua', '2022-12-19 15:35:42', '2023-01-12 18:40:33'),
+('fa2bae5c-3ca1-4124-9595-f9e63261a251', '8927573c-e72b-4d81-a9f7-f7124c3647eb', 'Biaya Pembangunan', NULL, NULL, '2023-01-12 18:40:33', '2023-01-12 18:40:33');
 
 -- --------------------------------------------------------
 
@@ -624,9 +641,7 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `id_kelas_siswa`, `id_users`, `created_at`, `updated_at`) VALUES
-('0da11a43-78f5-4644-8bd9-5482635cc344', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-08-14 00:32:36', '2022-08-14 00:32:36'),
-('40f91c6e-d667-4983-92fa-abafdeada1b5', 'add4695a-3425-4651-8a62-ef5f30815f81', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-12-09 00:30:15', '2022-12-09 00:30:15'),
-('c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', '8038690d-94bd-4eb1-8237-447aee3004c7', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-08-14 00:32:36', '2022-08-14 00:32:36');
+('36dd7f27-990e-4e51-bdac-43eedda25a7d', 'f485dbe2-aae3-4c9e-b55a-d0f957e222a7', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2023-01-20 23:34:29', '2023-01-20 23:34:29');
 
 -- --------------------------------------------------------
 
@@ -642,20 +657,6 @@ CREATE TABLE `spp_bayar` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `spp_bayar`
---
-
-INSERT INTO `spp_bayar` (`id_spp_bayar`, `id_spp_bayar_data`, `id_spp_bulan_tahun`, `created_at`, `updated_at`) VALUES
-('10a1569e-7dda-4fc0-a6b8-36f84e8b0f0c', 'c57b51c6-4218-43b0-b429-120b6e0deeb9', '52af011b-831b-47df-92a1-1526ed6a4341', '2022-12-09 00:30:38', '2022-12-09 00:30:38'),
-('2dde94e4-a97c-430e-b60f-982f19b6b482', '36cb2b3d-9357-40ee-853e-ab67c4eedd28', '89a58572-748f-4478-8ef1-4e4767cbf34b', '2022-11-05 20:51:46', '2022-11-05 20:51:46'),
-('447954b8-ffd9-4354-931f-42364d7c5ade', '684ee4a8-71d2-402c-963f-bcb1f468725d', 'c94da010-7392-41f8-8ebc-569f31185a30', '2022-08-31 14:18:09', '2022-08-31 14:18:09'),
-('45ba7aba-54cd-4579-baa3-a6b9e0206ca4', '898f316b-ca3f-48bf-b457-67290a762f21', 'de21cb98-6678-4c4b-9fd8-3a26953a7833', '2022-10-07 23:55:24', '2022-10-07 23:55:24'),
-('557a88be-bab0-484b-aa34-74d9d132d841', '348cc027-27df-4898-be8c-921192f62f34', '89a58572-748f-4478-8ef1-4e4767cbf34b', '2022-11-05 20:51:11', '2022-11-05 20:51:11'),
-('8afa3a3e-2d3a-4d19-938f-d7e6edf56d0a', '69c3ba5e-0426-47c0-a1b2-5f6c6d782afa', '4a28b59d-ab74-4afb-9655-7dce5e489a9b', '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('8d122698-ae0a-4f1b-8d7f-12df74dc6f0c', '69c3ba5e-0426-47c0-a1b2-5f6c6d782afa', '92b0ab58-ba1c-45aa-a868-61f883006d43', '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('f5f4f151-0a1a-4964-af2f-c7257c1ec795', '69c3ba5e-0426-47c0-a1b2-5f6c6d782afa', '6e06b0fd-363c-4681-8931-83a31875d9b9', '2022-08-19 15:10:18', '2022-08-19 15:10:18');
-
 -- --------------------------------------------------------
 
 --
@@ -670,22 +671,11 @@ CREATE TABLE `spp_bayar_data` (
   `nominal_bayar` int NOT NULL,
   `kembalian` int NOT NULL,
   `keterangan_bayar_spp` varchar(100) NOT NULL,
+  `jenis_bayar` varchar(20) NOT NULL,
   `id_users` varchar(36) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `spp_bayar_data`
---
-
-INSERT INTO `spp_bayar_data` (`id_spp_bayar_data`, `id_spp`, `tanggal_bayar`, `total_biaya`, `nominal_bayar`, `kembalian`, `keterangan_bayar_spp`, `id_users`, `created_at`, `updated_at`) VALUES
-('348cc027-27df-4898-be8c-921192f62f34', '0da11a43-78f5-4644-8bd9-5482635cc344', '2022-11-05', 100000, 100000, 0, 'Pembayaran Lunas Uang Makan', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-11-05 20:51:11', '2022-11-05 20:51:11'),
-('36cb2b3d-9357-40ee-853e-ab67c4eedd28', '0da11a43-78f5-4644-8bd9-5482635cc344', '2022-11-05', 100000, 100000, 0, 'Pembayaran Lunas Uang Makan', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-11-05 20:51:46', '2022-11-05 20:51:46'),
-('684ee4a8-71d2-402c-963f-bcb1f468725d', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', '2022-08-31', 100000, 100000, 0, 'Bayar Uang Makan Januari 2022', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-08-31 14:18:09', '2022-08-31 14:18:09'),
-('69c3ba5e-0426-47c0-a1b2-5f6c6d782afa', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', '2022-08-19', 30000, 30000, 0, 'September 2021 - April 2022', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('898f316b-ca3f-48bf-b457-67290a762f21', '0da11a43-78f5-4644-8bd9-5482635cc344', '2022-10-07', 1000000, 1200000, 200000, 'Bayar SPP Agustus 2021', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-10-07 23:55:24', '2022-10-07 23:55:24'),
-('c57b51c6-4218-43b0-b429-120b6e0deeb9', '40f91c6e-d667-4983-92fa-abafdeada1b5', '2022-12-09', 100000, 100000, 0, 'ngetes', 'd4971513-6303-4248-bd27-dbb1a999b51e', '2022-12-09 00:30:38', '2022-12-09 00:30:38');
 
 -- --------------------------------------------------------
 
@@ -699,24 +689,10 @@ CREATE TABLE `spp_bayar_detail` (
   `id_kolom_spp` varchar(36) NOT NULL,
   `tanggal_bayar` date NOT NULL,
   `nominal_bayar` int NOT NULL,
+  `id_kantin` varchar(36) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `spp_bayar_detail`
---
-
-INSERT INTO `spp_bayar_detail` (`id_spp_bayar_detail`, `id_spp_bayar`, `id_kolom_spp`, `tanggal_bayar`, `nominal_bayar`, `created_at`, `updated_at`) VALUES
-('41cb1b6f-98c0-4928-b8f8-6a1ec34fa1a9', '45ba7aba-54cd-4579-baa3-a6b9e0206ca4', '1971752f-5e6c-459f-8a13-c51327bb88e7', '2022-10-07', 500000, '2022-10-07 23:55:24', '2022-10-07 23:55:24'),
-('5ff8e370-229e-4ca7-bd06-ac50f2bdc259', 'f5f4f151-0a1a-4964-af2f-c7257c1ec795', '60f3492f-d8be-4f29-9014-478d314fe4ef', '2022-08-19', 10000, '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('655d7fa2-7d34-4041-9139-0a51b2a8810a', '8d122698-ae0a-4f1b-8d7f-12df74dc6f0c', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', '2022-08-19', 10000, '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('8a7abf6e-ff53-462c-887c-89d95a9ee0d4', '45ba7aba-54cd-4579-baa3-a6b9e0206ca4', '60f3492f-d8be-4f29-9014-478d314fe4ef', '2022-10-07', 500000, '2022-10-07 23:55:24', '2022-10-07 23:55:24'),
-('a1b83f9a-3eb1-414f-9537-f03839753bd6', '557a88be-bab0-484b-aa34-74d9d132d841', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', '2022-11-05', 100000, '2022-11-05 20:51:11', '2022-11-05 20:51:11'),
-('b3e80ec2-232e-41df-93be-8f34b0bb1f17', '447954b8-ffd9-4354-931f-42364d7c5ade', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', '2022-08-31', 100000, '2022-08-31 14:18:09', '2022-08-31 14:18:09'),
-('bb043dc3-89d0-4a42-b9e0-b3a97cbe26ae', '2dde94e4-a97c-430e-b60f-982f19b6b482', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', '2022-11-05', 100000, '2022-11-05 20:51:46', '2022-11-05 20:51:46'),
-('cdbaff02-c4ee-4478-9cc9-260ce9428bd7', '8afa3a3e-2d3a-4d19-938f-d7e6edf56d0a', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', '2022-08-19', 10000, '2022-08-19 15:10:18', '2022-08-19 15:10:18'),
-('e8b30882-eedd-445c-9cc8-124fe3cb787a', '10a1569e-7dda-4fc0-a6b8-36f84e8b0f0c', '46ee0905-2d06-48d7-bb43-15c07c8044c9', '2022-08-09', 100000, '2022-12-09 00:30:38', '2022-12-09 00:30:38');
 
 -- --------------------------------------------------------
 
@@ -741,15 +717,7 @@ CREATE TABLE `spp_bulan_tahun` (
 --
 
 INSERT INTO `spp_bulan_tahun` (`id_spp_bulan_tahun`, `id_spp`, `bulan_tahun`, `bulan`, `tahun`, `id_kantin`, `status_delete`, `created_at`, `updated_at`) VALUES
-('325ec5a9-1f52-46f7-a96c-27a71fa5c5fe', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'Maret, 2022', 3, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-23 14:01:19', '2022-08-23 14:01:19'),
-('4a28b59d-ab74-4afb-9655-7dce5e489a9b', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'Oktober, 2021', 10, 2021, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-14 00:32:36', '2022-08-14 00:32:36'),
-('52af011b-831b-47df-92a1-1526ed6a4341', '40f91c6e-d667-4983-92fa-abafdeada1b5', 'Juni, 2022', 6, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-12-09 00:30:15', '2022-12-09 00:30:15'),
-('6e06b0fd-363c-4681-8931-83a31875d9b9', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'September, 2021', 9, 2021, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-14 00:32:36', '2022-08-14 00:32:36'),
-('89a58572-748f-4478-8ef1-4e4767cbf34b', '0da11a43-78f5-4644-8bd9-5482635cc344', 'Februari, 2022', 2, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-11-05 20:29:09', '2022-11-05 20:29:09'),
-('92b0ab58-ba1c-45aa-a868-61f883006d43', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'April, 2022', 4, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-18 16:49:21', '2022-08-18 16:49:21'),
-('ae71628c-9ccf-46f0-a301-2db53dbec192', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'Desember, 2022', 12, 2022, '3630bc38-3357-453b-99c7-4470f7582b73', 0, '2022-08-23 14:06:03', '2022-08-23 14:06:03'),
-('c94da010-7392-41f8-8ebc-569f31185a30', 'c1f4e67c-bb94-4fa0-8d1d-360fac9ecfec', 'Januari, 2022', 1, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-31 14:16:20', '2022-08-31 14:16:20'),
-('de21cb98-6678-4c4b-9fd8-3a26953a7833', '0da11a43-78f5-4644-8bd9-5482635cc344', 'Agustus, 2022', 8, 2022, '6f9cfc36-8c14-4a51-ab89-abb4373fd90d', 0, '2022-08-14 00:32:36', '2022-08-14 00:32:36');
+('61d268f9-ea75-43fd-9f98-c82a17ee5c47', '36dd7f27-990e-4e51-bdac-43eedda25a7d', 'Januari, 2023', 1, 2023, '3630bc38-3357-453b-99c7-4470f7582b73', 0, '2023-01-20 23:34:29', '2023-01-20 23:34:29');
 
 -- --------------------------------------------------------
 
@@ -774,23 +742,8 @@ CREATE TABLE `spp_detail` (
 --
 
 INSERT INTO `spp_detail` (`id_spp_detail`, `id_spp_bulan_tahun`, `id_kolom_spp`, `nominal_spp`, `bayar_spp`, `sisa_bayar`, `status_bayar`, `created_at`, `updated_at`) VALUES
-('0283bfae-fce2-434c-be4f-5393af8ff47d', '92b0ab58-ba1c-45aa-a868-61f883006d43', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 10000, 10000, 0, 1, '2022-08-18 16:49:21', '2022-08-19 15:10:18'),
-('0acadab1-49a7-4749-b3c1-4818131af1d3', '89a58572-748f-4478-8ef1-4e4767cbf34b', '1971752f-5e6c-459f-8a13-c51327bb88e7', 200000, 0, 200000, 0, '2022-11-05 20:29:09', '2022-11-05 20:29:09'),
-('2d34944a-41a3-4fc3-87d6-63dc841d4ddc', '89a58572-748f-4478-8ef1-4e4767cbf34b', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 250000, 0, 250000, 0, '2022-11-05 20:29:09', '2022-11-05 20:29:09'),
-('31cf0d4e-3f26-426a-8770-aae6a105b321', '4a28b59d-ab74-4afb-9655-7dce5e489a9b', 'ef5d0504-3830-4fdc-ba8e-a9dc91aac6f5', 10000, 10000, 0, 1, '2022-08-14 00:32:36', '2022-08-19 15:10:18'),
-('483ce1ef-74c0-44de-bf2d-768f7c0f21c4', '89a58572-748f-4478-8ef1-4e4767cbf34b', '2825c71e-39e7-4a8f-b4bf-ee40218bc521', 350000, 0, 350000, 0, '2022-11-05 20:29:09', '2022-11-05 20:29:09'),
-('52c4867f-8a29-4e47-bc38-568c51216802', 'c94da010-7392-41f8-8ebc-569f31185a30', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 100000, 100000, 0, 1, '2022-08-31 14:16:20', '2022-08-31 14:18:09'),
-('53903714-dbb2-4730-86ea-8e2e6d3e88f7', '52af011b-831b-47df-92a1-1526ed6a4341', '2825c71e-39e7-4a8f-b4bf-ee40218bc521', 100000, 0, 100000, 0, '2022-12-09 00:30:15', '2022-12-09 00:30:15'),
-('5de19193-721b-4d9d-a22c-807c3e0a9648', 'de21cb98-6678-4c4b-9fd8-3a26953a7833', '60f3492f-d8be-4f29-9014-478d314fe4ef', 600000, 490000, 110000, 0, '2022-08-14 00:32:36', '2022-10-07 23:55:24'),
-('9c69d7dd-5690-4d0d-89c7-c6175a4f9990', '52af011b-831b-47df-92a1-1526ed6a4341', '46ee0905-2d06-48d7-bb43-15c07c8044c9', 100000, 100000, 0, 1, '2022-12-09 00:30:15', '2022-12-09 00:30:38'),
-('a1062176-1f98-4130-8040-27033c187e4f', '89a58572-748f-4478-8ef1-4e4767cbf34b', '60f3492f-d8be-4f29-9014-478d314fe4ef', 300000, 0, 300000, 0, '2022-11-05 20:29:09', '2022-11-05 20:29:09'),
-('a249e123-6828-4974-a969-c2a6a1e7ce48', 'ae71628c-9ccf-46f0-a301-2db53dbec192', '60f3492f-d8be-4f29-9014-478d314fe4ef', 100000, 0, 100000, 0, '2022-08-23 14:06:03', '2022-08-23 14:06:03'),
-('b24ec3ba-5866-468d-b836-2f6ab3ca55ba', 'de21cb98-6678-4c4b-9fd8-3a26953a7833', '1971752f-5e6c-459f-8a13-c51327bb88e7', 1000000, 480000, 520000, 0, '2022-08-14 00:32:36', '2022-10-07 23:55:24'),
-('c06faa15-e129-4042-96ef-074e5d1f85f1', '6e06b0fd-363c-4681-8931-83a31875d9b9', '60f3492f-d8be-4f29-9014-478d314fe4ef', 20000, 10000, 10000, 0, '2022-08-14 00:32:36', '2022-08-19 15:10:18'),
-('cdb25f0d-3d5e-49ff-b769-232ae32680a0', '325ec5a9-1f52-46f7-a96c-27a71fa5c5fe', '60f3492f-d8be-4f29-9014-478d314fe4ef', 1000000, 0, 1000000, 0, '2022-08-23 14:01:19', '2022-08-23 14:01:19'),
-('d59908d6-d51e-4a39-aac7-2043c28cc9b6', '6e06b0fd-363c-4681-8931-83a31875d9b9', '1971752f-5e6c-459f-8a13-c51327bb88e7', 50000, 0, 50000, 0, '2022-08-14 00:32:36', '2022-08-19 15:10:18'),
-('eb7a7027-31bc-4b25-8ebc-8c98c8bbb410', '89a58572-748f-4478-8ef1-4e4767cbf34b', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 100000, 100000, 0, 1, '2022-11-05 20:29:09', '2022-11-05 20:51:46'),
-('fd1ee16e-7ea7-4435-816a-323a9eeff722', '325ec5a9-1f52-46f7-a96c-27a71fa5c5fe', '1971752f-5e6c-459f-8a13-c51327bb88e7', 1000000, 0, 1000000, 0, '2022-08-23 14:01:19', '2022-08-23 14:01:19');
+('3b21f65a-f34e-46c5-a0d2-f699f35cacc2', '61d268f9-ea75-43fd-9f98-c82a17ee5c47', 'ca8c7b9a-5a58-4ea8-a3c4-8f5246cf72f9', 100000, 0, 100000, 0, '2023-01-20 23:34:29', '2023-01-21 02:05:58'),
+('fb0fbf59-6bf7-4125-9d13-af1ee8f5fe90', '61d268f9-ea75-43fd-9f98-c82a17ee5c47', '1971752f-5e6c-459f-8a13-c51327bb88e7', 100000, 100000, 0, 1, '2023-01-20 23:34:29', '2023-01-21 02:04:00');
 
 -- --------------------------------------------------------
 
@@ -872,7 +825,7 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `remember_token
 ('cdc9076d-b515-4de5-8bb5-bb18cb7f7c1b', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$bQAWZUOo.201E1r3AmNXDeqzcuXGIQH2POYfkcBOTIjLMD4mZd8cu', NULL, 0, 1, 0, NULL),
 ('d0c70a75-07df-44fb-9afe-f6449838ef79', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$IQheafLh31iarHDIfHm6MuGZZGglxRc/oyQBNSNvTXCrN9tkAvBgO', NULL, 0, 1, 0, NULL),
 ('d434f360-934f-4f2d-af76-5d2cdd798919', 'Mahmud', 'mahmud', '$2y$10$HsLyIHxR9HW6gvg/b53PHOVVNp1OXpYLwb6OoYydmTYy/3onBSmcW', '92LhQozMQQlQXSKay2WIdKEORQADxtKVNfe5N1MbPibmDKA7OdRAMs67YewY', 2, 1, 0, '2022-12-27 01:40:22'),
-('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$pknJ0F7OrOxtXjbI1.VgneDs5N6NPDM8OiK1s7zz3FPWJf9unvTJG', 'oDMqv1W9IqcQPC58RRWsbDeJhNpgdGIh1Tzpg8f5EG4wMyZo8Kfja0XMRn4R', 3, 1, 0, '2022-12-28 00:11:14'),
+('d4971513-6303-4248-bd27-dbb1a999b51e', 'Administrator', 'admin', '$2y$10$pknJ0F7OrOxtXjbI1.VgneDs5N6NPDM8OiK1s7zz3FPWJf9unvTJG', 'Vd4pmR0yvzhmoBCfz4yc1Tb3j19G3iUbFYlR70haru5Hr4eWxjoTSYC6YoLG', 3, 1, 0, '2023-01-18 23:11:47'),
 ('d9dd0013-0d43-4cf2-a994-79d21bd71aa2', 'Ortu Uchiha Bayu', '00088899912', '$2y$10$qzGQSOrVfnoW/8XnuV.tFeF5Yvifma3d6XL5FjfbKRNfEDtCh62HS', NULL, 0, 1, 0, NULL),
 ('e36f22fd-c164-4b05-a610-b9b12efa9dff', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$2ZmRQnTyM3EVg/WCPHyjhuu0DVNOQL.cQ5.9Vyjk7F0ax18oQ3VDy', NULL, 0, 1, 0, NULL),
 ('e44db3a7-2a2d-4a0c-bc84-cdb804be8513', 'Ortu Uchiha Sukirman', '00088899914', '$2y$10$XXHO2SzkWv1WVOUddXZ9ouVPKAxxDZsS.QtIoixm/rc2Erfa79jlW', NULL, 0, 1, 0, NULL),
@@ -1058,7 +1011,8 @@ ALTER TABLE `spp_bayar_data`
 ALTER TABLE `spp_bayar_detail`
   ADD PRIMARY KEY (`id_spp_bayar_detail`),
   ADD KEY `id_spp_bayar` (`id_spp_bayar`),
-  ADD KEY `id_kolom_spp` (`id_kolom_spp`);
+  ADD KEY `id_kolom_spp` (`id_kolom_spp`),
+  ADD KEY `id_kantin` (`id_kantin`);
 
 --
 -- Indexes for table `spp_bulan_tahun`
@@ -1211,7 +1165,8 @@ ALTER TABLE `spp_bayar_data`
 --
 ALTER TABLE `spp_bayar_detail`
   ADD CONSTRAINT `spp_bayar_detail_ibfk_1` FOREIGN KEY (`id_spp_bayar`) REFERENCES `spp_bayar` (`id_spp_bayar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `spp_bayar_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `spp_bayar_detail_ibfk_2` FOREIGN KEY (`id_kolom_spp`) REFERENCES `kolom_spp` (`id_kolom_spp`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `spp_bayar_detail_ibfk_3` FOREIGN KEY (`id_kantin`) REFERENCES `kantin` (`id_kantin`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Constraints for table `spp_bulan_tahun`

@@ -216,13 +216,11 @@
         })
 
         $('.jenis-bayar').change((e) => {
-            alert(e)
             setTimeout(() => {
                 $('.select2-container-active').removeClass('select2-container-active');
                 $(':focus').blur();
-                $('.spp-submit').submit()
+                $('.spp-submit').focus()
             }, 1);
-            // }
         })
     })
 </script>

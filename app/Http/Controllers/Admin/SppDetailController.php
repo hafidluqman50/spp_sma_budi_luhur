@@ -79,6 +79,8 @@ class SppDetailController extends Controller
             $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                         ->firstOrFail();
 
+            $id_kantin = $get_kantin->id_kantin;
+
             $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                                       ->where('id_kantin',$get_kantin->id_kantin)
                                                       ->count();
@@ -101,6 +103,9 @@ class SppDetailController extends Controller
 
                 $nominal = PemasukanKantin::create($data_pemasukan_kantin);
             }
+        }
+        else {
+            $id_kantin = null;
         }
 
         $data_spp_bayar_data = [
@@ -127,7 +132,8 @@ class SppDetailController extends Controller
             'id_spp_bayar'  => $id_spp_bayar,
             'id_kolom_spp'  => $spp_detail->id_kolom_spp,
             'nominal_bayar' => $bayar_spp,
-            'tanggal_bayar' => $tanggal_bayar
+            'tanggal_bayar' => $tanggal_bayar,
+            'id_kantin'     => $id_kantin
         ];
         SppBayarDetail::create($data_spp_bayar_detail);
 
@@ -218,12 +224,15 @@ class SppDetailController extends Controller
                     'id_spp_bayar'        => $id_spp_bayar,
                     'id_kolom_spp'        => $spp_detail->id_kolom_spp,
                     'nominal_bayar'       => $bayar_spp[$key],
-                    'tanggal_bayar'       => $tanggal_bayar
+                    'tanggal_bayar'       => $tanggal_bayar,
+                    'id_kantin'           => '',
                 ];
                 
                 if ($spp_detail->slug_kolom_spp == 'uang-makan') {
                     $get_kantin = SppBulanTahun::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
-                                                ->firstOrFail()->id_kantin;
+                                                ->firstOrFail();
+
+                    $data_spp_bayar_detail[$key]['id_kantin'] = $get_kantin->id_kantin;
 
                     $check_pemasukan_kantin = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                                               ->where('id_kantin',$get_kantin->id_kantin)
@@ -248,16 +257,19 @@ class SppDetailController extends Controller
                         $nominal = PemasukanKantin::create($data_pemasukan_kantin);
                     }
                 }
+                else {
+                    $data_spp_bayar_detail[$key]['id_kantin'] = null;
+                }
             }
 
             // Spp::where('id_spp',$get_id_spp)->update(['total_harus_bayar' => $total_harus_bayar]);
 
             $spp_row = SppDetail::getBayarById($id_detail[$key]);
 
-            $text_history = Auth::user()->name.' telah membayar SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom_spp.'</b> Sebesar <b>'.format_rupiah($bayar_spp[$key]).'</b> dan dengan total nominal bayar sebesar <b>'.format_rupiah($bayar_total).'</b>';
+            // $text_history = Auth::user()->name.' telah membayar SPP : <b> '.$spp_row->nama_siswa.' Kelas '.$spp_row->kelas.' Tahun Ajaran '.$spp_row->tahun_ajaran.'</b>. Bulan, Tahun : <b>'.$spp_row->bulan_tahun.'</b>, <b>'.$spp_row->nama_kolom_spp.'</b> Sebesar <b>'.format_rupiah($bayar_spp[$key]).'</b> dan dengan total nominal bayar sebesar <b>'.format_rupiah($bayar_total).'</b>';
 
-            $history = ['text' => $text_history,'status_terbaca' => 0];
-            HistoryProsesSpp::create($history);
+            // $history = ['text' => $text_history,'status_terbaca' => 0];
+            // HistoryProsesSpp::create($history);
         }
 
         $data_spp_bayar_data = [

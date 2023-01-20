@@ -114,27 +114,29 @@
                                     @php
                                         $no = $key+1;
                                     @endphp
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kolom Spp</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" value="{{ $value->nama_kolom_spp }}" readonly="readonly">
+                                    <div class="bayar-spp-layout" id-layout="{{ $no }}">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Kolom Spp</label>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" value="{{ $value->nama_kolom_spp }}" readonly="readonly">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Nominal Spp</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" value="{{ format_rupiah($value->sisa_bayar) }}" readonly="readonly">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Nominal Spp</label>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" value="{{ format_rupiah($value->sisa_bayar) }}" readonly="readonly">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Bayar</label>
-                                        <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}" bayar-spp-attr="{{ $key+1 }}" {{$key==0 ? 'autofocus' : ''}}>
-                                            <input type="hidden" class="old-nominal" value="0" id-kolom-spp="{{ $value->id_kolom_spp }}">
-                                            <label for="" class="label-bayar-kolom-spp" id-kolom-spp="{{ $value->id_kolom_spp }}"><b>Rp. 0,00</b></label>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Bayar</label>
+                                            <div class="col-7">
+                                                <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="{{ $value->id_kolom_spp }}" bayar-spp-attr="{{ $key+1 }}" {{$key==0 ? 'autofocus' : ''}}>
+                                                <input type="hidden" class="old-nominal" value="0" id-kolom-spp="{{ $value->id_kolom_spp }}">
+                                                <label for="" class="label-bayar-kolom-spp" id-kolom-spp="{{ $value->id_kolom_spp }}"><b>Rp. 0,00</b></label>
+                                            </div>
                                         </div>
+                                        <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">
                                     </div>
-                                    <input type="hidden" name="id_detail[]" value="{{ $value->id_spp_detail }}">
                                     <hr>
                                     @empty
                                     <div class="form-group row">

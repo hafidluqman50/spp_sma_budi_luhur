@@ -339,12 +339,6 @@ class DatatablesController extends Controller
                             // dd($spp_bayar);
 
         $datatables = Datatables::of($spp_bayar)->addColumn('action',function($action){
-            /*
-
-                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/retur-bayar/$action->id_spp_bayar_data").'" style="margin-right:1%;" onclick="return confirm(\'Yakin Retur Bayar ?\');">
-                              <button class="btn btn-warning"> Retur Bayar </button>
-                           </a>
-                           */
             if ($this->level == 'kepsek') {
                 $column = '<div>
                             <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data").'" style="margin-right:1%;">
@@ -359,6 +353,9 @@ class DatatablesController extends Controller
                            </a>
                             <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/cetak-struk/$action->id_spp_bayar_data").'" style="margin-right:1%;">
                               <button class="btn btn-success"> Cetak Struk </button>
+                           </a>
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/retur-bayar/$action->id_spp_bayar_data").'" style="margin-right:1%;" onclick="return confirm(\'Yakin Retur Bayar ?\');">
+                              <button class="btn btn-warning"> Retur Bayar </button>
                            </a>
                            <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/delete/$action->id_spp_bayar_data").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -388,7 +385,8 @@ class DatatablesController extends Controller
         })->editColumn('nominal_bayar',function($edit){
             return format_rupiah($edit->nominal_bayar);
         })->editColumn('kembalian',function($edit){
-            return format_rupiah($edit->kembalian);
+            $kembalian = $edit->nominal_bayar - $edit->total_biaya;
+            return format_rupiah($kembalian);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
         })->make(true);
@@ -415,6 +413,11 @@ class DatatablesController extends Controller
                             <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar").'" style="margin-right:1%;">
                               <button class="btn btn-info"> Lihat Detail Bayar </button>
                            </a>
+                           <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/delete/$action->id_spp_bayar").'" method="POST">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                           </form>
                        </div>';
             }
             return $column;
@@ -434,11 +437,14 @@ class DatatablesController extends Controller
                             ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
                             ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
                             ->where('spp_bayar_detail.id_spp_bayar',$id)
-                            ->get(['spp.id_spp','spp_bayar_detail.nominal_bayar','kolom_spp.nama_kolom_spp','spp_bayar_detail.tanggal_bayar','spp_bayar_data.id_spp_bayar_data','id_spp_bayar_detail']);
+                            ->get(['spp.id_spp','spp_bayar_detail.nominal_bayar','kolom_spp.nama_kolom_spp','spp_bayar_detail.tanggal_bayar','spp_bayar_detail.id_spp_bayar','spp_bayar_data.id_spp_bayar_data','id_spp_bayar_detail']);
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
             if ($this->level == 'admin') {
                 $column = '<div class="d-flex">
+                            <a href="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar/retur-bayar/$action->id_spp_bayar_detail").'" style="margin-right:1%;" onclick="return confirm(\'Yakin Retur Bayar ?\');">
+                              <button class="btn btn-warning"> Retur Bayar </button>
+                           </a>
                            <form action="'.url("/$this->level/spp/pembayaran/$action->id_spp/lihat-pembayaran/$action->id_spp_bayar_data/detail/$action->id_spp_bayar/delete/$action->id_spp_bayar_detail").'" method="POST">
                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                 <input type="hidden" name="_method" value="DELETE">

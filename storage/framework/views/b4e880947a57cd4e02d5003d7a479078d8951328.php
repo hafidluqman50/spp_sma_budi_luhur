@@ -84,9 +84,17 @@
                                     <td><?php echo e($kalkulasi); ?></td>
                                     <td>    
                                         <div class="d-flex">
+                                            <a href="<?php echo e(url("/admin/spp/pembayaran/$id/lihat-pembayaran/$element->id_spp_bayar_data/retur-bayar/$element->id_spp_bayar")); ?>" style="margin-right:1%;">
+                                              <button class="btn btn-warning" onclick="return confirm('Yakin Retur Pembayaran ?');"> Retur Bayar </button>
+                                           </a>
                                             <a href="<?php echo e(url("/admin/spp/pembayaran/$id/lihat-pembayaran/$element->id_spp_bayar_data/detail/$element->id_spp_bayar")); ?>" style="margin-right:1%;">
                                               <button class="btn btn-info"> Lihat Detail Bayar </button>
                                            </a>
+                                           <form action="<?php echo e(url("/admin/spp/pembayaran/$element->id_spp/lihat-pembayaran/$element->id_spp_bayar_data/delete/$element->id_spp_bayar")); ?>" method="POST">
+                                                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="btn btn-danger" onclick="return confirm('Delete ?');"> Delete </button>
+                                           </form>
                                         </div>
                                     </td>
                                 </tr>

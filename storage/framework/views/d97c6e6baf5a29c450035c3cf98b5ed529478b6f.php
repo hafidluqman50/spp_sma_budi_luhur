@@ -112,27 +112,29 @@
                                     <?php
                                         $no = $key+1;
                                     ?>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Kolom Spp</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e($value->nama_kolom_spp); ?>" readonly="readonly">
+                                    <div class="bayar-spp-layout" id-layout="<?php echo e($no); ?>">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Kolom Spp</label>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" value="<?php echo e($value->nama_kolom_spp); ?>" readonly="readonly">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Nominal Spp</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->sisa_bayar)); ?>" readonly="readonly">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Nominal Spp</label>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control" value="<?php echo e(format_rupiah($value->sisa_bayar)); ?>" readonly="readonly">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Bayar</label>
-                                        <div class="col-7">
-                                            <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>" bayar-spp-attr="<?php echo e($key+1); ?>" <?php echo e($key==0 ? 'autofocus' : ''); ?>>
-                                            <input type="hidden" class="old-nominal" value="0" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
-                                            <label for="" class="label-bayar-kolom-spp" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>"><b>Rp. 0,00</b></label>
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Bayar</label>
+                                            <div class="col-7">
+                                                <input type="number" name="bayar_spp[]" class="form-control bayar-spp" placeholder="Isi Jumlah Bayar" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>" bayar-spp-attr="<?php echo e($key+1); ?>" <?php echo e($key==0 ? 'autofocus' : ''); ?>>
+                                                <input type="hidden" class="old-nominal" value="0" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>">
+                                                <label for="" class="label-bayar-kolom-spp" id-kolom-spp="<?php echo e($value->id_kolom_spp); ?>"><b>Rp. 0,00</b></label>
+                                            </div>
                                         </div>
+                                        <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
                                     </div>
-                                    <input type="hidden" name="id_detail[]" value="<?php echo e($value->id_spp_detail); ?>">
                                     <hr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <div class="form-group row">
@@ -249,11 +251,15 @@
             let val         = $(this).val()
             let total_biaya = $('#total-biaya').val()
             
-            $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            if (val != '') {
+                $('#bayar-total-label').html(`<b>${rupiah_format(val)}</b>`)
+            }
+
             if (parseInt(val) > parseInt(total_biaya)) {
                 $('#kembalian').val(parseInt(val) - parseInt(total_biaya))
                 $('#kembalian-label').html(`<b>${rupiah_format(parseInt(val) - parseInt(total_biaya))}</b>`)
             }
+            
             if (parseInt(val) == parseInt(total_biaya)) {
                 $('#kembalian').val(0)
                 $('#kembalian-label').html(`<b>${rupiah_format(0)}</b>`)

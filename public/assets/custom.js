@@ -332,7 +332,8 @@ $(() => {
             }},
             {data:'nama_kolom_spp',name:'nama_kolom_spp'},
             {data:'nominal_bayar',name:'nominal_bayar'},
-            {data:'tanggal_bayar',name:'tanggal_bayar'}
+            {data:'tanggal_bayar',name:'tanggal_bayar'},
+            {data:'action',name:'action',searchable:false,orderable:false}
         ],
         scrollCollapse: true,
         columnDefs: [ {

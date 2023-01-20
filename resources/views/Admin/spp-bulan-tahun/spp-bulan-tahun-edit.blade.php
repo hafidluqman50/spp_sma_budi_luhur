@@ -296,6 +296,21 @@
         })
 
         $(document).on('keydown','input[name="nominal_spp[]"]',function(e){
+            var attr = parseInt($(this).attr('nominal-id'))
+            if (e.key === 'Enter') {
+                e.preventDefault()
+                
+                if ($(`.kolom-spp[kolom-id="${attr+1}"]`).length == 1) {
+                    let selectized = $(`.kolom-spp[kolom-id="${attr+1}"]`).selectize()
+                    selectized[0].selectize.focus()
+                }
+                else {
+                    $('#tambah-input').focus()
+                }
+            }
+        })
+
+        $(document).on('keyup','input[name="nominal_spp[]"]',function(e){
             var val  = $(this).val()
             var attr = parseInt($(this).attr('nominal-id'))
             if (val == '') {
@@ -303,17 +318,6 @@
             }
             else {
                 $(`.label-nominal-spp[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
-                if (e.key === 'Enter') {
-                    e.preventDefault()
-                    
-                    if ($(`.kolom-spp[kolom-id="${attr+1}"]`).length == 1) {
-                        let selectized = $(`.kolom-spp[kolom-id="${attr+1}"]`).selectize()
-                        selectized[0].selectize.focus()
-                    }
-                    else {
-                        $('#tambah-input').focus()
-                    }
-                }
             }
         })
 
@@ -330,6 +334,21 @@
         })
 
         $(document).on('keydown','input[name="nominal_spp_hide[]"]',function(e){
+            var attr = parseInt($(this).attr('nominal-id'))
+            if (e.key === 'Enter') {
+                e.preventDefault()
+                
+                if ($(`.kolom-spp-hide[kolom-id="${attr+1}"]`).length == 1) {
+                    let selectized = $(`.kolom-spp-hide[kolom-id="${attr+1}"]`).selectize()
+                    selectized[0].selectize.focus()
+                }
+                else {
+                    $('#tambah-input').focus()
+                }
+            }
+        })
+
+        $(document).on('keyup','input[name="nominal_spp_hide[]"]',function(e){
             var val  = $(this).val()
             var attr = $(this).attr('nominal-id')
             if (val == '') {
@@ -337,17 +356,6 @@
             }
             else {
                 $(`.label-nominal-spp-hide[nominal-id="${attr}"]`).html(`<b>${rupiah_format(val)}</b>`)   
-                if (e.key === 'Enter') {
-                    e.preventDefault()
-                    
-                    if ($(`.kolom-spp-hide[kolom-id="${attr+1}"]`).length == 1) {
-                        let selectized = $(`.kolom-spp-hide[kolom-id="${attr+1}"]`).selectize()
-                        selectized[0].selectize.focus()
-                    }
-                    else {
-                        $('#tambah-input').focus()
-                    }
-                }
             }
         })
 

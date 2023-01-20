@@ -72,6 +72,7 @@
                                 <th>Pembayaran SPP</th>
                                 <th>Nominal Bayar</th>
                                 <th>Tanggal Bayar</th>
+                                <th>#</th>
                             </tr>
                             </thead>
                             <tbody>

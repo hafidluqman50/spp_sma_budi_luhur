@@ -323,10 +323,12 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/spp/pembayaran/{id}/retur-bayar/{id_spp_bayar_data}',[AdminSppBayarDataController::class, 'returBayar']);
 
     Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}',[AdminSppBayarController::class, 'index']);
-    Route::delete('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/delete/{id_detail}',[AdminSppBayarController::class, 'delete']);
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/retur-bayar/{id_spp_bayar}',[AdminSppBayarController::class, 'returBayar']);
+    Route::delete('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/delete/{id_spp_bayar}',[AdminSppBayarController::class, 'delete']);
 
     Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}',[AdminSppBayarDetailController::class, 'index']);
-    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[AdminSppBayarDetailController::class, 'delete']);
+    Route::get('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}/retur-bayar/{id_spp_bayar_detail}',[AdminSppBayarDetailController::class, 'returBayar']);
+    Route::delete('/spp/pembayaran/{id}/lihat-pembayaran/{id_spp_bayar_data}/detail/{id_spp_bayar}/delete/{id_spp_bayar_detail}',[AdminSppBayarDetailController::class, 'delete']);
     // END ROUTE SPP LIHAT PEMBAYARAN //
 
     // ROUTE SPP LIHAT PEMASUKAN KANTIN //
