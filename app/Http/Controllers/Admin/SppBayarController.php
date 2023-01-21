@@ -99,6 +99,9 @@ class SppBayarController extends Controller
                 SppDetail::where('id_spp_bulan_tahun',$value->id_spp_bulan_tahun)
                         ->where('id_kolom_spp',$val->id_kolom_spp)
                         ->update($data_spp_detail);
+
+                SppBayarDetail::where('id_spp_bayar_detail',$val->id_spp_bayar_detail)
+                            ->update(['nominal_bayar' => 0]);
             }
         }
 

@@ -219,7 +219,7 @@ class SppDetailController extends Controller
             SppDetail::where('id_spp_detail',$id_detail[$key])
                     ->update($data_spp_detail);
             if ($bayar_spp[$key] != null) {
-                $data_spp_bayar_detail[] = [
+                $data_spp_bayar_detail[$key] = [
                     'id_spp_bayar_detail' => (string)Str::uuid(),
                     'id_spp_bayar'        => $id_spp_bayar,
                     'id_kolom_spp'        => $spp_detail->id_kolom_spp,
@@ -242,7 +242,7 @@ class SppDetailController extends Controller
                                                     ->where('id_kantin',$get_kantin->id_kantin)
                                                     ->firstOrFail()->nominal_pemasukan;
 
-                        $nominal_kalkulasi = $nominal_lama + $bayar_spp;
+                        $nominal_kalkulasi = $nominal_lama + $bayar_spp[$key];
                         $nominal = PemasukanKantin::where('id_spp_bulan_tahun',$spp_detail->id_spp_bulan_tahun)
                                                     ->where('id_kantin',$get_kantin->id_kantin)
                                                     ->update(['nominal_pemasukan' => $nominal_kalkulasi]);

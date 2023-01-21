@@ -437,7 +437,7 @@ class DatatablesController extends Controller
                             ->join('spp_bayar_data','spp_bayar.id_spp_bayar_data','=','spp_bayar_data.id_spp_bayar_data')
                             ->join('spp','spp_bayar_data.id_spp','=','spp.id_spp')
                             ->where('spp_bayar_detail.id_spp_bayar',$id)
-                            ->get(['spp.id_spp','spp_bayar_detail.nominal_bayar','kolom_spp.nama_kolom_spp','spp_bayar_detail.tanggal_bayar','spp_bayar_detail.id_spp_bayar','spp_bayar_data.id_spp_bayar_data','id_spp_bayar_detail']);
+                            ->get(['spp.id_spp','spp_bayar_detail.nominal_bayar','kolom_spp.nama_kolom_spp','spp_bayar_detail.tanggal_bayar','spp_bayar_detail.id_spp_bayar','spp_bayar_data.id_spp_bayar_data','id_spp_bayar_detail','id_kantin']);
 
         $datatables = Datatables::of($spp_bayar_detail)->addColumn('action',function($action){
             if ($this->level == 'admin') {
@@ -460,6 +460,16 @@ class DatatablesController extends Controller
             return format_rupiah($edit->nominal_bayar);
         })->editColumn('tanggal_bayar',function($edit){
             return human_date($edit->tanggal_bayar);
+        })->addColumn('ket_detail',function($add){
+            if ($add->id_kantin != '') {
+                $get_kantin = Kantin::where('id_kantin',$add->id_kantin)->firstOrFail();
+                $ket_detail = 'Bayar Untuk '.$get_kantin->nama_kantin;
+            }
+            else {
+                $ket_detail = ' - ';
+            }
+
+            return $ket_detail;
         })->make(true);
         return $datatables;
     }
