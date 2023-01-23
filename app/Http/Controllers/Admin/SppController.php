@@ -254,14 +254,21 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('J6','10000');
         $spreadsheet->getActiveSheet()->setCellValue('K6','10000');
         $spreadsheet->getActiveSheet()->setCellValue('L6','sudah-lunas');
-        $spreadsheet->getActiveSheet()->mergeCells('A4:A6');
-        $spreadsheet->getActiveSheet()->mergeCells('B4:B6');
-        $spreadsheet->getActiveSheet()->mergeCells('C4:C6');
-        $spreadsheet->getActiveSheet()->mergeCells('D4:D6');
-        $spreadsheet->getActiveSheet()->mergeCells('E4:E6');
+        $spreadsheet->getActiveSheet()->setCellValue('I7','Uang Makan');
+        $spreadsheet->getActiveSheet()->setCellValue('J7','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('K7','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('L7','sudah-lunas');
+        $spreadsheet->getActiveSheet()->mergeCells('A4:A7');
+        $spreadsheet->getActiveSheet()->mergeCells('B4:B7');
+        $spreadsheet->getActiveSheet()->mergeCells('C4:C7');
+        $spreadsheet->getActiveSheet()->mergeCells('D4:D7');
+        $spreadsheet->getActiveSheet()->mergeCells('E4:E7');
         $spreadsheet->getActiveSheet()->mergeCells('F4:F5');
         $spreadsheet->getActiveSheet()->mergeCells('G4:G5');
         $spreadsheet->getActiveSheet()->mergeCells('H4:H5');
+        $spreadsheet->getActiveSheet()->mergeCells('F6:F7');
+        $spreadsheet->getActiveSheet()->mergeCells('G6:G7');
+        $spreadsheet->getActiveSheet()->mergeCells('H6:H7');
 
         $styleAlignment = [
                         'alignment' => [
@@ -269,7 +276,7 @@ class SppController extends Controller
                             'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
                         ]];
 
-        $spreadsheet->getActiveSheet()->getStyle('A1:K6')->applyFromArray($styleAlignment);
+        $spreadsheet->getActiveSheet()->getStyle('A1:L7')->applyFromArray($styleAlignment);
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
@@ -294,10 +301,12 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('H1','Total Bayar');
         $spreadsheet->getActiveSheet()->setCellValue('I1','Kembalian');
         $spreadsheet->getActiveSheet()->setCellValue('J1','Keterangan');
-        $spreadsheet->getActiveSheet()->setCellValue('K1','Bulan');
-        $spreadsheet->getActiveSheet()->setCellValue('L1','Tahun');
-        $spreadsheet->getActiveSheet()->setCellValue('M1','SPP');
-        $spreadsheet->getActiveSheet()->setCellValue('N1','Nominal Bayar');
+        $spreadsheet->getActiveSheet()->setCellValue('K1','Jenis Bayar');
+        $spreadsheet->getActiveSheet()->setCellValue('L1','Bulan');
+        $spreadsheet->getActiveSheet()->setCellValue('M1','Tahun');
+        $spreadsheet->getActiveSheet()->setCellValue('N1','SPP');
+        $spreadsheet->getActiveSheet()->setCellValue('O1','Nominal Bayar');
+        $spreadsheet->getActiveSheet()->setCellValue('P1','Bayar Kantin');
 
         $spreadsheet->getActiveSheet()->setCellValue('A2','1');
         $spreadsheet->getActiveSheet()->setCellValue('B2','00088899912');
@@ -309,12 +318,13 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('H2',"30000");
         $spreadsheet->getActiveSheet()->setCellValue('I2','0');
         $spreadsheet->getActiveSheet()->setCellValue('J2','Pembayaran SPP Bulan Agustus');
-        $spreadsheet->getActiveSheet()->setCellValue('K2','Agustus');
-        $spreadsheet->getActiveSheet()->setCellValue('L2','2022');
-        $spreadsheet->getActiveSheet()->setCellValue('M2','Pembayaran Gedung');
-        $spreadsheet->getActiveSheet()->setCellValue('N2','10000');
-        $spreadsheet->getActiveSheet()->setCellValue('M3','Pembayaran Akademik');
-        $spreadsheet->getActiveSheet()->setCellValue('N3','20000');
+        $spreadsheet->getActiveSheet()->setCellValue('K2','cash');
+        $spreadsheet->getActiveSheet()->setCellValue('L2','Agustus');
+        $spreadsheet->getActiveSheet()->setCellValue('M2','2022');
+        $spreadsheet->getActiveSheet()->setCellValue('N2','Pembayaran Gedung');
+        $spreadsheet->getActiveSheet()->setCellValue('O2','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('N3','Pembayaran Akademik');
+        $spreadsheet->getActiveSheet()->setCellValue('O3','20000');
         $spreadsheet->getActiveSheet()->mergeCells('A2:A3');
         $spreadsheet->getActiveSheet()->mergeCells('B2:B3');
         $spreadsheet->getActiveSheet()->mergeCells('C2:C3');
@@ -327,6 +337,7 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->mergeCells('J2:J3');
         $spreadsheet->getActiveSheet()->mergeCells('K2:K3');
         $spreadsheet->getActiveSheet()->mergeCells('L2:L3');
+        $spreadsheet->getActiveSheet()->mergeCells('M2:M3');
 
         $spreadsheet->getActiveSheet()->setCellValue('A4','2');
         $spreadsheet->getActiveSheet()->setCellValue('B4','00088899913');
@@ -338,28 +349,34 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->setCellValue('H4',"70000");
         $spreadsheet->getActiveSheet()->setCellValue('I4','20000');
         $spreadsheet->getActiveSheet()->setCellValue('J4','Pembayaran September - Oktober 2022');
-        $spreadsheet->getActiveSheet()->setCellValue('K4','September');
-        $spreadsheet->getActiveSheet()->setCellValue('L4','2022');
-        $spreadsheet->getActiveSheet()->setCellValue('M4','Pembayaran Akademik');
-        $spreadsheet->getActiveSheet()->setCellValue('N4','20000');
-        $spreadsheet->getActiveSheet()->setCellValue('M5','Pembayaran Gedung');
-        $spreadsheet->getActiveSheet()->setCellValue('N5','10000');
-        $spreadsheet->getActiveSheet()->setCellValue('K6','Oktober');
-        $spreadsheet->getActiveSheet()->setCellValue('L6','2022');
-        $spreadsheet->getActiveSheet()->setCellValue('M6','Pembayaran Fasilitas');
-        $spreadsheet->getActiveSheet()->setCellValue('N6','10000');
-        $spreadsheet->getActiveSheet()->mergeCells('A4:A6');
-        $spreadsheet->getActiveSheet()->mergeCells('B4:B6');
-        $spreadsheet->getActiveSheet()->mergeCells('C4:C6');
-        $spreadsheet->getActiveSheet()->mergeCells('D4:D6');
-        $spreadsheet->getActiveSheet()->mergeCells('E4:E6');
-        $spreadsheet->getActiveSheet()->mergeCells('F4:F6');
-        $spreadsheet->getActiveSheet()->mergeCells('G4:G6');
-        $spreadsheet->getActiveSheet()->mergeCells('H4:H6');
-        $spreadsheet->getActiveSheet()->mergeCells('I4:I6');
-        $spreadsheet->getActiveSheet()->mergeCells('J4:J6');
-        $spreadsheet->getActiveSheet()->mergeCells('K4:K5');
+        $spreadsheet->getActiveSheet()->setCellValue('K4','cash');
+        $spreadsheet->getActiveSheet()->setCellValue('L4','September');
+        $spreadsheet->getActiveSheet()->setCellValue('M4','2022');
+        $spreadsheet->getActiveSheet()->setCellValue('N4','Pembayaran Akademik');
+        $spreadsheet->getActiveSheet()->setCellValue('O4','20000');
+        $spreadsheet->getActiveSheet()->setCellValue('N5','Pembayaran Gedung');
+        $spreadsheet->getActiveSheet()->setCellValue('O5','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('L6','Oktober');
+        $spreadsheet->getActiveSheet()->setCellValue('M6','2022');
+        $spreadsheet->getActiveSheet()->setCellValue('N6','Pembayaran Fasilitas');
+        $spreadsheet->getActiveSheet()->setCellValue('O6','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('N7','Uang Makan');
+        $spreadsheet->getActiveSheet()->setCellValue('O7','10000');
+        $spreadsheet->getActiveSheet()->setCellValue('P7','Kantin Pak Mamat');
+        $spreadsheet->getActiveSheet()->mergeCells('A4:A7');
+        $spreadsheet->getActiveSheet()->mergeCells('B4:B7');
+        $spreadsheet->getActiveSheet()->mergeCells('C4:C7');
+        $spreadsheet->getActiveSheet()->mergeCells('D4:D7');
+        $spreadsheet->getActiveSheet()->mergeCells('E4:E7');
+        $spreadsheet->getActiveSheet()->mergeCells('F4:F7');
+        $spreadsheet->getActiveSheet()->mergeCells('G4:G7');
+        $spreadsheet->getActiveSheet()->mergeCells('H4:H7');
+        $spreadsheet->getActiveSheet()->mergeCells('I4:I7');
+        $spreadsheet->getActiveSheet()->mergeCells('J4:J7');
+        $spreadsheet->getActiveSheet()->mergeCells('K4:K7');
         $spreadsheet->getActiveSheet()->mergeCells('L4:L5');
+        $spreadsheet->getActiveSheet()->mergeCells('L6:L7');
+        $spreadsheet->getActiveSheet()->mergeCells('M6:M7');
 
         $styleAlignment = [
                         'alignment' => [
@@ -367,7 +384,7 @@ class SppController extends Controller
                             'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
                         ]];
 
-        $spreadsheet->getActiveSheet()->getStyle('A1:N6')->applyFromArray($styleAlignment);
+        $spreadsheet->getActiveSheet()->getStyle('A1:O7')->applyFromArray($styleAlignment);
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
@@ -382,6 +399,7 @@ class SppController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
 
         $spreadsheet->createSheet();
         $spreadsheet->setActiveSheetIndex(2)->setTitle('PEMASUKAN KANTIN');
@@ -529,7 +547,7 @@ class SppController extends Controller
                                                                           ->where('bulan_tahun',$cells[5]->getValue().', '.$cells[6]->getValue())
                                                                           ->count();
                                     $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[7]->getValue(),'-'))->get()[0]->id_kantin;
-                                    
+
                                     if ($count_spp_bulan_tahun == 0) {
                                         $data_spp_bulan_tahun = [
                                             'id_spp'        => $get_id_spp,
@@ -661,6 +679,7 @@ class SppController extends Controller
                                         'nominal_bayar'        => $cells[7]->getValue(),
                                         'kembalian'            => $cells[8]->getValue(),
                                         'keterangan_bayar_spp' => $cells[9]->getValue(),
+                                        'jenis_bayar'          => $cells[10]->getValue(),
                                         'id_users'             => auth()->user()->id_users
                                     ];
                                     SppBayarData::firstOrCreate($data_spp_bayar_data);
@@ -680,7 +699,7 @@ class SppController extends Controller
                                 if ($cells[10]->getValue() != '' && $cells[11]->getValue() != '') {
                                     // $get_id_spp_bayar_ = (string)Str::uuid();
                                     $get_id_spp_bulan_tahun_ = SppBulanTahun::where('id_spp',$get_id_spp_)
-                                                                            ->where('bulan_tahun',$cells[10]->getValue().', '.$cells[11]->getValue())
+                                                                            ->where('bulan_tahun',$cells[11]->getValue().', '.$cells[12]->getValue())
                                                                             ->get()[0]->id_spp_bulan_tahun;
 
                                     $data_spp_bayar = [
@@ -694,14 +713,22 @@ class SppController extends Controller
                                                                  ->where('id_spp_bayar_data',$get_id_spp_bayar_data_)
                                                                  ->get()[0]->id_spp_bayar;
 
-                                    $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[12]->getValue(),'-'))
+                                    $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[13]->getValue(),'-'))
                                                          ->get()[0]->id_kolom_spp;
 
+                                    if ($cells[15]->getValue() == '') {
+                                        $id_kantin == '';
+                                    }
+                                    else {
+                                        $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[15]->getValue(),'-'))->firstOrFail()->id_kantin;
+                                    }
+                                    
                                     $data_spp_bayar_detail = [
                                         'id_spp_bayar'  => $get_id_spp_bayar_,
                                         'tanggal_bayar' => $get_tanggal_bayar_ == '' ? $session_tanggal_bayar_ : $get_tanggal_bayar_,
                                         'id_kolom_spp'  => $id_kolom_spp,
-                                        'nominal_bayar' => $cells[13]->getValue()
+                                        'nominal_bayar' => $cells[14]->getValue(),
+                                        'id_kantin'     => $id_kantin
                                     ];
                                     SppBayarDetail::firstOrCreate($data_spp_bayar_detail);
                                 }
@@ -709,15 +736,24 @@ class SppController extends Controller
                                     $get_id_spp_bayar_ = session()->get('pembayaran')['id_spp_bayar'];
                                     // $spp_bayar_detail_row = SppBayar::where('id_spp_bayar',$get_id_spp_bayar_)->get()[0];
 
-                                    $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[12]->getValue(),'-'))
+                                    $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[13]->getValue(),'-'))
                                                          ->get()[0]->id_kolom_spp;
-                                                         
+
+                                    if ($cells[15]->getValue() == '') {
+                                        $id_kantin == '';
+                                    }
+                                    else {
+                                        $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[15]->getValue(),'-'))->firstOrFail()->id_kantin;
+                                    }
+
                                     $data_spp_bayar_detail = [
                                         'id_spp_bayar'  => $get_id_spp_bayar_,
                                         'tanggal_bayar' => $get_tanggal_bayar_ == '' ? $session_tanggal_bayar_ : $get_tanggal_bayar_,
                                         'id_kolom_spp'  => $id_kolom_spp,
-                                        'nominal_bayar' => $cells[13]->getValue()
+                                        'nominal_bayar' => $cells[14]->getValue(),
+                                        'id_kantin'     => $id_kantin
                                     ];
+
                                     SppBayarDetail::firstOrCreate($data_spp_bayar_detail);
                                 }
 
@@ -913,6 +949,7 @@ class SppController extends Controller
                                     'nominal_bayar'        => $cells[7]->getValue(),
                                     'kembalian'            => $cells[8]->getValue(),
                                     'keterangan_bayar_spp' => $cells[9]->getValue(),
+                                    'jenis_bayar'          => $cells[10]->getValue(),
                                     'id_users'             => auth()->user()->id_users
                                 ];
                                 SppBayarData::firstOrCreate($data_spp_bayar_data);
@@ -932,7 +969,7 @@ class SppController extends Controller
                             if ($cells[10]->getValue() != '' && $cells[11]->getValue() != '') {
                                 // $get_id_spp_bayar_ = (string)Str::uuid();
                                 $get_id_spp_bulan_tahun_ = SppBulanTahun::where('id_spp',$get_id_spp_)
-                                                                        ->where('bulan_tahun',$cells[10]->getValue().', '.$cells[11]->getValue())
+                                                                        ->where('bulan_tahun',$cells[11]->getValue().', '.$cells[12]->getValue())
                                                                         ->get()[0]->id_spp_bulan_tahun;
 
                                 $data_spp_bayar = [
@@ -946,14 +983,22 @@ class SppController extends Controller
                                                              ->where('id_spp_bayar_data',$get_id_spp_bayar_data_)
                                                              ->get()[0]->id_spp_bayar;
 
-                                $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[12]->getValue(),'-'))
+                                $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[13]->getValue(),'-'))
                                                      ->get()[0]->id_kolom_spp;
+                                // ddd($cells);
+                                if ($cells[15]->getValue() == '') {
+                                    $id_kantin == '';
+                                }
+                                else {
+                                    $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[15]->getValue(),'-'))->firstOrFail()->id_kantin;
+                                }
 
                                 $data_spp_bayar_detail = [
                                     'id_spp_bayar'  => $get_id_spp_bayar_,
                                     'tanggal_bayar' => $get_tanggal_bayar_ == '' ? $session_tanggal_bayar_ : $get_tanggal_bayar_,
                                     'id_kolom_spp'  => $id_kolom_spp,
-                                    'nominal_bayar' => $cells[13]->getValue()
+                                    'nominal_bayar' => $cells[14]->getValue(),
+                                    'id_kantin'     => $id_kantin
                                 ];
                                 SppBayarDetail::firstOrCreate($data_spp_bayar_detail);
                             }
@@ -961,15 +1006,24 @@ class SppController extends Controller
                                 $get_id_spp_bayar_ = session()->get('pembayaran')['id_spp_bayar'];
                                 // $spp_bayar_detail_row = SppBayar::where('id_spp_bayar',$get_id_spp_bayar_)->get()[0];
 
-                                $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[12]->getValue(),'-'))
+                                $id_kolom_spp = KolomSpp::where('slug_kolom_spp',Str::slug($cells[13]->getValue(),'-'))
                                                      ->get()[0]->id_kolom_spp;
                                                      
+                                if ($cells[15]->getValue() == '') {
+                                    $id_kantin == '';
+                                }
+                                else {
+                                    $id_kantin = Kantin::where('slug_nama_kantin',Str::slug($cells[15]->getValue(),'-'))->firstOrFail()->id_kantin;
+                                }
+
                                 $data_spp_bayar_detail = [
                                     'id_spp_bayar'  => $get_id_spp_bayar_,
                                     'tanggal_bayar' => $get_tanggal_bayar_ == '' ? $session_tanggal_bayar_ : $get_tanggal_bayar_,
                                     'id_kolom_spp'  => $id_kolom_spp,
-                                    'nominal_bayar' => $cells[13]->getValue()
+                                    'nominal_bayar' => $cells[14]->getValue(),
+                                    'id_kantin'     => $id_kantin
                                 ];
+
                                 SppBayarDetail::firstOrCreate($data_spp_bayar_detail);
                             }
 
