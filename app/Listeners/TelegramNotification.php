@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\TelegramEvents;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Telegram;
 
 class TelegramNotification
 {

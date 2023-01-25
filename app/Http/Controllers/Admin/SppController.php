@@ -264,6 +264,6 @@ class SppController extends Controller
 
     public function commandHandleWebHook()
     {
-        event(new TelegramEvents);
+        // event(new TelegramEvents);
     }
 }
