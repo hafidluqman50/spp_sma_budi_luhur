@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\TelegramEvents;
+use App\Listeners\TelegramNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        TelegramEvents::class => [
+            TelegramNotification::class
+        ]
     ];
 
     /**
@@ -27,6 +32,12 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Event::listen(
+        //     TelegramEvents::class
+        // );
+
+        // Event::listen(function(TelegramEvents $events){
+        //     echo "oke";
+        // });
     }
 }

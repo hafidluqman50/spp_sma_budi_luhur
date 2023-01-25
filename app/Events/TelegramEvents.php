@@ -19,9 +19,10 @@ class TelegramEvents
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
+    public $data;
+    public function __construct($param = 'oke')
+    {   
+        $this->data = $param;
     }
 
     /**
