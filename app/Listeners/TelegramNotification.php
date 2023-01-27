@@ -48,15 +48,30 @@ class TelegramNotification
             TelegramData::create($data_telegram);
         }
 
+        if ($get_message == '/info_tunggakan') {
+            
+        }
+
         $check = TelegramData::where('chat_id',$chat_id)->where('text','start')->count();
         if ($check > 0) {
             $check_numeric = is_numeric($get_message);
             if ($check_numeric) {
-                TelegramData::where('chat_id',$chat_id)->update(['nomor_hp' => $get_message]);
+                TelegramData::where('chat_id',$chat_id)->update(['text' => 'terdaftar', 'nomor_hp' => $get_message]);
+                
+                $text_message = 'Nomor Hp Orang Tua Telah Terdata Untuk Notifikasi,
+                
+*Mohon Dipantau Tiap Bulan Bot Telegram Ini Untuk Mendapatkan Notifikasi Tunggakan Siswa*,
 
+*Mohon Hubungi Nomor Petugas SPP Berikut Bila Mengalami Kendala Terkait Pembayaran 
+
+Via WA ataupun Telepon : *```082331567930```
+
+_Terima kasih :)_';
+                
                 Telegram::sendMessage([
-                    'chat_id' => $chat_id,
-                    'text'    => 'Nomor Hp Orang Tua Telah Terdata Untuk Notifikasi, Mohon Dipantau Tiap Bulan Bot Telegram Ini Untuk Mendapatkan Notifikasi Tunggakan Siswa, Terima kasih :)'
+                    'chat_id'    => $chat_id,
+                    'text'       => $text_message,
+                    'parse_mode' => 'Markdown'
                 ]);
             }
         }
