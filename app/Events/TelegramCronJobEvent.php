@@ -9,8 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\TelegramData;
 
-class TelegramEvents
+class TelegramCronJobEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,10 +20,10 @@ class TelegramEvents
      *
      * @return void
      */
-    public $data;
-    public function __construct($param = '')
-    {   
-        $this->data = $param;
+    public $telegram_data;
+    public function __construct()
+    {
+        
     }
 
     /**

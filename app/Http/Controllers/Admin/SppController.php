@@ -264,16 +264,6 @@ class SppController extends Controller
 
     public function commandHandleWebHook()
     {
-        $update   = Telegram::commandsHandler(true);
-        $chat_id  = $update->getChat()->getId();
-        $username = $update->getChat()->getFirstName();
-
-        if ($update->getMessage()->getText() == '/start') {
-            Telegram::sendMessage([
-                'chat_id' => $chat_id,
-                'text'    => 'Test Event Laravel'
-            ]);
-        }
-        // event(new TelegramEvents);
+        event(new TelegramEvents);
     }
 }
