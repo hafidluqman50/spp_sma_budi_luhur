@@ -58,8 +58,8 @@ class TelegramNotification
         if ($get_message == '/info_tunggakan') {
             $check = TelegramData::where('chat_id',$chat_id)->where('nomor_hp','!=',null)->count();
             if ($check > 0) {
-                TelegramData::where('chat_id',$chat_id)->update(['text' => 'info_tunggakan']);
-                
+                // TelegramData::where('chat_id',$chat_id)->update(['text' => 'info_tunggakan']);
+
                 $get_row   = TelegramData::where('chat_id',$chat_id)->firstOrFail();
                 $get_siswa = Siswa::where('nomor_hp_ortu',$get_row->nomor_hp)->get();
                 $message = '';
@@ -67,7 +67,8 @@ class TelegramNotification
                     $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
 
 ';
-                    $kelas = KelasSiswa::join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
+                    $kelas = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
+                                        ->join('kelas','kelas_siswa.id_kelas','=','kelas.id_kelas')
                                         ->where('id_siswa',$value->id_siswa)
                                         ->get();
                     foreach ($kelas as $i => $v) {
@@ -84,7 +85,7 @@ Rincian Tunggakan :
                                                                 ->sum('sisa_bayar');
 
                             $message .= 'Bulan, Tahun : *'.$data->bulan_tahun.'* 
-Jumlah Tunggakan : *'.$jumlah_tunggakan_bulan.'*
+Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
 
 ';
                         }
@@ -94,8 +95,8 @@ Jumlah Tunggakan : *'.$jumlah_tunggakan_bulan.'*
                             ->where('id_kelas_siswa',$v->id_kelas_siswa)
                             ->sum('sisa_bayar');
 
-                        $message .= 'Jumlah Keseluruhan : *'.$sum.'* 
-
+                        $message .= 'Jumlah Keseluruhan : *'.format_rupiah($sum).'* 
+=====================================================
 ';
                     }
                 }
