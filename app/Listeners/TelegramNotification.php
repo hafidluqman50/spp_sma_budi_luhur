@@ -61,7 +61,7 @@ class TelegramNotification
                 // TelegramData::where('chat_id',$chat_id)->update(['text' => 'info_tunggakan']);
 
                 $get_row   = TelegramData::where('chat_id',$chat_id)->firstOrFail();
-                $get_siswa = Siswa::where('nomor_hp_ortu',$get_row->nomor_hp)->get();
+                $get_siswa = Siswa::where('nomor_orang_tua',$get_row->nomor_hp)->get();
                 $message = '';
                 foreach ($get_siswa as $key => $value) {
                     $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
