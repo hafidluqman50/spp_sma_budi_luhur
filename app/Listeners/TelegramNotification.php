@@ -63,6 +63,12 @@ class TelegramNotification
                 $get_row   = TelegramData::where('chat_id',$chat_id)->firstOrFail();
                 $get_siswa = Siswa::where('nomor_orang_tua',$get_row->nomor_hp)->get();
                 $message = '';
+
+                $array = [
+                    0 => ['text'=>'Belum Lunas'],
+                    1 => ['text'=>'Sudah Lunas']
+                ];
+
                 foreach ($get_siswa as $key => $value) {
                     $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
 
@@ -73,6 +79,7 @@ class TelegramNotification
                                         ->get();
                     foreach ($kelas as $i => $v) {
                         $message .= 'Kelas : *'.$v->kelas.'*
+                        
 Rincian Tunggakan : 
 
 '; 
@@ -85,7 +92,12 @@ Rincian Tunggakan :
                                                                 ->sum('sisa_bayar');
 
                             $message .= 'Bulan, Tahun : *'.$data->bulan_tahun.'* 
+
+Status Tunggakan : *'.$array[SppBulanTahun::checkStatus($data->id_spp_bulan_tahun)]['text'].'*
+
 Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
+
+---------------------------------------------------
 
 ';
                         }
@@ -97,6 +109,7 @@ Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
 
                         $message .= 'Jumlah Keseluruhan : *'.format_rupiah($sum).'* 
 =====================================================
+
 ';
                     }
                 }
