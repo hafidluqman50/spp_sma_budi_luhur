@@ -164,7 +164,7 @@ _Terima Kasih :)_
 
     public function commandHapus($chat_id)
     {
-        TelegramData::where('chat_id',$chat_id)->delete();
+        // TelegramData::where('chat_id',$chat_id)->delete();
         Telegram::sendMessage([
             'chat_id'    => $chat_id,
             'text'       => 'Nomor Orang Tua Untuk Notifikasi Telegram Telah Dihapus, Silahkan Ketik Command /start Dan Masukkan Nomor Orang Tua Kembali Jika Ingin Mendapatkan Notifikasi Tunggakan.
@@ -200,13 +200,13 @@ _Terima Kasih :)_'
             $this->commandNomorRekSekolah($chat_id);
         }
 
-        if ($get_message == '/faq') {
-            $this->commandFaq($chat_id);
-        }
+        // if ($get_message == '/faq') {
+        //     $this->commandFaq($chat_id);
+        // }
 
-        if ($get_message == '/help') {
-            $this->commandHelp($chat_id);
-        }
+        // if ($get_message == '/help') {
+        //     $this->commandHelp($chat_id);
+        // }
 
         if ($get_message == '/hapus') {
             $this->commandHapus($chat_id);
