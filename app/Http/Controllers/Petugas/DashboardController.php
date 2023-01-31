@@ -223,6 +223,7 @@ class DashboardController extends Controller
         $bayar_total    = $request->bayar_total;
         $kembalian      = $request->kembalian;
         $keterangan_spp = $request->keterangan_spp;
+        $jenis_bayar    = $request->jenis_bayar;
         $id_spp         = $request->id_spp;
         // dd($id_spp);
 
@@ -274,6 +275,7 @@ class DashboardController extends Controller
                 'nominal_bayar'        => $bayar_total,
                 'kembalian'            => $kembalian,
                 'keterangan_bayar_spp' => $keterangan_spp,
+                'jenis_bayar'          => $jenis_bayar,
                 'id_users'             => auth()->user()->id_users
             ];
             SppBayarData::create($data_spp_bayar_data);

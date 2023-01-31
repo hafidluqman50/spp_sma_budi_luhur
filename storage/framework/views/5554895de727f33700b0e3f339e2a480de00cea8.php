@@ -359,7 +359,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-4 col-form-label">Jenis Bayar</label>
                                                     <div class="col-7">
-                                                        <select name="jenis_bayar" class="form-control select2 jenis-bayar" required>
+                                                        <select id="jenis-bayar" class="form-control select2 jenis-bayar" required>
                                                             <option value disabled selected>=== Pilih Jenis Bayar ===</option>
                                                             <option value="cash">Cash</option>
                                                             <option value="alumni">Alumni</option>
@@ -384,6 +384,7 @@
                 <input type="hidden" name="bayar_total">
                 <input type="hidden" name="kembalian">
                 <input type="hidden" name="keterangan_spp">
+                <input type="hidden" name="jenis_bayar">
             </form>
             <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-lg">
@@ -799,6 +800,10 @@ function($) {
 
             $('#keterangan-spp').keyup(function(){
                 $('input[name="keterangan_spp"]').val($(this).val())
+            })
+
+            $('#jenis-bayar').change(function(){
+                $('input[name="jenis_bayar"]').val($(this).val())
             })
         })
     </script>

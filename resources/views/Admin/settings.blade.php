@@ -47,39 +47,45 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="" class="col-4 col-form-label">Nomor Rekening Sekolah</label>
+                                <div class="col-7">
+                                    <input type="text" name="nomor_rekening_sekolah" class="form-control" placeholder="Isi Nomor Rekening Sekolah" value="{{ old('nomor_rekening_sekolah') != '' ? old('nomor_rekening_sekolah') : $profile_instansi->nomor_rekening_sekolah }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Kepala Sekolah SMA Budi Luhur</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_kepsek" class="form-control" value="{{ $profile_instansi->nama_kepsek }}" placeholder="Isi Nama Kepala Sekolah SMA Budi Luhur" required="required" value="{{ old('nama_kepsek') != '' ? old('nama_kepsek') : '' }}">
+                                    <input type="text" name="nama_kepsek" class="form-control" placeholder="Isi Nama Kepala Sekolah SMA Budi Luhur" required="required" value="{{ old('nama_kepsek') != '' ? old('nama_kepsek') : $profile_instansi->nama_kepsek }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Pengurus Yayasan Insani HUD</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_pengurus_yayasan" class="form-control" value="{{ $profile_instansi->nama_pengurus_yayasan }}" placeholder="Isi Nama Pengurus Yayasan Insani HUD" required="required" value="{{ old('nama_pengurus_yayasan') != '' ? old('nama_pengurus_yayasan') : '' }}">
+                                    <input type="text" name="nama_pengurus_yayasan" class="form-control" placeholder="Isi Nama Pengurus Yayasan Insani HUD" required="required" value="{{ old('nama_pengurus_yayasan') != '' ? old('nama_pengurus_yayasan') : $profile_instansi->nama_pengurus_yayasan }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Pembina Yayasan Insani HUD</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_pembina_yayasan" class="form-control" value="{{ $profile_instansi->nama_pembina_yayasan }}" placeholder="Isi Nama Pembina Yayasan Insani HUD" required="required" value="{{ old('nama_pembina_yayasan') != '' ? old('nama_pembina_yayasan') : '' }}">
+                                    <input type="text" name="nama_pembina_yayasan" class="form-control" placeholder="Isi Nama Pembina Yayasan Insani HUD" required="required" value="{{ old('nama_pembina_yayasan') != '' ? old('nama_pembina_yayasan') : $profile_instansi->nama_pembina_yayasan }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Bendahara</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_bendahara" class="form-control" value="{{ $profile_instansi->nama_bendahara }}" placeholder="Isi Nama Bendahara" required="required" value="{{ old('nama_bendahara') != '' ? old('nama_bendahara') : '' }}">
+                                    <input type="text" name="nama_bendahara" class="form-control" placeholder="Isi Nama Bendahara" required="required" value="{{ old('nama_bendahara') != '' ? old('nama_bendahara') : $profile_instansi->nama_bendahara }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Bendahara Yayasan Insani HUD</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_bendahara_yayasan" class="form-control" value="{{ $profile_instansi->nama_bendahara_yayasan }}" placeholder="Isi Nama Bendahara Yayasan Insani HUD" required="required" value="{{ old('nama_bendahara_yayasan') != '' ? old('nama_bendahara_yayasan') : '' }}">
+                                    <input type="text" name="nama_bendahara_yayasan" class="form-control" placeholder="Isi Nama Bendahara Yayasan Insani HUD" required="required" value="{{ old('nama_bendahara_yayasan') != '' ? old('nama_bendahara_yayasan') : $profile_instansi->nama_bendahara_yayasan }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Nama Wali Pembina Yayasan Insani HUD</label>
                                 <div class="col-7">
-                                    <input type="text" name="nama_wali_pembina" class="form-control" value="{{ $profile_instansi->nama_wali_pembina }}" placeholder="Isi Nama Wali Pembina Yayasan Insani HUD" required="required" value="{{ old('nama_wali_pembina') != '' ? old('nama_wali_pembina') : '' }}">
+                                    <input type="text" name="nama_wali_pembina" class="form-control" placeholder="Isi Nama Wali Pembina Yayasan Insani HUD" required="required" value="{{ old('nama_wali_pembina') != '' ? old('nama_wali_pembina') : $profile_instansi->nama_wali_pembina }}">
                                 </div>
                             </div>
                             <div class="form-group row">

@@ -70,6 +70,7 @@
                                 <th>Nominal Bayar</th>
                                 <th>Total Bayar</th>
                                 <th>Kembalian</th>
+                                <th>Jenis Bayar</th>
                                 <th>Input By</th>
                                 <th>#</th>
                             </tr>
