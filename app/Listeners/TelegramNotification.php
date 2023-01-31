@@ -146,7 +146,7 @@ Silahkan Ketik /start lalu tekan enter, kemudian masukkan nomor ortu sesuai deng
         }
     }
 
-    public function commandInfoRekeningSekolah($chat_id)
+    public function commandNomorRekSekolah($chat_id)
     {
         $profile_instansi = ProfileInstansi::firstOrFail();
         $text_message = 'Nomor Rekening Sekolah : *'.$profile_instansi->nomor_rekening_sekolah.'*
@@ -185,8 +185,8 @@ _Terima Kasih :)_
             $this->commandInfoTunggakan($chat_id);
         }
 
-        if ($get_message == '/info_rek_sekolah') {
-            $this->commandInfoRekeningSekolah($chat_id);
+        if ($get_message == '/nomor_rek_sekolah') {
+            $this->commandNomorRekSekolah($chat_id);
         }
     }
 }
