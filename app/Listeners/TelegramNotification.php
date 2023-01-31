@@ -151,13 +151,24 @@ Silahkan Ketik /start lalu tekan enter, kemudian masukkan nomor ortu sesuai deng
         $profile_instansi = ProfileInstansi::firstOrFail();
         $text_message = 'Nomor Rekening Sekolah : *'.$profile_instansi->nomor_rekening_sekolah.'*
 
-*Hubungi Nomor Petugas SPP Berikut Jika Ingin Melaporkan Terkait Pembayaran : ```082331567930```*
+*Hubungi Nomor Petugas SPP Berikut Jika Ingin Melaporkan Terkait Pembayaran : *```082331567930```
 
 _Terima Kasih :)_ 
 ';
         Telegram::sendMessage([
             'chat_id'    => $chat_id,
             'text'       => $text_message,
+            'parse_mode' => 'Markdown'
+        ]);
+    }
+
+    public function commandHapus($chat_id)
+    {
+        TelegramData::where('chat_id',$chat_id)->delete();
+        Telegram::sendMessage([
+            'chat_id'    => $chat_id,
+            'text'       => 'Nomor Orang Tua Untuk Notifikasi Telegram Telah Dihapus, Silahkan Ketik Command /start Dan Masukkan Nomor Orang Tua Kembali Jika Ingin Mendapatkan Notifikasi Tunggakan.
+_Terima Kasih :)_'
             'parse_mode' => 'Markdown'
         ]);
     }
@@ -187,6 +198,18 @@ _Terima Kasih :)_
 
         if ($get_message == '/nomor_rek_sekolah') {
             $this->commandNomorRekSekolah($chat_id);
+        }
+
+        if ($get_message == '/faq') {
+            $this->commandFaq($chat_id);
+        }
+
+        if ($get_message == '/help') {
+            $this->commandHelp($chat_id);
+        }
+
+        if ($get_message == '/hapus') {
+            $this->commandHapus($chat_id);
         }
     }
 }
