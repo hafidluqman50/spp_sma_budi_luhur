@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\TelegramEvents;
 use App\Listeners\TelegramNotification;
-use App\Events\TelegramCronJobEvents;
+use App\Events\TelegramCronJobEvent;
 use App\Listeners\TelegramCronJobListener;
 
 class EventServiceProvider extends ServiceProvider
@@ -25,7 +25,7 @@ class EventServiceProvider extends ServiceProvider
         TelegramEvents::class => [
             TelegramNotification::class
         ],
-        TelegramCronJobEvents::class => [
+        TelegramCronJobEvent::class => [
             TelegramCronJobListener::class
         ]
     ];
