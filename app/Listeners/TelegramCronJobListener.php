@@ -42,6 +42,8 @@ class TelegramCronJobListener
             0 => ['text'=>'Belum Lunas'],
             1 => ['text'=>'Sudah Lunas']
         ];
+
+        foreach ($get_row as $i => $row) {
 $message   = 'السلام عليكم ورحمة الله وبركاته... 
 Bapak Ibu,, mengingatkan ini sudah tanggal '.$human_date.',, bagi Bapak Ibu yg belum membayar bulanan putra/i nya, monggo amal sholeh segera dibayar,, adapun yg masih mempunyai tanggungan di bulan sebelumnya, mohon bisa di Doble dengan bulan ini..
 Mengingat ini semua demi kelancaran putra/i bpk ibu d dlm mndok maupun sekolahnya . 😊
@@ -50,7 +52,6 @@ Atas perhatian nya, amal sholeh nya,, kami ucapkan syukur Alhamdulillaahi jazaa 
 
 ';
 
-        foreach ($get_row as $i => $row) {
             $get_siswa = Siswa::where('nomor_orang_tua',$row->nomor_hp)->get();
             foreach ($get_siswa as $key => $value) {
                 $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
@@ -104,6 +105,8 @@ Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
                 'text'       => $message,
                 'parse_mode' => 'Markdown'
             ]);
+
+$message = '';
         }
     }
 }
