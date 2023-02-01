@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Events\TelegramEvents;
+use App\Events\TelegramCronJobEvent;
 use App\Helper\Excel;
 use App\Models\TahunAjaran;
 use App\Models\KolomSpp;
@@ -265,5 +266,10 @@ class SppController extends Controller
     public function commandHandleWebHook()
     {
         event(new TelegramEvents);
+    }
+
+    public function cobaTeleCron()
+    {
+        event(new TelegramCronJobEvent);
     }
 }

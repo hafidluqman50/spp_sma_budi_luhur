@@ -20,9 +20,9 @@ class TelegramCronJobEvent
      * @return void
      */
     public $telegram_data;
-    public function __construct()
+    public function __construct($data = '')
     {
-        
+        $this->telegram_data = $data;
     }
 
     /**
