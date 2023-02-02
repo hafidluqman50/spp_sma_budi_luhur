@@ -19,9 +19,11 @@ class TelegramCronJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public $telegram_data;
+
+    public function __construct($data)
     {
-        //
+        $this->telegram_data = $data
     }
 
     /**
@@ -31,6 +33,6 @@ class TelegramCronJob implements ShouldQueue
      */
     public function handle()
     {
-        event(new TelegramCronJobEvent);
+        event(new TelegramCronJobEvent($this->telegram_data));
     }
 }
