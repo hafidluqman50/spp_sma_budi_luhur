@@ -113,7 +113,7 @@ Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
                 $message = '';
             }
 
-        })->everyMinute();
+        })->monthly();
     }
 
     /**
