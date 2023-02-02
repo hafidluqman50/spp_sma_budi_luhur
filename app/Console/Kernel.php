@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
         // $schedule->job(new TelegramCronJob)->monthly();
         $schedule->call(function(){
             TelegramHelper::queueJobTelegram();
-        })->everyMinute();
+        })->monthly();
     }
 
     /**
