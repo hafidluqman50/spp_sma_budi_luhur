@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\TelegramCronJob;
+use App\Models\TelegramData;
 use App\Models\Siswa;
 use App\Models\Spp;
 use App\Models\KelasSiswa;
@@ -112,7 +113,7 @@ Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
                 $message = '';
             }
 
-        })->monthly();
+        })->everyMinute();
     }
 
     /**

@@ -23,7 +23,7 @@ class TelegramCronJob implements ShouldQueue
 
     public function __construct($data)
     {
-        $this->telegram_data = $data
+        $this->telegram_data = $data;
     }
 
     /**
