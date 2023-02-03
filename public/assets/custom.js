@@ -1350,4 +1350,32 @@ $(() => {
             cell.innerHTML = i+1;
         });
     }).draw();
+
+    var telegram_data = $('.data-telegram').DataTable({
+        processing:true,
+        serverSide:true,
+        ajax:base_url+'/datatables/data-telegram',
+        columns:[
+            {data:'id_telegram_data',searchable:false,render:function(data,type,row,meta){
+                return meta.row + meta.settings._iDisplayStart+1;
+            }},
+            {data:'nomor_hp',name:'nomor_hp'},
+            {data:'keterangan',name:'keterangan'},
+            {data:'action',name:'action',searchable:false,orderable:false}
+        ],
+        scrollCollapse: true,
+        columnDefs: [ {
+        sortable: true,
+        "class": "index",
+        }],
+        scrollX:true,
+        order: [[ 0, 'desc' ]],
+        responsive:true,
+        fixedColumns: true
+    });
+    telegram_data.on( 'order.dt search.dt', function () {
+        telegram_data.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    }).draw();
 })

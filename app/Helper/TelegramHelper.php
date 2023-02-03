@@ -36,7 +36,7 @@ Atas perhatian nya, amal sholeh nya,, kami ucapkan syukur Alhamdulillaahi jazaa 
 
 ';
 
-            $get_siswa = Siswa::where('nomor_orang_tua',$row->nomor_hp)->get();
+            $get_siswa = Siswa::where('nomor_orang_tua',$row->nomor_hp)->where('status_delete',0)->get();
             foreach ($get_siswa as $key => $value) {
 $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
 
@@ -52,8 +52,8 @@ Rincian Tunggakan :
 
 '; 
                     $spp_bulan_tahun = SppBulanTahun::join('spp','spp_bulan_tahun.id_spp','=','spp.id_spp')
-                                                     ->where('bulan',zero_front_number(date('m')))
-                                                     ->where('tahun',date('Y'))
+                                                     // ->where('bulan',zero_front_number(date('m')))
+                                                     // ->where('tahun',date('Y'))
                                                      ->where('id_kelas_siswa',$v->id_kelas_siswa)
                                                      ->get();
 

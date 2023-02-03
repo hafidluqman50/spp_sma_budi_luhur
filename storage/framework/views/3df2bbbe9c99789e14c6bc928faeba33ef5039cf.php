@@ -165,7 +165,9 @@
                             <li class="has-submenu">
                                 <a href="<?php echo e(url('/admin/data-users')); ?>"><i class="fa fa-users"></i>Data Users</a>
                             </li>
-                            
+                            <li class="has-submenu">
+                                <a href="<?php echo e(url('/admin/data-telegram')); ?>"><i class="fa fa-telegram"></i>Data Telegram</a>
+                            </li>
                             <li class="has-submenu">
                                 <a href="<?php echo e(url('/admin/data-perincian-rab')); ?>"><i class="fa fa-book"></i>Data RAB</a>
                             </li>

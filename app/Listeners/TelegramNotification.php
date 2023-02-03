@@ -52,7 +52,7 @@ class TelegramNotification
             if ($check_numeric) {
                 TelegramData::where('chat_id',$chat_id)->update(['text' => 'terdaftar', 'nomor_hp' => $get_message]);
                 
-                $text_message = 'Nomor Hp Orang Tua Telah Terdata Untuk Notifikasi,
+$text_message = 'Nomor Hp Orang Tua Telah Terdata Untuk Notifikasi,
                 
 *Mohon Dipantau Tiap Bulan Bot Telegram Ini Untuk Mendapatkan Notifikasi Tunggakan Siswa*,
 
@@ -78,7 +78,7 @@ _Terima kasih :)_';
             TelegramData::where('chat_id',$chat_id)->update(['text' => 'info_tunggakan']);
 
             $get_row   = TelegramData::where('chat_id',$chat_id)->firstOrFail();
-            $get_siswa = Siswa::where('nomor_orang_tua',$get_row->nomor_hp)->get();
+            $get_siswa = Siswa::where('nomor_orang_tua',$get_row->nomor_hp)->where('status_delete',0)->get();
             $message = '';
 
             $array = [
@@ -87,7 +87,7 @@ _Terima kasih :)_';
             ];
 
             foreach ($get_siswa as $key => $value) {
-                $message .= 'Nama Siswa : *'.$value->nama_siswa.'*
+$message .= 'Nama Siswa : *'.$value->nama_siswa.'*
 
 ';
                 $kelas = Spp::join('kelas_siswa','spp.id_kelas_siswa','=','kelas_siswa.id_kelas_siswa')
@@ -95,7 +95,7 @@ _Terima kasih :)_';
                                     ->where('id_siswa',$value->id_siswa)
                                     ->get();
                 foreach ($kelas as $i => $v) {
-                    $message .= 'Kelas : *'.$v->kelas.'*
+$message .= 'Kelas : *'.$v->kelas.'*
                     
 Rincian Tunggakan : 
 
@@ -108,7 +108,7 @@ Rincian Tunggakan :
                         $jumlah_tunggakan_bulan = SppDetail::where('id_spp_bulan_tahun',$data->id_spp_bulan_tahun)
                                                             ->sum('sisa_bayar');
 
-                        $message .= 'Bulan, Tahun : *'.$data->bulan_tahun.'* 
+$message .= 'Bulan, Tahun : *'.$data->bulan_tahun.'* 
 
 Status Tunggakan : *'.$array[SppBulanTahun::checkStatus($data->id_spp_bulan_tahun)]['text'].'*
 
@@ -124,7 +124,7 @@ Jumlah Tunggakan : *'.format_rupiah($jumlah_tunggakan_bulan).'*
                         ->where('id_kelas_siswa',$v->id_kelas_siswa)
                         ->sum('sisa_bayar');
 
-                    $message .= 'Jumlah Keseluruhan : *'.format_rupiah($sum).'* 
+$message .= 'Jumlah Keseluruhan : *'.format_rupiah($sum).'* 
 =====================================================
 
 ';

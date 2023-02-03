@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\Datatables\Datatables;
-use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
@@ -13,6 +12,7 @@ use App\Models\KelasSiswa;
 use App\Models\Kantin;
 use App\Models\Spp;
 use App\Models\SppBulanTahun;
+use App\Models\PemasukanKantin;
 use App\Models\SppDetail;
 use App\Models\KolomSpp;
 use App\Models\SppBayarData;
@@ -32,7 +32,8 @@ use App\Models\RincianPenerimaanRekap;
 use App\Models\RincianPenerimaanTahunAjaran;
 use App\Models\RincianPengajuan;
 use App\Models\Sapras;
-use App\Models\PemasukanKantin;
+use App\Models\User;
+use App\Models\TelegramData;
 use Auth;
 
 class DatatablesController extends Controller
@@ -1240,5 +1241,21 @@ class DatatablesController extends Controller
             return '<span class="'.$array[$status->status_akun]['class'].'">'.$array[$status->status_akun]['text'].'</span>';
         })->rawColumns(['status_akun','action'])->make(true);
         return $datatables;   
+    }
+
+    public function dataTelegramData()
+    {
+        $telegram_data = TelegramData::all();
+        $datatables = Datatables::of($telegram_data)->addColumn('action',function($action){
+            $column = '<form action="'.url("/admin/data-telegram/delete/$action->id_telegram_data").'" method="POST">
+                            <input type="hidden" name="_token" value="'.csrf_token().'">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger" onclick="return confirm(\'Delete ?\');"> Delete </button>
+                       </form>';
+            return $column;
+        })->addColumn('keterangan',function($add){
+            return TelegramData::keterangan($add->nomor_hp);
+        })->make(true);
+        return $datatables;
     }
 }

@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\RincianPenerimaanRekapController as AdminRincianP
 use App\Http\Controllers\Admin\RincianPenerimaanTahunAjaranController as AdminRincianPenerimaanTahunAjaranController;
 use App\Http\Controllers\Admin\SaprasController as AdminSaprasController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Admin\TelegramDataController as AdminTelegramDataController;
 // END CONTROLLER ADMIN //
 
 // CONTROLLER PETUGAS //
@@ -224,6 +225,7 @@ Route::group(['prefix' => 'datatables'],function(){
     Route::get('/data-rincian-penerimaan-rekap/{id}',[DatatablesController::class, 'dataRincianPenerimaanRekap']);
     Route::get('/data-rincian-penerimaan-tahun-ajaran/{id}',[DatatablesController::class, 'dataRincianPenerimaanTahunAjaran']);
     Route::get('/data-spp/pemasukan-kantin/{id}',[DatatablesController::class, 'dataPemasukanKantin']);
+    Route::get('/data-telegram',[DatatablesController::class, 'dataTelegramData']);
 });
 
 Route::get('/oke',function(){
@@ -399,9 +401,6 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::get('/data-perincian-rab/rincian-penerimaan/{id}/edit',[AdminRincianPenerimaanController::class,'edit']);
     Route::put('/data-perincian-rab/rincian-penerimaan/{id}/update',[AdminRincianPenerimaanController::class,'update']);
     Route::delete('/data-perincian-rab/rincian-penerimaan/{id}/delete',[AdminRincianPenerimaanController::class,'delete']);
-    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-detail/{id_rincian_penerimaan}',[AdminRincianPenerimaanDetailController::class,'index']);
-    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rekap/{id_rincian_penerimaan}',[AdminRincianPenerimaanRekapController::class,'index']);
-    // Route::get('/data-perincian-rab/rincian-penerimaan/{id}/lihat-rincian-tahun-ajaran/{id_rincian_penerimaan}',[AdminRincianPenerimaanTahunAjaranController::class,'index']);
 
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}',[AdminRincianPengajuanController::class,'index']);
     Route::get('/data-perincian-rab/rincian-pengajuan/{id}/tambah',[AdminRincianPengajuanController::class,'tambah']);
@@ -417,6 +416,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::put('/data-perincian-rab/sapras/{id}/update',[AdminSaprasController::class,'update']);
     Route::delete('/data-perincian-rab/sapras/{id}/delete/{id_detail}',[AdminSaprasController::class,'delete']);
 
+    // ROUTE CRUD DATA USERS //
     Route::get('/data-users',[AdminUsersController::class, 'index']);
     Route::get('/data-users/tambah',[AdminUsersController::class, 'tambah']);
     Route::post('/data-users/save',[AdminUsersController::class, 'save']);
@@ -424,6 +424,17 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::put('/data-users/update/{id}',[AdminUsersController::class, 'update']);
     Route::delete('/data-users/delete',[AdminUsersController::class, 'delete']);
     Route::get('/data-users/status-users/{id}',[AdminUsersController::class, 'statusPetugas']);
+    // END ROUTE DATA USERS //
+
+    // ROUTE CRUD DATA TELEGRAM //
+    Route::get('/data-telegram',[AdminTelegramDataController::class, 'index']);
+    Route::get('/data-telegram/tambah',[AdminTelegramDataController::class, 'tambah']);
+    Route::post('/data-telegram/save',[AdminTelegramDataController::class, 'save']);
+    Route::get('/data-telegram/edit/{id}',[AdminTelegramDataController::class, 'edit']);
+    Route::put('/data-telegram/update/{id}',[AdminTelegramDataController::class, 'update']);
+    Route::delete('/data-telegram/delete/{id}',[AdminTelegramDataController::class, 'delete']);
+    // END ROUTE CRUD DATA TELEGRAM //
+
 });
 
 
