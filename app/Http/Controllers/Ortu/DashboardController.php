@@ -30,4 +30,11 @@ class DashboardController extends Controller
 
         return view('Ortu.detail-spp',compact('title','id','id_detail'));
     }
+
+    public function panduanNotifikasi()
+    {
+        $title = 'Panduan Notifikasi';
+
+        return view('Ortu.panduan-notifikasi',compact('title'));
+    }
 }

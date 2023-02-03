@@ -1,6 +1,4 @@
-@extends('Ortu.layout-app.layout')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="wrapper">
         <div class="container">
@@ -26,7 +24,7 @@
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Data SPP</b></h4>
                         <div class="button-list" style="margin-bottom:1%;">
-                            <a href="{{ url('/ortu/dashboard/panduan-notifikasi/') }}">
+                            <a href="<?php echo e(url('/ortu/dashboard/panduan-notifikasi/')); ?>">
                                 <button class="btn btn-info" style="cursor:pointer;">
                                     Panduan Notifikasi
                                 </button>
@@ -56,4 +54,6 @@
     </div>
     <!-- end wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Ortu.layout-app.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/web_keuangan__/resources/views/Ortu/dashboard.blade.php ENDPATH**/ ?>
