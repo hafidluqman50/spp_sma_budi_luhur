@@ -3,7 +3,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
-                        &copy; <?= date('Y') ?> - Aplikasi Keuangan SMA Budi Luhur Samarinda
+                        &copy; <?= date('Y') ?> - SMA Budi Luhur Samarinda
                     </div>
                 </div>
             </div>

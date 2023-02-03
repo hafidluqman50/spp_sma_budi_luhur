@@ -435,6 +435,7 @@ Route::group(['prefix' => 'admin','middleware'=>'is.admin'],function() {
     Route::delete('/data-telegram/delete/{id}',[AdminTelegramDataController::class, 'delete']);
     // END ROUTE CRUD DATA TELEGRAM //
 
+    Route::get('/panduan-notifikasi',[AdminTelegramDataController::class, 'panduanNotifikasi']);
 });
 
 

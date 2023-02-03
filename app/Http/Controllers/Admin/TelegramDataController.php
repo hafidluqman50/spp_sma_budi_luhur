@@ -21,4 +21,11 @@ class TelegramDataController extends Controller
 
         return redirect('/admin/data-telegram')->with('message','Berhasil Hapus Data');
     }
+
+    public function panduanNotifikasi()
+    {
+        $title = 'Panduan Notifikasi';
+
+        return view('Admin.telegram-data.panduan-notifikasi',compact('title'));
+    }
 }
